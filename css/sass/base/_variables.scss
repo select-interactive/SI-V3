@@ -1,0 +1,117 @@
+﻿// -----------------
+// Project Variables
+// -----------------
+
+
+// ----------------------
+// Dimensions + Grid Vars
+// ----------------------
+$max-width:			1000;
+$max-width-px:		$max-width + 0px;
+$base-font-size:	16px;
+$base-line-height:	22px;
+
+
+// Susy Settings
+// $max-width = ($total-columns * ($base-font-size * $column-width) + (($total-columns - 1)  * $base-font-size)
+$total-columns:	12;
+$column-width:	(($max-width - (($total-columns - 1) * $base-font-size)) / ($total-columns * $base-font-size)) + 0em;
+//$gutter-width:	1em;
+//$grid-padding:	0;
+
+
+// -------------------
+// Typography Settings
+// -------------------
+$font-primary: sans-serif;
+$font-secondary: serif;
+$font-bold: '';
+
+
+// ------
+// Colors
+// ------
+
+// Helper Colors
+$black:			#000;
+$darker-gray:	#222;
+$dark-gray:		#333;
+$gray:			#555;
+$light-gray:	#999;
+$lighter-gray:	#eee;
+$white:			#fff;
+
+// Accent Colors
+$blue:			#049cdb;
+$dark-blue:		#0064cd;
+$green:			#46a546;
+$red:			#9d261d;
+$yellow:		#ffc40d;
+$orange:		#f89406;
+$pink:			#c3325f;
+$purple:		#7a43b6;
+
+// Project Specific Colors
+
+
+// -----------
+// Body Styles
+// -----------
+$body-background:	$white;
+$body-color:		$darker-gray;
+
+
+// -----
+// Links
+// -----
+$link-color:		#08c;
+$link-color-hover:	darken($link-color, 15%);
+
+
+// -------
+// Buttons
+// -------
+$btn-bg:				$gray;
+$btn-bg-accent:			darken($btn-bg, 10%);
+$btn-border:			$gray;
+$btn-border-radius:		4px;
+
+
+// -----
+// Forms
+// -----
+$row-margin:				10px;
+$label-width:				100px;
+$label-margin-right:		5px;
+$input-bg:					$white;
+$input-width:				210px;
+$input-height:				auto;
+$input-border:				#ccc;
+$input-border-focus:		rgba(82, 168, 236, .8);
+$input-border-radius:		3px;
+$input-box-shadow:			inset 0 1px 1px rgba(0, 0, 0, .075);
+$input-box-shadow-focus:	inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(82, 168, 236, .6);
+$input-padding:				4px;
+$input-disabled-bg:			$lighter-gray;
+$input-disabled-border:		#ddd;
+$input-transition:			all .2s linear;
+
+
+// ----------------------
+// Form states and alerts
+// ----------------------
+$warning-text:		#c09853;
+$warning-bg:		#fcf8e3;
+$warning-border:	darken(adjust-hue($warning-bg, -10), 3%);
+
+$error-text:		#b94a48;
+$error-bg:			#f2dede;
+$error-border:		darken(adjust-hue($error-bg, -10), 3%);
+
+$success-text:		#468847;
+$success-bg:		#dff0d8;
+$success-border:	darken(adjust-hue($success-bg, -10), 5%);
+
+$info-text:			#3a87ad;
+$info-bg:			#d9edf7;
+$info-border:		darken(adjust-hue($info-bg, -10), 7%);

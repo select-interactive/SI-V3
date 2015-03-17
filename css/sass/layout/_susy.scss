@@ -1,0 +1,34 @@
+﻿// --------------------
+// Define susy settings
+// --------------------
+$susy: (
+	columns: $total-columns,
+	column-width: $column-width,
+	gutter-position: after,
+	gutters: 1/4,
+	math: fluid,
+);
+
+
+// -------------------
+// Susy Layout classes
+// -------------------
+
+// Start at 1 and loop through $total-columns to create Susy span() helpers
+// i.e. .span-1 { @include span-columns(1, 12)
+$col-i: 1;
+@while $col-i <= $total-columns {
+	.span-#{$col-i} { @include span($col-i of $total-columns); }
+	.pre-#{$col-i} { @include prefix($col-i of $total-columns); }
+	.suffix-#{$col-i} { @include suffix($col-i of $total-columns); }
+	$col-i: $col-i + 1 !global;
+}
+
+.span-first {
+    @include first;
+    padding-left: 0;
+}
+.span-last {
+    @include last;
+    padding-right: 0;
+}

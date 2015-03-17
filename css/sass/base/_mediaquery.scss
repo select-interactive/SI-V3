@@ -1,0 +1,59 @@
+﻿// -----------------------
+// Media Query Breakpoints
+// -----------------------
+$bp-massive:	1800px;
+$bp-xwide:		1400px;
+$bp-wide:		1200px;
+$bp-comp:		1025px;
+$bp-large:		1024px;
+$bp-tablet:		768px;
+$bp-mbl-bigger: 550px;
+$bp-phone-land: 480px;
+$bp-phone-port: 320px;
+
+
+// -----------
+// mobile only
+// -----------
+.mbl-only {
+	@include susy-media($bp-large) {
+		display: none !important;
+	}
+}
+
+
+// ----------------------------
+// Not to be included on mobile
+// ----------------------------
+.no-mbl {
+	@include susy-media(max-width $bp-tablet) {
+		display: none !important;
+	}
+}
+
+
+// -------------
+// Rows/Clearfix
+// -------------
+.clearfix,
+.row {
+    &::before {
+        content: "";
+        display: table;
+    }
+
+    &:after {
+        clear: both;
+        content: "";
+        display: table;
+    }
+}
+
+
+// ---------
+// Row class
+// ---------
+.row { 
+	@extend %no-margin;
+	@extend %no-padding;
+}

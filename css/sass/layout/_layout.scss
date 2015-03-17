@@ -1,0 +1,59 @@
+﻿// ------------------------
+// Define row-cols-x layout
+//
+// Example Use:
+// <div class="row row-cols-3">
+//   <div class="col"></div>
+//   <div class="col"></div>
+//   <div class="col"></div>
+// </div>
+// ------------------------
+.row {
+    @include container(100%);
+}
+
+@for $col from 1 through $total-columns {
+    .row-cols-#{$col} {
+        .col {
+            // By default, always be full width - mobile first
+            @include full;
+            margin-bottom: gutter();
+            padding: 0;
+
+            // At tabletPlus, start to resize
+            @include susy-media($bp-tablet) {
+                @include nobreak;
+                @include span(($total-columns / $col) of $total-columns);
+                margin-bottom: 0;
+
+                &:last-child {
+                    @include last;
+                }
+            }
+        }
+    }
+
+    .row {
+        .col-#{$col} {
+            // By default, always be full width - mobile first
+            @include full;
+            margin-bottom: gutter();
+            padding: 0;
+
+            // At tabletPlus, start to resize
+            @include susy-media($bp-wide) {
+                @include nobreak;
+                @include span($col);
+
+                &:last-child {
+                    @include last;
+                }
+            }
+        }
+    }
+}
+
+
+// ----------------------------------
+// Additional tweaks for mediaqueries
+// ----------------------------------

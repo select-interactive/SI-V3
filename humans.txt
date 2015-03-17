@@ -1,0 +1,17 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+  Developer:
+  Site: www.select-interactive.com
+  Twitter: @Sel_Interactive
+  Location: Fort Worth, TX
+
+
+# TECHNOLOGY COLOPHON
+  Normalize.css
+  Sass
+  Susy
+  Autoprefixer
+  GruntJS
+  MS Visual Studio 2013

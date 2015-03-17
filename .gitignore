@@ -1,0 +1,19 @@
+#Items to ignore in GIT
+
+#Ignore .tmp folder and files
+.tmp/
+
+#Ignore the SASS Cache
+.sass-cache/
+
+#Ignore node_modules
+node_modules/
+
+#Ignore critical.html
+critical.html
+
+#Ignore our WebWorkbench settings
+WebWorkbench.mswwsettings
+
+#Ignore publish settings
+website.publishproj
