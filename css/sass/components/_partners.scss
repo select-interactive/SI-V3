@@ -1,0 +1,21 @@
+﻿.list-partners {
+    @extend .clearfix;
+    @extend %list-style-none;
+    @extend %text-align-center;
+
+    li {
+        @include span(4);
+        
+        &:nth-child(3n) {
+            @include last;
+        }
+
+        &:nth-child(3n + 1) {
+            @include break;
+        }        
+
+        &:nth-child(n + 4) {
+            margin-top: 50px;
+        }
+    }
+}

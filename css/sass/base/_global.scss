@@ -37,8 +37,8 @@ body {
 // ---------
 // Selection
 // ---------
-::-moz-selection{ background: #b3d4fc; color: #fff; }
-::selection{ background: #b3d4fc; color: #fff; }
+::-moz-selection{ background: $si-orange; color: #fff; }
+::selection{ background: $si-orange; color: #fff; }
 
 
 // -------------------
@@ -49,4 +49,8 @@ body {
 	background: #ccc;
 	color: #000;
 	padding: 0.2em 0;
+}
+
+#content-wrapper {
+    @extend %position-relative;
 }

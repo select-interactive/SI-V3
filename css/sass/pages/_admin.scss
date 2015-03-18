@@ -20,7 +20,7 @@
         line-height: 1;
         padding: 6px 8px;
         transition: all .125s linear;
-        @include link-colors($ligh-gray, $dark-gray);
+        @include link-colors($light-gray, $dark-gray);
 
         &:hover,
         &.selected {

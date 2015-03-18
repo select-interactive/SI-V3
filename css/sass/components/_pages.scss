@@ -1,0 +1,29 @@
+﻿.page {
+    padding: 75px 50px;
+
+    &-nopad {
+        padding: 0;
+
+        &-top {
+            padding-top: 0;
+        }
+    }
+
+    &-bg {
+        &-gray-med {
+            background: $si-gray-lighter;
+            color: $si-gray-darkest;
+        }
+
+        &-gray-dark {
+            background: #262626;
+            color: $si-gray-light;
+        }
+    }
+
+    &-hdr {
+        font-size: 36px;
+        line-height: 1.1;
+        margin: 0 0 50px;
+    }
+}

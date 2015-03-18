@@ -2,5 +2,52 @@
 // Nav
 // ---
 #nav-main {
+    @extend %position-fixed;
+    @extend %text-align-right;
+    background: rgba($si-orange, .9);
+    left: 0;
+    padding: 20px;
+    top: 0;
+    width: 100%;
+    z-index: 4;
 
+    ul {
+        @extend %list-style-none;
+        @extend %no-margin;
+    }
+
+    li {
+        @extend %display-inline-block;
+        margin: 0 30px 0 0;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+
+    a {
+        @extend %text-transform-uppercase;
+        font-family: $font-secondary;
+        font-size: 20px;
+        letter-spacing: 1px;
+        transition: color .125s linear;
+        @include link-colors(rgba($white, .85), $white);
+
+        &.selected {
+            color: $white;
+        }
+    }
+}
+
+#s-logo {
+    @extend %position-absolute;
+    left: 20px;
+    opacity: 0;
+    top: 10px;
+    transition: opacity .25s linear !important;
+    will-change: opacity;
+
+    .past-header & {
+        opacity: 1;
+    }
 }

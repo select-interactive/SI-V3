@@ -10,6 +10,7 @@
 // ------------------------
 .row {
     @include container(100%);
+    @extend %list-style-none;
 }
 
 @for $col from 1 through $total-columns {
@@ -26,6 +27,7 @@
                 @include span(($total-columns / $col) of $total-columns);
                 margin-bottom: 0;
 
+                &:nth-child(#{$col}n),
                 &:last-child {
                     @include last;
                 }
@@ -57,3 +59,17 @@
 // ----------------------------------
 // Additional tweaks for mediaqueries
 // ----------------------------------
+.container {
+    @extend %position-relative;
+    height: 100%;
+    margin: 0 auto;
+    max-width: $content-width-med;
+
+    &-lg {
+        max-width: $content-width-lg;
+    }
+
+    &-sm {
+        max-width: $content-width-sm;
+    }
+}

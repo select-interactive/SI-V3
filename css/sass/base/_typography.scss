@@ -7,7 +7,59 @@
 // ------------------------------
 // Embedded Fonts with @font-face
 // ------------------------------
-
+@font-face {
+	font-family: 'telegrafico';
+	src: url('/font/telegrafico.eot');
+	src: url('/font/telegrafico.eot?#iefix') format('embedded-opentype'),
+         url('/font/telegrafico.woff2') format('woff2'),
+		 url('/font/telegrafico.woff') format('woff'),
+		 url('/font/telegrafico.ttf') format('truetype'),
+		 url('/font/telegrafico.svg#TelegraficoRegular') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'avenir-light';
+	src: url('/font/avenir-light.eot');
+	src: url('/font/avenir-light.eot?#iefix') format('embedded-opentype'),
+         url('/font/avenir-light.woff2') format('woff2'),
+		 url('/font/avenir-light.woff') format('woff'),
+         url('/font/avenir-light.ttf') format('truetype'),
+		 url('/font/avenir-light.svg#avenirlight') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'avenir-medium';
+	src: url('/font/avenir-medium.eot');
+	src: url('/font/avenir-medium.eot?#iefix') format('embedded-opentype'),
+		 url('/font/avenir-medium.woff2') format('woff2'),
+         url('/font/avenir-medium.woff') format('woff'),
+		 url('/font/avenir-medium.ttf') format('truetype'),
+		 url('/font/avenir-medium.svg#avenirMedium') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'avenir-black';
+	src: url('/font/avenir-black.eot');
+	src: url('/font/avenir-black.eot?#iefix') format('embedded-opentype'),
+		 url('/font/avenir-black.woff2') format('woff2'),
+         url('/font/avenir-black.woff') format('woff'),
+		 url('/font/avenir-black.ttf') format('truetype'),
+		 url('/font/avenir-black.svg#avenirblack') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'soucrce-code-pro-reg';
+	src: url('/font/SourceCodePro-Regular.eot');
+	src: url('/font/SourceCodePro-Regular.eot?#iefix') format('embedded-opentype'),
+		 url('/font/SourceCodePro-Regular.woff') format('woff'),
+		 url('/font/SourceCodePro-Regular.svg#sourcecodeproreg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
 
 // -------
 // Helpers
@@ -29,6 +81,7 @@
 // Headers
 // -------
 h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
 	margin: 0;
 	text-rendering: optimizelegibility; // Fix the character spacing for headings
 }
@@ -38,7 +91,8 @@ h1, h2, h3, h4, h5, h6 {
 // Body Text
 // ---------
 p {
-	margin: 0 0 $base-line-height / 2;
+    line-height: 1.5;
+	margin: 0 0 30px;
 }
 
 
@@ -46,8 +100,9 @@ p {
 // Lists
 // -----
 ul, ol {
-	padding: 0;
-	margin: 0 0 ($base-line-height / 2) 25px;
+	line-height: 1.5;
+	margin: 0 0 30px 25px;
+    padding: 0;
 }
 ul ul,
 ul ol,
@@ -64,5 +119,6 @@ li {
 // Links
 // -----
 a {
+    @extend %text-decoration-none;
 	@include link-colors($link-color, $link-color-hover);	
 }

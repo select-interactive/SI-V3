@@ -2,7 +2,7 @@
  * SI JavaScript library
  *
  * @author Jeremy Burton - jeremy@select-interactive.com
- * @version 0.0.5
+ * @version 0.0.6
  *
  * @description To provide crossbrowser support for Select Interactive
  *   projects without relying on jQuery.
@@ -10,7 +10,6 @@
  * Targeting features such as:
  *   classList
  *   forEach
- *   string trim
  *   placeholder
  *   .matchMedia support
  *   equal height columns
@@ -49,16 +48,6 @@
                 break;
             }
         }
-    };
-
-
-    /**
-     * ------------------------------------------------
-     * Trim the left and right whitespace from a string
-     * ------------------------------------------------
-     */
-    window.trimString = function( string ) {
-        return string.replace( /^\s+|\s+$/g, '' );
     };
 
     /**
@@ -107,79 +96,62 @@
      */
     if ( doc.querySelectorAll( '.eq-height' ) ) {
         var rows = doc.querySelectorAll( '.eq-height' );
-
+        
         // Loop through each row that .eq-height
         window.forEachElement( rows, function( row ) {
-            var cols = row.querySelectorAll( '.eq-height-item' ),
+            var 
+                // get each col
+                cols = row.querySelectorAll( '.eq-height-item' ),
+
+                // get all images
                 imgs = row.querySelectorAll( 'img' ),
-                imgsComplete = [],
-                imgLen = imgs.length,
-                h = 0,
-
-                checkComplete = function() {
-                    var complete = true;
-                    for ( var i = 0; i < imgLen; i++ ) {
-                        if ( ! imgsComplete[i] ) {
-                            complete = false;
-                        }
-                    }
-
-                    if ( complete ) {
+                imgsLoaded = 0,
+                
+                checkImgsLoaded = function() {
+                    imgsLoaded++;
+                    
+                    if ( imgs.length === imgsLoaded ) {
                         setHeights();
                     }
                 },
-                        
+                
                 setHeights = function() {
-
-                    // Loop through each column to find the tallest one
+                    var h = 0;
+                    
                     window.forEachElement( cols, function( col ) {
-                        var colHeight = col.offsetHeight,
-                            imgHeight;
+                        var colH = col.offsetHeight;
 
-                        if ( col.querySelector( 'img' ) ) {
-                            imgHeight = col.querySelector( 'img' ).clientHeight;
-
-                            if ( imgHeight > colHeight ) {
-                                colHeight = imgHeight + col.style.marginBottom;
-                            }
+                        if ( colH > h ) {
+                            h = colH;
                         }
-
-                        if ( colHeight > h ) {
-                            h = colHeight;
-                        }
-                    });
-
-                    // Loop through and set the height of each column 
-                    // to the height of the tallest column
+                    });        
+                    
                     window.forEachElement( cols, function( col ) {
                         col.style.height = h + 'px';
                     });
                 };
 
+            window.forEachElement( cols, function( col ) {
+                col.style.height = 'auto';
+            });
 
-            if ( imgLen > 0 ) {
-                for ( var i = 0; i < imgLen; i++ ) {
-                    imgsComplete[i] = false;
-                }
-
-                window.forEachElement( imgs, function( el, i ) {
-                    var index = i;
-                        
-                    if ( el.complete ) {
-                        imgsComplete[index] = true;
-                        checkComplete();
+            // if we have imgs, wait for them to load or check if they're cached
+            if ( imgs.length ) {
+                window.forEachElement( imgs, function( img ) {
+                    if ( img.complete ) {
+                        checkImgsLoaded();
                     }
                     else {
-                        el.addEventListener( 'load', function() {
-                            imgsComplete[index] = true;
-                            checkComplete();
-                        }, false );
+                        img.onload = checkImgsLoaded;
                     }
                 });
             }
+
+            // if no images, just set the heights of the columns
             else {
                 setHeights();
             }
+
         });
     }
 
@@ -341,3 +313,74 @@ var app = {};
     };
 
 }( document ) );
+///<reference path="../main.js">
+/**
+ * Copyright 2015 Select Interactive, LLC. All rights reserved.
+ * @author: The Select Interactive dev team (www.select-interactive.com) 
+ */
+( function( doc ) {
+	'use strict';
+
+	var hdr = doc.getElementById( 'hdr-main' ),
+		checkY = hdr.offsetHeight / 2,
+		sLogo = doc.getElementById( 's-logo' );
+
+	window.addEventListener( 'scroll', checkWindowY, false );
+
+	function checkWindowY( e ) {
+		if ( app.util.getWindowScrollPosition() > checkY && ! doc.body.classList.contains( 'past-header' ) ) {
+			doc.body.classList.add( 'past-header' );
+		}
+		else if ( app.util.getWindowScrollPosition() <= checkY ) {
+			doc.body.classList.remove( 'past-header' );
+		}
+	}
+
+}( document ) );
+///<reference path="../main.js">
+/**
+ * Copyright 2015 Select Interactive, LLC. All rights reserved.
+ * @author: The Select Interactive dev team (www.select-interactive.com) 
+ */
+ app.util = (function( doc ) {
+    'use strict';
+        
+    // will clone an object, not copying by reference
+    function cloneObj( obj ) {
+        return JSON.parse( JSON.stringify( obj ) );
+    }
+
+    function extend( obj1, obj2 ) {
+        var obj = obj1;
+
+        for ( var key in obj2 ) {
+            obj[key] = obj2[key];
+        }
+
+        return obj;
+    }
+
+    function getWindowScrollPosition() {
+        if ( typeof window.scrollY === 'undefined' ) {
+            return document.documentElement.scrollTop;
+        }
+        else {
+            return window.scrollY;
+        }
+    }
+
+    return {
+        cloneObj: cloneObj,
+        extend: extend,
+        getWindowScrollPosition: getWindowScrollPosition
+    };
+
+}( document ) );
+window.requestAnimationFrame = (function() {
+    return  window.requestAnimationFrame       ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame    ||
+            function( callback ){
+                window.setTimeout(callback, 1000 / 60);
+            };
+}());

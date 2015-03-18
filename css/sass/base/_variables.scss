@@ -11,6 +11,10 @@ $max-width-px:		$max-width + 0px;
 $base-font-size:	16px;
 $base-line-height:	22px;
 
+$content-width-sm:  900px;
+$content-width-med: 1200px;
+$content-width-lg:  1500px;
+
 
 // Susy Settings
 // $max-width = ($total-columns * ($base-font-size * $column-width) + (($total-columns - 1)  * $base-font-size)
@@ -23,9 +27,15 @@ $column-width:	(($max-width - (($total-columns - 1) * $base-font-size)) / ($tota
 // -------------------
 // Typography Settings
 // -------------------
-$font-primary: sans-serif;
-$font-secondary: serif;
-$font-bold: '';
+$av-light:	  'avenir-light', sans-serif;
+$av-medium:   'avenir-medium', sans-serif;
+$av-black:    'avenir-black', sans-serif;
+$telegrafico: 'telegrafico', sans-serif;
+
+$font-primary: $av-light;
+$font-secondary: $telegrafico;
+$font-med: $av-medium;
+$font-bold: $av-black;
 
 
 // ------
@@ -52,13 +62,19 @@ $pink:			#c3325f;
 $purple:		#7a43b6;
 
 // Project Specific Colors
+$si-gray-darkest: #444;
+$si-gray-darker:  #666;
+$si-gray-dark:    #8e8d8e;
+$si-gray-light:   #b8b8b9;
+$si-gray-lighter: #d8d8d9;
+$si-orange:		  #dda14a;
 
 
 // -----------
 // Body Styles
 // -----------
-$body-background:	$white;
-$body-color:		$darker-gray;
+$body-background:	#f8f8f9;
+$body-color:		$dark-gray;
 
 
 // -----
