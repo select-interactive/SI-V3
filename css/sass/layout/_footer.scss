@@ -1,39 +1,50 @@
 ﻿// ------
 // Footer
 // ------
-footer {
+//footer {
+//    @extend .page;
+//    @extend .page-bg-gray-dark;
+//
+//    .page {
+//        padding: 100px 50px; 
+//    }
+//
+//    .page-hdr {
+//        color: $si-gray-lighter;
+//        font-size: 24px;
+//        margin: 0 0 15px;
+//    }
+//
+//    .list-footer-links {
+//        @extend %list-style-none;
+//        @extend %no-margin;
+//
+//        li {
+//            margin: 15px 0 0;
+//
+//            &:first-child {
+//                margin-top: 0;
+//            }
+//        }
+//    }
+//
+//    p {
+//        margin-bottom: 15px;
+//    }
+//
+//    a {
+//        border-bottom: 1px dotted $si-gray-light;
+//        @include link-colors($si-gray-light, $si-gray-light);
+//    }
+//}
+
+.footer-super {
     @extend .page;
-    @extend .page-bg-gray-dark;
+    @extend .page-bg-orange;
 
-    .page {
-        padding: 100px 50px; 
-    }
-
-    .page-hdr {
-        color: $si-gray-lighter;
-        font-size: 24px;
-        margin: 0 0 15px;
-    }
-
-    .list-footer-links {
-        @extend %list-style-none;
-        @extend %no-margin;
-
-        li {
-            margin: 15px 0 0;
-
-            &:first-child {
-                margin-top: 0;
-            }
-        }
-    }
-
-    p {
-        margin-bottom: 15px;
-    }
+    font-size: 24px;
 
     a {
-        border-bottom: 1px dotted $si-gray-light;
-        @include link-colors($si-gray-light, $si-gray-light);
+        @include link-colors($white, $white);
     }
 }

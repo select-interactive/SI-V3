@@ -542,7 +542,7 @@ img {
 /**
  * Project SASS Mixins
  */
-.row, #nav-main ul, footer .list-footer-links, #nav-admin ul {
+.row, #nav-main ul, #nav-admin ul {
   margin: 0;
 }
 
@@ -590,7 +590,7 @@ a, #nav-admin a {
   text-transform: uppercase;
 }
 
-.row, #nav-main ul, footer .list-footer-links, .card-links, .list-partners, #nav-admin ul {
+.row, #nav-main ul, .card-links, .list-partners, #nav-admin ul {
   list-style: none;
 }
 
@@ -1554,29 +1554,14 @@ body {
   opacity: 1;
 }
 
-footer .page, footer footer {
-  padding: 100px 50px;
-}
-footer .page-hdr {
-  color: #d8d8d9;
+.footer-super {
   font-size: 24px;
-  margin: 0 0 15px;
 }
-footer .list-footer-links li {
-  margin: 15px 0 0;
+.footer-super a {
+  color: #fff;
 }
-footer .list-footer-links li:first-child {
-  margin-top: 0;
-}
-footer p {
-  margin-bottom: 15px;
-}
-footer a {
-  border-bottom: 1px dotted #b8b8b9;
-  color: #b8b8b9;
-}
-footer a:hover {
-  color: #b8b8b9;
+.footer-super a:hover {
+  color: #fff;
 }
 
 button,
@@ -2004,7 +1989,7 @@ button.btn-blue:disabled,
   color: #dda14a;
 }
 
-.page, footer {
+.page, .footer-super {
   padding: 75px 50px;
 }
 .page-nopad {
@@ -2017,9 +2002,13 @@ button.btn-blue:disabled,
   background: #d8d8d9;
   color: #444;
 }
-.page-bg-gray-dark, footer {
+.page-bg-gray-dark {
   background: #262626;
   color: #b8b8b9;
+}
+.page-bg-orange, .footer-super {
+  background: #dda14a;
+  color: #d8d8d9;
 }
 .page-hdr {
   font-size: 36px;

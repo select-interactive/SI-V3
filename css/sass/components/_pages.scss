@@ -19,6 +19,11 @@
             background: #262626;
             color: $si-gray-light;
         }
+
+        &-orange {
+            background: $si-orange;
+            color: $si-gray-lighter;
+        }
     }
 
     &-hdr {

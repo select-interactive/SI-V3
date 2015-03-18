@@ -323,17 +323,31 @@ var app = {};
 
 	var hdr = doc.getElementById( 'hdr-main' ),
 		checkY = hdr.offsetHeight / 2,
-		sLogo = doc.getElementById( 's-logo' );
+		sLogo = doc.getElementById( 's-logo' ),
+		scheduledRAF = false,
+		lastScrollY;
 
 	window.addEventListener( 'scroll', checkWindowY, false );
 
 	function checkWindowY( e ) {
-		if ( app.util.getWindowScrollPosition() > checkY && ! doc.body.classList.contains( 'past-header' ) ) {
+		lastScrollY = app.util.getWindowScrollPosition();
+
+		if ( scheduledRAF ) {
+			return;
+		}
+
+		requestAnimationFrame( performCheck );
+	}
+
+	function performCheck() {
+		if ( lastScrollY > checkY && !doc.body.classList.contains( 'past-header' ) ) {
 			doc.body.classList.add( 'past-header' );
 		}
-		else if ( app.util.getWindowScrollPosition() <= checkY ) {
+		else if ( lastScrollY <= checkY ) {
 			doc.body.classList.remove( 'past-header' );
 		}
+
+		scheduledRAF = false;
 	}
 
 }( document ) );
