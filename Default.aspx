@@ -82,6 +82,37 @@
 			</ul>
 		</div>
 	</div>
+	<div class="page page-bg-gray-med">
+		<h2 class="page-hdr">Team</h2>
+		<div class="container">
+			<div class="row row-cols-2">
+				<div class="col">
+					<div class="card card-orange">
+						<div class="card-col card-photo">
+							<img src="/img/team/jeremy-burton.v1.jpg" />
+						</div>
+						<div class="card-col card-details">
+							<h2 class="card-hdr">Jeremy Burton</h2>
+							<h3 class="card-subhdr">Partner, Lead Developer</h3>
+							<p>E. <a href="mailto:jeremy@select-interactive.com">jeremy@select-interactive.com</a><br />T. <a href="tel:817.210.4303">817.210.4303</a></p>
+						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="card card-orange">
+						<div class="card-col card-photo">
+							<img src="/img/team/jeremy-burton.v1.jpg" />
+						</div>
+						<div class="card-col card-details">
+							<h2 class="card-hdr">Jeremy Burton</h2>
+							<h3 class="card-subhdr">Partner, Lead Developer</h3>
+							<p>E. <a href="mailto:jeremy@select-interactive.com">jeremy@select-interactive.com</a><br />T. <a href="tel:817.210.4303">817.210.4303</a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </asp:Content>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="cphBody" Runat="Server">

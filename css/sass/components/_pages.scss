@@ -11,7 +11,7 @@
 
     &-bg {
         &-gray-med {
-            background: $si-gray-lighter;
+            background: lighten($si-gray-lighter, 5%);
             color: $si-gray-darkest;
         }
 
@@ -27,6 +27,7 @@
     }
 
     &-hdr {
+        @extend %text-align-center;
         font-size: 36px;
         line-height: 1.1;
         margin: 0 0 50px;

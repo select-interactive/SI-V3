@@ -574,7 +574,7 @@ a, #nav-admin a {
   text-align: left;
 }
 
-.text-center, .list-partners {
+.text-center, .page-hdr, .list-partners {
   text-align: center;
 }
 
@@ -606,12 +606,12 @@ a, #nav-admin a {
   }
 }
 
-.clearfix::before, .list-partners::before,
+.clearfix::before, .card::before, .list-partners::before,
 .row::before {
   content: "";
   display: table;
 }
-.clearfix:after, .list-partners:after,
+.clearfix:after, .card:after, .list-partners:after,
 .row:after {
   clear: both;
   content: "";
@@ -1961,12 +1961,39 @@ button.btn-blue:disabled,
       -ms-transform: translateY(-100px);
           transform: translateY(-100px);
 }
+.card-orange {
+  background: #dda14a;
+  color: #fff;
+  padding: 0;
+}
+.card-orange a {
+  color: #fff;
+}
+.card-orange a:hover {
+  color: #fff;
+}
+.card-col {
+  display: inline-block;
+  float: left;
+  width: 30%;
+}
+.card-col:last-child {
+  padding: 30px;
+  width: 70%;
+}
 .card-hdr {
   color: #666;
   font-family: "avenir-medium", sans-serif;
   font-size: 26px;
   line-height: 1.1;
   margin: 0 0 20px;
+}
+.card-orange .card-hdr {
+  color: #fff;
+}
+.card-subhdr {
+  font-size: 20px;
+  margin: -5px 0 20px;
 }
 .card-links {
   border-top: 1px solid #d8d8d9;
@@ -1999,7 +2026,7 @@ button.btn-blue:disabled,
   padding-top: 0;
 }
 .page-bg-gray-med {
-  background: #d8d8d9;
+  background: #e5e5e6;
   color: #444;
 }
 .page-bg-gray-dark {
