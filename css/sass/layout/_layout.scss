@@ -10,7 +10,10 @@
 // ------------------------
 .row {
     @include container(100%);
-    @extend %list-style-none;
+
+    &:not(:last-child) {
+        margin-bottom: gutter();
+    }
 }
 
 @for $col from 1 through $total-columns {
@@ -18,7 +21,7 @@
         .col {
             // By default, always be full width - mobile first
             @include full;
-            margin-bottom: gutter();
+            margin-bottom: gutter() * 2.75;
             padding: 0;
 
             // At tabletPlus, start to resize
@@ -27,9 +30,10 @@
                 @include span(($total-columns / $col) of $total-columns);
                 margin-bottom: 0;
 
-                &:nth-child(#{$col}n),
-                &:last-child {
-                    @include last;
+                &:not(:first-child) {
+                    &:last-child {
+                        @include last;
+                    }
                 }
             }
         }
@@ -39,16 +43,19 @@
         .col-#{$col} {
             // By default, always be full width - mobile first
             @include full;
-            margin-bottom: gutter();
+            margin-bottom: gutter() * 2.75;
             padding: 0;
 
             // At tabletPlus, start to resize
-            @include susy-media($bp-wide) {
+            @include susy-media($bp-tablet) {
                 @include nobreak;
                 @include span($col);
+                margin-bottom: 0;
 
-                &:last-child {
-                    @include last;
+                &:not(:first-child) {
+                    &:last-child {
+                        @include last;
+                    }
                 }
             }
         }
@@ -59,17 +66,8 @@
 // ----------------------------------
 // Additional tweaks for mediaqueries
 // ----------------------------------
-.container {
-    @extend %position-relative;
-    height: 100%;
-    margin: 0 auto;
-    max-width: $content-width-med;
-
-    &-lg {
-        max-width: $content-width-lg;
-    }
-
-    &-sm {
-        max-width: $content-width-sm;
-    }
+.content-container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: $max-width-px;
 }

@@ -30,6 +30,18 @@
         }
     }
 
+	// Initiate Fastclick
+    if ( 'addEventListener' in doc ) {
+    	if ( !window.FastClick ) {
+    		console.warn( 'FastClick is not installed.' );
+    		return;
+    	}
+
+		doc.addEventListener( 'DOMContentLoaded', function() {
+    		FastClick.attach( doc.body );
+    	}, false );
+    }
+
     return {
         cloneObj: cloneObj,
         extend: extend,

@@ -5,44 +5,44 @@
  * 
  * All variables/functions ending with _ are assumed to be private to app.admin
  */
- app.admin = (function( doc ) {
-    'use strict';
-        
-    var 
+app.admin = ( function( doc ) {
+	'use strict';
+
+	var
         // settings is to be provided by the calling page js
         //   should include default itemId, wsUrl, and load functions
         settings_,
 
         // ckeditor settings
         editorSettings_ = {
-            allowedContent: true,
-            height: 350,
-            toolbar: 'Simple'
+        	allowedContent: true,
+        	height: 350,
+        	toolbar: 'Simple'
         },
 
         // PARSE settings
         parse_ = {
-            appId: '',
-            jsKey: ''
+        	appId: '',
+        	jsKey: ''
         },
 
         // buttons/input[file] elements on the form
         //   that will trigger events
         inputEvents_ = [
             {
-                el: doc.getElementById( 'btn-item-new' ),
-                evtName: 'click',
-                handler: initItem
+            	el: doc.getElementById( 'btn-item-new' ),
+            	evtName: 'click',
+            	handler: initItem
             },
             {
-                el: doc.getElementById( 'btn-item-back' ),
-                evtName: 'click',
-                handler: back
+            	el: doc.getElementById( 'btn-item-back' ),
+            	evtName: 'click',
+            	handler: back
             },
             {
-                el: doc.getElementById( 'btn-item-delete' ),
-                evtName: 'click',
-                handler: deleteItem
+            	el: doc.getElementById( 'btn-item-delete' ),
+            	evtName: 'click',
+            	handler: deleteItem
             }
         ],
 
@@ -65,562 +65,580 @@
         formEdit_ = doc.getElementById( 'form-edit' ),
         reqFields_,
         dataFields_,
-        
+
         status_ = doc.getElementById( 'status' );
 
-    function init( settings, parse, inputEvents, otherData, saveEvt ) {
-        if ( formOptions_ && formEdit_ ) {
-            ddlOptions_ = doc.getElementById( 'ddl-options' );
-            reqFields_ = formEdit_.querySelectorAll( '.req' );
-            dataFields_ = formEdit_.querySelectorAll( '[name]' );
-            
-            settings_ = settings;
-            parse_ = app.util.extend( parse_, parse );
-            otherData_ = otherData;
-            otherDataOriginal_ = app.util.cloneObj( otherData );
-            saveEvt_ = saveEvt;
+	function init( settings, parse, inputEvents, otherData, saveEvt ) {
+		if ( formOptions_ && formEdit_ ) {
+			ddlOptions_ = doc.getElementById( 'ddl-options' );
+			reqFields_ = formEdit_.querySelectorAll( '.req' );
+			dataFields_ = formEdit_.querySelectorAll( '[name]' );
 
-            // concat will concat the events from inputEvents_ and inputEvents
-            //   into inputEvents_
-            inputEvents_ = inputEvents_.concat( inputEvents );
+			settings_ = settings;
+			parse_ = app.util.extend( parse_, parse );
+			otherData_ = otherData;
+			otherDataOriginal_ = app.util.cloneObj( otherData );
+			saveEvt_ = saveEvt;
 
-            initParse();
-            initCkEditor();
-            bindEvents();
-        }
-    }
+			// concat will concat the events from inputEvents_ and inputEvents
+			//   into inputEvents_
+			inputEvents_ = inputEvents_.concat( inputEvents );
 
-    function initParse() {
-        Parse.initialize( parse_.appId, parse_.jsKey );
-        updateOptions();
-    }
+			initParse();
+			initCkEditor();
+			bindEvents();
+		}
+	}
 
-    function initCkEditor() {
-        window.forEachElement( formEdit_.querySelectorAll( 'textarea' ), function( ta ) {
-            CKEDITOR.replace( ta.name, editorSettings_ );
-        });
-    }
+	function initParse() {
+		Parse.initialize( parse_.appId, parse_.jsKey );
+		updateOptions();
+	}
 
-    function bindEvents() {
-        ddlOptions_.addEventListener( 'change', loadItem, false );
+	function initCkEditor() {
+		window.forEachElement( formEdit_.querySelectorAll( 'textarea' ), function( ta ) {
+			CKEDITOR.replace( ta.name, editorSettings_ );
+		} );
+	}
 
-        // loop through the buttons/inputs provided and
-        //   set the event handlers
-        inputEvents_.forEach( function( inEvt ) {
-            if ( inEvt.el && inEvt.evtName && inEvt.handler ) {
-                inEvt.el.addEventListener( inEvt.evtName, inEvt.handler, false );
-            }
-        });
+	function bindEvents() {
+		ddlOptions_.addEventListener( 'change', loadItem, false );
 
-        // loop through inputs and watch for enter keypress
-        window.forEachElement( dataFields_, function( el ) {
-            el.addEventListener( 'keypress', function( e ) {
-                if ( e.keyCode === 13 ) {
-                    saveEvt_();
-                }
-            }, false );
-        });
+		// loop through the buttons/inputs provided and
+		//   set the event handlers
+		inputEvents_.forEach( function( inEvt ) {
+			if ( inEvt.el && inEvt.evtName && inEvt.handler ) {
+				inEvt.el.addEventListener( inEvt.evtName, inEvt.handler, false );
+			}
+		} );
 
-        // loop through elements with class input-date 
-        //   to provide limitations on data entered
-        window.forEachElement( doc.querySelectorAll( '.input-date' ), function( el ) {
-            // only allow numbers and /
-            //  value should be MM/DD/YYYY
-            el.addEventListener( 'keydown', function( e ) {
-                var keyCode = e.keyCode;
-                    
-                if ( ( keyCode < 48 || keyCode > 57) && ( keyCode < 96 || keyCode > 105 ) && keyCode !== 46 && keyCode !== 37 && keyCode !== 39 && keyCode !== 8 && keyCode !== 111 && keyCode !== 191 && keyCode !== 9 ) {
-                    e.preventDefault();
-                }
-            }, false );
+		// loop through inputs and watch for enter keypress
+		window.forEachElement( dataFields_, function( el ) {
+			el.addEventListener( 'keypress', function( e ) {
+				if ( e.keyCode === 13 ) {
+					saveEvt_();
+				}
+			}, false );
+		} );
 
-            // automatically add / after MM and DD
-            el.addEventListener( 'keyup', function( e ) {
-                var val = this.value.trim();
+		// loop through elements with class input-date 
+		//   to provide limitations on data entered
+		window.forEachElement( doc.querySelectorAll( '.input-date' ), function( el ) {
+			// only allow numbers and /
+			//  value should be MM/DD/YYYY
+			el.addEventListener( 'keydown', function( e ) {
+				var keyCode = e.keyCode;
 
-                if ( ( val.length === 2 || val.length === 5 ) && e.keyCode !== 8 ) {
-                    this.value = val + '/';
-                }
-            });
-        });
-    }
+				if ( ( keyCode < 48 || keyCode > 57 ) && ( keyCode < 96 || keyCode > 105 ) && keyCode !== 46 && keyCode !== 37 && keyCode !== 39 && keyCode !== 8 && keyCode !== 111 && keyCode !== 191 && keyCode !== 9 ) {
+					e.preventDefault();
+				}
+			}, false );
 
-    // starting a new item
-    function initItem() {
-        formOptions_.classList.add( 'hidden' );
-        formEdit_.classList.remove( 'hidden' );
+			// automatically add / after MM and DD
+			el.addEventListener( 'keyup', function( e ) {
+				var val = this.value.trim();
 
-        // if we have a sort order field, set the default value to the list of elements
-        //   in ddlOptions_
-        if ( doc.querySelector( '[name="sortOrder"]' ) ) {
-            doc.querySelector( '[name="sortOrder"]' ).value = ddlOptions_.querySelectorAll( 'option' ).length;
-        }
+				if ( ( val.length === 2 || val.length === 5 ) && e.keyCode !== 8 ) {
+					this.value = val + '/';
+				}
+			} );
+		} );
+	}
 
-        formEdit_.querySelector( 'input' ).focus();
-        clearStatus();
-    }
+	// starting a new item
+	function initItem() {
+		formOptions_.classList.add( 'hidden' );
+		formEdit_.classList.remove( 'hidden' );
 
-    // loading an item to edit/delete
-    function loadItem() {
-        var keys, key,
-            
+		// if we have a sort order field, set the default value to the list of elements
+		//   in ddlOptions_
+		if ( doc.querySelector( '[name="sortOrder"]' ) ) {
+			doc.querySelector( '[name="sortOrder"]' ).value = ddlOptions_.querySelectorAll( 'option' ).length;
+		}
+
+		formEdit_.querySelector( 'input' ).focus();
+		clearStatus();
+	}
+
+	// loading an item to edit/delete
+	function loadItem() {
+		var keys, key,
+
             Obj = Parse.Object.extend( parse_.object ),
             query = new Parse.Query( Obj );
 
-        // set the itemId
-        settings_.itemId = ddlOptions_.options[ddlOptions_.selectedIndex].value;
+		// set the itemId
+		settings_.itemId = ddlOptions_.options[ddlOptions_.selectedIndex].value;
 
-        if ( settings_.itemId.length !== '-1' ) {
-            setStatus( 'Loading, please wait.' );
+		if ( settings_.itemId.length !== '-1' ) {
+			setStatus( 'Loading, please wait.' );
 
-            query.get( settings_.itemId, {
-                success: function( obj ) {
-                    if ( obj ) {
-                        // loop through all data fields and set the value of them
-                        //   to the data received from the webservice
-                        window.forEachElement( dataFields_, function( field ) {
-                            var val = obj.get( field.getAttribute( 'name' ) );
-                        
-                            if ( field.tagName.toLowerCase() === 'textarea' ) {
-                                CKEDITOR.instances[field.name].setData( val );
-                            }
-                            if ( field.classList.contains( 'input-date' ) ) {
-                                field.value = moment( val ).format( 'MM/DD/YYYY' );
-                            }
-                            else {
-                                field.value = val;
-                            }
-                        });
-                        
-                        // if this page requires additional data stored in otherData_
-                        if ( otherData_ ) {
-                        
-                            // get the keyss of each property in otherData_
-                            keys = Object.keys( otherData_ );
-                            
-                            // loop through them and set the value of property
-                            //   to the data returned from the webservice
-                            for ( var i = 0; i < keys.length; i++ ) {
-                                key = keys[i];
-                                setOtherDataProperty( key, obj.get( key ) );
-                            }
-                        }
-                        
-                        // if we have a callback function unique to the current page, call it
-                        if ( settings_.load.callback && typeof settings_.load.callback === 'function' ) {
-                            settings_.load.callback();
-                        }
-                        
-                        // show the edit form, hide the options form
-                        formOptions_.classList.add( 'hidden' );
-                        formEdit_.classList.remove( 'hidden' );
-                        
-                        if ( settings_.del ) {
-                            doc.getElementById( 'btn-item-delete' ).classList.remove( 'hidden' );
-                        }
-                        
-                        // hide loading status message
-                        clearStatus();
-                    }
-                
-                    // if an error occured trying to load the data
-                    else {
-                        setStatus( 'Unable to load data. Please try again.' );
-                        ddlOptions_.value = '-1';
-                    }
-                },
-                error: function( obj, err ) {
-                    console.log( obj, err );
-                }
-            });
-        }
-    }
+			query.get( settings_.itemId, {
+				success: function( obj ) {
+					if ( obj ) {
+						// loop through all data fields and set the value of them
+						//   to the data received from the webservice
+						window.forEachElement( dataFields_, function( field ) {
+							var val = obj.get( field.getAttribute( 'name' ) );
 
-    // helper function to set a property in otherData_
-    function setOtherDataProperty( key, value ) {
-        otherData_[key] = value;
-    }
+							if ( field.tagName.toLowerCase() === 'textarea' ) {
+								CKEDITOR.instances[field.id].setData( val );
+							}
+							if ( field.classList.contains( 'input-date' ) ) {
+								field.value = moment( val ).format( 'MM/DD/YYYY' );
+							}
+							else {
+								field.value = val;
+							}
+						} );
 
-    // helper function to get a property value in otherData_
-    function getOtherDataProperty( key ) {
-        return otherData_[key];
-    }
+						// if this page requires additional data stored in otherData_
+						if ( otherData_ ) {
 
-    // when preparing to save, check all required fields and make sure
-    //   data has been provided for them
-    function validateReqFields() {
-        var isValid = true;
+							// get the keyss of each property in otherData_
+							keys = Object.keys( otherData_ );
 
-        window.forEachElement( reqFields_, function( field ) {
-            var val;
+							// loop through them and set the value of property
+							//   to the data returned from the webservice
+							for ( var i = 0; i < keys.length; i++ ) {
+								key = keys[i];
+								setOtherDataProperty( key, obj.get( key ) );
+							}
+						}
 
-            if ( field.tagName.toLowerCase() === 'textarea' ) {
-                val = CKEDITOR.instances[field.name].getData( val ).trim();
-            }
-            else if ( field.tagName.toLowerCase() === 'select' ) {
-                val = field.options[field.selectedIndex].value;
-            }
-            else {
-                val = field.value.trim();
-            }
+						// if we have a callback function unique to the current page, call it
+						if ( settings_.load.callback && typeof settings_.load.callback === 'function' ) {
+							settings_.load.callback();
+						}
 
-            if ( val === '' || val === '-1' ) {
-                field.classList.add( 'invalid' );
-                isValid = false;
-            }
-            else {
-                field.value = val;
-                field.classList.remove( 'invalid' );
-            }
-        });
+						// show the edit form, hide the options form
+						formOptions_.classList.add( 'hidden' );
+						formEdit_.classList.remove( 'hidden' );
 
-        if ( ! isValid ) {
-            formEdit_.querySelector( '.invalid' ).focus();
-            setStatus( 'Fields marked with * are required.' );
-        }
-        else {
-            clearStatus();
-        }
+						if ( settings_.del ) {
+							doc.getElementById( 'btn-item-delete' ).classList.remove( 'hidden' );
+						}
 
-        return isValid;
-    }
+						// hide loading status message
+						clearStatus();
+					}
 
-    // when preparing to save, collect all the data from the form
-    //   this includes looping through all dataFields_ and getting the
-    //   data from otherData_ and combining into one object
-    function collectData() {
-        var data = {},
+						// if an error occured trying to load the data
+					else {
+						setStatus( 'Unable to load data. Please try again.' );
+						ddlOptions_.value = '-1';
+					}
+				},
+				error: function( obj, err ) {
+					console.log( obj, err );
+				}
+			} );
+		}
+	}
+
+	// helper function to set a property in otherData_
+	function setOtherDataProperty( key, value ) {
+		otherData_[key] = value;
+	}
+
+	// helper function to get a property value in otherData_
+	function getOtherDataProperty( key ) {
+		return otherData_[key];
+	}
+
+	// when preparing to save, check all required fields and make sure
+	//   data has been provided for them
+	function validateReqFields() {
+		var isValid = true;
+
+		window.forEachElement( reqFields_, function( field ) {
+			var val;
+
+			if ( field.tagName.toLowerCase() === 'textarea' ) {
+				val = CKEDITOR.instances[field.id].getData( val ).trim();
+			}
+			else if ( field.tagName.toLowerCase() === 'select' && !field.classList.contains( 'material-select' ) ) {
+				val = field.options[field.selectedIndex].value;
+			}
+			else {
+				val = field.value.trim();
+			}
+
+			if ( val === '' || val === '-1' ) {
+				field.classList.add( 'invalid' );
+				isValid = false;
+			}
+			else {
+				field.value = val;
+				field.classList.remove( 'invalid' );
+			}
+		} );
+
+		if ( !isValid ) {
+			formEdit_.querySelector( '.invalid' ).focus();
+			setStatus( 'Fields marked with * are required.' );
+		}
+		else {
+			clearStatus();
+		}
+
+		return isValid;
+	}
+
+	// when preparing to save, collect all the data from the form
+	//   this includes looping through all dataFields_ and getting the
+	//   data from otherData_ and combining into one object
+	function collectData() {
+		var data = {},
             keys, key;
 
-        // get the data from the dataFields_
-        window.forEachElement( dataFields_, function( field ) {
-            var val;
+		// get the data from the dataFields_
+		window.forEachElement( dataFields_, function( field ) {
+			var val;
 
-            if ( field.tagName.toLowerCase() === 'textarea' ) {
-                val = CKEDITOR.instances[field.name].getData( val ).trim();
-            }
-            else if ( field.tagName.toLowerCase() === 'select' ) {
-                val = field.options[field.selectedIndex].value;
-            }
-            else {
-                val = field.value.trim();
-            }
+			if ( field.tagName.toLowerCase() === 'textarea' ) {
+				val = CKEDITOR.instances[field.id].getData( val ).trim();
+			}
+			else if ( field.tagName.toLowerCase() === 'select' && !field.classList.contains( 'material-select' ) ) {
+				val = field.options[field.selectedIndex].value;
+			}
+			else {
+				val = field.value.trim();
+			}
 
-            data[field.getAttribute( 'name' )] = val;
-        });
+			data[field.getAttribute( 'name' )] = val;
+		} );
 
-        // get the data from the otherData_
-        if ( otherData_ ) {
-            keys = Object.keys( otherData_ );
+		// get the data from the otherData_
+		if ( otherData_ ) {
+			keys = Object.keys( otherData_ );
 
-            for ( var i = 0; i < keys.length; i++ ) {
-                key = keys[i];
-                data[key] = getOtherDataProperty( key );
-            }
-        }
+			for ( var i = 0; i < keys.length; i++ ) {
+				key = keys[i];
+				data[key] = getOtherDataProperty( key );
+			}
+		}
 
-        return data;
-    }
+		return data;
+	}
 
-    // helper function to handle image uploads
-    //   @file - the file to be uploaded
-    //   @isImg - boolean if uploading an image
-    //   @handler - the ashx file to handle the file upload
-    //   @fn - optional - callback function to run after the image has been uploaded
-    function uploadFile( file, isImg, handler, fn ) {
-        var fileName = file.name,
+	// helper function to handle image uploads
+	//   @file - the file to be uploaded
+	//   @isImg - boolean if uploading an image
+	//   @handler - the ashx file to handle the file upload
+	//   @fn - optional - callback function to run after the image has been uploaded
+	function uploadFile( file, isImg, handler, fn ) {
+		var fileName = file.name,
             fileType = file.type,
 
             // file reader
             fReader = new FileReader();
 
-        // confirm this file is allowed
-        if ( ! isImg ||  /^image\//.test( fileType ) ) {
-            setStatus( 'Uploading, please wait. This could take a few minutes.' );
+		// confirm this file is allowed
+		if ( !isImg || /^image\//.test( fileType ) ) {
+			setStatus( 'Uploading, please wait. This could take a few minutes.' );
 
-            fReader.onload = function( e ) {
-                // create the XMLHttpRequest object
-                var xhr = new XMLHttpRequest();
+			fReader.onload = function( e ) {
+				// create the XMLHttpRequest object
+				var xhr = new XMLHttpRequest();
 
-                // set the handler and all headers
-                xhr.open( 'post', handler, true );
-                xhr.overrideMimeType( 'text/plain; charset=x-user-defined-binary' );
-                xhr.setRequestHeader( 'X-File-Name', fileName );
-                xhr.setRequestHeader( 'X-File-Size', file.size );
-                xhr.setRequestHeader( 'X-File-Type', fileType );
+				// set the handler and all headers
+				xhr.open( 'post', handler, true );
+				//xhr.overrideMimeType( 'text/plain; charset=x-user-defined-binary' );
+				xhr.setRequestHeader( 'X-File-Name', fileName );
+				xhr.setRequestHeader( 'X-File-Size', file.size );
+				xhr.setRequestHeader( 'X-File-Type', fileType );
 
-                // callback of xhr load
-                xhr.addEventListener( 'load', function( response ) {
-                    // when the request is complete
-                    if ( response.target.response ) {
-                        var rsp = JSON.parse( response.target.response );
+				// callback of xhr load
+				xhr.addEventListener( 'load', function( response ) {
+					// when the request is complete
+					if ( response.target.response ) {
+						var rsp = JSON.parse( response.target.response );
 
-                        // if the upload was successful
-                        if ( rsp.status === 'success' ) {
-                            setStatus( 'The file was successfully uploaded.' ); 
-                            setTimeout( clearStatus, 1000 );
+						// if the upload was successful
+						if ( rsp.status === 'success' ) {
+							setStatus( 'The file was successfully uploaded.' );
+							setTimeout( clearStatus, 1000 );
 
-                            if ( fn && typeof fn === 'function' ) {
-                                fn( rsp.fileName );
-                            }
-                        }
-                        else {
-                            setStatus( 'Unable to upload the file, please try again.' );
-                        }
-                    }
-                }, false );
+							if ( fn && typeof fn === 'function' ) {
+								fn( rsp.fileName );
+							}
+						}
+						else {
+							setStatus( 'Unable to upload the file, please try again.' );
+						}
+					}
+				}, false );
 
-                xhr.send( file );
-            };
+				xhr.send( file );
+			};
 
-            // begin the read operation
-            fReader.readAsDataURL( file );
-        }
-        else {
-            setStatus( 'Only .jpg, .jpeg, and .png files are allowed.' );
-        }
-    }
+			// begin the read operation
+			fReader.readAsDataURL( file );
+		}
+		else {
+			setStatus( 'Only .jpg, .jpeg, and .png files are allowed.' );
+		}
+	}
 
-    // handles saving of the item
-    //   @wsUrl - the webservice to call
-    //   @wsData - the data to send to the webservice
-    //   @fn - optional - additional callback to execute after the save
-    function saveItem( wsUrl, wsData, fn ) {
-        var Obj = Parse.Object.extend( parse_.object ),
+	// handles saving of the item
+	//   @wsUrl - the webservice to call
+	//   @wsData - the data to send to the webservice
+	//   @fn - optional - additional callback to execute after the save
+	function saveItem( wsUrl, wsData, fn ) {
+		var Obj = Parse.Object.extend( parse_.object ),
             obj = new Obj(),
             isError = false,
-            
+
             saveObj = function() {
-                obj.save( wsData, {
-                    success: function( obj ) {
-                        setStatus( 'Save successful.' );
-                
-                        updateOptions();
-                
-                        if ( fn && typeof fn === 'function' ) {
-                            fn( obj );
-                        }
-                
-                        setTimeout( back, 1000 );
-                    },
-                    error: function( obj, err ) {
-                         setStatus( 'Unable to save at this time, please try again.' );
-                         console.log( obj, err );
-                    }
-                });
+            	obj.save( wsData, {
+            		success: function( obj ) {
+            			setStatus( 'Save successful.' );
+
+            			updateOptions();
+
+            			if ( fn && typeof fn === 'function' ) {
+            				fn( obj );
+            			}
+
+            			setTimeout( back, 1000 );
+            		},
+            		error: function( obj, err ) {
+            			setStatus( 'Unable to save at this time, please try again.' );
+            			console.log( obj, err );
+            		}
+            	} );
             };
-        
-        setStatus( 'Saving, please wait...' );
 
-        if ( getItemId() !== -1 ) {
-            var query = new Parse.Query( Obj );
+		setStatus( 'Saving, please wait...' );
 
-            query.get( settings_.itemId, {
-                success: function( itemObj ) {
-                    obj = itemObj;
-                    saveObj();
-                },
-                error: function( itemObj, err ) {
-                    isError = true;
-                    setStatus( 'Unable to save at this tieme, please try again.' );
-                }
-            });
-        }        
-        else {
-            saveObj();
-        }
-    }
+		if ( getItemId() !== -1 ) {
+			var query = new Parse.Query( Obj );
 
-    // deletes the item from parse
-    function deleteItem() {
-        var Obj = Parse.Object.extend( parse_.object ),
+			query.get( settings_.itemId, {
+				success: function( itemObj ) {
+					obj = itemObj;
+					saveObj();
+				},
+				error: function( itemObj, err ) {
+					isError = true;
+					setStatus( 'Unable to save at this tieme, please try again.' );
+				}
+			} );
+		}
+		else {
+			saveObj();
+		}
+	}
+
+	// deletes the item from parse
+	function deleteItem() {
+		var Obj = Parse.Object.extend( parse_.object ),
             query = new Parse.Query( Obj );
 
-        // set the itemId
-        settings_.itemId = ddlOptions_.options[ddlOptions_.selectedIndex].value;
+		// set the itemId
+		settings_.itemId = ddlOptions_.options[ddlOptions_.selectedIndex].value;
 
-        if ( settings_.itemId.length !== '-1' && window.confirm( 'Are you sure you want to delete this item?' ) ) {
-            setStatus( 'Loading, please wait.' );
+		if ( settings_.itemId.length !== '-1' && window.confirm( 'Are you sure you want to delete this item?' ) ) {
+			setStatus( 'Loading, please wait.' );
 
-            query.get( settings_.itemId, {
-                success: function( obj ) {
-                    obj.destroy({
-                        success: function( obj ) {
-                            setStatus( 'The item has been deleted successfully.' );
-                            updateOptions();
+			query.get( settings_.itemId, {
+				success: function( obj ) {
+					obj.destroy( {
+						success: function( obj ) {
+							setStatus( 'The item has been deleted successfully.' );
+							updateOptions();
 
-                            setTimeout( back, 1000 );
-                        },
-                        error: function( obj, err ) {
-                            setStatus( 'Unable to delete at this time, please try again.' );
-                            console.log( obj, err );
-                        }
-                    });
-                },
-                error: function( obj, err ) {
-                    setStatus( 'Unable to delete at this time, please try again.' );
-                    console.log( obj, err );
-                }
-            });
-        }
-    }
+							setTimeout( back, 1000 );
+						},
+						error: function( obj, err ) {
+							setStatus( 'Unable to delete at this time, please try again.' );
+							console.log( obj, err );
+						}
+					} );
+				},
+				error: function( obj, err ) {
+					setStatus( 'Unable to delete at this time, please try again.' );
+					console.log( obj, err );
+				}
+			} );
+		}
+	}
 
-    // toggle back to the options screen
-    //   and clear out everything from the edit screen
-    function back() {
-        // reset the base itemId
-        settings_.itemId = -1;
+	// toggle back to the options screen
+	//   and clear out everything from the edit screen
+	function back() {
+		// reset the base itemId
+		settings_.itemId = -1;
 
-        // reset otherData_ to it's original state
-        otherData_ = app.util.cloneObj( otherDataOriginal_ );
+		// reset otherData_ to it's original state
+		otherData_ = app.util.cloneObj( otherDataOriginal_ );
 
-        // set the options ddl back to default state
-        ddlOptions_.value = '-1';
+		// set the options ddl back to default state
+		ddlOptions_.value = '-1';
 
-        // make sure we go back to the top of the screen
-        window.scrollTo( 0, 0 );
+		// make sure we go back to the top of the screen
+		window.scrollTo( 0, 0 );
 
-        // hide the edit form and show the options screen
-        formEdit_.classList.add( 'hidden' );
-        formOptions_.classList.remove( 'hidden' );
+		// hide the edit form and show the options screen
+		formEdit_.classList.add( 'hidden' );
+		formOptions_.classList.remove( 'hidden' );
 
-        // clear our all inputs
-        window.forEachElement( formEdit_.querySelectorAll( 'input, textarea' ), function( field ) {
-            if ( field.tagName.toLowerCase() === 'textarea' ) {
-                CKEDITOR.instances[field.name].setData( '' );
-            }
-            else {
-                field.classList.remove( 'invalid' );
-                field.value = '';
-            }
-        });
+		// clear our all inputs
+		window.forEachElement( formEdit_.querySelectorAll( 'input, textarea' ), function( field ) {
+			if ( field.tagName.toLowerCase() === 'textarea' ) {
+				CKEDITOR.instances[field.id].setData( '' );
+			}
+			else {
+				field.classList.remove( 'invalid' );
+				field.value = '';
+			}
+		} );
 
-        window.forEachElement( formEdit_.querySelectorAll( 'select' ), function( field ) {
-            field.classList.remove( 'invalid' );
-            field.value = '-1';
-        });
+		window.forEachElement( formEdit_.querySelectorAll( 'select' ), function( field ) {
+			field.classList.remove( 'invalid' );
+			field.value = '-1';
 
-        // if any preview rows are used, clear them too
-        window.forEachElement( formEdit_.querySelectorAll( '.row-preview' ), function( row ) {
-            row.innerHTML = '';
-        }); 
+			if ( field.classList.contains( 'material-select' ) ) {
+				field.parentNode.querySelector( 'input[type="text"]' ).value = '';
+				field.parentNode.querySelector( 'input[type="text"]' ).classList.remove( 'invalid' );
 
-        doc.getElementById( 'btn-item-delete' ).classList.add( 'hidden' );
+				window.forEachElement( field.parentNode.querySelectorAll( '.select-opt.active' ), function( opt ) {
+					opt.classList.remove( 'active' );
+				} );
+			}
+		} );
 
-        // clear any status message
-        clearStatus();
-    }
+		// if any preview rows are used, clear them too
+		window.forEachElement( formEdit_.querySelectorAll( '.row-preview' ), function( row ) {
+			row.innerHTML = '';
+		} );
 
-    // update the list of options in the ddlOptions_
-    //   requires webservice url, function, and parameters
-    //   all should be provided by page specific settings object
-    function updateOptions() {
-        var Obj = Parse.Object.extend( parse_.object ),
+		// any map rows
+		window.forEachElement( formEdit_.querySelectorAll( '.row-map' ), function( row ) {
+			row.classList.add( 'hidden' );
+		} );
+
+		doc.getElementById( 'btn-item-delete' ).classList.add( 'hidden' );
+
+		// clear any status message
+		clearStatus();
+	}
+
+	// update the list of options in the ddlOptions_
+	//   requires webservice url, function, and parameters
+	//   all should be provided by page specific settings object
+	function updateOptions() {
+		var Obj = Parse.Object.extend( parse_.object ),
             query = new Parse.Query( Obj );
 
-        if ( parse_.querySort ) {
-            query.ascending( parse_.querySort );
-        }
+		if ( parse_.querySort ) {
+			query.ascending( parse_.querySort );
+		}
 
-        query.find({
-            success: function( results ) {
-                var obj;
+		query.limit( 1000 );
 
-                ddlOptions_.innerHTML = '';
+		query.find( {
+			success: function( results ) {
+				var obj;
+				ddlOptions_.innerHTML = '';
 
-                if ( results && results.length ) {
-                    ddlOptions_.appendChild( createOpt( '-1', '-- Select ' + settings_.item + ' --' ) );
+				if ( results && results.length ) {
+					ddlOptions_.appendChild( createOpt( '-1', '-- Select ' + settings_.item + ' --' ) );
 
-                    for ( var i = 0; i < results.length; i++ ) {
-                        obj = results[i];
-                        ddlOptions_.appendChild( createOpt( obj.id, settings_.setOptionText( obj ) ) );
-                    }
-                }
-                else {
-                    ddlOptions_.appendChild( createOpt( '-1', '-- No ' + settings_.item + 's Found --' ) );
-                }
-            },
-            error: function( obj, error ) {
-                console.log( obj, error );
-            }
-        });
-    }
+					for ( var i = 0; i < results.length; i++ ) {
+						obj = results[i];
+						ddlOptions_.appendChild( createOpt( obj.id, settings_.setOptionText( obj ) ) );
+					}
+				}
+				else {
+					ddlOptions_.appendChild( createOpt( '-1', '-- No ' + settings_.item + 's Found --' ) );
+				}
+			},
+			error: function( obj, error ) {
+				console.log( obj, error );
+			}
+		} );
+	}
 
-    // helper method to create option elements
-    function createOpt( val, txt, className ) {
-        var opt = doc.createElement( 'option' );
-        opt.value = val;
-        opt.text = txt;
+	// helper method to create option elements
+	function createOpt( val, txt, className ) {
+		var opt = doc.createElement( 'option' );
+		opt.value = val;
+		opt.text = txt;
 
-        if ( className ) {
-            opt.className = className;
-        }
+		if ( className ) {
+			opt.className = className;
+		}
 
-        return opt;
-    }
+		return opt;
+	}
 
-    // helper function to create the item URL
-    function createUrl( str, dateObj ) {
-        var datePart;
+	// helper function to create the item URL
+	function createUrl( str, dateObj ) {
+		var datePart;
 
-        str = str.toLowerCase();
-        str = str.replace( / /gi, '-' );
-        str = str.replace( /#/gi, '-' );
-        str = str.replace( /!/gi, '-' );
-        str = str.replace( /&/gi, '-' );
-        str = str.replace( /\./gi, '' );
-        str = str.replace( /,/gi, '' );
-        str = str.replace( /'/gi, '' );
-        str = str.replace( /"/gi, '' );
-        str = str.replace( /\//gi, '' );
-        str = str.replace( /\\/gi, '' );
-        str = str.replace( /--/gi, '-' );
+		str = str.toLowerCase();
+		str = str.replace( / /gi, '-' );
+		str = str.replace( /#/gi, '-' );
+		str = str.replace( /!/gi, '-' );
+		str = str.replace( /&/gi, '-' );
+		str = str.replace( /\./gi, '' );
+		str = str.replace( /,/gi, '' );
+		str = str.replace( /'/gi, '' );
+		str = str.replace( /"/gi, '' );
+		str = str.replace( /\//gi, '' );
+		str = str.replace( /\\/gi, '' );
+		str = str.replace( /--/gi, '-' );
 
-        if ( dateObj ) {
-            datePart = dateObj.substring( 6 ) + '/';
-            datePart = datePart + dateObj.substring( 3, 5 ) + '/';
-            datePart = datePart + dateObj.substring( 0, 2 ) + '/';
-        }
+		if ( dateObj ) {
+			datePart = dateObj.substring( 6 ) + '/';
+			datePart = datePart + dateObj.substring( 3, 5 ) + '/';
+			datePart = datePart + dateObj.substring( 0, 2 ) + '/';
+			str = datePart + str;
+		}
 
-        str = datePart + str;
+		return str;
+	}
 
-        return str;
-    }
+	// helper function to return the base itemId
+	function getItemId() {
+		return settings_.itemId;
+	}
 
-    // helper function to return the base itemId
-    function getItemId() {
-        return settings_.itemId;
-    }
+	// helper method to set the status message
+	function setStatus( msg ) {
+		//status_.classList.remove( 'hidden' );
+		//status_.innerHTML = '<p>' + msg + '</p>';
+		app.toast.show( msg );
+	}
 
-    // helper method to set the status message
-    function setStatus( msg ) {
-        status_.classList.remove( 'hidden' );
-        status_.innerHTML = '<p>' + msg + '</p>';
-    }
+	// helper method to clear the status message
+	function clearStatus() {
+		//status_.classList.add( 'hidden' );
+		//status_.innerHTML = '';
+		app.toast.hide();
+	}
 
-    // helper method to clear the status message
-    function clearStatus() {
-        status_.classList.add( 'hidden' );
-        status_.innerHTML = '';
-    }
-
-    // available public method calls
-    return {
-        init: init,
-        initItem: initItem,
-        back: back,
-        setOtherDataProperty: setOtherDataProperty,
-        getOtherDataProperty: getOtherDataProperty,
-        validateReqFields: validateReqFields,
-        collectData: collectData,
-        getItemId: getItemId,
-        uploadFile: uploadFile,
-        saveItem: saveItem,
-        deleteItem: deleteItem,
-        createOpt: createOpt,
-        createUrl: createUrl,
-        setStatus: setStatus,
-        clearStatus: clearStatus,
-        updateOptions: updateOptions
-    };
+	// available public method calls
+	return {
+		init: init,
+		initItem: initItem,
+		back: back,
+		setOtherDataProperty: setOtherDataProperty,
+		getOtherDataProperty: getOtherDataProperty,
+		validateReqFields: validateReqFields,
+		collectData: collectData,
+		getItemId: getItemId,
+		uploadFile: uploadFile,
+		saveItem: saveItem,
+		deleteItem: deleteItem,
+		createOpt: createOpt,
+		createUrl: createUrl,
+		setStatus: setStatus,
+		clearStatus: clearStatus,
+		updateOptions: updateOptions,
+		getParseAppId: parse_.appId,
+		getParseJSKey: parse_.jsKey
+	};
 }( document ) );

@@ -13,14 +13,10 @@
     <meta charset="utf-8">
     <asp:ContentPlaceHolder runat="server" ID="cphMeta" />
     <uc:head runat="server" ID="ucHead" />
-    <asp:ContentPlaceHolder runat="server" ID="ContentPlaceHolder1" />
+    <asp:ContentPlaceHolder runat="server" ID="cphHead" />
 </head>
-<body>
-    <!--[if lt IE 9]>
-        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
-
-    <uc:header runat="server" ID="ucHeader" />
+<body runat="server" id="body" class="nocomponents">
+	<uc:header runat="server" ID="ucHeader" />
     <uc:nav runat="server" ID="ucNav" />
     <main id="content-wrapper" role="main">
         <asp:ContentPlaceHolder runat="server" ID="cphMain" />

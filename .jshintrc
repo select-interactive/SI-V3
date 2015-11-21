@@ -1,25 +1,30 @@
 {
 	"bitwise": true,
-    "browser": true,
-    "camelcase": true,
-    "curly": true,
-    "eqeqeq": true,
-    "esnext": true,
-    "immed": true,
-    "indent": 4,
-    "newcap": true,
-    "node": true,
+	"browser": true,
+	"camelcase": true,
+	"curly": true,
+	"eqeqeq": true,
+	"esnext": true,
+	"immed": true,
+	"indent": 4,
+	"newcap": true,
+	"node": true,
 	"noarg": true,
 	"quotmark": "single",
 	"undef": true,
 	"smarttabs": true,
-    "trailing": true,
-    "validthis": true,
+	"trailing": true,
+	"validthis": true,
 
-    "globals": {
-        "app": true,
-        "CKEDITOR": true,
-        "moment": true,
-        "Parse": true
-    }
+	"globals": {
+		"$":  true,
+		"$$": true,
+		"app": true,
+		"CKEDITOR": true,
+		"FastClick": true,
+		"forEachElement": true,
+		"moment": true,
+		"Parse": true,
+		"Pikaday": true
+	}
 }

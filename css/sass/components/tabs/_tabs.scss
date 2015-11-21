@@ -1,0 +1,43 @@
+﻿.tab-links {
+    @extend %list-style-none;
+    background: $color-primary;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin: 0 0 25px;
+
+    li {
+        @extend %display-inline-block;
+        flex: 1;
+    }
+
+    a {
+        @extend %display-block;
+        @extend %text-align-center;
+        @extend %text-decoration-none;
+        @extend %text-transform-uppercase;
+        border-bottom: 3px solid transparent;
+        height: 40px;
+        font-size: 1rem;
+        line-height: 40px;
+        padding: 0 10px;
+        transition: border .225s ease,      
+                    color .225s ease;
+        will-change: border, color;
+        @include link-colors(rgba($white, .8), $white);
+
+        &:hover,
+        &.active {
+            border-color: rgba($white, .7);
+            color: $white;
+        }
+    }
+}
+
+.tab {
+    @extend %display-none;
+
+    &.active {
+        @extend %display-block;
+    }
+}

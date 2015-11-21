@@ -1,0 +1,18 @@
+﻿$icons: twitter facebook gplus insta;
+
+@each $icon in $icons {
+    .icon-#{$icon} {
+        background-image: url(/img/icons/#{$icon}.v1.svg);
+    }
+}
+
+.icon {
+    @extend %display-inline-block;
+    height: 20px;
+    vertical-align: middle;
+    width: 20px;
+
+    &-twitter {
+        height: 16px;
+    }
+}

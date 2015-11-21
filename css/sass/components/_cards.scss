@@ -1,82 +1,51 @@
 ﻿.card {
-    @extend .clearfix;
-    @extend .container;
-    @extend .container-sm;
+    $card-pad: 30px;
+
     background: $white;
-    border: 1px solid $si-gray-lighter;
     border-radius: 2px;
-    box-shadow: 0 1px 3px $si-gray-lighter;
-    color: $body-color;
-    font-size: 20px;
-    margin-top: 30px;
-    padding: 30px 50px;
-    z-index: 3;
+    box-shadow: 0 0 2px 1px rgba(#999, .4);
+    overflow: hidden;
+    padding: $card-pad;
 
-    &-pull {
-        margin-bottom: -100px;
-        margin-top: 0;
-        transform: translateY(-100px);
-    }
+    &-img {
+        margin: 0 - $card-pad;
+        margin-bottom: $card-pad;
 
-    &-orange {
-        background: $si-orange;
-        color: $white;
-        padding: 0;
-
-        a {
-            @include link-colors($white, $white);
-        }
-    }
-
-    &-col {
-        display: inline-block;
-        float: left;
-        width: 30%;
-
-        &:last-child {
-            padding: 30px;
-            width: 70%;
+        img {
+            height: auto;
+            max-width: none;
+            width: 100%;
         }
     }
 
     &-hdr {
-        color: $si-gray-darker;
-        font-family: $font-med;
-        font-size: 26px;
-        line-height: 1.1;
-        margin: 0 0 20px;
-
-        .card-orange & {
-            color: $white;
-        }
+        font-size: 1.75rem;
+        line-height: 1.25;
+        margin: 0 0 15px;
     }
 
-    &-subhdr {
-        font-size: 20px;
-        margin: -5px 0 20px;
-    }
+    &-copy {
+        padding: 0 0 $card-pad;
 
-    &-links {
-        @extend %list-style-none;
-        border-top: 1px solid $si-gray-lighter;
-        margin: 0 -50px;
-        padding: 30px 50px 0;
+        p {
+            @extend %no-margin;
+            line-height: 1.55;
 
-        li {
-            @extend %display-inline-block;
-            margin: 0 30px 0 0;
-
-            &:last-child {
-                margin-right: 0;
+            &:not(:last-child) {
+                margin-bottom: 15px;
             }
         }
+    }
+
+    &-footer {
+        border-top: 1px solid lighten($color-secondary-light, 20%);
+        margin: (0 - ($card-pad / 2)) (0 - $card-pad);
+        padding: ($card-pad / 2) $card-pad;
+        padding-bottom: 0;
 
         a {
-            @extend %text-transform-uppercase;
             font-family: $font-secondary;
-            font-size: 18px;
-            letter-spacing: 1px;
-            @include link-colors($si-orange, $si-orange);
+            font-size: 1.1rem;
         }
     }
 }

@@ -18,6 +18,7 @@
 	font-weight: normal;
 	font-style: normal;
 }
+
 @font-face {
 	font-family: 'avenir-light';
 	src: url('/font/avenir-light.eot');
@@ -29,6 +30,7 @@
 	font-weight: normal;
 	font-style: normal;
 }
+
 @font-face {
 	font-family: 'avenir-medium';
 	src: url('/font/avenir-medium.eot');
@@ -40,6 +42,7 @@
 	font-weight: normal;
 	font-style: normal;
 }
+
 @font-face {
 	font-family: 'avenir-black';
 	src: url('/font/avenir-black.eot');
@@ -51,6 +54,7 @@
 	font-weight: normal;
 	font-style: normal;
 }
+
 @font-face {
 	font-family: 'soucrce-code-pro-reg';
 	src: url('/font/SourceCodePro-Regular.eot');
@@ -75,6 +79,60 @@
 .text-smaller { font-size: .75em; }
 .text-xsmall { font-size: .6em; }
 .text-uppercase { @extend %text-transform-uppercase }
+.color-primary { color: $color-primary; }
+
+
+// ------------
+// General copy
+// ------------
+.copy {
+    font-size: 1.1rem;
+
+    &-hdr {
+        @extend %position-relative;
+        font-size: 1.8rem;
+        line-height: 1.25;
+        
+        &:not(:last-child) {
+            margin-bottom: 15px;
+        }
+
+        &-xl {
+            font-size: 3rem;
+        
+            &:not(:last-child) {
+                margin-bottom: 30px;
+            }    
+        }
+
+        i {
+            @extend %position-relative;
+            color: lighten($body-color, 15%);
+            font-size: 2rem;
+            margin-right: 8px;
+            top: -2px;
+            vertical-align: middle;
+        }
+    }
+
+    p {
+        @extend %no-margin;
+        line-height: 1.4;
+
+        &:not(:last-child) {
+            margin-bottom: 20px;
+        }
+    }
+
+    a {
+        @extend %display-inline-block;
+        @extend %text-decoration-none;
+        border-bottom: 1px dotted $color-primary;
+        line-height: .8;
+        padding-bottom: 0;
+        @include link-colors($color-primary, $color-primary);
+    }
+}
 
 
 // -------
@@ -87,22 +145,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
-// ---------
-// Body Text
-// ---------
-p {
-    line-height: 1.5;
-	margin: 0 0 30px;
-}
-
-
 // -----
 // Lists
 // -----
 ul, ol {
-	line-height: 1.5;
-	margin: 0 0 30px 25px;
-    padding: 0;
+	padding: 0;
+	margin: 0 0 ($base-line-height / 2) 25px;
 }
 ul ul,
 ul ol,
@@ -119,6 +167,11 @@ li {
 // Links
 // -----
 a {
-    @extend %text-decoration-none;
 	@include link-colors($link-color, $link-color-hover);	
+}
+
+strong,
+b {
+    font-family: $font-bold;
+    font-weight: normal;
 }

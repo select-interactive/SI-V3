@@ -6,22 +6,15 @@
 // ----------------------
 // Dimensions + Grid Vars
 // ----------------------
-$max-width:			1000;
-$max-width-px:		$max-width + 0px;
+$max-width-px:		1400px;
 $base-font-size:	16px;
 $base-line-height:	22px;
-
-$content-width-sm:  900px;
-$content-width-med: 1200px;
-$content-width-lg:  1500px;
+$hdr-bar-height:    64px;
 
 
 // Susy Settings
-// $max-width = ($total-columns * ($base-font-size * $column-width) + (($total-columns - 1)  * $base-font-size)
 $total-columns:	12;
-$column-width:	(($max-width - (($total-columns - 1) * $base-font-size)) / ($total-columns * $base-font-size)) + 0em;
-//$gutter-width:	1em;
-//$grid-padding:	0;
+$column-width:	4em;
 
 
 // -------------------
@@ -38,84 +31,26 @@ $font-med: $av-medium;
 $font-bold: $av-black;
 
 
-// ------
+// --------------------------
 // Colors
-// ------
+// --------------------------
+
+// Primary Colors
+$color-primary: #dda14a;
+$color-primary-dark: darken($color-primary, 7.5%);
+$color-primary-light: lighten($color-primary, 7.5%);
+
+// Secondary Colors
+$color-secondary: #8e8d8e;
+$color-secondary-dark: darken($color-secondary, 7.5%);
+$color-secondary-light: lighten($color-secondary, 7.5%);
 
 // Helper Colors
-$black:			#000;
-$darker-gray:	#222;
-$dark-gray:		#333;
-$gray:			#555;
-$light-gray:	#999;
-$lighter-gray:	#eee;
-$white:			#fff;
-
-// Accent Colors
-$blue:			#049cdb;
-$dark-blue:		#0064cd;
-$green:			#46a546;
-$red:			#9d261d;
-$yellow:		#ffc40d;
-$orange:		#f89406;
-$pink:			#c3325f;
-$purple:		#7a43b6;
-
-// Project Specific Colors
-$si-gray-darkest: #444;
-$si-gray-darker:  #666;
-$si-gray-dark:    #8e8d8e;
-$si-gray-light:   #b8b8b9;
-$si-gray-lighter: #d8d8d9;
-$si-orange:		  #dda14a;
+$white: #fff;
+$black: #000;
 
 
-// -----------
-// Body Styles
-// -----------
-$body-background:	#f8f8f9;
-$body-color:		$dark-gray;
-
-
-// -----
-// Links
-// -----
-$link-color:		#08c;
-$link-color-hover:	darken($link-color, 15%);
-
-
-// -------
-// Buttons
-// -------
-$btn-bg:				$gray;
-$btn-bg-accent:			darken($btn-bg, 10%);
-$btn-border:			$gray;
-$btn-border-radius:		4px;
-
-
-// -----
-// Forms
-// -----
-$row-margin:				10px;
-$label-width:				100px;
-$label-margin-right:		5px;
-$input-bg:					$white;
-$input-width:				210px;
-$input-height:				auto;
-$input-border:				#ccc;
-$input-border-focus:		rgba(82, 168, 236, .8);
-$input-border-radius:		3px;
-$input-box-shadow:			inset 0 1px 1px rgba(0, 0, 0, .075);
-$input-box-shadow-focus:	inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(82, 168, 236, .6);
-$input-padding:				4px;
-$input-disabled-bg:			$lighter-gray;
-$input-disabled-border:		#ddd;
-$input-transition:			all .2s linear;
-
-
-// ----------------------
-// Form states and alerts
-// ----------------------
+// Alert/Messaging Colors
 $warning-text:		#c09853;
 $warning-bg:		#fcf8e3;
 $warning-border:	darken(adjust-hue($warning-bg, -10), 3%);
@@ -131,3 +66,17 @@ $success-border:	darken(adjust-hue($success-bg, -10), 5%);
 $info-text:			#3a87ad;
 $info-bg:			#d9edf7;
 $info-border:		darken(adjust-hue($info-bg, -10), 7%);
+
+
+// --------------------------
+// Default Body Styles
+// --------------------------
+$body-background:	$white;
+$body-color:		lighten($black, 22.5%);
+
+
+// --------------------------
+// Links
+// --------------------------
+$link-color:		#08c;
+$link-color-hover:	darken($link-color, 15%);

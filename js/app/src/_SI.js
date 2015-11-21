@@ -1,4 +1,4 @@
-﻿/**
+﻿/**	
  * SI JavaScript library
  *
  * @author Jeremy Burton - jeremy@select-interactive.com
@@ -39,15 +39,51 @@
      * forEachElement using querySelectAll
      * -----------------------------------
      */
-    window.forEachElement = function( elements, fn ) {
+    window.forEachElement = function( elements, fn, context ) {
         var i = 0,
-            len = elements.length;
+            len;
+
+        if ( !elements || typeof elements === 'function' ) {
+        	console.log( 'elements is not a valid node list.' );
+        	return;
+        }
+
+        if ( typeof elements === 'string' || elements instanceof String ) {
+        	if ( context ) {
+        		elements = context.querySelectorAll( elements );
+        	}
+        	else {
+        		elements = doc.querySelectorAll( elements );
+        	}
+		}
+
+		len = elements.length;
 
         for ( ; i < len; i++ ) {
             if ( fn( elements[i], i ) ) {
                 break;
             }
         }
+    };
+
+    window.$$ = function( query, evt, fn, context ) {
+    	var elements;
+
+    	if ( typeof query === 'string' || query instanceof String ) {
+    		if ( context ) {
+    			elements = context.querySelectorAll( query );
+    		}
+    		else {
+    			elements = doc.querySelectorAll( query );
+    		}
+    	}
+    	else {
+    		console.log( 'unable to select ' + query );
+    	}
+
+    	window.forEachElement( elements, function( el ) {
+    		el.addEventListener( evt, fn, false );
+    	} );
     };
 
     /**

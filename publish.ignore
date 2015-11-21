@@ -3,9 +3,11 @@
 # Folders to Ignore #
 .tmp/
 .sass-cache/
+bower_components/susy/
 css/sass/
 js/libs/jquery/
 node_modules/
+styleguide/
 
 # Files to Ignore #
 *.wpp.targets

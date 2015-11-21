@@ -14,7 +14,7 @@
 // --------------------
 // Compass/SASS Imports
 // --------------------
-@import "susy";
+@import "bower_components/susy/sass/susy";
 
 // Vendor Files
 @import "vendor/all";
@@ -38,11 +38,23 @@
 @import "layout/footer";
 
 // Components
-@import "components/buttons";
-@import "components/forms";
+@import "components/layout/container";
+@import "components/layout/hdr-bar";
+@import "components/material/icons";
+@import "components/material/zdepth";
+@import "components/buttons/buttons";
+@import "components/forms/forms";
+@import "components/forms/pikaday";
+@import "components/alerts/alerts";
+@import "components/toasts/toasts";
+@import "components/tabs/tabs";
+@import "components/banner";
+@import "components/paper";
+@import "components/clients";
 @import "components/cards";
-@import "components/pages";
-@import "components/partners";
+@import "components/icons";
+@import "components/articles";
 
 // Page Specific Styles
 @import "pages/admin";
+@import "pages/styleguide";

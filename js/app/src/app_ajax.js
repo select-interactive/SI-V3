@@ -68,10 +68,32 @@
         });
     }
 
+ 	// fetch
+    function ajaxFetch( url, data ) {
+    	// Make sure the data is a JSON string
+    	if ( typeof data !== 'string' && data !== {} ) {
+    		data = JSON.stringify( data );
+    	}
+
+    	return fetch( url, {
+    		body: data,
+    		headers: {
+    			'Accept': 'application/json',
+    			'Content-type': 'application/json'
+    		},
+    		method: 'post'
+    	} ).then( function( rsp ) {
+    		return rsp.json();
+    	} ).then( function( data ) {
+    		return data.d;
+    	} );
+    }
+
     return {
         ajax: ajax,
         xhr: xhr,
-        xhrPromise: xhrPromise
+        xhrPromise: xhrPromise,
+        fetch: ajaxFetch
     };
 
 }( document ) );

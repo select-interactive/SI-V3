@@ -118,15 +118,11 @@ module.exports = function( grunt ) {
 
         // Sass compilation
         sass: {
-            dev: {
-                options: {
-                    require: ['susy'],
-                    style: 'expanded'
-                },
-                files: {
-                    'css/styles.css': 'css/sass/styles.scss'
-                }
-            }
+        	dist: {
+        		files: {
+        			'css/styles.css': 'css/sass/styles.scss'
+        		}
+        	}
         },
 
         // Min JS
@@ -212,11 +208,11 @@ module.exports = function( grunt ) {
     grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
     grunt.loadNpmTasks( 'grunt-contrib-imagemin' );
     grunt.loadNpmTasks( 'grunt-contrib-jshint' );
-    grunt.loadNpmTasks( 'grunt-contrib-sass' );
     grunt.loadNpmTasks( 'grunt-contrib-uglify' );
     grunt.loadNpmTasks( 'grunt-contrib-watch' );
-    grunt.loadNpmTasks( 'grunt-penthouse' );
+    grunt.loadNpmTasks( 'grunt-sass' );
     grunt.loadNpmTasks( 'grunt-cwebp' );
+    grunt.loadNpmTasks( 'grunt-penthouse' );
     
     // Register Tasks
     grunt.registerTask( 'default', ['watch'] );

@@ -1,0 +1,669 @@
+﻿// Form Styles
+//
+
+// Helper Mixin for Setting Placeholder style
+@mixin set-placeholder-style($color: $body-color) {
+    &::-webkit-input-placeholder {
+        color: $color;
+    }
+
+    &:-moz-placeholder {
+        color: $color;
+    }
+
+    &::-moz-placeholder {
+        color: $color;
+    }
+
+    &:-ms-input-placeholder {  
+        color: $color;
+    }
+}
+
+// Default Row Spacing
+$form-row-mrg: 40px;
+
+// Default Text Input Styles
+$input-background: transparent;
+$input-border-color: $color-primary;
+$input-border: none;
+$input-border-bottom: 1px solid rgba($input-border-color, .35);
+$input-border-radius: 0;
+$input-box-shadow: none;
+$input-color: lighten($body-color, 10%);
+$input-error-label-font-size: .7rem;
+$input-focus-color: $input-border-color;
+$input-font-family: $font-primary;
+$input-font-size: 1rem;
+$input-height: 3rem;
+$input-invalid-color: $error-text;
+$input-margin: 0;
+$input-padding: 0;
+$input-placeholder-color: #d2d2d2;
+$input-outline: none;
+$input-transition: all .125s ease-out;
+$input-width: 100%;
+
+// Text Areas
+$ta-min-height: 10rem;
+$ta-padding: .75rem 0 0;
+
+// Label Styles
+$label-font-size: .75rem;
+
+// Icons
+$input-icon-color: rgba($body-color, .55);
+$input-icon-margin: 2.25rem;
+$input-icon-font-size: 1.5rem;
+
+// Select Elements
+$select-background: $white;
+$select-active-top: 49px;
+$select-opt-background: $white;
+$select-opt-background-hover: darken($select-opt-background, 2.5%);
+$select-opt-color: $input-color;
+$select-opt-color-hover: $input-focus-color;
+$select-opt-font-size: .85rem;
+$select-opt-height: 34px;
+$select-opt-padding: 0 15px;
+$select-opt-transition: background .175s linear,
+                        color .175s linear;
+$select-opt-will-change: background, color;
+
+
+// Radio Buttons/Checkboxes
+$rb-label-color: rgba($body-color, .85);
+$rb-label-font-size: .85rem;
+$rb-label-padding: 0 0 0 25px;
+$rb-background: $white;
+$rb-background-checked: $color-primary;
+$rb-border-color: rgba($body-color, .75);
+$rb-border-color-checked: $color-primary;
+$rb-size: 14px;
+$rb-transition-settings: .225s ease;
+
+// Switches
+$switch-background: #999;
+$switch-border-radius: 12px;
+$switch-height: 15px;
+$switch-margin: 0 15px;
+$switch-transition-settings: .3s ease;
+$switch-width: 40px;
+$switch-toggle-background: #f1f1f1;
+$switch-toggle-box-shadow: 0 1px 3px 1px rgba(0, 0, 0, .4);
+$switch-toggle-size: 21px;
+
+// Range/Sliders
+$slider-margin: 10px 0 5px;
+$slider-width: 100%;
+$slider-track-background: #c2c0c2;
+$slider-track-height: 3px;
+$slider-thumb-margin: -7px 0 0;
+$slider-thumb-size: 16px;
+$slider-thumb-transition: all .3s ease;
+$slider-label-color: $color-primary;
+$slider-label-font-size: .75rem;
+
+// --------------------
+// Form Row Defaults
+// --------------------
+.form-row {
+    @extend .row;
+    margin: 0;
+
+    @include susy-media($bp-tablet) {
+        margin: 0 0 $form-row-mrg;
+    }
+}
+
+
+// --------------------
+// Default Text Inputs
+// --------------------
+input[type=text],
+input[type=password],
+input[type=email],
+input[type=url],
+input[type=time],
+input[type=date],
+input[type=datetime-local],
+input[type=tel],
+input[type=number],
+input[type=search],
+textarea,
+select {
+    // default styles
+    background: $input-background;
+    border: $input-border;
+    border-bottom: $input-border-bottom;
+    border-radius: $input-border-radius;
+    box-shadow: $input-box-shadow;
+    color: $input-color;
+    font-family: $input-font-family;
+    font-size: $input-font-size;
+    height: $input-height;
+    margin: $input-margin;
+    margin-bottom: 15px;
+    max-width: 100%;
+    outline: $input-outline;
+    padding: $input-padding;
+    transition: $input-transition;
+    width: $input-width;
+    @include set-placeholder-style($input-placeholder-color);
+
+    @include susy-media($bp-tablet) {
+        margin-bottom: $input-margin;
+    }
+
+
+    // -----------------------------------------
+    // for inputs that have a placeholder,
+    //   make sure the label is not on top of it
+    // -----------------------------------------
+    &[placeholder] + label {
+        font-size: $label-font-size;
+        transform: translateY(-120%);
+        transition: none;
+    }
+
+
+    // --------------------
+    // focus styles
+    // --------------------
+    &:focus:not([readonly]) {
+        border-bottom-color: $input-focus-color;
+        box-shadow: 0 1px 0 0 $input-focus-color;
+    }
+
+
+    // --------------------
+    // invalid input styls
+    // --------------------
+    &.invalid,
+    &:focus.invalid {
+        border-bottom-color: $input-invalid-color;
+        box-shadow: 0 1px 0 0 $input-invalid-color;
+    }
+
+
+    // --------------------------------------------------
+    // set label and any icon color when input is invalid
+    // --------------------------------------------------
+    &.invalid + label,
+    &.invalid ~ i {
+        color: $input-invalid-color !important;
+    }
+
+
+    // --------------------
+    // Inputs with icons
+    // --------------------
+    &[class*="input-icon"] {
+        width: calc(#{$input-width} - #{$input-icon-margin});
+
+        &.input-icon-select {
+            cursor: pointer;
+
+            & + label {
+                cursor: pointer;
+            }
+
+            &:not(.input-icon-prefix),
+            &:not(.input-icon-suffix) {
+                width: 100%;
+            }
+        }
+    }
+
+    &[class*="input-icon"] ~ i {
+        @extend %position-absolute;
+        color: $input-icon-color;
+        font-size: $input-icon-font-size;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: $input-transition;
+    }
+
+    &.input-icon-prefix,
+    &.input-icon-prefix + label {
+        margin-left: $input-icon-margin;
+    }
+
+    &.input-icon-prefix ~ i {
+        left: 0;
+    }
+
+    &.input-icon-suffix,
+    &.input-icon-suffix + label {
+        margin-right: $input-icon-margin;
+    }
+
+    &.input-icon-suffix ~ i {
+        right: 0;
+    }
+
+    &[class*="input-icon"]:focus ~ i {
+        color: $input-focus-color;
+    }
+}
+
+
+// -------------------------
+// Text Area Specific Styles
+// -------------------------
+textarea {
+    min-height: $ta-min-height;
+    overflow-y: hidden;
+    padding: $ta-padding;
+    resize: none;
+}
+
+
+// ----------------------------
+// Checkbox/Radio Button Inputs
+// ----------------------------
+input[type=checkbox],
+input[type=radio] {
+    @extend %position-absolute;
+    left: -99999px;
+    
+    & + label {
+        @extend %display-inline-block;
+        @extend %position-relative;
+        color: $rb-label-color;
+        cursor: pointer;
+        font-size: $rb-label-font-size;
+        padding: $rb-label-padding;
+        vertical-align: middle;
+
+        &:before,
+        &:after {
+            @extend %position-absolute;
+            content: "";
+            left: 0;
+            top: 1px;
+        }
+    }
+}
+
+
+// Checkboxes
+input[type=checkbox]:not([switch]) {
+    & + label {
+        &:before {
+            background: $rb-background;
+            border: 2px solid  $rb-border-color;
+            border-radius: 2px;
+            height: $rb-size + 2px;
+            top: 0;
+            transition: background $rb-transition-settings,
+                        border $rb-transition-settings;
+            width: $rb-size + 2px;
+        }
+
+        &:after {
+            border: 2px solid transparent;
+            height: 10px;
+            left: 1px;
+            transform: rotateZ(37deg);
+            transform-origin: 100% 100%;
+            transition: border $rb-transition-settings;
+            top: 2px;
+            width: 4px;
+        }
+    }
+
+    &:checked {
+        & + label {
+            &:before {
+                background: $rb-background-checked;
+                border-color: $rb-border-color-checked;
+            }
+
+            &:after {
+                border-bottom-color: $white;
+                border-right-color: $white;
+            }
+        }
+    }
+}
+
+
+// Switches
+input[type=checkbox][switch] {
+    & + label {
+        color: $rb-label-color;
+        font-size: $rb-label-font-size;
+        height: $switch-toggle-size;
+        line-height: $switch-toggle-size;
+        padding: 0;
+
+        .switch-toggle {
+            @extend %display-inline-block;
+            @extend %position-relative;
+            background: $switch-background;
+            border-radius: $switch-border-radius;
+            height: $switch-height;
+            margin: $switch-margin;
+            transition: background $switch-transition-settings;
+            width: $switch-width;
+            will-change: background;
+
+            &:after {
+                @extend %display-inline-block;
+                @extend %position-absolute;
+                background: $switch-toggle-background;
+                box-shadow: $switch-toggle-box-shadow;
+                border-radius: 50%;
+                content: "";
+                left: 0;
+                height: $switch-toggle-size;
+                top: 0;
+                transform: translate3d(-5px, -4px, 0);
+                transition: background $switch-transition-settings,
+                            transform $switch-transition-settings;
+                width: $switch-toggle-size;
+                will-change: background, transform;
+            }
+        }
+    }
+
+    &:checked {
+        & + label {
+            .switch-toggle {
+                background: rgba($rb-background-checked, .7);
+
+                &:after {
+                    background: $rb-background-checked;
+                    transform: translate3d(24px, -4px, 0);
+                }
+            }
+        }
+    }
+}
+
+
+// Radio Buttons
+input[type=radio] {
+    & + label {
+        &:before,
+        &:after {
+            border-radius: 50%;
+        }
+
+        &:before {
+            @extend %display-inline-block;
+            background: $rb-background;
+            border: 2px solid $rb-border-color;
+            height: $rb-size;
+            transition: border $rb-transition-settings;
+            vertical-align: middle;
+            width: $rb-size;
+            will-change: border;
+        }
+
+        &:after {
+            background: $rb-background;
+            height: $rb-size - 4px;
+            left: 4px;
+            top: 5px;
+            transition: background $rb-transition-settings;
+            width: $rb-size - 4px;
+            will-change: background;
+        }
+    }
+
+    &:checked {
+        & + label {
+            &:before {
+                border-color: $rb-border-color-checked;
+            }
+
+            &:after {
+                background: $rb-background-checked;
+            }   
+        }
+    }
+}
+
+
+// -------------------
+// Input field wrapper
+// -------------------
+.input-field {
+    @extend %position-relative;
+
+    label {
+        @extend %position-absolute;
+        color: $input-border-color;
+        cursor: text;
+        font-family: $input-font-family;
+        font-size: $input-font-size;
+        left: 0;
+        transition: $input-transition;
+        top: 0.8rem;
+
+        &.active {
+            font-size: $label-font-size;
+            transform: translateY(-120%);
+        }
+    }
+
+    .error-label {
+        @extend %position-absolute;
+        @extend %text-align-right;
+        bottom: 0;
+        color: $input-invalid-color;
+        font-size: $input-error-label-font-size;
+        right: 0;
+        transform: translateY(20%);
+
+        @include susy-media($bp-tablet) {
+            transform: translateY(100%);
+        }
+    }
+}
+
+
+// --------------------
+// Select Elements 
+// --------------------
+select {
+    cursor: pointer;
+
+    & + label {
+        font-size: $label-font-size !important;
+        transform: translateY(-120%);
+    }   
+}
+
+
+// -------------------------
+// Icons uses for drop downs
+// -------------------------
+i.icon-drop-down {
+    cursor: pointer;
+    left: auto !important;
+    right: 0 !important;
+}
+
+
+// --------------------
+// Option List
+// --------------------
+.select-opts {
+    @extend %list-style-none;
+    @extend %no-margin;
+    @extend %position-absolute;
+    @extend .zdepth-1;
+    background: $select-background;
+    left: 0;
+    opacity: 0;
+    top: -999999px;
+    transform: scale(1, .6);
+    transition: opacity .275s ease,
+                transform .275s ease;
+    width: 100%;
+    will-change: opacity, transform;
+    z-index: 5;
+
+    &.active {
+        opacity: 1;
+        top: $select-active-top;
+        transform: scale(1, 1);
+    }
+}
+
+.select-opt {
+    @extend %display-block;
+    @extend %text-decoration-none;
+    font-size: $select-opt-font-size;
+    height: $select-opt-height;
+    line-height: $select-opt-height;
+    padding: $select-opt-padding;
+    transition: $select-opt-transition;
+    will-change: $select-opt-will-change;
+    @include link-colors($select-opt-color, $select-opt-color-hover);
+
+    &:hover,
+    &.active {
+        background: $select-opt-background-hover;
+        color: $select-opt-color-hover;
+    }
+
+    &.active {
+        &:before {
+            @extend %display-inline-block;
+            border: 2px solid transparent;
+            border-bottom-color: $select-opt-color-hover;
+            border-right-color: $select-opt-color-hover;
+            content: "";
+            height: 10px;
+            margin: 0 16px 0 0;
+            transform: rotateZ(37deg);
+            transform-origin: 100% 100%;
+            width: 4px;
+        }
+    }
+}
+
+#select-pg-overlay {
+    @extend %position-absolute;
+    bottom: 0;
+    height: 100%;
+    left: 0;
+    opacity: 0;
+    top: 0;
+    width: 100%;
+    z-index: 4;
+}
+
+
+// --------------------
+// Range/Slider
+// --------------------
+input[type=range] {
+    @extend %display-block;
+    @extend %position-relative;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    margin: $slider-margin;
+    outline: none;
+    -webkit-appearance: none;
+    width: $slider-width;
+    
+    &:focus {
+        outline: none;
+    }
+
+    & + .range-label {
+        @extend %float-right;
+        color: $slider-label-color;
+        font-size: $slider-label-font-size;
+    }
+}
+
+// Webkit Specific Range Styles
+input[type=range]::-webkit-slider-runnable-track {
+    background: $slider-track-background;
+    border: none;
+    height: $slider-track-height;    
+}
+
+input[type=range]::-webkit-slider-thumb {
+    border: none;
+    border-radius: 50%;
+    background-color: $color-primary;
+    height: $slider-thumb-size;
+    margin: $slider-thumb-margin;
+    transform-origin: 50% 50%;
+    transition: $slider-thumb-transition;
+    -webkit-appearance: none;
+    width: $slider-thumb-size;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #ccc;
+}
+
+// FireFox Specific Range Styles
+input[type=range]{
+  border: 1px solid transparent;
+}
+
+input[type=range]::-moz-range-track {
+    background: $slider-track-background;
+    border: none;
+    height: $slider-track-height;
+}
+
+input[type=range]::-moz-range-thumb {
+    background: $color-primary;
+    border: none;
+    border-radius: 50%;
+    height: $slider-thumb-size;
+    margin: $slider-thumb-margin;
+    width: $slider-thumb-size;
+}
+
+input[type=range]:-moz-focusring{
+    outline: 1px solid transparent;
+    outline-offset: -1px;
+}
+
+input[type=range]:focus::-moz-range-track {
+    background: #ccc;
+}
+
+// IE 10+
+input[type=range]::-ms-track {
+    background: transparent;
+    border-color: transparent;
+    border-width: 6px 0;
+    color: transparent;
+    height: $slider-track-height;
+}
+
+input[type=range]::-ms-fill-lower {
+    background: #777;
+}
+input[type=range]::-ms-fill-upper {
+    background: #ddd;
+}
+
+input[type=range]::-ms-thumb {
+    background: $color-primary;
+    border: none;
+    border-radius: 50%;
+    height: $slider-thumb-size;
+    width: $slider-thumb-size;
+}
+
+input[type=range]:focus::-ms-fill-lower {
+    background: #888;
+}
+
+input[type=range]:focus::-ms-fill-upper {
+    background: #ccc;
+}

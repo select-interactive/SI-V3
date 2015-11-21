@@ -2,52 +2,40 @@
 // Nav
 // ---
 #nav-main {
-    @extend %position-fixed;
     @extend %text-align-right;
-    background: rgba($si-orange, .9);
-    left: 0;
-    padding: 20px;
-    top: 0;
-    width: 100%;
-    z-index: 4;
+    height: $hdr-bar-height;
 
     ul {
+        @extend %display-inline-block;
         @extend %list-style-none;
         @extend %no-margin;
     }
 
     li {
         @extend %display-inline-block;
-        margin: 0 30px 0 0;
+        @extend %float-left;
+        line-height: 1;
 
-        &:last-child {
-            margin-right: 0;
+        &:not(:last-child) {
+            margin-right: 50px;
         }
     }
 
     a {
+        @extend %display-block;
+        @extend %text-decoration-none;
         @extend %text-transform-uppercase;
         font-family: $font-secondary;
-        font-size: 20px;
-        letter-spacing: 1px;
-        transition: color .125s linear;
-        @include link-colors(rgba($white, .85), $white);
+        font-size: 1.25rem;
+        height: $hdr-bar-height;
+        line-height: $hdr-bar-height;
+        padding: 0 10px;
+        transition: color .225s ease;
+        @include link-colors(rgba($white, .8), $white);
 
+        &:hover,
         &.selected {
             color: $white;
         }
-    }
-}
-
-#s-logo {
-    @extend %position-absolute;
-    left: 20px;
-    opacity: 0;
-    top: 10px;
-    transition: opacity .25s linear !important;
-    will-change: opacity;
-
-    .past-header & {
-        opacity: 1;
     }
 }

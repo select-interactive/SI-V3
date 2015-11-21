@@ -1,0 +1,27 @@
+﻿.paper {
+    @extend %position-relative;
+    background: $white;
+    padding: 100px 50px;
+
+    &-pad-sm {
+        padding: 20px 50px;
+    }
+
+    &-pad-med {
+        padding: 50px;
+    }
+
+    &-gray-light {
+        background: #fcfcff;
+        color: darken($color-secondary-dark, 25%);
+    }
+
+    &-gray-dark {
+        background: #f6f6f6;
+    }
+
+    &-orange {
+        background: $color-primary;
+        color: $color-secondary-light;
+    }
+}

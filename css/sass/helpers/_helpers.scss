@@ -3,18 +3,6 @@
  */
 
 
-%bg-cover {
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-%vertical-align {
-    @extend %position-relative;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
 /*
  * Margin and padding helpers
  */
