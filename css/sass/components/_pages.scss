@@ -1,0 +1,11 @@
+﻿.page-wrapper {
+    opacity: 0;
+    transform: translateY(100px);
+    transition: opacity .375s ease,
+                transform .375s ease;
+
+    &.in {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

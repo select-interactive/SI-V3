@@ -1,0 +1,17 @@
+﻿.team {
+    @extend .clearfix;
+    @extend %list-style-none;
+    @extend %no-margin;
+}
+
+.bio {
+    @include span(4);
+
+    &:nth-child(3n) {
+        @include last;
+    }
+
+    &:nth-child(3n + 1) {
+        @include break;
+    }
+}

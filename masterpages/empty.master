@@ -1,31 +1,29 @@
 ﻿<%@ Master Language="VB" CodeFile="empty.master.vb" Inherits="masterpages_empty" %>
 <%@ Register TagPrefix="uc" TagName="head" Src="~/controls/head.ascx" %>
 <%@ Register TagPrefix="uc" TagName="header" Src="~/controls/header.ascx" %>
-<%@ Register TagPrefix="uc" TagName="nav" Src="~/controls/navMain.ascx" %>
 <%@ Register TagPrefix="uc" TagName="footer" Src="~/controls/footer.ascx" %>
 <%@ Register TagPrefix="uc" TagName="includedScripts" Src="~/controls/includedScripts.ascx" %>
 <%@ Register TagPrefix="uc" TagName="googleAnalytics" Src="~/controls/googleAnalytics.ascx" %>
 <!doctype html>
-
-<!--[if lt IE 9]><html class="no-js lt-ie9"><![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<html>
 <head>
     <meta charset="utf-8">
-    <asp:ContentPlaceHolder runat="server" ID="cphMeta" />
+	<asp:ContentPlaceHolder runat="server" ID="cphMeta" />
     <uc:head runat="server" ID="ucHead" />
-    <asp:ContentPlaceHolder runat="server" ID="cphHead" />
+	<asp:ContentPlaceHolder runat="server" ID="cphHead" />
 </head>
 <body runat="server" id="body" class="nocomponents">
 	<uc:header runat="server" ID="ucHeader" />
-    <uc:nav runat="server" ID="ucNav" />
-    <main id="content-wrapper" role="main">
-        <asp:ContentPlaceHolder runat="server" ID="cphMain" />
+    <main id="main" role="main">
+		<div class="page-wrapper in">
+			<asp:ContentPlaceHolder runat="server" ID="cphMain" />
+		</div>
     </main>
     <uc:footer runat="server" ID="ucFooter" />
 
-    <asp:ContentPlaceHolder runat="server" ID="cphBody" />
+	<asp:ContentPlaceHolder runat="server" ID="cphBody" />
     <uc:includedScripts runat="server" ID="ucIncludedScripts" />
-    <asp:ContentPlaceHolder runat="server" ID="cphJS" />
+	<asp:ContentPlaceHolder runat="server" ID="cphJS" />
     <uc:googleAnalytics runat="server" ID="ucGoogleAnalytics" />
 </body>
 </html>

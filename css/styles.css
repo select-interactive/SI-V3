@@ -464,7 +464,7 @@ img {
 /**
  * Project SASS Mixins
  */
-.row, .form-row, .copy p, #nav-main ul, .footer-links, #drawer-nav ul, .hdr-bar [title], #hdr-nav ul, .select-opts, .clients, .card-copy p, .articles, #nav-admin ul {
+.row, .form-row, .copy p, #nav-main ul, .footer-links, #drawer-nav ul, .hdr-bar [title], #hdr-nav ul, .select-opts, .clients, .card-copy p, .articles, .team, .awards, #nav-admin ul {
   margin: 0; }
 
 .row, .form-row {
@@ -474,7 +474,7 @@ img {
   display: none; }
 
 .copy a, #masthead-favicon, #nav-main ul, #nav-main li, .footer-links li, .footer-links a i, #drawer-nav a i, .hdr-bar [title], [drawer-nav-trigger], #hdr-nav li, .btn, .alert-button, .btn i, .alert-button i, input[type=checkbox] + label,
-input[type=radio] + label, input[type=checkbox][switch] + label .switch-toggle, input[type=checkbox][switch] + label .switch-toggle:after, input[type=radio] + label:before, .select-opt.active:before, .tab-links li, .client, .icon, #nav-admin a {
+input[type=radio] + label, input[type=checkbox][switch] + label .switch-toggle, input[type=checkbox][switch] + label .switch-toggle:after, input[type=radio] + label:before, .select-opt.active:before, .tab-links li, .client, .card-tooblar li, .icon, #nav-admin a {
   display: inline-block; }
 
 #masthead-favicon a, #nav-main a, #drawer-nav a, #hdr-nav a, .select-opt, input[type=range], .tab-links a, .tab.active {
@@ -498,7 +498,7 @@ input[type=radio] + label:after, input[type=checkbox][switch] + label .switch-to
   position: absolute; }
 
 .copy-hdr, .copy-hdr i, #main, .container, .container-main, .container-main-content, .hdr-bar, input[type=checkbox] + label,
-input[type=radio] + label, input[type=checkbox][switch] + label .switch-toggle, .input-field, input[type=range], .paper, footer {
+input[type=radio] + label, input[type=checkbox][switch] + label .switch-toggle, .input-field, input[type=range], .paper, footer, .card-tooblar a, .card-tooblar a i {
   position: relative; }
 
 #hdr-main, .container-drawer, .btn[fab][fixed], [fab][fixed].alert-button, #alert, .toast {
@@ -513,7 +513,7 @@ input[type=radio] + label, input[type=checkbox][switch] + label .switch-toggle, 
 #hdr-nav, input[type=range] + .range-label {
   float: right; }
 
-.copy a, #masthead-favicon a, #nav-main a, .footer-links a, #drawer-nav a, .btn, .alert-button, .select-opt, .tab-links a, #nav-admin a {
+.copy a, #masthead-favicon a, #nav-main a, .footer-links a, #drawer-nav a, .btn, .alert-button, .select-opt, .tab-links a, .card-tooblar a, #nav-admin a {
   text-decoration: none; }
 
 .text-left, .toast {
@@ -531,7 +531,7 @@ input[type=radio] + label, input[type=checkbox][switch] + label .switch-toggle, 
 .text-uppercase, #nav-main a, .tab-links a {
   text-transform: uppercase; }
 
-#nav-main ul, .footer-links, #drawer-nav ul, #hdr-nav ul, .select-opts, .tab-links, .clients, .articles, #nav-admin ul {
+ul.list-no-style, ol.list-no-style, #nav-main ul, .footer-links, #drawer-nav ul, #hdr-nav ul, .select-opts, .tab-links, .clients, .card-tooblar, .articles, .team, .awards, #nav-admin ul {
   list-style: none; }
 
 @media (min-width: 1024px) {
@@ -542,13 +542,13 @@ input[type=radio] + label, input[type=checkbox][switch] + label .switch-toggle, 
   .no-mbl {
     display: none !important; } }
 
-.clearfix::before, #hdr-main::before, .footer-links::before, .clients::before, .articles::before,
+.clearfix::before, #hdr-main::before, .footer-links::before, .clients::before, .articles::before, .team::before, .awards::before,
 .row::before,
 .form-row::before {
   content: "";
   display: table; }
 
-.clearfix:after, #hdr-main:after, .footer-links:after, .clients:after, .articles:after,
+.clearfix:after, #hdr-main:after, .footer-links:after, .clients:after, .articles:after, .team:after, .awards:after,
 .row:after,
 .form-row:after {
   clear: both;
@@ -633,9 +633,11 @@ input[type=radio] + label, input[type=checkbox][switch] + label .switch-toggle, 
       top: -2px;
       vertical-align: middle; }
   .copy p {
-    line-height: 1.4; }
+    line-height: 1.5; }
     .copy p:not(:last-child) {
       margin-bottom: 20px; }
+    .copy p.mbs {
+      margin-bottom: 10px; }
   .copy a {
     border-bottom: 1px dotted #dda14a;
     line-height: .8;
@@ -652,6 +654,12 @@ h1, h2, h3, h4, h5, h6 {
 ul, ol {
   padding: 0;
   margin: 0 0 11px 25px; }
+  ul.list-no-style, ol.list-no-style {
+    margin-left: 0; }
+    ul.list-no-style li, ol.list-no-style li {
+      line-height: 1.25; }
+      ul.list-no-style li:not(:last-child), ol.list-no-style li:not(:last-child) {
+        margin-bottom: 6px; }
 
 ul ul,
 ul ol,
@@ -713,125 +721,125 @@ body {
   z-index: 0; }
 
 .span-1 {
-  width: 5.7142857143%;
+  width: 4.8076923077%;
   float: left;
-  margin-right: 2.8571428571%; }
+  margin-right: 3.8461538462%; }
 
 .pre-1 {
-  padding-left: 8.5714285714%; }
+  padding-left: 8.6538461538%; }
 
 .suffix-1 {
-  padding-right: 8.5714285714%; }
+  padding-right: 8.6538461538%; }
 
 .span-2 {
-  width: 14.2857142857%;
+  width: 13.4615384615%;
   float: left;
-  margin-right: 2.8571428571%; }
+  margin-right: 3.8461538462%; }
 
 .pre-2 {
-  padding-left: 17.1428571429%; }
+  padding-left: 17.3076923077%; }
 
 .suffix-2 {
-  padding-right: 17.1428571429%; }
+  padding-right: 17.3076923077%; }
 
 .span-3 {
-  width: 22.8571428571%;
+  width: 22.1153846154%;
   float: left;
-  margin-right: 2.8571428571%; }
+  margin-right: 3.8461538462%; }
 
 .pre-3 {
-  padding-left: 25.7142857143%; }
+  padding-left: 25.9615384615%; }
 
 .suffix-3 {
-  padding-right: 25.7142857143%; }
+  padding-right: 25.9615384615%; }
 
 .span-4 {
-  width: 31.4285714286%;
+  width: 30.7692307692%;
   float: left;
-  margin-right: 2.8571428571%; }
+  margin-right: 3.8461538462%; }
 
 .pre-4 {
-  padding-left: 34.2857142857%; }
+  padding-left: 34.6153846154%; }
 
 .suffix-4 {
-  padding-right: 34.2857142857%; }
+  padding-right: 34.6153846154%; }
 
 .span-5 {
-  width: 40%;
+  width: 39.4230769231%;
   float: left;
-  margin-right: 2.8571428571%; }
+  margin-right: 3.8461538462%; }
 
 .pre-5 {
-  padding-left: 42.8571428571%; }
+  padding-left: 43.2692307692%; }
 
 .suffix-5 {
-  padding-right: 42.8571428571%; }
+  padding-right: 43.2692307692%; }
 
 .span-6 {
-  width: 48.5714285714%;
+  width: 48.0769230769%;
   float: left;
-  margin-right: 2.8571428571%; }
+  margin-right: 3.8461538462%; }
 
 .pre-6 {
-  padding-left: 51.4285714286%; }
+  padding-left: 51.9230769231%; }
 
 .suffix-6 {
-  padding-right: 51.4285714286%; }
+  padding-right: 51.9230769231%; }
 
 .span-7 {
-  width: 57.1428571429%;
+  width: 56.7307692308%;
   float: left;
-  margin-right: 2.8571428571%; }
+  margin-right: 3.8461538462%; }
 
 .pre-7 {
-  padding-left: 60%; }
+  padding-left: 60.5769230769%; }
 
 .suffix-7 {
-  padding-right: 60%; }
+  padding-right: 60.5769230769%; }
 
 .span-8 {
-  width: 65.7142857143%;
+  width: 65.3846153846%;
   float: left;
-  margin-right: 2.8571428571%; }
+  margin-right: 3.8461538462%; }
 
 .pre-8 {
-  padding-left: 68.5714285714%; }
+  padding-left: 69.2307692308%; }
 
 .suffix-8 {
-  padding-right: 68.5714285714%; }
+  padding-right: 69.2307692308%; }
 
 .span-9 {
-  width: 74.2857142857%;
+  width: 74.0384615385%;
   float: left;
-  margin-right: 2.8571428571%; }
+  margin-right: 3.8461538462%; }
 
 .pre-9 {
-  padding-left: 77.1428571429%; }
+  padding-left: 77.8846153846%; }
 
 .suffix-9 {
-  padding-right: 77.1428571429%; }
+  padding-right: 77.8846153846%; }
 
 .span-10 {
-  width: 82.8571428571%;
+  width: 82.6923076923%;
   float: left;
-  margin-right: 2.8571428571%; }
+  margin-right: 3.8461538462%; }
 
 .pre-10 {
-  padding-left: 85.7142857143%; }
+  padding-left: 86.5384615385%; }
 
 .suffix-10 {
-  padding-right: 85.7142857143%; }
+  padding-right: 86.5384615385%; }
 
 .span-11 {
-  width: 91.4285714286%;
+  width: 91.3461538462%;
   float: left;
-  margin-right: 2.8571428571%; }
+  margin-right: 3.8461538462%; }
 
 .pre-11 {
-  padding-left: 94.2857142857%; }
+  padding-left: 95.1923076923%; }
 
 .suffix-11 {
-  padding-right: 94.2857142857%; }
+  padding-right: 95.1923076923%; }
 
 .span-12 {
   width: 100%;
@@ -840,10 +848,10 @@ body {
   margin-right: 0; }
 
 .pre-12 {
-  padding-left: 102.857142857%; }
+  padding-left: 103.846153846%; }
 
 .suffix-12 {
-  padding-right: 102.857142857%; }
+  padding-right: 103.846153846%; }
 
 .span-first {
   margin-left: 0;
@@ -863,7 +871,7 @@ body {
     display: block;
     clear: both; }
   .row:not(:last-child), .form-row:not(:last-child) {
-    margin-bottom: 2.8571428571%; }
+    margin-bottom: 3.8461538462%; }
 
 .row-cols-1 .col {
   clear: both;
@@ -871,7 +879,7 @@ body {
   float: left;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 7.8571428571%;
+  margin-bottom: 10.5769230769%;
   padding: 0; }
   @media (min-width: 768px) {
     .row-cols-1 .col {
@@ -891,14 +899,14 @@ body {
   float: left;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 7.8571428571%;
+  margin-bottom: 10.5769230769%;
   padding: 0; }
   @media (min-width: 768px) {
     .row .col-1, .form-row .col-1 {
       clear: none;
-      width: 5.7142857143%;
+      width: 4.8076923077%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.8461538462%;
       margin-bottom: 0; }
       .row .col-1:not(:first-child):last-child, .form-row .col-1:not(:first-child):last-child {
         float: right;
@@ -910,14 +918,14 @@ body {
   float: left;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 7.8571428571%;
+  margin-bottom: 10.5769230769%;
   padding: 0; }
   @media (min-width: 768px) {
     .row-cols-2 .col {
       clear: none;
-      width: 48.5714285714%;
+      width: 48.0769230769%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.8461538462%;
       margin-bottom: 0; }
       .row-cols-2 .col:not(:first-child):last-child {
         float: right;
@@ -929,14 +937,14 @@ body {
   float: left;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 7.8571428571%;
+  margin-bottom: 10.5769230769%;
   padding: 0; }
   @media (min-width: 768px) {
     .row .col-2, .form-row .col-2 {
       clear: none;
-      width: 14.2857142857%;
+      width: 13.4615384615%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.8461538462%;
       margin-bottom: 0; }
       .row .col-2:not(:first-child):last-child, .form-row .col-2:not(:first-child):last-child {
         float: right;
@@ -948,14 +956,14 @@ body {
   float: left;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 7.8571428571%;
+  margin-bottom: 10.5769230769%;
   padding: 0; }
   @media (min-width: 768px) {
     .row-cols-3 .col {
       clear: none;
-      width: 31.4285714286%;
+      width: 30.7692307692%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.8461538462%;
       margin-bottom: 0; }
       .row-cols-3 .col:not(:first-child):last-child {
         float: right;
@@ -967,14 +975,14 @@ body {
   float: left;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 7.8571428571%;
+  margin-bottom: 10.5769230769%;
   padding: 0; }
   @media (min-width: 768px) {
     .row .col-3, .form-row .col-3 {
       clear: none;
-      width: 22.8571428571%;
+      width: 22.1153846154%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.8461538462%;
       margin-bottom: 0; }
       .row .col-3:not(:first-child):last-child, .form-row .col-3:not(:first-child):last-child {
         float: right;
@@ -986,14 +994,14 @@ body {
   float: left;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 7.8571428571%;
+  margin-bottom: 10.5769230769%;
   padding: 0; }
   @media (min-width: 768px) {
     .row-cols-4 .col {
       clear: none;
-      width: 22.8571428571%;
+      width: 22.1153846154%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.8461538462%;
       margin-bottom: 0; }
       .row-cols-4 .col:not(:first-child):last-child {
         float: right;
@@ -1005,14 +1013,14 @@ body {
   float: left;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 7.8571428571%;
+  margin-bottom: 10.5769230769%;
   padding: 0; }
   @media (min-width: 768px) {
     .row .col-4, .form-row .col-4 {
       clear: none;
-      width: 31.4285714286%;
+      width: 30.7692307692%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.8461538462%;
       margin-bottom: 0; }
       .row .col-4:not(:first-child):last-child, .form-row .col-4:not(:first-child):last-child {
         float: right;
@@ -1024,14 +1032,14 @@ body {
   float: left;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 7.8571428571%;
+  margin-bottom: 10.5769230769%;
   padding: 0; }
   @media (min-width: 768px) {
     .row-cols-5 .col {
       clear: none;
-      width: 17.7142857143%;
+      width: 16.9230769231%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.8461538462%;
       margin-bottom: 0; }
       .row-cols-5 .col:not(:first-child):last-child {
         float: right;
@@ -1043,14 +1051,14 @@ body {
   float: left;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 7.8571428571%;
+  margin-bottom: 10.5769230769%;
   padding: 0; }
   @media (min-width: 768px) {
     .row .col-5, .form-row .col-5 {
       clear: none;
-      width: 40%;
+      width: 39.4230769231%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.8461538462%;
       margin-bottom: 0; }
       .row .col-5:not(:first-child):last-child, .form-row .col-5:not(:first-child):last-child {
         float: right;
@@ -1062,14 +1070,14 @@ body {
   float: left;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 7.8571428571%;
+  margin-bottom: 10.5769230769%;
   padding: 0; }
   @media (min-width: 768px) {
     .row-cols-6 .col {
       clear: none;
-      width: 14.2857142857%;
+      width: 13.4615384615%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.8461538462%;
       margin-bottom: 0; }
       .row-cols-6 .col:not(:first-child):last-child {
         float: right;
@@ -1081,14 +1089,14 @@ body {
   float: left;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 7.8571428571%;
+  margin-bottom: 10.5769230769%;
   padding: 0; }
   @media (min-width: 768px) {
     .row .col-6, .form-row .col-6 {
       clear: none;
-      width: 48.5714285714%;
+      width: 48.0769230769%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.8461538462%;
       margin-bottom: 0; }
       .row .col-6:not(:first-child):last-child, .form-row .col-6:not(:first-child):last-child {
         float: right;
@@ -1100,14 +1108,14 @@ body {
   float: left;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 7.8571428571%;
+  margin-bottom: 10.5769230769%;
   padding: 0; }
   @media (min-width: 768px) {
     .row-cols-7 .col {
       clear: none;
-      width: 11.8367346939%;
+      width: 10.989010989%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.8461538462%;
       margin-bottom: 0; }
       .row-cols-7 .col:not(:first-child):last-child {
         float: right;
@@ -1119,14 +1127,14 @@ body {
   float: left;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 7.8571428571%;
+  margin-bottom: 10.5769230769%;
   padding: 0; }
   @media (min-width: 768px) {
     .row .col-7, .form-row .col-7 {
       clear: none;
-      width: 57.1428571429%;
+      width: 56.7307692308%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.8461538462%;
       margin-bottom: 0; }
       .row .col-7:not(:first-child):last-child, .form-row .col-7:not(:first-child):last-child {
         float: right;
@@ -1138,14 +1146,14 @@ body {
   float: left;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 7.8571428571%;
+  margin-bottom: 10.5769230769%;
   padding: 0; }
   @media (min-width: 768px) {
     .row-cols-8 .col {
       clear: none;
-      width: 10%;
+      width: 9.1346153846%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.8461538462%;
       margin-bottom: 0; }
       .row-cols-8 .col:not(:first-child):last-child {
         float: right;
@@ -1157,14 +1165,14 @@ body {
   float: left;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 7.8571428571%;
+  margin-bottom: 10.5769230769%;
   padding: 0; }
   @media (min-width: 768px) {
     .row .col-8, .form-row .col-8 {
       clear: none;
-      width: 65.7142857143%;
+      width: 65.3846153846%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.8461538462%;
       margin-bottom: 0; }
       .row .col-8:not(:first-child):last-child, .form-row .col-8:not(:first-child):last-child {
         float: right;
@@ -1176,14 +1184,14 @@ body {
   float: left;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 7.8571428571%;
+  margin-bottom: 10.5769230769%;
   padding: 0; }
   @media (min-width: 768px) {
     .row-cols-9 .col {
       clear: none;
-      width: 8.5714285714%;
+      width: 7.6923076923%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.8461538462%;
       margin-bottom: 0; }
       .row-cols-9 .col:not(:first-child):last-child {
         float: right;
@@ -1195,14 +1203,14 @@ body {
   float: left;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 7.8571428571%;
+  margin-bottom: 10.5769230769%;
   padding: 0; }
   @media (min-width: 768px) {
     .row .col-9, .form-row .col-9 {
       clear: none;
-      width: 74.2857142857%;
+      width: 74.0384615385%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.8461538462%;
       margin-bottom: 0; }
       .row .col-9:not(:first-child):last-child, .form-row .col-9:not(:first-child):last-child {
         float: right;
@@ -1214,14 +1222,14 @@ body {
   float: left;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 7.8571428571%;
+  margin-bottom: 10.5769230769%;
   padding: 0; }
   @media (min-width: 768px) {
     .row-cols-10 .col {
       clear: none;
-      width: 7.4285714286%;
+      width: 6.5384615385%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.8461538462%;
       margin-bottom: 0; }
       .row-cols-10 .col:not(:first-child):last-child {
         float: right;
@@ -1233,14 +1241,14 @@ body {
   float: left;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 7.8571428571%;
+  margin-bottom: 10.5769230769%;
   padding: 0; }
   @media (min-width: 768px) {
     .row .col-10, .form-row .col-10 {
       clear: none;
-      width: 82.8571428571%;
+      width: 82.6923076923%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.8461538462%;
       margin-bottom: 0; }
       .row .col-10:not(:first-child):last-child, .form-row .col-10:not(:first-child):last-child {
         float: right;
@@ -1252,14 +1260,14 @@ body {
   float: left;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 7.8571428571%;
+  margin-bottom: 10.5769230769%;
   padding: 0; }
   @media (min-width: 768px) {
     .row-cols-11 .col {
       clear: none;
-      width: 6.4935064935%;
+      width: 5.5944055944%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.8461538462%;
       margin-bottom: 0; }
       .row-cols-11 .col:not(:first-child):last-child {
         float: right;
@@ -1271,14 +1279,14 @@ body {
   float: left;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 7.8571428571%;
+  margin-bottom: 10.5769230769%;
   padding: 0; }
   @media (min-width: 768px) {
     .row .col-11, .form-row .col-11 {
       clear: none;
-      width: 91.4285714286%;
+      width: 91.3461538462%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.8461538462%;
       margin-bottom: 0; }
       .row .col-11:not(:first-child):last-child, .form-row .col-11:not(:first-child):last-child {
         float: right;
@@ -1290,14 +1298,14 @@ body {
   float: left;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 7.8571428571%;
+  margin-bottom: 10.5769230769%;
   padding: 0; }
   @media (min-width: 768px) {
     .row-cols-12 .col {
       clear: none;
-      width: 5.7142857143%;
+      width: 4.8076923077%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.8461538462%;
       margin-bottom: 0; }
       .row-cols-12 .col:not(:first-child):last-child {
         float: right;
@@ -1309,7 +1317,7 @@ body {
   float: left;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 7.8571428571%;
+  margin-bottom: 10.5769230769%;
   padding: 0; }
   @media (min-width: 768px) {
     .row .col-12, .form-row .col-12 {
@@ -1323,10 +1331,18 @@ body {
         float: right;
         margin-right: 0; } }
 
-.content-container {
+.content-container,
+.content-container-sm,
+.content-container-xsm {
   margin-left: auto;
   margin-right: auto;
   max-width: 1400px; }
+
+.content-container-sm {
+  max-width: 1150px; }
+
+.content-container-xsm {
+  max-width: 900px; }
 
 #hdr-main {
   background: rgba(221, 161, 74, 0.9);
@@ -2626,6 +2642,19 @@ http://nicolasgallagher.com/micro-clearfix-hack/
       border-color: rgba(255, 255, 255, 0.7);
       color: #fff; }
 
+.page-wrapper {
+  opacity: 0;
+  -webkit-transform: translateY(100px);
+      -ms-transform: translateY(100px);
+          transform: translateY(100px);
+  -webkit-transition: opacity .375s ease, -webkit-transform .375s ease;
+          transition: opacity .375s ease, transform .375s ease; }
+  .page-wrapper.in {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+        -ms-transform: translateY(0);
+            transform: translateY(0); }
+
 .banner {
   background: rgba(221, 161, 74, 0.9);
   color: #fff;
@@ -2680,16 +2709,52 @@ http://nicolasgallagher.com/micro-clearfix-hack/
       height: auto;
       max-width: none;
       width: 100%; }
-  .card-hdr {
+  .card-hdr, .card-banner-hdr {
     font-size: 1.75rem;
     line-height: 1.25;
     margin: 0 0 15px; }
+  .card-banner {
+    background: #dda14a;
+    color: #fff;
+    margin: -30px -30px 30px;
+    padding: 15px 30px; }
+    .card-banner-hdr {
+      margin-bottom: 10px; }
+    .card-banner-subhdr {
+      font-size: 1.15rem; }
+  .card-tooblar {
+    border-bottom: 1px solid #d4d3d4;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: nowrap;
+        -ms-flex-wrap: nowrap;
+            flex-wrap: nowrap;
+    margin: -7.5px -30px 30px;
+    padding: 0 30px 15px; }
+    .card-tooblar li {
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
+          -ms-flex: 1;
+              flex: 1; }
+    .card-tooblar a {
+      color: #dda14a; }
+      .card-tooblar a:hover {
+        color: #dda14a; }
+      .card-tooblar a i {
+        font-size: 1.8rem;
+        margin-right: 8px;
+        top: -2px;
+        vertical-align: middle; }
   .card-copy {
     padding: 0 0 30px; }
     .card-copy p {
       line-height: 1.55; }
       .card-copy p:not(:last-child) {
-        margin-bottom: 15px; }
+        margin-bottom: 25px; }
+    .card-copy:last-child {
+      padding-bottom: 0; }
   .card-footer {
     border-top: 1px solid #d4d3d4;
     margin: -15px -30px;
@@ -2719,18 +2784,47 @@ http://nicolasgallagher.com/micro-clearfix-hack/
     height: 16px; }
 
 .articles {
-  margin-bottom: -2.8571428571%; }
+  margin-bottom: -3.8461538462%; }
 
 .article {
-  width: 48.5714285714%;
+  width: 48.0769230769%;
   float: left;
-  margin-right: 2.8571428571%;
-  margin-bottom: 2.8571428571%; }
+  margin-right: 3.8461538462%;
+  margin-bottom: 3.8461538462%; }
   .article:nth-child(2n) {
     float: right;
     margin-right: 0; }
   .article:nth-child(2n + 1) {
     clear: both; }
+
+.bio {
+  width: 30.7692307692%;
+  float: left;
+  margin-right: 3.8461538462%; }
+  .bio:nth-child(3n) {
+    float: right;
+    margin-right: 0; }
+  .bio:nth-child(3n + 1) {
+    clear: both; }
+
+.awards {
+  margin-bottom: -3.8461538462%; }
+  .awards li {
+    width: 48.0769230769%;
+    float: left;
+    margin-right: 3.8461538462%;
+    line-height: 1.4;
+    margin-bottom: 3.8461538462%; }
+    .awards li:before {
+      content: ">";
+      display: inline-block;
+      font-family: "telegrafico", sans-serif;
+      margin: 0 7px 0 -18px; }
+    .awards li:nth-child(2n) {
+      float: right;
+      margin-right: 0; }
+    .awards li:nth-child(2n + 1) {
+      clear: both; }
 
 #nav-admin li {
   margin: 15px 0 0; }

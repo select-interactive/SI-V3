@@ -117,10 +117,14 @@
 
     p {
         @extend %no-margin;
-        line-height: 1.4;
+        line-height: 1.5;
 
         &:not(:last-child) {
             margin-bottom: 20px;
+        }
+
+        &.mbs {
+            margin-bottom: 10px;
         }
     }
 
@@ -151,6 +155,19 @@ h1, h2, h3, h4, h5, h6 {
 ul, ol {
 	padding: 0;
 	margin: 0 0 ($base-line-height / 2) 25px;
+
+    &.list-no-style {
+        @extend %list-style-none;
+        margin-left: 0;
+
+        li {
+            line-height: 1.25;
+
+            &:not(:last-child) {
+                margin-bottom: 6px;
+            }
+        }
+    }
 }
 ul ul,
 ul ol,

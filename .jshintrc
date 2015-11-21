@@ -22,6 +22,7 @@
 		"app": true,
 		"CKEDITOR": true,
 		"FastClick": true,
+		"fetch": true,
 		"forEachElement": true,
 		"moment": true,
 		"Parse": true,

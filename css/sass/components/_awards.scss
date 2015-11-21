@@ -1,0 +1,27 @@
+﻿.awards {
+    @extend .clearfix;
+    @extend %list-style-none;
+    @extend %no-margin;
+    margin-bottom: (0 - gutter());
+
+    li {
+        @include span(6);
+        line-height: 1.4;
+        margin-bottom: gutter();
+
+        &:before {
+            content: ">";
+            display: inline-block;
+            font-family: $font-secondary;
+            margin: 0 7px 0 -18px;
+        }
+
+        &:nth-child(2n) {
+            @include last;
+        }
+
+        &:nth-child(2n + 1) {
+            @include break;
+        }
+    }
+}
