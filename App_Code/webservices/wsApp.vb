@@ -43,7 +43,23 @@ Public Class wsApp
 
 #Region "Blogs"
 
-	' Load blog tag options for admin
+	' Load blog categories options for admin
+	<WebMethod()>
+	Public Function loadBlogCategoryOptions() As String
+		Dim html As New StringBuilder
+
+		pUtil.query("BlogCategory", "category")
+
+		For i As Integer = 0 To pUtil.itemList.Count - 1
+			Dim projectHTML As String = pUtil.generateHtml("blog-category-option", i)
+			projectHTML = projectHTML.Replace("{{objId}}", pUtil.itemList(i).ObjectId)
+			html.Append(projectHTML)
+		Next
+
+		Return html.ToString
+	End Function
+
+	' Load blog tags options for admin
 	<WebMethod()>
 	Public Function loadBlogTagOptions() As String
 		Dim html As New StringBuilder

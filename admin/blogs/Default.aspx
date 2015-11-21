@@ -79,14 +79,26 @@
 			<div class="row form-row">
 				<div class="col col-4">
 					<div class="input-field">
-						<select id="ddl-type" class="material-select req" multiple><asp:Literal runat="server" ID="ltrlTags" /></select>
-						<label for="ddl-type">*Property Type:</label>
+						<select id="ddl-category" class="material-select"><asp:Literal runat="server" ID="ltrlCategories" /></select>
+						<label for="ddl-category">* Blog Category</label>
 					</div>
 				</div>
-				<div class="col"></div>
+				<div class="col col-8">
+					<label for="ddl-tags">* Blog Tags:</label>
+					<select id="ddl-tags" multiple><asp:Literal runat="server" ID="ltrlTags" /></select>
+				</div>
 			</div>
 			<div class="row form-row">
-				<input type="checkbox" id="cb-active" /><label for="cb-active" class="lbl-cb">Is Active?</label>
+				<div class="col col-4">
+					<div class="input-field">
+						<input type="text" id="tb-date" name="datePublished" class="input-date req" />
+						<label for="tb-date">* Date Published:</label>
+					</div>
+				</div>
+				<div class="col col-4">
+					<input type="checkbox" id="cb-active" /><label for="cb-active" class="lbl-cb">Is Active?</label>
+				</div>
+				<div></div>
 			</div>
 			<div class="row form-row">
 				<div class="col">
@@ -104,5 +116,7 @@
 
 <asp:Content ID="Content7" ContentPlaceHolderID="cphJS" Runat="Server">
 	<script defer src="/ckeditor/ckeditor.js"></script>
+	<script defer src="/js/libs/jquery/dist/jquery.min.js"></script>
+	<script defer src="/js/libs/chosen/chosen.jquery.min.js"></script>
 	<script defer src="/js/app/admin.blogs.v-1.0.js"></script>
 </asp:Content>

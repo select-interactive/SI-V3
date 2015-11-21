@@ -25,6 +25,7 @@
 		"fetch": true,
 		"forEachElement": true,
 		"google": true,
+		"jQuery": true,
 		"moment": true,
 		"Parse": true,
 		"Pikaday": true

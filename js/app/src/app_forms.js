@@ -141,6 +141,31 @@ app.forms = ( function( doc ) {
 		}
 	} );
 
+	function checkSelectValues( el ) {
+		var input = el.parentNode.querySelector( 'input[type="text"]' ),
+			opts = el.parentNode.querySelectorAll( '.select-opt.active' ),
+			val = '';
+
+		if ( !opts || opts.length === 0 ) {
+			input.value = '';
+		}
+
+		window.forEachElement( opts, function( opt, i ) {
+			if ( input.classList.contains( 'multiple' ) ) {
+				if ( i > 0 ) {
+					val += ', ';
+				}
+
+				val += opt.innerHTML;
+			}
+			else {
+				val = opt.innerHTML;
+			}
+		} );
+
+		input.value = val;
+	}
+
 	function initSelect( el ) {
 		var container, input, icon, optionList, options = '', label;
 
@@ -309,7 +334,8 @@ app.forms = ( function( doc ) {
 	}
 
 	return {
-		checkActive: checkActiveInputs
+		checkActive: checkActiveInputs,
+		checkSelectValues: checkSelectValues
 	};
 
 }( document ) );

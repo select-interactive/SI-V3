@@ -4,7 +4,7 @@
  * Copyright 2015 Select Interactive, LLC. All rights reserved.
  * @author: The Select Interactive dev team (www.select-interactive.com) 
  */
-app.bios = ( function( doc ) {
+app.bios = ( function( doc, $ ) {
 	'use strict';
 
 	var
@@ -86,9 +86,13 @@ app.bios = ( function( doc ) {
         otherData = {
         	active: false,
         	banner: '',
+			category: '',
+			tags: '',
 			thumbnail: ''
         },
 		
+		ddlCategory = doc.getElementById( 'ddl-category' ),
+		ddlTags = doc.getElementById( 'ddl-tags' ),
         fImg = doc.getElementById( 'f-img' ),
         imgPrev = doc.getElementById( 'img-prev' ),
         btnImgDetele = doc.getElementById( 'btn-img-delete' ),
@@ -100,11 +104,56 @@ app.bios = ( function( doc ) {
 	// call the admin init function passing this pages specific data/items
 	app.admin.init( settings, parse, inputEvents, otherData, saveItem );
 
+	function init() {
+		initChosenSelects();
+	}
+
+	function initChosenSelects() {
+		$( ddlTags ).chosen();
+	}
+
 	function loadItem() {
+		setCategory();
+		setLoadedTags();
+		cbActive.checked = app.admin.getOtherDataProperty( 'active' );
 		app.forms.checkActive();
 		setImgPrev( app.admin.getOtherDataProperty( 'banner' ) );
 		setImgThumbPrev( app.admin.getOtherDataProperty( 'thumbnail' ) );
 		cbActive.checked = app.admin.getOtherDataProperty( 'active' );
+	}
+
+	function setCategory() {
+		var category = app.admin.getOtherDataProperty( 'category' ),
+			opts = ddlCategory.parentNode.querySelectorAll( '.select-opt' );
+
+		if ( category === '' ) {
+			return;
+		}
+
+		window.forEachElement( opts, function( opt ) {
+			if ( opt.getAttribute( 'data-val' ) === category ) {
+				opt.classList.add( 'active' );
+			}
+		} );
+
+		app.forms.checkSelectValues( ddlCategory );
+	}
+
+	function setLoadedTags() {
+		var tags = app.admin.getOtherDataProperty( 'tags' ),
+    		i = 0, len, tag;
+
+		if ( tags && tags.length ) {
+			tags = tags.split( ',' );
+			len = tags.length;
+
+			for ( ; i < len; i++ ) {
+				tag = tags[i];
+				ddlTags.querySelector( '[value="' + tag + '"]' ).selected = true;
+			}
+
+			$( ddlTags ).trigger( 'chosen:updated' );
+		}
 	}
 
 	function triggerImgUpload() {
@@ -158,6 +207,35 @@ app.bios = ( function( doc ) {
             isValid = app.admin.validateReqFields();
 
 		if ( isValid ) {
+			params.category = '';
+			params.categoryName = '';
+			window.forEachElement( ddlCategory.querySelectorAll( 'option' ), function( opt, i ) {
+				if ( opt.selected ) {
+					params.category = opt.value;
+					params.categoryName = opt.text;
+					params.categoryUrl = opt.getAttribute( 'data-category-url' );
+				}
+			} );
+
+			params.tags = '';
+			params.tagNames = '';
+			params.tagUrls = '';
+			window.forEachElement( ddlTags.querySelectorAll( 'option' ), function( opt, i ) {
+				if ( opt.selected ) {
+					if ( params.tags !== '' ) {
+						params.tags += ',';
+						params.tagNames += ', ';
+						params.tagUrls += ',';
+					}
+
+					params.tags += opt.value;
+					params.tagNames += opt.text;
+					params.tagUrls += opt.getAttribute( 'data-tag-url' );
+				}
+			} );
+
+			params.active = cbActive.checked;
+			params.url = app.admin.createUrl( params.title, params.datePublished );
 			app.admin.saveItem( settings.save.fn, params );
 		}
 	}
@@ -184,4 +262,6 @@ app.bios = ( function( doc ) {
 		}
 	}
 
-}( document ) );
+	init();
+
+}( document, jQuery ) );

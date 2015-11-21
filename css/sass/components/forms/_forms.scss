@@ -667,3 +667,37 @@ input[type=range]:focus::-ms-fill-lower {
 input[type=range]:focus::-ms-fill-upper {
     background: #ccc;
 }
+
+// Chosen overrides
+.chosen-container {
+    width: 100% !important;
+
+    input {
+        width: 100%;
+    }
+
+    .chosen-choices {
+        background: $white !important;
+        border-color: $color-primary !important;
+        box-shadow: 0 0 0 0 #fff !important;
+        padding: 5px !important;
+    }
+
+    .search-choice {
+        background: $color-primary !important;
+        border-color: $color-primary !important;
+        box-shadow: 0 0 1px 0 rgba(0, 0, 0, .15) !important;
+        color: $white !important;
+        padding: 5px 20px 5px 5px !important;
+
+        .search-choice-close {
+            top: 6px !important;
+        }
+    }
+
+    .active-result {
+        &.highlighted {
+            background: $color-primary !important;
+        }
+    }
+}
