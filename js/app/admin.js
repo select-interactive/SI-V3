@@ -22,8 +22,8 @@ app.admin = ( function( doc ) {
 
         // PARSE settings
         parse_ = {
-        	appId: '',
-        	jsKey: ''
+        	appId: 'caIzDF1iPPqqdTRXaKeC83tblCsx8tDpSchvTPkz',
+        	jsKey: 'tW8R8E8XU0LqkWAm1npm6ImkWqW5HztS61rXnXhB'
         },
 
         // buttons/input[file] elements on the form
@@ -156,6 +156,7 @@ app.admin = ( function( doc ) {
 			doc.querySelector( '[name="sortOrder"]' ).value = ddlOptions_.querySelectorAll( 'option' ).length;
 		}
 
+		app.forms.checkActive();
 		formEdit_.querySelector( 'input' ).focus();
 		clearStatus();
 	}
@@ -517,6 +518,10 @@ app.admin = ( function( doc ) {
 		// any map rows
 		window.forEachElement( formEdit_.querySelectorAll( '.row-map' ), function( row ) {
 			row.classList.add( 'hidden' );
+		} );
+
+		forEachElement( doc.querySelectorAll( '.btn-load-action' ), function( btn ) {
+			btn.classList.add( 'hidden' );
 		} );
 
 		doc.getElementById( 'btn-item-delete' ).classList.add( 'hidden' );

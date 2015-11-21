@@ -7,39 +7,53 @@
 	'use strict';
 
 	var main = doc.getElementById( 'main' ),
-		page;
+		page, url;
 
 	window.addEventListener( 'popstate', pop, false );
 
 	doc.addEventListener( 'click', function( e ) {
+		if ( e && e.target ) {
+			checkClickTarget( e.target, e );
+		}
+	}, false );
+
+	function checkClickTarget( target, e ) {
 		var pageToLoad;
 
-		if ( e && e.target && e.target.classList && e.target.classList.contains( 'navigation' ) ) {
-			pageToLoad = e.target.getAttribute( 'data-control' );
-
+		if ( target && target.classList && target.classList.contains( 'navigation' ) ) {
+			pageToLoad = target.getAttribute( 'data-control' );
+			url = target.getAttribute( 'href' );
+			
 			if ( page !== pageToLoad ) {
 				page = pageToLoad;
-				loadPage( page );
-				history.pushState( { page: page }, page, '/' + page + '/' );
+				loadPage( page, url );
+				history.pushState( { page: page, url: url }, page, url );
 			}
 
 			e.preventDefault();
 		}
-	}, false );
+		else if ( target && target.parentNode && target.parentNode !== doc.body ) {
+			checkClickTarget( target.parentNode, e );
+		}
+	}
 
-	function loadPage( page ) {
+	function loadPage( page, url ) {
+		var currentPage = main.querySelector( '.page-wrapper.in' );
+
+		if ( currentPage ) {
+			currentPage.classList.remove( 'in' );
+		}
+
 		app.ajax.fetch( '/webservices/wsApp.asmx/loadControlContent', {
-			controlName: page
+			controlName: page,
+			url: url
 		} ).then( function( rsp ) {
-			var pageWrapper = doc.createElement( 'div' ),
-				currentPage = main.querySelector( '.page-wrapper.in' );
+			var pageWrapper = doc.createElement( 'div' );
 
 			pageWrapper.classList.add( 'page-wrapper' );
 			pageWrapper.innerHTML = rsp;
 
 			if ( currentPage ) {
-				currentPage.classList.remove( 'in' );
-				
 				setTimeout( function() {
 					main.removeChild( currentPage );
 					showNewPage( pageWrapper );
@@ -56,18 +70,24 @@
 		setTimeout( function() {
 			window.scrollTo( 0, 0 );
 			pageWrapper.classList.add( 'in' );
+
+			if ( pageWrapper.querySelector( '.gmap' ) ) {
+				app.gmap.init( doc.querySelector( '.gmap' ) );
+			}
 		}, 10 );
 	}
 
 	function pop( e ) {
 		if ( history.state && history.state.page ) {
 			page = history.state.page;
+			url = history.state.url;
 		}
 		else {
 			page = 'home';
+			url = page;
 		}
 
-		loadPage( page );
+		loadPage( page, url );
 	}
 
 }( document ) );

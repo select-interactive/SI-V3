@@ -16,7 +16,7 @@
 					<div class="card-img"><img src="/img/team/jeremy-burton.v2.jpg" alt="Jeremy Burton" /></div>
 					<div class="card-banner">
 						<h2 class="card-banner-hdr">Jeremy Burton</h2>
-						<h3 class="card-banner-subhdr">Partner, Lead Developer</h3>
+						<h3 class="card-banner-subhdr">Partner, Software Engineer</h3>
 					</div>
 					<ul class="card-tooblar">
 						<li><a href="mailto:jeremy@select-interactive.com"><i class="material-icons">email</i>Email</a></li>
@@ -24,7 +24,8 @@
 					</ul>
 					<div class="card-copy">
 						<p>Jeremy Burton is a Co-Founder and Partner of Select Interactive, overseeing implementation and development for all client accounts. Jeremy is also responsible for all development and technology strategy.</p>
-						<p>With over ten years of programming experience, Jeremy specializes in front-end web development and is particularly skilled in HTML, CSS, JavaScript, and jQuery. Jeremy also has a strong background in database implementation and design.</p>
+						<p>With over 13 years of programming experience, Jeremy specializes in front-end web development and is particularly skilled in HTML, CSS, and JavaScript. Jeremy also has a strong background in database implementation and design.</p>
+						<p>Aside from leading Select Interactive, Jeremy is also a co-founder of the startup <a href="http://www.livevicarious.com" target="_blank">Live Vicarious</a>.</p>
 					</div>
 				</div>
 			</li>
@@ -32,7 +33,7 @@
 				<div class="card">
 					<div class="card-banner">
 						<h2 class="card-banner-hdr">Dan Harris</h2>
-						<h3 class="card-banner-subhdr">Partner</h3>
+						<h3 class="card-banner-subhdr">Partner, Software Engineer</h3>
 					</div>
 					<ul class="card-tooblar">
 						<li><a href="mailto:dan@select-interactive.com"><i class="material-icons">email</i>Email</a></li>
@@ -56,32 +57,22 @@
 						<li><a href="tel:817.210.4307"><i class="material-icons">local_phone</i>817.210.4307</a></li>
 					</ul>
 					<div class="card-copy">
-						<p>Bryan joined Select Interactive in August 2015 and brings a strong software development background to the team with over 15 years of web development experience. His primary focus will be on front-end development and assisting with ongoing project support and maintenance.</p>
+						<p>Bryan joined Select Interactive in August 2015 and brings a strong software development background to the team with over 15 years of web development experience. Bryan is a full-stack developer both and working on both new projects and providing ongoing support and maintenance on existing projects.</p>
 					</div>
 				</div>
 			</li>
 		</ul>
 	</div>
 </div>
-<div class="paper paper-pad-med">
-	<h2 class="copy-hdr copy-hdr-xl text-center">Who We Work With</h2>
-	<ul class="clients">
-		<li class="client"><img src="/img/logos/nimble.v1.png" width="311" height="40" alt="Nimble Design Co." /></li>
-		<li class="client"><img src="/img/logos/slant.v1.png" width="150" height="40" alt="Slant Parnters" /></li>
-		<li class="client"><img src="/img/logos/ip.v1.png" width="399" height="40" alt="IP DFW" /></li>
-		<li class="client"><img src="/img/logos/branded.v1.png" width="236" height="40" alt="The Branded Company" /></li>
-		<li class="client"><img src="/img/logos/williams-trew.v1.png" width="293" height="40" alt="Williams Trew Real Estate" /></li>
-	</ul>
-</div>
 <div class="paper paper-gray-dark copy">
 	<div class="content-container-sm">
 		<h3 class="copy-hdr copy-hdr-xl text-center">Awards and Recognition</h3>
 		<ul class="awards">
-			<li>2015 Recipient of the W3 Web Creativity Award for 2 projects - <a href="https://www.nimbledesignco.com">Nimble Design Co.</a> and <a href="http://www.ipdfw.org" target="_blank">IP DFW</a>.</li>
-			<li>2015 Recipient of the GD USA American Web Design Award for 4 projects - <a href="https://www.nimbledesignco.com">Nimble Design Co.</a>, <a href="http://www.slantpartners.com">Slant Partners</a>, <a href="http://www.fritscheanderson.com" target="_blank">Fritsche Anderson</a>, and <a href="http://www.ipdfw.org" target="_blank">IP DFW</a></li>
+			<li>2015 Recipient of the W3 Web Creativity Award for 2 projects - <a href="https://www.nimbledesignco.com" target="_blank">Nimble Design Co.</a> and <a href="http://www.ipdfw.org" target="_blank">IP DFW</a>.</li>
+			<li>2015 Recipient of the GD USA American Web Design Award for 4 projects - <a href="https://www.nimbledesignco.com" target="_blank">Nimble Design Co.</a>, <a href="http://www.slantpartners.com" target="_blank">Slant Partners</a>, <a href="http://www.fritscheanderson.com" target="_blank">Fritsche Anderson</a>, and <a href="http://www.ipdfw.org" target="_blank">IP DFW</a></li>
 			<li>Jeremy Burton is 1 of 200 developers world-wide invited to participate in <a href="https://edgeconf.com/2014-sf" target="_blank">Edge Conf 2014</a> in San Francisco. Topics for discussion include layout performance, web security, image formats, package management, and more.</li>
 			<li>2014 Recipient of the GD USA American Web Design Award.</li>
-			<li>In 2013 lead developer, Jeremy Burton, was 1 of 200 developers world-wide selected to attend <a href="http://edgeconf.com/2013-nyc/">Edge Conf 2013</a> to discuss advanced, cutting-edge web technologies.</li>
+			<li>In 2013 lead developer, Jeremy Burton, was 1 of 200 developers world-wide selected to attend <a href="http://edgeconf.com/2013-nyc/" target="_blank">Edge Conf 2013</a> to discuss advanced, cutting-edge web technologies.</li>
 		</ul>
 	</div>
 </div>

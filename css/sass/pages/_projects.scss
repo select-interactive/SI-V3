@@ -1,0 +1,84 @@
+﻿// Portfolio Page
+.projects {
+    @extend .clearfix;
+    @extend %list-style-none;
+    @extend %no-margin;
+}
+
+.project {
+    &-col {
+        @include span(4);
+        @extend %position-relative;
+        margin-bottom: gutter();
+
+        &:nth-child(3n) {
+            @include last;
+        }
+
+        &:nth-child(3n + 1) {
+            @include break;
+        }
+    }
+
+    &-link {
+        @extend %display-block;
+        @extend %position-relative;
+        @extend %text-decoration-none;
+
+        &:hover {
+            .project-overlay {
+                opacity: 0;
+            }
+
+            .project-name {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    }
+
+    &-overlay {
+        @extend %position-absolute;
+        background: rgba($white, .25);
+        bottom: 0;
+        height: 100%;
+        left: 0;
+        opacity: 1;
+        right: 0;
+        top: 0;
+        transition: opacity .275s ease;
+        width: 100%;
+        z-index: 1;
+    }
+
+    &-name {
+        @extend %position-absolute;
+        background: rgba($white, .95);
+        bottom: 0;
+        color: $color-primary;
+        font-family: $font-secondary;
+        font-size: 1.5rem;
+        left: 0;
+        opacity: 0;
+        padding: 15px 15px;
+        right: 0;
+        transform: translateY(100%);
+        transition: opacity .275s ease,
+                    transform .275s ease;
+        width: 100%;
+        z-index: 2;
+    }
+}
+
+// Project Detail Page
+.project {
+    @extend .clearfix;
+
+    &-img {
+        @include span(5);
+    }
+
+    &-details {
+        @include span(last 7);
+    }
+}

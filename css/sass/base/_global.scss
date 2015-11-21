@@ -62,6 +62,7 @@ body {
 #main {
     @extend %position-relative;
     margin-bottom: $hdr-bar-height;
+    min-height: calc(100vh - #{$hdr-bar-height * 2});
     top: $hdr-bar-height;
     z-index: 0;
 }

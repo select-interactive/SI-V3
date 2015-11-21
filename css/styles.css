@@ -464,7 +464,7 @@ img {
 /**
  * Project SASS Mixins
  */
-.row, .form-row, .copy p, #nav-main ul, .footer-links, #drawer-nav ul, .hdr-bar [title], #hdr-nav ul, .select-opts, .clients, .card-copy p, .articles, .team, .awards, #nav-admin ul {
+.row, .form-row, .copy p, #nav-main ul, .footer-links, #drawer-nav ul, .hdr-bar [title], #hdr-nav ul, .select-opts, .clients, .card-copy p, .articles, .team, .awards, .social-links, #nav-admin ul, .projects {
   margin: 0; }
 
 .row, .form-row {
@@ -474,10 +474,10 @@ img {
   display: none; }
 
 .copy a, #masthead-favicon, #nav-main ul, #nav-main li, .footer-links li, .footer-links a i, #drawer-nav a i, .hdr-bar [title], [drawer-nav-trigger], #hdr-nav li, .btn, .alert-button, .btn i, .alert-button i, input[type=checkbox] + label,
-input[type=radio] + label, input[type=checkbox][switch] + label .switch-toggle, input[type=checkbox][switch] + label .switch-toggle:after, input[type=radio] + label:before, .select-opt.active:before, .tab-links li, .client, .card-tooblar li, .icon, #nav-admin a {
+input[type=radio] + label, input[type=checkbox][switch] + label .switch-toggle, input[type=checkbox][switch] + label .switch-toggle:after, input[type=radio] + label:before, .select-opt.active:before, .tab-links li, .client, .card-tooblar li, .icon, .social-links li, #nav-admin a {
   display: inline-block; }
 
-#masthead-favicon a, #nav-main a, #drawer-nav a, #hdr-nav a, .select-opt, input[type=range], .tab-links a, .tab.active {
+#masthead-favicon a, #nav-main a, #drawer-nav a, #hdr-nav a, .select-opt, input[type=range], .tab-links a, .tab.active, .project-link {
   display: block; }
 
 #container-drawer-overlay, .hdr-bar:after, input[type=text][class*="input-icon"] ~ i,
@@ -494,11 +494,11 @@ textarea[class*="input-icon"] ~ i,
 select[class*="input-icon"] ~ i, input[type=checkbox],
 input[type=radio], input[type=checkbox] + label:before, input[type=checkbox] + label:after,
 input[type=radio] + label:before,
-input[type=radio] + label:after, input[type=checkbox][switch] + label .switch-toggle:after, .input-field label, .input-field .error-label, .select-opts, #select-pg-overlay, #alert-overlay {
+input[type=radio] + label:after, input[type=checkbox][switch] + label .switch-toggle:after, .input-field label, .input-field .error-label, .select-opts, #select-pg-overlay, #alert-overlay, .project-overlay, .project-name {
   position: absolute; }
 
 .copy-hdr, .copy-hdr i, #main, .container, .container-main, .container-main-content, .hdr-bar, input[type=checkbox] + label,
-input[type=radio] + label, input[type=checkbox][switch] + label .switch-toggle, .input-field, input[type=range], .paper, footer, .card-tooblar a, .card-tooblar a i {
+input[type=radio] + label, input[type=checkbox][switch] + label .switch-toggle, .input-field, input[type=range], .paper, footer, .card-tooblar a, .card-tooblar a i, .gmap, .project-col, .project-link {
   position: relative; }
 
 #hdr-main, .container-drawer, .btn[fab][fixed], [fab][fixed].alert-button, #alert, .toast {
@@ -513,7 +513,7 @@ input[type=radio] + label, input[type=checkbox][switch] + label .switch-toggle, 
 #hdr-nav, input[type=range] + .range-label {
   float: right; }
 
-.copy a, #masthead-favicon a, #nav-main a, .footer-links a, #drawer-nav a, .btn, .alert-button, .select-opt, .tab-links a, .card-tooblar a, #nav-admin a {
+.copy a, #masthead-favicon a, #nav-main a, .footer-links a, #drawer-nav a, .btn, .alert-button, .select-opt, .tab-links a, .card-tooblar a, .card-copy a, .social-links a, #nav-admin a, .project-link {
   text-decoration: none; }
 
 .text-left, .toast {
@@ -531,7 +531,7 @@ input[type=radio] + label, input[type=checkbox][switch] + label .switch-toggle, 
 .text-uppercase, #nav-main a, .tab-links a {
   text-transform: uppercase; }
 
-ul.list-no-style, ol.list-no-style, #nav-main ul, .footer-links, #drawer-nav ul, #hdr-nav ul, .select-opts, .tab-links, .clients, .card-tooblar, .articles, .team, .awards, #nav-admin ul {
+ul.list-no-style, ol.list-no-style, #nav-main ul, .footer-links, #drawer-nav ul, #hdr-nav ul, .select-opts, .tab-links, .clients, .card-tooblar, .articles, .team, .awards, .social-links, #nav-admin ul, .projects {
   list-style: none; }
 
 @media (min-width: 1024px) {
@@ -542,13 +542,13 @@ ul.list-no-style, ol.list-no-style, #nav-main ul, .footer-links, #drawer-nav ul,
   .no-mbl {
     display: none !important; } }
 
-.clearfix::before, #hdr-main::before, .footer-links::before, .clients::before, .articles::before, .team::before, .awards::before,
+.clearfix::before, #hdr-main::before, .footer-links::before, .clients::before, .articles::before, .team::before, .awards::before, .projects::before, .project::before,
 .row::before,
 .form-row::before {
   content: "";
   display: table; }
 
-.clearfix:after, #hdr-main:after, .footer-links:after, .clients:after, .articles:after, .team:after, .awards:after,
+.clearfix:after, #hdr-main:after, .footer-links:after, .clients:after, .articles:after, .team:after, .awards:after, .projects:after, .project:after,
 .row:after,
 .form-row:after {
   clear: both;
@@ -620,6 +620,8 @@ ul.list-no-style, ol.list-no-style, #nav-main ul, .footer-links, #drawer-nav ul,
   .copy-hdr {
     font-size: 1.8rem;
     line-height: 1.25; }
+    .copy-hdr:not(:first-child) {
+      margin-top: 35px; }
     .copy-hdr:not(:last-child) {
       margin-bottom: 15px; }
     .copy-hdr-xl {
@@ -717,6 +719,7 @@ body {
 
 #main {
   margin-bottom: 64px;
+  min-height: calc(100vh - 128px);
   top: 64px;
   z-index: 0; }
 
@@ -2686,9 +2689,13 @@ http://nicolasgallagher.com/micro-clearfix-hack/
   .paper-orange {
     background: #dda14a;
     color: #a1a0a1; }
+  .paper.bg, footer.bg {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(/img/test.v3.jpg); }
 
 .clients {
-  margin-bottom: -35px;
   padding: 0 50px; }
 
 .client {
@@ -2755,6 +2762,11 @@ http://nicolasgallagher.com/micro-clearfix-hack/
         margin-bottom: 25px; }
     .card-copy:last-child {
       padding-bottom: 0; }
+    .card-copy a {
+      border-bottom: 1px dotted #dda14a;
+      color: #dda14a; }
+      .card-copy a:hover {
+        color: #dda14a; }
   .card-footer {
     border-top: 1px solid #d4d3d4;
     margin: -15px -30px;
@@ -2826,6 +2838,20 @@ http://nicolasgallagher.com/micro-clearfix-hack/
     .awards li:nth-child(2n + 1) {
       clear: both; }
 
+.gmap {
+  min-height: 40vh;
+  widht: 100%;
+  z-index: 1; }
+  .gmap img {
+    height: auto;
+    min-width: none; }
+
+.social-links li:not(:last-child) {
+  margin-right: 10px; }
+
+.social-links a {
+  border-bottom: none; }
+
 #nav-admin li {
   margin: 15px 0 0; }
   #nav-admin li:first-child {
@@ -2844,6 +2870,67 @@ http://nicolasgallagher.com/micro-clearfix-hack/
   #nav-admin a:hover, #nav-admin a.selected {
     border-left-color: #444;
     padding-left: 10px; }
+
+.project-col {
+  width: 30.7692307692%;
+  float: left;
+  margin-right: 3.8461538462%;
+  margin-bottom: 3.8461538462%; }
+  .project-col:nth-child(3n) {
+    float: right;
+    margin-right: 0; }
+  .project-col:nth-child(3n + 1) {
+    clear: both; }
+
+.project-link:hover .project-overlay {
+  opacity: 0; }
+
+.project-link:hover .project-name {
+  opacity: 1;
+  -webkit-transform: translateY(0);
+      -ms-transform: translateY(0);
+          transform: translateY(0); }
+
+.project-overlay {
+  background: rgba(255, 255, 255, 0.25);
+  bottom: 0;
+  height: 100%;
+  left: 0;
+  opacity: 1;
+  right: 0;
+  top: 0;
+  -webkit-transition: opacity .275s ease;
+          transition: opacity .275s ease;
+  width: 100%;
+  z-index: 1; }
+
+.project-name {
+  background: rgba(255, 255, 255, 0.95);
+  bottom: 0;
+  color: #dda14a;
+  font-family: "telegrafico", sans-serif;
+  font-size: 1.5rem;
+  left: 0;
+  opacity: 0;
+  padding: 15px 15px;
+  right: 0;
+  -webkit-transform: translateY(100%);
+      -ms-transform: translateY(100%);
+          transform: translateY(100%);
+  -webkit-transition: opacity .275s ease, -webkit-transform .275s ease;
+          transition: opacity .275s ease, transform .275s ease;
+  width: 100%;
+  z-index: 2; }
+
+.project-img {
+  width: 39.4230769231%;
+  float: left;
+  margin-right: 3.8461538462%; }
+
+.project-details {
+  width: 56.7307692308%;
+  float: right;
+  margin-right: 0; }
 
 .sg {
   margin: 0;

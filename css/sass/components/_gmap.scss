@@ -1,0 +1,11 @@
+﻿.gmap {
+    @extend %position-relative;
+    min-height: 40vh;
+    widht: 100%;
+    z-index: 1;
+
+    img {
+        height: auto;
+        min-width: none;
+    }
+}

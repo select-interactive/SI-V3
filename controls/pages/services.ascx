@@ -1,12 +1,13 @@
 ﻿<%@ Control Language="VB" AutoEventWireup="false" CodeFile="services.ascx.vb" Inherits="controls_pages_services" %>
 <div class="paper copy">
 	<div class="content-container-xsm">
-		<h2 class="copy-hdr copy-hdr-xl text-center">Website and Web Application Design and Development.</h2>
+		<h2 class="copy-hdr copy-hdr-xl text-center">Website and Web Application <br class="no-mbl" />Design and Development.</h2>
 		<p>It&rsquo;s estimated that up to 50 percent of visitors to landing pages will bail in the first eight seconds. It&rsquo;s our job to make those seconds count. How do we accomplish this for you? By creating a site that engages visitors from the very beginning &mdash; a site that&rsquo;s visually appealing, highly functional, and clearly communicates what your services are all about.</p>
 	</div>
 </div>
 <div class="paper paper-gray-light copy">
 	<div class="content-container">
+		<h2 class="copy-hdr copy-hdr-xl text-center">Core Services</h2>
 		<div class="row row-cols-2">
 			<div class="col">
 				<h3 class="copy-hdr"><i class="material-icons">code</i>Web Applications</h3>
@@ -36,7 +37,7 @@
 </div>
 <div class="paper copy">
 	<div class="content-container-sm">
-		<h3 class="copy-hdr text-center">Working With Us - PR Firms/Marketing &amp; Design Agencies</h3>
+		<h3 class="copy-hdr copy-hdr-xl text-center">Working With Us<br />PR Firms/Marketing &amp; Design Agencies</h3>
 		<div class="row row-cols-2">
 			<div class="col">
 				<p>As a firm specialized in developing websites, we are often approached by PR/Marketing/Design agencies to implement their designs into full sites. We take pride in being extremely easy to work with and knowledgeable. We are happy and eager to share information about performance factors in design, responsive design strategies, SEO best practices, and assist in the analysis of Google Analytics and Google Webmaster Tools.</p>
@@ -48,14 +49,24 @@
 					<li><a href="http://www.slantpartners.com" target="_blank">www.slantpartners.com</a></li>
 					<li><a href="http://www.streamretail.com" target="_blank">www.streamretail.com</a></li>
 					<li><a href="http://www.fairwindstower.com" target="_blank">www.fairwindstower.com</a></li>
-					<li><a href="http://www.bbvacompassplaza.com" target="_blank">www.bbvacompassplaza.com</a></li>
+					<li><a href="http://www.ipdfw.org" target="_blank">www.ipdfw.org</a></li>
 					<li><a href="http://www.contactpointelakemary.com" target="_blank">www.contactpointelakemary.com</a></li>
 					<li><a href="http://www.liveoaksquare.com" target="_blank">www.liveoaksquare.com</a></li>
-					<li><a href="http://www.regionsplaza.com" target="_blank">www.regionsplaza.com</a></li>
 					<li><a href="http://www.openra.com" target="_blank">www.openra.com</a></li>
-					<li><a href="http://www.trammellcrowcenter.com" target="_blank">www.trammellcrowcenter.com</a></li>
+					<li><a href="http://www.redriveram.com" target="_blank">www.redriveram.com</a></li>
+					<li><a href="http://www.jtaylor.com" target="_blank">www.jtaylor.com</a></li>
 				</ul>
 			</div>
 		</div>
 	</div>
+</div>
+<div class="paper paper-pad-med paper-gray-dark">
+	<h2 class="copy-hdr copy-hdr-xl text-center">Who We Work With</h2>
+	<ul class="clients">
+		<li class="client"><a href="" target="_blank"><img src="/img/logos/nimble.v1.png" width="311" height="40" alt="Nimble Design Co." /></a></li>
+		<li class="client"><a href="" target="_blank"><img src="/img/logos/slant.v1.png" width="150" height="40" alt="Slant Parnters" /></a></li>
+		<li class="client"><a href="" target="_blank"><img src="/img/logos/branded.v1.png" width="236" height="40" alt="The Branded Company" /></a></li>
+		<li class="client"><a href="" target="_blank"><img src="/img/logos/bluerock.v1.png" width="204" height="40" alt="BlueRock Marketing" /></a></li>
+		<li class="clinet"><a href="http://www.pytchblack.com" target="_blank"><img src="/img/logos/pytchblack.v3.png" width="288" height="40" alt="PytchBlack" /></a></li>
+	</ul>
 </div>

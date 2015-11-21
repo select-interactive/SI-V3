@@ -83,6 +83,12 @@
         &:last-child {
             padding-bottom: 0;
         }
+
+        a {
+            @extend %text-decoration-none;
+            border-bottom: 1px dotted $color-primary;
+            @include link-colors($color-primary, $color-primary);
+        }
     }
 
     &-footer {

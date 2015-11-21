@@ -93,6 +93,10 @@
         font-size: 1.8rem;
         line-height: 1.25;
         
+        &:not(:first-child) {
+            margin-top: 35px;
+        }
+
         &:not(:last-child) {
             margin-bottom: 15px;
         }

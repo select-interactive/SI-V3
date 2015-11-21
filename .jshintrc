@@ -24,6 +24,7 @@
 		"FastClick": true,
 		"fetch": true,
 		"forEachElement": true,
+		"google": true,
 		"moment": true,
 		"Parse": true,
 		"Pikaday": true
