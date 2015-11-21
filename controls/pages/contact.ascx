@@ -2,7 +2,7 @@
 <div class="paper paper copy">
 	<div class="content-container-xsm">
 		<h2 class="copy-hdr copy-hdr-xl text-center">Get in Touch.</h2>
-		<p>Select Interactive is located just west of downtown Fort Worth off of IH-30 and University on Locke AVenue between Vickery Boulevard and the access road.</p>
+		<p>Select Interactive is located just west of downtown Fort Worth off of IH-30 and University on Locke Avenue between Vickery Boulevard and the access road.</p>
 	</div>
 </div>
 <div id="gmap" class="gmap" data-map-center="32.731486,-97.366189" data-map-marker="true" data-infowindow="true" data-map-zoom="12"></div>

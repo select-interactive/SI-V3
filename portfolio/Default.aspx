@@ -2,7 +2,7 @@
 <%@ Register TagPrefix="page" TagName="portfolio" Src="~/controls/pages/portfolio.ascx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cphMeta" Runat="Server">
-	<title>About Select Interactive</title>
+	<title>Website Design and Development Projects from Select Interactive</title>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="cphHead" Runat="Server">

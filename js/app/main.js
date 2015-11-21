@@ -5599,6 +5599,7 @@ app.forms = ( function( doc ) {
 					
 					validateField( input );
 
+					e.preventDefault();
 					return false;
 				}, false );
 			} );
@@ -5764,7 +5765,6 @@ app.forms = ( function( doc ) {
 
 			// if we have a msg
 			if ( msg ) {
-				console.log( 'hi' );
 				lbl = doc.createElement( 'span' );
 				lbl.classList.add( 'error-label' );
 				lbl.innerHTML = msg;
@@ -6004,6 +6004,7 @@ app.gmap = ( function( doc ) {
 			
 			if ( page !== pageToLoad ) {
 				page = pageToLoad;
+				console.log( target, page, url );
 				loadPage( page, url );
 				history.pushState( { page: page, url: url }, page, url );
 			}
@@ -6065,7 +6066,9 @@ app.gmap = ( function( doc ) {
 			url = page;
 		}
 
-		loadPage( page, url );
+		if ( main && page && url ) {
+			loadPage( page, url );
+		}
 	}
 
 }( document ) );

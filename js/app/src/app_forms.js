@@ -134,6 +134,7 @@ app.forms = ( function( doc ) {
 					
 					validateField( input );
 
+					e.preventDefault();
 					return false;
 				}, false );
 			} );
@@ -299,7 +300,6 @@ app.forms = ( function( doc ) {
 
 			// if we have a msg
 			if ( msg ) {
-				console.log( 'hi' );
 				lbl = doc.createElement( 'span' );
 				lbl.classList.add( 'error-label' );
 				lbl.innerHTML = msg;

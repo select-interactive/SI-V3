@@ -2,7 +2,7 @@
 <%@ Register TagPrefix="page" TagName="contact" Src="~/controls/pages/contact.ascx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cphMeta" Runat="Server">
-	<title>Contact Select Interactive</title>
+	<title>Contact Us to Discuss Your Website or Web Application Needs</title>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="cphHead" Runat="Server">

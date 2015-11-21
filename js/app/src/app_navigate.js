@@ -26,6 +26,7 @@
 			
 			if ( page !== pageToLoad ) {
 				page = pageToLoad;
+				console.log( target, page, url );
 				loadPage( page, url );
 				history.pushState( { page: page, url: url }, page, url );
 			}
@@ -87,7 +88,9 @@
 			url = page;
 		}
 
-		loadPage( page, url );
+		if ( main && page && url ) {
+			loadPage( page, url );
+		}
 	}
 
 }( document ) );
