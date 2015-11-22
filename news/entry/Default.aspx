@@ -9,9 +9,7 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="cphMain" Runat="Server">
-	<div class="paper paper-pad-med copy">
-		<asp:literal runat="server" id="ltrlBody" />
-	</div>
+	<asp:literal runat="server" id="ltrlBody" />
 </asp:Content>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="cphBody" Runat="Server">

@@ -164,7 +164,7 @@ app.bios = ( function( doc, $ ) {
 		var files = e.dataTransfer ? e.dataTransfer.files : e.currentTarget.files,
 			file = files[0];
 
-		app.admin.uploadFile( file, true, '/admin/projects/uploadImg.ashx', function( fileName ) {
+		app.admin.uploadFile( file, true, '/admin/blogs/uploadImg.ashx', function( fileName ) {
 			if ( fileName ) {
 				setTimeout( function() {
 					app.admin.setOtherDataProperty( 'banner', fileName );
@@ -187,7 +187,7 @@ app.bios = ( function( doc, $ ) {
 		var files = e.dataTransfer ? e.dataTransfer.files : e.currentTarget.files,
 			file = files[0];
 
-		app.admin.uploadFile( file, true, '/admin/projects/uploadImgThumb.ashx', function( fileName ) {
+		app.admin.uploadFile( file, true, '/admin/blogs/uploadImgThumb.ashx', function( fileName ) {
 			if ( fileName ) {
 				setTimeout( function() {
 					app.admin.setOtherDataProperty( 'thumbnail', fileName );
@@ -242,7 +242,7 @@ app.bios = ( function( doc, $ ) {
 
 	function setImgPrev( fileName ) {
 		if ( fileName && fileName.length ) {
-			imgPrev.innerHTML = '<img src="/img/news/' + fileName + '" />';
+			imgPrev.innerHTML = '<img src="/img/news/med/' + fileName + '" />';
 			btnImgDetele.classList.remove( 'hidden' );
 		}
 		else {

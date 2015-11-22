@@ -71,77 +71,32 @@ Public Class uploadImg : Implements IHttpHandler
                     ' Save the temp file
                     context.Request.SaveAs(tempFile, False)
 
-                    ' Resizing Codecs
-                    Dim ratio As New EncoderParameter(Encoder.Quality, 100L)
-					Dim codecParams As New EncoderParameters(2)
-					codecParams.Param(0) = ratio
-					codecParams.Param(1) = New EncoderParameter(Encoder.RenderMethod, EncoderValue.RenderProgressive)
+					' ***** FULL SIZE FILE *****
+					Dim minWidth As Integer = 2000
+					Dim minHeight As Integer = 500
 
-                    ' Check the sizing
-                    Dim bmp As New Bitmap(tempFile)
+					' Check the sizing
+					Dim bmp As New Bitmap(tempFile)
 					Dim curWidth As Integer = bmp.Width
 					Dim curHeight As Integer = bmp.Height
 
-					' ***** FULL SIZE FILE *****
-					Dim maxWidth As Integer = 750
-					Dim maxHeight As Integer = 450
+					bmp.Dispose()
 
-					If curWidth < 100 Or curHeight < maxHeight Then
-						strResponse = "{""status"":""error"",""msg"":""Error: The image must be at least " & 100 & "px by " & maxHeight & "px.""}"
+					If curWidth < minWidth Or curHeight < minHeight Then
+						strResponse = "{""status"":""error"",""msg"":""Error: The image must be at least " & minWidth & "px by " & minHeight & "px.""}"
 					Else
-						Dim originalWidth As Integer = curWidth '1500
-						Dim originalHeight As Integer = curHeight '1000
-						Dim percentWidth As Single = CSng(maxWidth) / CSng(originalWidth) ' .28
-						Dim percentHeight As Single = CSng(maxHeight) / CSng(originalHeight) '.42
-						Dim percent As Single = If(percentHeight > percentWidth, percentHeight, percentWidth) '.42
-						Dim newWidth As Integer = CInt(originalWidth * percent) '630
-						Dim newHeight As Integer = CInt(originalHeight * percent) '420
+						' Save the large version
+						createImage(tempFile, dirLg & fileName, saveAsFileType, 2000, 600)
 
-						Dim largeWidth As Integer = 0
-						Dim startX As Integer = 0
-						Dim largeHeight As Integer = 0
-						Dim startY As Integer = 0
+						' Save the medium version
+						createImage(tempFile, dirMed & fileName, saveAsFileType, 1399, 400)
 
-						If newWidth < maxWidth Then
-							largeWidth = maxWidth
-
-							newWidth = maxWidth
-							largeHeight = CInt(newWidth * curHeight / curWidth)
-
-							startY = CInt((largeHeight - maxHeight) / 2)
-						ElseIf newWidth > maxWidth
-							largeWidth = newWidth
-
-							startX = CInt((largeWidth - maxWidth) / 2)
-						End If
-
-						Dim img As Image = Image.FromFile(tempFile)
-						Dim oBmp As New Bitmap(maxWidth, maxHeight)
-
-						Dim g As Graphics = Graphics.FromImage(oBmp)
-						g.CompositingQuality = CompositingQuality.HighQuality
-						g.SmoothingMode = SmoothingMode.HighQuality
-						g.InterpolationMode = InterpolationMode.HighQualityBicubic
-						g.PixelOffsetMode = PixelOffsetMode.HighQuality
-
-						Dim rec As New Rectangle(0 - startX, 0 - startY, newWidth, newHeight)
-						g.DrawImage(img, rec)
-						oBmp.Save(fullFile, GetEncoder(saveAsFileType), codecParams)
-
-						oBmp.Dispose()
-						img.Dispose()
-						g.Dispose()
-
-						If saveAsFileType.Equals(Imaging.ImageFormat.Jpeg) Then
-							optimizeImage(dir, fullFile)
-						End If
-
-						'createWebP(dir, fullFile)
+						' Save the small version
+						createImage(tempFile, dirSm & fileName, saveAsFileType, 1023, 300)
 
 						strResponse = "{""status"":""success"",""fileName"":""" & fileName & """}"
 					End If
 
-					bmp.Dispose()
 					File.Delete(tempFile)
 				End If
 			End If
@@ -151,6 +106,70 @@ Public Class uploadImg : Implements IHttpHandler
 
 		context.Response.ContentType = "text/plain"
 		context.Response.Write(strResponse)
+	End Sub
+
+	Public Sub createImage(tempFile As String, fullFile As String, saveAsFileType As Imaging.ImageFormat, maxWidth As Integer, maxHeight As Integer)
+		' Resizing Codecs
+		Dim ratio As New EncoderParameter(Encoder.Quality, 100L)
+		Dim codecParams As New EncoderParameters(2)
+		codecParams.Param(0) = ratio
+		codecParams.Param(1) = New EncoderParameter(Encoder.RenderMethod, EncoderValue.RenderProgressive)
+
+		' Check the sizing
+		Dim bmp As New Bitmap(tempFile)
+		Dim curWidth As Integer = bmp.Width
+		Dim curHeight As Integer = bmp.Height
+
+		Dim originalWidth As Integer = curWidth '1500
+		Dim originalHeight As Integer = curHeight '1000
+		Dim percentWidth As Single = CSng(maxWidth) / CSng(originalWidth) ' .28
+		Dim percentHeight As Single = CSng(maxHeight) / CSng(originalHeight) '.42
+		Dim percent As Single = If(percentHeight > percentWidth, percentHeight, percentWidth) '.42
+		Dim newWidth As Integer = CInt(originalWidth * percent) '630
+		Dim newHeight As Integer = CInt(originalHeight * percent) '420
+
+		Dim largeWidth As Integer = 0
+		Dim startX As Integer = 0
+		Dim largeHeight As Integer = 0
+		Dim startY As Integer = 0
+
+		If newWidth < maxWidth Then
+			largeWidth = maxWidth
+
+			newWidth = maxWidth
+			largeHeight = CInt(newWidth * curHeight / curWidth)
+
+			startY = CInt((largeHeight - maxHeight) / 2)
+		ElseIf newWidth > maxWidth
+			largeWidth = newWidth
+
+			startX = CInt((largeWidth - maxWidth) / 2)
+		End If
+
+		Dim img As Image = Image.FromFile(tempFile)
+		Dim oBmp As New Bitmap(maxWidth, maxHeight)
+
+		Dim g As Graphics = Graphics.FromImage(oBmp)
+		g.CompositingQuality = CompositingQuality.HighQuality
+		g.SmoothingMode = SmoothingMode.HighQuality
+		g.InterpolationMode = InterpolationMode.HighQualityBicubic
+		g.PixelOffsetMode = PixelOffsetMode.HighQuality
+
+		Dim rec As New Rectangle(0 - startX, 0 - startY, newWidth, newHeight)
+		g.DrawImage(img, rec)
+		oBmp.Save(fullFile, GetEncoder(saveAsFileType), codecParams)
+
+		oBmp.Dispose()
+		img.Dispose()
+		g.Dispose()
+
+		If saveAsFileType.Equals(Imaging.ImageFormat.Jpeg) Then
+			optimizeImage(Dir, fullFile)
+		End If
+
+		'createWebP(dir, fullFile)
+
+		bmp.Dispose()
 	End Sub
 
 	Public Sub optimizeImage(dir As String, filePath As String)

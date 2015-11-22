@@ -87,9 +87,7 @@ Public Class wsApp
 
 			pUtil.setField(0, "tags", tags)
 
-			html.Append("<div class=""paper paper-pad-med copy"">")
 			html.Append(pUtil.generateHtml("article-details", 0))
-			html.Append("</div>")
 		End If
 
 		Return html.ToString
