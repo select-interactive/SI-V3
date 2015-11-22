@@ -464,7 +464,7 @@ img {
 /**
  * Project SASS Mixins
  */
-.row, .form-row, .copy p, #nav-main ul, .footer-links, #drawer-nav ul, .hdr-bar [title], #hdr-nav ul, .select-opts, .clients, .card-copy p, .articles, .team, .awards, .social-links, #nav-admin ul, .projects {
+.row, .form-row, .copy p, #nav-main ul, .footer-links, #drawer-nav ul, .hdr-bar [title], #hdr-nav ul, .select-opts, .clients, .card-copy p, .articles, .article-tags, .team, .awards, .social-links, #nav-admin ul, .projects {
   margin: 0; }
 
 .row, .form-row {
@@ -507,7 +507,7 @@ input[type=radio] + label, input[type=checkbox][switch] + label .switch-toggle, 
 .client {
   float: none; }
 
-#masthead-favicon, #nav-main li, .footer-links li {
+#masthead-favicon, #nav-main li, .footer-links li, .article-tags li {
   float: left; }
 
 #hdr-nav, input[type=range] + .range-label {
@@ -531,7 +531,7 @@ input[type=radio] + label, input[type=checkbox][switch] + label .switch-toggle, 
 .text-uppercase, #nav-main a, .tab-links a {
   text-transform: uppercase; }
 
-ul.list-no-style, ol.list-no-style, #nav-main ul, .footer-links, #drawer-nav ul, #hdr-nav ul, .select-opts, .tab-links, .clients, .card-tooblar, .articles, .team, .awards, .social-links, #nav-admin ul, .projects {
+ul.list-no-style, ol.list-no-style, #nav-main ul, .footer-links, #drawer-nav ul, #hdr-nav ul, .select-opts, .tab-links, .clients, .card-tooblar, .articles, .article-tags, .team, .awards, .social-links, #nav-admin ul, .projects {
   list-style: none; }
 
 @media (min-width: 1024px) {
@@ -542,13 +542,13 @@ ul.list-no-style, ol.list-no-style, #nav-main ul, .footer-links, #drawer-nav ul,
   .no-mbl {
     display: none !important; } }
 
-.clearfix::before, #hdr-main::before, .footer-links::before, .clients::before, .articles::before, .team::before, .awards::before, .projects::before, .project::before,
+.clearfix::before, #hdr-main::before, .footer-links::before, .clients::before, .articles::before, .article-tags::before, .team::before, .awards::before, .projects::before, .project::before,
 .row::before,
 .form-row::before {
   content: "";
   display: table; }
 
-.clearfix:after, #hdr-main:after, .footer-links:after, .clients:after, .articles:after, .team:after, .awards:after, .projects:after, .project:after,
+.clearfix:after, #hdr-main:after, .footer-links:after, .clients:after, .articles:after, .article-tags:after, .team:after, .awards:after, .projects:after, .project:after,
 .row:after,
 .form-row:after {
   clear: both;
@@ -616,10 +616,14 @@ ul.list-no-style, ol.list-no-style, #nav-main ul, .footer-links, #drawer-nav ul,
   color: #dda14a; }
 
 .copy {
-  font-size: 1.1rem; }
+  font-size: 1.15rem; }
+  .copy .article-details {
+    font-size: 1.2rem; }
   .copy-hdr {
     font-size: 1.8rem;
     line-height: 1.25; }
+    .article-details .copy-hdr {
+      font-size: 2rem; }
     .copy-hdr:not(:first-child) {
       margin-top: 35px; }
     .copy-hdr:not(:last-child) {
@@ -628,6 +632,9 @@ ul.list-no-style, ol.list-no-style, #nav-main ul, .footer-links, #drawer-nav ul,
       font-size: 3rem; }
       .copy-hdr-xl:not(:last-child) {
         margin-bottom: 30px; }
+      .article-details .copy-hdr-xl {
+        color: #dda14a;
+        font-size: 3rem; }
     .copy-hdr i {
       color: #606060;
       font-size: 2rem;
@@ -640,6 +647,15 @@ ul.list-no-style, ol.list-no-style, #nav-main ul, .footer-links, #drawer-nav ul,
       margin-bottom: 20px; }
     .copy p.mbs {
       margin-bottom: 10px; }
+  .copy ul:not(:last-child),
+  .copy ol:not(:last-child) {
+    margin-bottom: 20px; }
+  .copy ul li,
+  .copy ol li {
+    line-height: 1.3; }
+    .copy ul li:not(:last-child),
+    .copy ol li:not(:last-child) {
+      margin-bottom: 8px; }
   .copy a {
     border-bottom: 1px dotted #dda14a;
     line-height: .8;
@@ -3218,6 +3234,21 @@ http://nicolasgallagher.com/micro-clearfix-hack/
     margin-right: 0; }
   .article:nth-child(2n + 1) {
     clear: both; }
+
+.article-details {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 750px; }
+
+.article-footer {
+  color: #7b7a7b;
+  margin-top: 45px; }
+
+.article-tags li:not(:last-child):after {
+  content: "/";
+  color: #a1a0a1;
+  display: inline-block;
+  margin: 0 8px; }
 
 .bio {
   width: 30.7692307692%;

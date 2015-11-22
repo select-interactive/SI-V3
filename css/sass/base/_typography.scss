@@ -86,12 +86,20 @@
 // General copy
 // ------------
 .copy {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
+
+    .article-details {
+        font-size: 1.2rem;
+    }
 
     &-hdr {
         @extend %position-relative;
         font-size: 1.8rem;
         line-height: 1.25;
+
+        .article-details & {
+            font-size: 2rem;
+        }
         
         &:not(:first-child) {
             margin-top: 35px;
@@ -107,6 +115,11 @@
             &:not(:last-child) {
                 margin-bottom: 30px;
             }    
+
+            .article-details & {
+                color: $color-primary;
+                font-size: 3rem;
+            }
         }
 
         i {
@@ -129,6 +142,21 @@
 
         &.mbs {
             margin-bottom: 10px;
+        }
+    }
+
+    ul,
+    ol {
+        &:not(:last-child) {
+            margin-bottom: 20px;
+        }
+
+        li {
+            line-height: 1.3;
+
+            &:not(:last-child) {
+                margin-bottom: 8px;
+            }
         }
     }
 

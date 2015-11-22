@@ -508,6 +508,13 @@ app.admin = ( function( doc ) {
 					opt.classList.remove( 'active' );
 				} );
 			}
+			else if ( field.multiple && field.classList.contains( 'chosen-select' ) ) {
+				window.forEachElement( field.querySelectorAll( 'option' ), function( opt ) {
+					opt.selected = false;
+				} );
+
+				$( field ).trigger( 'chosen:updated' );
+			}
 		} );
 
 		// if any preview rows are used, clear them too
@@ -522,6 +529,10 @@ app.admin = ( function( doc ) {
 
 		forEachElement( doc.querySelectorAll( '.btn-load-action' ), function( btn ) {
 			btn.classList.add( 'hidden' );
+		} );
+
+		forEachElement( formEdit_.querySelectorAll( '.active' ), function( el ) {
+			el.classList.remove( 'active' );
 		} );
 
 		doc.getElementById( 'btn-item-delete' ).classList.add( 'hidden' );

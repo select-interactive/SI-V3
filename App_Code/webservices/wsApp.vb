@@ -22,6 +22,8 @@ Public Class wsApp
 	Public Function loadControlContent(controlName As String, url As String) As String
 		If Not url Is Nothing AndAlso url.Length > 0 AndAlso url.Contains("project") Then
 			Return loadProjectAsPageContent(url.Substring(url.LastIndexOf("/") + 1)).html
+		ElseIf Not url Is Nothing AndAlso url.Length > 0 AndAlso url.Contains("news") Then
+			Return loadArticleDetails(url.Substring(url.IndexOf("news/") + 5))
 		Else
 			Return renderPartialToString("/controls/pages/" & controlName & ".ascx")
 		End If
@@ -42,6 +44,87 @@ Public Class wsApp
 
 
 #Region "Blogs"
+
+	' Load article thumbnails
+	<WebMethod()>
+	Public Function loadArticles(start As Integer, max As Integer) As String
+		Dim html As New StringBuilder
+		Dim endIndex As Integer = start + max - 1
+
+		pUtil.query("Blog", "updatedAt", False)
+
+		If pUtil.itemList.Count > 0 Then
+			If pUtil.itemList.Count < endIndex Then
+				endIndex = pUtil.itemList.Count
+			End If
+
+			For i As Integer = start - 1 To endIndex - 1
+				html.Append(pUtil.generateHtml("article-thumb", i))
+			Next
+		End If
+
+		Return html.ToString
+	End Function
+
+	' Load article details as PageContent
+	<WebMethod()>
+	Public Function loadArticleDetails(url As String) As String
+		Dim html As New StringBuilder
+
+		pUtil.query("Blog", "", True, "url", url)
+
+		If pUtil.itemList.Count = 1 Then
+			Dim tagNames As String = pUtil.getField(0, "tagNames")
+			Dim arrTagNames() As String = tagNames.Split(",")
+			Dim tagUrls As String = pUtil.getField(0, "tagUrls")
+			Dim arrTagUrls() As String = tagUrls.Split(",")
+
+			Dim tags As String = ""
+
+			For i As Integer = 0 To arrTagNames.Length - 1
+				tags &= "<li><a href=""/news/tags/" & arrTagUrls(i) & """ class=""navigation"">" & arrTagNames(i) & "</a></li>"
+			Next
+
+			pUtil.setField(0, "tags", tags)
+
+			html.Append("<div class=""paper paper-pad-med copy"">")
+			html.Append(pUtil.generateHtml("article-details", 0))
+			html.Append("</div>")
+		End If
+
+		Return html.ToString
+	End Function
+
+	' Load article details as PageContent
+	<WebMethod()>
+	Public Function loadArticleDetailsAsPageContent(url As String) As PageContent
+		Dim title As String = ""
+		Dim desc As String = ""
+		Dim html As New StringBuilder
+
+		pUtil.query("Blog", "", True, "url", url)
+
+		If pUtil.itemList.Count = 1 Then
+			title = pUtil.getField(0, "title")
+			desc = pUtil.getField(0, "metaDesc")
+
+			Dim tagNames As String = pUtil.getField(0, "tagNames")
+			Dim arrTagNames() As String = tagNames.Split(",")
+			Dim tagUrls As String = pUtil.getField(0, "tagUrls")
+			Dim arrTagUrls() As String = tagUrls.Split(",")
+
+			Dim tags As String = ""
+
+			For i As Integer = 0 To arrTagNames.Length - 1
+				tags &= "<li><a href=""/news/tags/" & arrTagUrls(i) & """ class=""navigation"">" & arrTagNames(i) & "</a></li>"
+			Next
+
+			pUtil.setField(0, "tags", tags)
+			html.Append(pUtil.generateHtml("article-details", 0))
+		End If
+
+		Return New PageContent(title, desc, html.ToString)
+	End Function
 
 	' Load blog categories options for admin
 	<WebMethod()>

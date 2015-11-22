@@ -61,55 +61,6 @@
 <div class="paper paper-gray-dark">
 	<div class="content-container">
 		<h2 class="copy-hdr copy-hdr-xl text-center">What&rsquo; Happening</h2>
-		<ul class="articles">
-			<li class="article">
-				<div class="card">
-					<div class="card-img"><img src="/img/news/si.v1.png" /></div>
-					<h2 class="card-hdr">Development Tools and Workflow</h2>
-					<div class="card-copy">
-						<p>As more developer tools have recently become available, we&rsquo;ve had to modify our development envrionment and workflow to take advantage of them. Take a look at what we use and how we advance through web projects.</p>
-					</div>
-					<div class="card-footer">
-						<a href="#" class="btn btn-no-pad">Read More</a>
-					</div>
-				</div>
-			</li>
-			<li class="article">
-				<div class="card">
-					<div class="card-img"><img src="/img/news/lv.v1.jpg" /></div>
-					<h2 class="card-hdr">Development Tools and Workflow</h2>
-					<div class="card-copy">
-						<p>As more developer tools have recently become available, we&rsquo;ve had to modify our development envrionment and workflow to take advantage of them. Take a look at what we use and how we advance through web projects.</p>
-					</div>
-					<div class="card-footer">
-						<a href="#" class="btn btn-no-pad">Read More</a>
-					</div>
-				</div>
-			</li>
-			<li class="article">
-				<div class="card">
-					<div class="card-img"><img src="/img/news/si.v1.png" /></div>
-					<h2 class="card-hdr">Development Tools and Workflow</h2>
-					<div class="card-copy">
-						<p>As more developer tools have recently become available, we&rsquo;ve had to modify our development envrionment and workflow to take advantage of them. Take a look at what we use and how we advance through web projects.</p>
-					</div>
-					<div class="card-footer">
-						<a href="#" class="btn btn-no-pad">Read More</a>
-					</div>
-				</div>
-			</li>
-			<li class="article">
-				<div class="card">
-					<div class="card-img"><img src="/img/news/lv.v1.jpg" /></div>
-					<h2 class="card-hdr">Development Tools and Workflow</h2>
-					<div class="card-copy">
-						<p>As more developer tools have recently become available, we&rsquo;ve had to modify our development envrionment and workflow to take advantage of them. Take a look at what we use and how we advance through web projects.</p>
-					</div>
-					<div class="card-footer">
-						<a href="#" class="btn btn-no-pad">Read More</a>
-					</div>
-				</div>
-			</li>
-		</ul>
+		<ul class="articles"><asp:Literal runat="server" ID="ltrlArticles" /></ul>
 	</div>
 </div>

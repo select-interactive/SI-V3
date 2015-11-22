@@ -18,9 +18,12 @@ Public Class CustomRouteHandler : Implements IRouteHandler
 		Dim webUrl As String = requestContext.RouteData.Values("webUrl")
 		Dim year As String = requestContext.RouteData.Values("year")
 		Dim month As String = requestContext.RouteData.Values("month")
+		Dim day As String = requestContext.RouteData.Values("day")
 		Dim tag As String = requestContext.RouteData.Values("tagUrl")
 
-		If Not webUrl Is Nothing AndAlso webUrl.Length > 0 AndAlso Not year Is Nothing AndAlso year.Length > 0 AndAlso Not month Is Nothing AndAlso month.Length > 0 Then
+		If Not webUrl Is Nothing AndAlso webUrl.Length > 0 AndAlso Not year Is Nothing AndAlso year.Length > 0 AndAlso Not month Is Nothing AndAlso month.Length > 0 AndAlso Not day Is Nothing AndAlso day.Length > 0 Then
+			qs = "?webUrl=" & year & "/" & month & "/" & day & "/" & webUrl
+		ElseIf Not webUrl Is Nothing AndAlso webUrl.Length > 0 AndAlso Not year Is Nothing AndAlso year.Length > 0 AndAlso Not month Is Nothing AndAlso month.Length > 0 Then
 			qs = "?webUrl=" & year & "/" & month & "/" & webUrl
 		ElseIf Not year Is Nothing AndAlso year.Length > 0 AndAlso Not month Is Nothing AndAlso month.Length > 0 Then
 			qs = "?year=" & year & "&month=" & month

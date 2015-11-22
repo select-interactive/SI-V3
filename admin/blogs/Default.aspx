@@ -85,7 +85,7 @@
 				</div>
 				<div class="col col-8">
 					<label for="ddl-tags">* Blog Tags:</label>
-					<select id="ddl-tags" multiple><asp:Literal runat="server" ID="ltrlTags" /></select>
+					<select id="ddl-tags" class="chosen-select" multiple><asp:Literal runat="server" ID="ltrlTags" /></select>
 				</div>
 			</div>
 			<div class="row form-row">
