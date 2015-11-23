@@ -3,6 +3,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cphMeta" Runat="Server">
 	<title>Contact Us to Discuss Your Website or Web Application Needs</title>
+    <meta name="description" content="Located just west of downtown Fort Worth, Select Interactive offers website design and development services to the Dallas / Fort Worth metroplex.">
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="cphHead" Runat="Server">
