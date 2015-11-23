@@ -54,6 +54,12 @@
 					<div id="img-prev" class="row-preview" style="margin-top:15px;margin-bottom:15px;"></div>
 					<button id="btn-img-delete" class="btn hidden btn-load-action" raised>Delete Image</button>
 				</div>
+				<div class="col col-6">
+					<input type="file" id="f-img-monitor" class="hidden" />
+					<button id="btn-img-monitor-trigger" class="btn" raised>Upload Project Monitor Image</button><br />
+					<div id="img-monitor-prev" class="row-preview" style="margin-top:15px;margin-bottom:15px;"></div>
+					<button id="btn-img-monitor-delete" class="btn hidden btn-load-action" raised>Delete Image</button>
+				</div>
 			</div>
 			<div class="row form-row">
 				<div class="col col-4">

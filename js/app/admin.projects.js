@@ -64,18 +64,37 @@
 				el: doc.getElementById( 'btn-img-delete' ),
 				evtName: 'click',
 				handler: deleteThumb
+			},
+			{
+				el: doc.getElementById( 'btn-img-monitor-trigger' ),
+				evtName: 'click',
+				handler: triggerImgMonitorUpload
+			},
+			{
+				el: doc.getElementById( 'f-img-monitor' ),
+				evtName: 'change',
+				handler: imgMonitorSelected
+			},
+			{
+				el: doc.getElementById( 'btn-img-monitor-delete' ),
+				evtName: 'click',
+				handler: deleteMonitorImg
 			}
         ],
 
         // optional other data for the item
         otherData = {
-			active: false,
+        	active: false,
+			primaryImg: '',
 			thumbnail: ''
         },
 		
         fImg = doc.getElementById( 'f-img' ),
         imgPrev = doc.getElementById( 'img-prev' ),
         btnImgDetele = doc.getElementById( 'btn-img-delete' ),
+		fImgMonitor = doc.getElementById( 'f-img-monitor' ),
+        imgMonitorPrev = doc.getElementById( 'img-monitor-prev' ),
+        btnImgMonitorDetele = doc.getElementById( 'btn-img-monitor-delete' ),
         cbActive = doc.getElementById( 'cb-active' );
 
 	// call the admin init function passing this pages specific data/items
@@ -84,6 +103,7 @@
 	function loadItem() {
 		app.forms.checkActive();
 		setImgPrev( app.admin.getOtherDataProperty( 'thumbnail' ) );
+		setImgMonitorPrev( app.admin.getOtherDataProperty( 'primaryImg' ) );
 		cbActive.checked = app.admin.getOtherDataProperty( 'active' );
 	}
 
@@ -110,6 +130,29 @@
 		setImgPrev( null );
 	}
 
+	function triggerImgMonitorUpload() {
+		fImgMonitor.click();
+	}
+
+	function imgMonitorSelected( e ) {
+		var files = e.dataTransfer ? e.dataTransfer.files : e.currentTarget.files,
+			file = files[0];
+
+		app.admin.uploadFile( file, true, '/admin/projects/uploadMonitorImg.ashx', function( fileName ) {
+			if ( fileName ) {
+				setTimeout( function() {
+					app.admin.setOtherDataProperty( 'primaryImg', fileName );
+					setImgMonitorPrev( fileName );
+				}, 500 );
+			}
+		} );
+	}
+
+	function deleteMonitorImg( e ) {
+		app.admin.setOtherDataProperty( 'primaryImg', '' );
+		setImgMonitorPrev( null );
+	}
+
 	function saveItem() {
 		var params = app.admin.collectData(),
             isValid = app.admin.validateReqFields();
@@ -129,6 +172,17 @@
 		else {
 			imgPrev.innerHTML = '';
 			btnImgDetele.classList.add( 'hidden' );
+		}
+	}
+
+	function setImgMonitorPrev( fileName ) {
+		if ( fileName && fileName.length ) {
+			imgMonitorPrev.innerHTML = '<img src="/img/projects/primary/' + fileName + '" />';
+			btnImgMonitorDetele.classList.remove( 'hidden' );
+		}
+		else {
+			imgMonitorPrev.innerHTML = '';
+			btnImgMonitorDetele.classList.add( 'hidden' );
 		}
 	}
 

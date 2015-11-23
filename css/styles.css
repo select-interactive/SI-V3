@@ -1364,10 +1364,22 @@ body {
   top: 0;
   width: 100%;
   z-index: 10; }
+  .home #hdr-main {
+    box-shadow: none;
+    -webkit-transition: box-shadow .375s ease;
+            transition: box-shadow .375s ease; }
+  .home-scrolled #hdr-main {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12); }
 
 #masthead-favicon {
   height: 64px;
   line-height: 64px; }
+  .home #masthead-favicon {
+    opacity: 0;
+    -webkit-transition: opacity .375s ease;
+            transition: opacity .375s ease; }
+  .home-scrolled #masthead-favicon {
+    opacity: 1; }
 
 #nav-main {
   height: 64px; }
@@ -1404,7 +1416,7 @@ footer {
   .footer-links a:hover {
     color: #dda14a; }
   .footer-links a i {
-    font-size: 1.35rem;
+    font-size: 1.45rem;
     margin-right: 4px;
     vertical-align: middle; }
 
@@ -1598,7 +1610,7 @@ footer {
 .zdepth-0 {
   box-shadow: none !important; }
 
-.zdepth-1, .container-drawer, .btn[raised], [raised].alert-button, .btn[fab], [fab].alert-button, .select-opts, .article-tags a:hover, .menu {
+.zdepth-1, #hdr-main, .container-drawer, .btn[raised], [raised].alert-button, .btn[fab], [fab].alert-button, .select-opts, .card, .article-tags a:hover, .menu {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12); }
 
 .zdepth-1-half, .btn[raised]:hover, [raised].alert-button:hover, .btn[fab]:hover, [fab].alert-button:hover {
@@ -3089,8 +3101,8 @@ http://nicolasgallagher.com/micro-clearfix-hack/
 .banner {
   background: rgba(221, 161, 74, 0.9);
   color: #fff;
-  min-height: 40vh;
-  padding: 120px 50px; }
+  min-height: 30vh;
+  padding: 80px 50px; }
   .banner-hdr {
     font-size: 2rem;
     line-height: 1.4; }
@@ -3101,10 +3113,12 @@ http://nicolasgallagher.com/micro-clearfix-hack/
     line-height: 1.35; }
     .col:nth-child(2) .banner-tagline {
       text-align: right; }
+    .banner-tagline:not(:last-child) {
+      margin-bottom: 20px; }
 
 .paper, footer {
   background: #fff;
-  padding: 100px 50px; }
+  padding: 80px 50px; }
   .paper-pad-none {
     padding: 0 50px; }
   .paper-pad-sm, footer {
@@ -3120,10 +3134,17 @@ http://nicolasgallagher.com/micro-clearfix-hack/
     background: #dda14a;
     color: #a1a0a1; }
   .paper.bg, footer.bg {
-    background-position: center center;
+    background-position: right center;
     background-repeat: no-repeat;
-    background-size: cover;
-    background-image: url(/img/test.v3.jpg); }
+    padding: 120px 50px; }
+    .paper.bg-si, footer.bg-si {
+      background-image: url(/img/si-ss.v2.png); }
+    .paper.bg-code, footer.bg-code {
+      background-image: url(/img/si-code.v2.png); }
+    .paper.bg .content, footer.bg .content {
+      -webkit-transform: translateX(-140px);
+          -ms-transform: translateX(-140px);
+              transform: translateX(-140px); }
 
 .clients {
   padding: 0 50px; }
@@ -3136,7 +3157,6 @@ http://nicolasgallagher.com/micro-clearfix-hack/
 .card {
   background: #fff;
   border-radius: 2px;
-  box-shadow: 0 0 2px 1px rgba(153, 153, 153, 0.4);
   overflow: hidden;
   padding: 30px; }
   .card-img {
@@ -3496,12 +3516,12 @@ http://nicolasgallagher.com/micro-clearfix-hack/
   z-index: 2; }
 
 .project-img {
-  width: 39.4230769231%;
+  width: 56.7307692308%;
   float: left;
   margin-right: 3.8461538462%; }
 
 .project-details {
-  width: 56.7307692308%;
+  width: 39.4230769231%;
   float: right;
   margin-right: 0; }
 

@@ -329,11 +329,15 @@ app.admin = ( function( doc ) {
 	//   @handler - the ashx file to handle the file upload
 	//   @fn - optional - callback function to run after the image has been uploaded
 	function uploadFile( file, isImg, handler, fn ) {
-		var fileName = file.name,
-            fileType = file.type,
+		var fileName = file ? file.name : '',
+            fileType = file ? file.type : '',
 
             // file reader
             fReader = new FileReader();
+
+		if ( fileName === '' && fileType === '' ) {
+			return;
+		}
 
 		// confirm this file is allowed
 		if ( !isImg || /^image\//.test( fileType ) ) {
@@ -354,7 +358,8 @@ app.admin = ( function( doc ) {
 				xhr.addEventListener( 'load', function( response ) {
 					// when the request is complete
 					if ( response.target.response ) {
-						var rsp = JSON.parse( response.target.response );
+						var rsp = JSON.parse( response.target.response ),
+							msg;
 
 						// if the upload was successful
 						if ( rsp.status === 'success' ) {
@@ -366,7 +371,13 @@ app.admin = ( function( doc ) {
 							}
 						}
 						else {
-							setStatus( 'Unable to upload the file, please try again.' );
+							msg = 'Unable to upload the file, please try again.';
+
+							if ( rsp.msg ) {
+								msg += ' ' + rsp.msg;
+							}
+
+							setStatus( msg );
 						}
 					}
 				}, false );

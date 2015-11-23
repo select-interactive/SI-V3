@@ -114,7 +114,7 @@ app.gmap = ( function( doc ) {
 				content: content
 			} );
 
-			marker.addListener( 'click', function() {
+			marker.addListener( 'mouseover', function() {
 				infowindow.open( map, marker );
 			} );
 		}

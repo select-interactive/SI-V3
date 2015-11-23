@@ -75,10 +75,10 @@
     @extend .clearfix;
 
     &-img {
-        @include span(5);
+        @include span(7);
     }
 
     &-details {
-        @include span(last 7);
+        @include span(last 5);
     }
 }

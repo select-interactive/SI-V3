@@ -8,7 +8,7 @@ Partial Class controls_pages_news
 		Dim ctx As HttpContext = HttpContext.Current
 		Dim webUrl As String = ctx.Request.QueryString("webUrl")
 
-		Dim hdr As String = "What&rsquo; Happening"
+		Dim hdr As String = "What&rsquo;s Happening"
 		Dim html As String = ""
 
 		If Not webUrl Is Nothing Then

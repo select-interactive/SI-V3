@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="VB" AutoEventWireup="false" CodeFile="about.ascx.vb" Inherits="controls_pages_about" %>
-<div class="paper copy">
-	<div class="content-container-xsm">
+<div class="paper bg bg-code copy">
+	<div class="content content-container-xsm">
 		<h2 class="copy-hdr copy-hdr-xl text-center">Passionate Web Developers Striving to Build a Better Web.</h2>
 		<p>At <strong class="color-primary">Select Interactive</strong> we create websites, develop web and mobile applications, and build custom content management systems for businesses, large or small.</p>
 		<p>We love a good challenge and build our business on being industry experts on up-and-coming web trends, platforms, and applications. If you can imagine it, there’s a good chance we can build it. Let us bring digital voice to your brand.</p>

@@ -1,8 +1,8 @@
 ﻿.banner {
     background: rgba($color-primary, .9);
     color: $white;
-    min-height: 40vh;
-    padding: 120px 50px;
+    min-height: 30vh;
+    padding: 80px 50px;
 
     &-hdr {
         font-size: 2rem;
@@ -19,6 +19,10 @@
 
         .col:nth-child(2) & {
             text-align: right;
+        }
+
+        &:not(:last-child) {
+            margin-bottom: 20px;
         }
     }
 }

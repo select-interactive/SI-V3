@@ -7,7 +7,7 @@
 	'use strict';
 
 	var main = doc.getElementById( 'main' ),
-		page, url;
+		page, url, classes;
 
 	window.addEventListener( 'popstate', pop, false );
 
@@ -22,6 +22,7 @@
 
 		if ( target && target.classList && target.classList.contains( 'navigation' ) ) {
 			pageToLoad = target.getAttribute( 'data-control' );
+			classes = target.getAttribute( 'data-nav-class' );
 			
 			if ( page !== pageToLoad || url !== target.getAttribute( 'href' ) ) {
 				url = target.getAttribute( 'href' );
@@ -56,6 +57,13 @@
 
 			if ( currentPage ) {
 				setTimeout( function() {
+					if ( classes ) {
+						doc.body.className = 'nocomponents ' + classes;
+					}
+					else {
+						doc.body.className = 'nocomponents';
+					}
+
 					main.removeChild( currentPage );
 					showNewPage( pageWrapper );
 				}, 375 );

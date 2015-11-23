@@ -1,9 +1,10 @@
 ﻿.card {
     $card-pad: 30px;
 
+    @extend .zdepth-1;
     background: $white;
     border-radius: 2px;
-    box-shadow: 0 0 2px 1px rgba(#999, .4);
+    //box-shadow: 0 0 2px 1px rgba(#999, .4);
     overflow: hidden;
     padding: $card-pad;
 

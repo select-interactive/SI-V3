@@ -5920,7 +5920,7 @@ app.gmap = ( function( doc ) {
 				content: content
 			} );
 
-			marker.addListener( 'click', function() {
+			marker.addListener( 'mouseover', function() {
 				infowindow.open( map, marker );
 			} );
 		}
@@ -6079,7 +6079,7 @@ app.menu = ( function( doc ) {
 	'use strict';
 
 	var main = doc.getElementById( 'main' ),
-		page, url;
+		page, url, classes;
 
 	window.addEventListener( 'popstate', pop, false );
 
@@ -6094,6 +6094,7 @@ app.menu = ( function( doc ) {
 
 		if ( target && target.classList && target.classList.contains( 'navigation' ) ) {
 			pageToLoad = target.getAttribute( 'data-control' );
+			classes = target.getAttribute( 'data-nav-class' );
 			
 			if ( page !== pageToLoad || url !== target.getAttribute( 'href' ) ) {
 				url = target.getAttribute( 'href' );
@@ -6128,6 +6129,13 @@ app.menu = ( function( doc ) {
 
 			if ( currentPage ) {
 				setTimeout( function() {
+					if ( classes ) {
+						doc.body.className = 'nocomponents ' + classes;
+					}
+					else {
+						doc.body.className = 'nocomponents';
+					}
+
 					main.removeChild( currentPage );
 					showNewPage( pageWrapper );
 				}, 375 );
@@ -6432,6 +6440,17 @@ app.toast = ( function( doc ) {
     		FastClick.attach( doc.body );
     	}, false );
     }
+
+    window.addEventListener( 'scroll', function( e ) {
+    	if ( window.mq( '(min-width:1024px)' ) && doc.body.classList.contains( 'home' ) ) {
+    		if ( getWindowScrollPosition() > 250 && !doc.body.classList.contains( 'home-scrolled' ) ) {
+    			doc.body.classList.add( 'home-scrolled' );
+    		}
+    		else if ( getWindowScrollPosition() <= 250 && doc.body.classList.contains( 'home-scrolled' ) ) {
+    			doc.body.classList.remove( 'home-scrolled' );
+    		}
+    	}
+    }, false );
 
     return {
         cloneObj: cloneObj,

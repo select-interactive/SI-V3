@@ -1,7 +1,7 @@
 ﻿.paper {
     @extend %position-relative;
     background: $white;
-    padding: 100px 50px;
+    padding: 80px 50px;
 
     &-pad-none {
         padding: 0 50px;
@@ -30,9 +30,20 @@
     }
 
     &.bg {
-        background-position: center center;
+        background-position: right center;
         background-repeat: no-repeat;
-        background-size: cover;
-        background-image: url(/img/test.v3.jpg);
+        padding: 120px 50px;
+        
+        &-si {
+            background-image: url(/img/si-ss.v2.png);
+        }
+
+        &-code {
+            background-image: url(/img/si-code.v2.png);
+        }
+
+        .content {
+            transform: translateX(-140px);
+        }
     }
 }

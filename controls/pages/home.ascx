@@ -4,10 +4,10 @@
 		<div class="row row-cols-2">
 			<div class="col">
 				<h1 class="banner-hdr"><img src="/img/logos/select-interactive-white.v1.svg" width="400" height="120" alt="Select Interactive Website Design and Website Development" /></h1>
-				<h2 class="banner-tagline">Building a better web.</h2>
 			</div>
 			<div class="col">
 				<h2 class="banner-tagline">Passionate Web Developers<br />that produce the highest quality work using<br />innovative development strategies.</h2>
+				<h2 class="banner-tagline">Building a better web.</h2>
 			</div>
 		</div>
 	</div>
