@@ -164,7 +164,7 @@ Public Class wsApp
 			pUtil.setField(0, "tags", tags)
 			html.Append(pUtil.generateHtml("article-details", 0))
 
-			ogImage = "http://www.select-interactive.com/img/news/med/" & pUtil.getField(0, "banner")
+			ogImage = "https://www.select-interactive.com/img/news/med/" & pUtil.getField(0, "banner")
 		End If
 
 		Return New PageContent(title, desc, html.ToString, ogImage)
