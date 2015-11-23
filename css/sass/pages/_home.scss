@@ -1,5 +1,6 @@
 ﻿.sections {
     @extend .row;
+    margin-bottom: (0 - (gutter() * 1.75));
 
     .section {
         @include full;

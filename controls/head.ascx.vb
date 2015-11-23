@@ -3,7 +3,7 @@ Partial Class controls_head
 	Inherits System.Web.UI.UserControl
 
 	Protected Sub Page_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-		Dim cssVersion As String = "3.0"
+		Dim cssVersion As String = "3.1"
 		Dim ctx As HttpContext = HttpContext.Current
 
 		If ctx.Request.Path <> "/default.aspx" Then

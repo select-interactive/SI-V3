@@ -4367,41 +4367,43 @@ http://nicolasgallagher.com/micro-clearfix-hack/
     border-left-color: #444;
     padding-left: 10px; }
 
-.sections .section {
-  clear: both;
-  width: 100%;
-  float: left;
-  margin-left: 0;
-  margin-right: 0;
-  margin-bottom: 6.7307692308%; }
-  @media (min-width: 768px) {
-    .sections .section {
-      width: 48.0769230769%;
-      float: left;
-      margin-right: 3.8461538462%;
-      clear: none; }
-      .sections .section:nth-child(2n) {
-        float: right;
-        margin-right: 0; }
-      .sections .section:nth-child(2n + 1) {
-        clear: both; } }
-  @media (min-width: 1200px) {
-    .sections .section {
-      width: 30.7692307692%;
-      float: left;
-      margin-right: 3.8461538462%;
-      clear: none; }
-      .sections .section:nth-child(2n) {
+.sections {
+  margin-bottom: -6.7307692308%; }
+  .sections .section {
+    clear: both;
+    width: 100%;
+    float: left;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 6.7307692308%; }
+    @media (min-width: 768px) {
+      .sections .section {
+        width: 48.0769230769%;
+        float: left;
+        margin-right: 3.8461538462%;
+        clear: none; }
+        .sections .section:nth-child(2n) {
+          float: right;
+          margin-right: 0; }
+        .sections .section:nth-child(2n + 1) {
+          clear: both; } }
+    @media (min-width: 1200px) {
+      .sections .section {
         width: 30.7692307692%;
         float: left;
-        margin-right: 3.8461538462%; }
-      .sections .section:nth-child(2n + 1) {
+        margin-right: 3.8461538462%;
         clear: none; }
-      .sections .section:nth-child(3n) {
-        float: right;
-        margin-right: 0; }
-      .sections .section:nth-child(3n + 1) {
-        clear: both; } }
+        .sections .section:nth-child(2n) {
+          width: 30.7692307692%;
+          float: left;
+          margin-right: 3.8461538462%; }
+        .sections .section:nth-child(2n + 1) {
+          clear: none; }
+        .sections .section:nth-child(3n) {
+          float: right;
+          margin-right: 0; }
+        .sections .section:nth-child(3n + 1) {
+          clear: both; } }
 
 .project-col {
   clear: both;
