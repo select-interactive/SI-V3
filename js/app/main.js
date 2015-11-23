@@ -6007,6 +6007,74 @@ app.gmap = ( function( doc ) {
  * Copyright 2015 Select Interactive, LLC. All rights reserved.
  * @author: The Select Interactive dev team (www.select-interactive.com) 
  */
+app.menu = ( function( doc ) {
+	'use strict';
+
+	var triggers, currentTrigger, openMenu, hideMenuTimeout;
+
+	function init( context ) {
+		if ( !context ) {
+			context = doc;
+		}
+
+		triggers = context.querySelectorAll( '[data-menu-trigger]' );
+
+		forEachElement( triggers, function( trigger ) {
+			if ( !trigger.getAttribute( 'data-initialized' ) ) {
+				trigger.setAttribute( 'data-initialized', 'true' );
+
+				trigger.addEventListener( 'mouseenter', function( e ) {
+					var menu = doc.querySelector( '[data-menu="' + trigger.getAttribute( 'data-menu-trigger' ) + '"]' );
+
+					if ( menu ) {
+						currentTrigger = trigger;
+						openMenu = menu;
+
+						menu.classList.add( 'in' );
+
+						menu.removeEventListener( 'mouseenter', keepMenu );
+						menu.removeEventListener( 'mouseout', hideMenu );
+
+						menu.addEventListener( 'mouseenter', keepMenu, false );
+						menu.addEventListener( 'mouseleave', hideMenu, false );
+					}
+
+					e.preventDefault();
+				}, false );
+			}
+		} );
+	}
+	
+	function keepMenu() {
+		if ( hideMenuTimeout ) {
+			clearTimeout( hideMenuTimeout );
+			hideMenuTimeout = null;
+		}
+	}
+
+	function hideMenu( menu ) {
+		hideMenuTimeout = setTimeout( function() {
+			openMenu.classList.add( 'hide' );
+
+			setTimeout( function() {
+				openMenu.classList.remove( 'in' );
+				openMenu.classList.remove( 'hide' );
+			}, 500 );
+		}, 300 );
+	}
+
+	init();
+
+	return {
+		initMenus: init
+	};
+
+}( document ) );
+///<reference path="../main.js">
+/**
+ * Copyright 2015 Select Interactive, LLC. All rights reserved.
+ * @author: The Select Interactive dev team (www.select-interactive.com) 
+ */
 ( function( doc ) {
 	'use strict';
 
@@ -6072,13 +6140,18 @@ app.gmap = ( function( doc ) {
 
 	function showNewPage( pageWrapper ) {
 		main.appendChild( pageWrapper );
-		setTimeout( function() {
-			window.scrollTo( 0, 0 );
-			pageWrapper.classList.add( 'in' );
 
+		setTimeout( function() {
+			pageWrapper.classList.add( 'in' );
+			window.scrollTo( 0, 0 );
+
+			// init any gmaps on the page
 			if ( pageWrapper.querySelector( '.gmap' ) ) {
 				app.gmap.init( doc.querySelector( '.gmap' ) );
 			}
+
+			// init any menus added to the page
+			app.menu.initMenus( pageWrapper );
 		}, 10 );
 	}
 

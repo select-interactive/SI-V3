@@ -68,13 +68,18 @@
 
 	function showNewPage( pageWrapper ) {
 		main.appendChild( pageWrapper );
-		setTimeout( function() {
-			window.scrollTo( 0, 0 );
-			pageWrapper.classList.add( 'in' );
 
+		setTimeout( function() {
+			pageWrapper.classList.add( 'in' );
+			window.scrollTo( 0, 0 );
+
+			// init any gmaps on the page
 			if ( pageWrapper.querySelector( '.gmap' ) ) {
 				app.gmap.init( doc.querySelector( '.gmap' ) );
 			}
+
+			// init any menus added to the page
+			app.menu.initMenus( pageWrapper );
 		}, 10 );
 	}
 

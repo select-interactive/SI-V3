@@ -139,6 +139,7 @@ Public Class wsApp
 		Dim title As String = ""
 		Dim desc As String = ""
 		Dim html As New StringBuilder
+		Dim ogImage As String = ""
 
 		pUtil.query("Blog", "", True, "url", url)
 
@@ -159,9 +160,11 @@ Public Class wsApp
 
 			pUtil.setField(0, "tags", tags)
 			html.Append(pUtil.generateHtml("article-details", 0))
+
+			ogImage = "http://www.select-interactive.com/img/news/med/" & pUtil.getField(0, "banner")
 		End If
 
-		Return New PageContent(title, desc, html.ToString)
+		Return New PageContent(title, desc, html.ToString, ogImage)
 	End Function
 
 	' Load blog categories options for admin

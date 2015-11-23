@@ -25,11 +25,12 @@ $btn-raised-background-hover: lighten($btn-raised-background, 5%);
 $btn-raised-color: $white;
 
 // floating action buttons (fab)
-$btn-fab-background: $white;
+$btn-fab-background: $color-primary;
 $btn-fab-background-hover: darken($btn-fab-background, 2.5%);
-$btn-fab-color: $color-primary;
-$btn-fab-icon-size: 1.2rem;
-$btn-fab-size: 42px;
+$btn-fab-color: $white;
+$btn-fab-color-hover: $white;
+$btn-fab-icon-size: 1.4rem;
+$btn-fab-size: 48px;
 $btn-fab-padding: 0; 
 
 // sizes - small
@@ -101,6 +102,7 @@ $btn-lg-padding: 0 2.8rem;
     &[fab] {
         @extend .zdepth-1;
         background: $btn-fab-background;
+        border: none !important;
         border-radius: 50%;
         color: $btn-fab-color;
         height: $btn-fab-size;
@@ -113,8 +115,19 @@ $btn-lg-padding: 0 2.8rem;
         &:hover {
             @extend .zdepth-1-half;
             background: $btn-fab-background-hover;
+            color: $btn-fab-color-hover;
         }
 
+        // --------------------
+        // Pulled FAB
+        // --------------------
+        &[pulled] {
+            @extend %position-absolute;
+            right: 0;
+            top: 0;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
 
         // --------------------
         // Fixed position FAB

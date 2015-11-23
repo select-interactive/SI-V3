@@ -464,7 +464,7 @@ img {
 /**
  * Project SASS Mixins
  */
-.row, .form-row, .copy p, #nav-main ul, .footer-links, #drawer-nav ul, .hdr-bar [title], #hdr-nav ul, .select-opts, .clients, .card-copy p, .articles, .article-tags, .team, .awards, .social-links, #nav-admin ul, .projects {
+.row, .form-row, .copy p, #nav-main ul, .footer-links, #drawer-nav ul, .hdr-bar [title], #hdr-nav ul, .select-opts, .clients, .card-copy p, .articles, .article-tags, .team, .awards, .social-links, .menu-items, #nav-admin ul, .projects {
   margin: 0; }
 
 .row, .form-row {
@@ -474,13 +474,13 @@ img {
   display: none; }
 
 .copy a, #masthead-favicon, #nav-main ul, #nav-main li, .footer-links li, .footer-links a i, #drawer-nav a i, .hdr-bar [title], [drawer-nav-trigger], #hdr-nav li, .btn, .alert-button, .btn i, .alert-button i, input[type=checkbox] + label,
-input[type=radio] + label, input[type=checkbox][switch] + label .switch-toggle, input[type=checkbox][switch] + label .switch-toggle:after, input[type=radio] + label:before, .select-opt.active:before, .tab-links li, .client, .card-tooblar li, .icon, .social-links li, #nav-admin a {
+input[type=radio] + label, input[type=checkbox][switch] + label .switch-toggle, input[type=checkbox][switch] + label .switch-toggle:after, input[type=radio] + label:before, .select-opt.active:before, .tab-links li, .client, .card-tooblar li, .icon, .article-note:before, .article-tags a, .social-links li, #nav-admin a {
   display: inline-block; }
 
-#masthead-favicon a, #nav-main a, #drawer-nav a, #hdr-nav a, .select-opt, input[type=range], .tab-links a, .tab.active, .project-link {
+#masthead-favicon a, #nav-main a, #drawer-nav a, #hdr-nav a, .select-opt, input[type=range], .tab-links a, .tab.active, .menu a, .project-link {
   display: block; }
 
-#container-drawer-overlay, .hdr-bar:after, input[type=text][class*="input-icon"] ~ i,
+#container-drawer-overlay, .hdr-bar:after, .btn[fab][pulled], [fab][pulled].alert-button, input[type=text][class*="input-icon"] ~ i,
 input[type=password][class*="input-icon"] ~ i,
 input[type=email][class*="input-icon"] ~ i,
 input[type=url][class*="input-icon"] ~ i,
@@ -494,11 +494,11 @@ textarea[class*="input-icon"] ~ i,
 select[class*="input-icon"] ~ i, input[type=checkbox],
 input[type=radio], input[type=checkbox] + label:before, input[type=checkbox] + label:after,
 input[type=radio] + label:before,
-input[type=radio] + label:after, input[type=checkbox][switch] + label .switch-toggle:after, .input-field label, .input-field .error-label, .select-opts, #select-pg-overlay, #alert-overlay, .project-overlay, .project-name {
+input[type=radio] + label:after, input[type=checkbox][switch] + label .switch-toggle:after, .input-field label, .input-field .error-label, .select-opts, #select-pg-overlay, #alert-overlay, .article-note:before, .menu, #event-overlay, .project-overlay, .project-name {
   position: absolute; }
 
 .copy-hdr, .copy-hdr i, #main, .container, .container-main, .container-main-content, .hdr-bar, input[type=checkbox] + label,
-input[type=radio] + label, input[type=checkbox][switch] + label .switch-toggle, .input-field, input[type=range], .paper, footer, .card-tooblar a, .card-tooblar a i, .gmap, .project-col, .project-link {
+input[type=radio] + label, input[type=checkbox][switch] + label .switch-toggle, .input-field, input[type=range], .paper, footer, .card-tooblar a, .card-tooblar a i, .article-details, .article-note, .gmap, .project-col, .project-link {
   position: relative; }
 
 #hdr-main, .container-drawer, .btn[fab][fixed], [fab][fixed].alert-button, #alert, .toast {
@@ -531,7 +531,7 @@ input[type=radio] + label, input[type=checkbox][switch] + label .switch-toggle, 
 .text-uppercase, #nav-main a, .tab-links a {
   text-transform: uppercase; }
 
-ul.list-no-style, ol.list-no-style, #nav-main ul, .footer-links, #drawer-nav ul, #hdr-nav ul, .select-opts, .tab-links, .clients, .card-tooblar, .articles, .article-tags, .team, .awards, .social-links, #nav-admin ul, .projects {
+ul.list-no-style, ol.list-no-style, #nav-main ul, .footer-links, #drawer-nav ul, #hdr-nav ul, .select-opts, .tab-links, .clients, .card-tooblar, .articles, .article-tags, .team, .awards, .social-links, .menu-items, #nav-admin ul, .projects {
   list-style: none; }
 
 @media (min-width: 1024px) {
@@ -617,13 +617,9 @@ ul.list-no-style, ol.list-no-style, #nav-main ul, .footer-links, #drawer-nav ul,
 
 .copy {
   font-size: 1.15rem; }
-  .copy .article-details {
-    font-size: 1.2rem; }
   .copy-hdr {
     font-size: 1.8rem;
     line-height: 1.25; }
-    .article-details .copy-hdr {
-      font-size: 2rem; }
     .copy-hdr:not(:first-child) {
       margin-top: 35px; }
     .copy-hdr:not(:last-child) {
@@ -632,9 +628,6 @@ ul.list-no-style, ol.list-no-style, #nav-main ul, .footer-links, #drawer-nav ul,
       font-size: 3rem; }
       .copy-hdr-xl:not(:last-child) {
         margin-bottom: 30px; }
-      .article-details .copy-hdr-xl {
-        color: #dda14a;
-        font-size: 3rem; }
     .copy-hdr i {
       color: #606060;
       font-size: 2rem;
@@ -1370,7 +1363,7 @@ body {
   padding: 0 50px;
   top: 0;
   width: 100%;
-  z-index: 1; }
+  z-index: 10; }
 
 #masthead-favicon {
   height: 64px;
@@ -1605,7 +1598,7 @@ footer {
 .zdepth-0 {
   box-shadow: none !important; }
 
-.zdepth-1, .container-drawer, .btn[raised], [raised].alert-button, .btn[fab], [fab].alert-button, .select-opts {
+.zdepth-1, .container-drawer, .btn[raised], [raised].alert-button, .btn[fab], [fab].alert-button, .select-opts, .article-tags a:hover, .menu {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12); }
 
 .zdepth-1-half, .btn[raised]:hover, [raised].alert-button:hover, .btn[fab]:hover, [fab].alert-button:hover {
@@ -1654,16 +1647,25 @@ footer {
     .btn[raised]:hover, [raised].alert-button:hover {
       background: #e1ac5f; }
   .btn[fab], [fab].alert-button {
-    background: #fff;
+    background: #dda14a;
+    border: none !important;
     border-radius: 50%;
-    color: #dda14a;
-    height: 42px;
+    color: #fff;
+    height: 48px;
     padding: 0;
     -webkit-transition: background .2s ease-out, box-shadow .2s ease-out, color .2s ease-out;
             transition: background .2s ease-out, box-shadow .2s ease-out, color .2s ease-out;
-    width: 42px; }
+    width: 48px; }
     .btn[fab]:hover, [fab].alert-button:hover {
-      background: #f9f9f9; }
+      background: #db9b3f;
+      color: #fff; }
+    .btn[fab][pulled], [fab][pulled].alert-button {
+      right: 0;
+      top: 0;
+      -webkit-transform: translateY(-50%);
+          -ms-transform: translateY(-50%);
+              transform: translateY(-50%);
+      z-index: 1; }
     .btn[fab][fixed], [fab][fixed].alert-button {
       bottom: 23px;
       right: 23px;
@@ -1673,8 +1675,8 @@ footer {
           bottom: 20px;
           right: 36px; } }
     .btn[fab] i, [fab].alert-button i {
-      font-size: 1.2rem;
-      line-height: 42px; }
+      font-size: 1.4rem;
+      line-height: 48px; }
   .btn-sm {
     font-size: 0.8em;
     padding: 0 1.2rem; }
@@ -3103,6 +3105,8 @@ http://nicolasgallagher.com/micro-clearfix-hack/
 .paper, footer {
   background: #fff;
   padding: 100px 50px; }
+  .paper-pad-none {
+    padding: 0 50px; }
   .paper-pad-sm, footer {
     padding: 20px 50px; }
   .paper-pad-med {
@@ -3254,17 +3258,68 @@ http://nicolasgallagher.com/micro-clearfix-hack/
 .article-details {
   margin-left: auto;
   margin-right: auto;
-  max-width: 750px; }
+  max-width: 800px;
+  padding: 30px 50px; }
+  .copy .article-details {
+    font-size: 1.225rem; }
+  .article-details .copy-hdr {
+    font-size: 2rem; }
+  .article-details .copy-hdr-xl {
+    color: #dda14a;
+    font-family: "avenir-medium", sans-serif;
+    font-size: 2.6rem; }
+    .article-details .copy-hdr-xl:not(:last-child) {
+      margin-bottom: 15px; }
+
+.share-menu {
+  right: 0;
+  top: -26px; }
+
+.article-alert {
+  color: #6c6c6c;
+  font-size: 1.1rem; }
+
+.article-note {
+  background: #fafafa;
+  border: 1px solid #f0f0f0;
+  font-size: .8em;
+  line-height: 1.4;
+  margin-left: 25px !important;
+  margin-right: 15px !important;
+  padding: 20px; }
+  .article-note:before {
+    background: #dda14a;
+    bottom: -1px;
+    content: "";
+    left: 0;
+    top: -1px;
+    -webkit-transform: translateX(-100%);
+        -ms-transform: translateX(-100%);
+            transform: translateX(-100%);
+    width: 10px; }
 
 .article-footer {
   color: #7b7a7b;
+  font-size: 1.1rem;
   margin-top: 45px; }
 
-.article-tags li:not(:last-child):after {
-  content: "/";
-  color: #a1a0a1;
-  display: inline-block;
-  margin: 0 8px; }
+.article-tags li:not(:last-child) {
+  margin-right: 10px; }
+
+.article-tags a {
+  box-shadow: none;
+  border: none;
+  background: #eaeaed;
+  border-radius: 2px;
+  font-size: .9rem;
+  height: 36px;
+  line-height: 36px;
+  padding: 0 16px;
+  -webkit-transition: box-shadow .225s ease;
+          transition: box-shadow .225s ease;
+  color: #393939; }
+  .article-tags a:hover {
+    color: #393939; }
 
 .bio {
   width: 30.7692307692%;
@@ -3308,6 +3363,67 @@ http://nicolasgallagher.com/micro-clearfix-hack/
 
 .social-links a {
   border-bottom: none; }
+
+.menu {
+  background: #fff;
+  opacity: 0;
+  -webkit-transform: scale(0.4, 0.4);
+      -ms-transform: scale(0.4, 0.4);
+          transform: scale(0.4, 0.4);
+  -webkit-transform-origin: center top;
+      -ms-transform-origin: center top;
+          transform-origin: center top;
+  -webkit-transition: opacity .375s ease, -webkit-transform .375s ease;
+          transition: opacity .375s ease, transform .375s ease;
+  z-index: -1; }
+  .menu-origin-right {
+    -webkit-transform-origin: right top;
+        -ms-transform-origin: right top;
+            transform-origin: right top; }
+  .menu.in {
+    opacity: 1;
+    -webkit-transform: scale(1, 1);
+        -ms-transform: scale(1, 1);
+            transform: scale(1, 1);
+    z-index: 4; }
+  .menu.hide {
+    opacity: 0;
+    -webkit-transform: scale(0.4, 0.4);
+        -ms-transform: scale(0.4, 0.4);
+            transform: scale(0.4, 0.4); }
+  .menu-items {
+    max-width: 200px; }
+  .menu-item {
+    margin: 0 !important; }
+  .menu a {
+    background: #fff;
+    border-bottom: none;
+    font-size: 1rem;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 16px;
+    -webkit-transition: background .175s ease;
+            transition: background .175s ease;
+    color: #393939; }
+    .menu a:hover {
+      color: #393939; }
+    .menu a:hover {
+      background: #eaeaed; }
+
+#event-overlay {
+  background: transparent;
+  bottom: 0;
+  height: 0;
+  left: 0;
+  opacity: 0;
+  right: 0;
+  top: 0;
+  width: 0;
+  z-index: 3; }
+  #event-overlay.in {
+    height: 100%;
+    opacity: 1;
+    width: 100%; }
 
 #nav-admin li {
   margin: 15px 0 0; }

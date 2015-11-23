@@ -7,9 +7,17 @@
 		</picture>
 
 	</div>
-	<div class="paper paper-pad-med copy">
+	<div class="paper paper-pad-none copy">
 		<div class="article-details">
-			<h2 class="copy-hdr copy-hdr-xl text-center">{{title}}</h2>
+			<a href="#" class="btn" fab pulled data-menu-trigger="article-share"><i class="material-icons">share</i></a>
+			<div class="menu menu-origin-right share-menu" data-menu="article-share">
+				<ul class="menu-items">
+					<li class="menu-item"><a href="https://twitter.com/intent/tweet?text=New+post+from+Select+Interactive+--+{{title}}&url=http://www.select-interactive.com/news/{{url}}" target="_blank">Share on Twitter</a></li>
+					<li class="menu-item"><a href="https://www.facebook.com/sharer/sharer.php?u=http://www.select-interactive.com/news/{{url}}" target="_blank">Share on Facebook</a></li>
+					<li class="menu-item"><a href="mailto:&subject={{title}}&body=Read this new post from Select Interactive -- http://www.select-interactive.com/news/{{url}}">Email Link</a></li>
+				</ul>
+			</div>
+			<h2 class="copy-hdr copy-hdr-xl">{{title}}</h2>
 			{{postBody}}
 			<div class="article-footer">
 				<p>Posted by <a href="mailto:jeremy@select-interactive.com">Jeremy Burton</a> on {{datePublished}}</p>

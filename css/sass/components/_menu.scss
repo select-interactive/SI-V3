@@ -1,0 +1,52 @@
+﻿.menu {
+    @extend %position-absolute;
+    @extend .zdepth-1;
+    background: $white;
+    opacity: 0;
+    transform: scale(0.4, 0.4);
+    transform-origin: center top;
+    transition: opacity .375s ease,
+                transform .375s ease;
+    z-index: -1;
+
+    &-origin-right {
+        transform-origin: right top;
+    }
+
+    &.in {
+        opacity: 1;
+        transform: scale(1, 1);
+        z-index: 4;
+    }
+
+    &.hide {
+        opacity: 0;
+        transform: scale(0.4, 0.4);
+    }
+
+    &-items {
+        @extend %list-style-none;
+        @extend %no-margin;
+        max-width: 200px;
+    }
+
+    &-item {
+        margin: 0 !important;
+    }
+
+    a {
+        @extend %display-block;
+        background: $white;
+        border-bottom: none;
+        font-size: 1rem;
+        height: 40px;
+        line-height: 40px;
+        padding: 0 16px;
+        transition: background .175s ease;
+        @include link-colors($body-color, $body-color);
+
+        &:hover {
+            background: #eaeaed;
+        }
+    }
+}

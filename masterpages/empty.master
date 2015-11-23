@@ -22,6 +22,7 @@
     <uc:footer runat="server" ID="ucFooter" />
 
 	<asp:ContentPlaceHolder runat="server" ID="cphBody" />
+	<div id="event-overlay"></div>
     <uc:includedScripts runat="server" ID="ucIncludedScripts" />
 	<asp:ContentPlaceHolder runat="server" ID="cphJS" />
     <uc:googleAnalytics runat="server" ID="ucGoogleAnalytics" />
