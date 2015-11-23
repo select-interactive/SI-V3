@@ -4,6 +4,7 @@ Imports System.Web.Services.Protocols
 Imports System.IO
 Imports Parse
 Imports Util
+Imports System.Web.Script.Serialization
 
 <System.Web.Script.Services.ScriptService()>
 <WebService(Namespace:="http://tempuri.org/")> _
@@ -16,20 +17,48 @@ Public Class wsApp
 	Private parseDotNetKey As String = "WrOnMq9fT3DGV5kIkZUHkGnJMBSl8mwz5ZBoG6g6"
 	Private pUtil As New ParseUtil(parseAppId, parseDotNetKey)
 
+	Private jss As New JavaScriptSerializer
+
 #Region "Content"
 
 	<WebMethod()>
 	Public Function loadControlContent(controlName As String, url As String) As String
+		Dim title As String = ""
+		Dim html As String = ""
+		Dim pc As New PageContent
+
 		If Not url Is Nothing AndAlso url.Length > 0 AndAlso url.Contains("/project/") Then
-			Return loadProjectAsPageContent(url.Substring(url.LastIndexOf("/") + 1)).html
+			pc = loadProjectAsPageContent(url.Substring(url.LastIndexOf("/") + 1))
+			html = pc.html
+			title = pc.title
 		ElseIf Not url Is Nothing AndAlso url.Length > 0 AndAlso url.Contains("/news/") AndAlso Not url.Contains("/tag/") AndAlso url <> "/news/" Then
-			Return loadArticleDetailsAsPageContent(url.Substring(url.IndexOf("news/") + 5)).html
-		ElseIf Not url Is Nothing AndAlso url.Length > 0 AndAlso url.Contains("/news/") AndAlso url.contains("/tag/") Then
-			Dim pc As PageContent = loadArticlesByTag(1, 999, url.Substring(url.LastIndexOf("/") + 1))
-			Return addArticleThumbsContainer(pc.html, pc.title)
+			pc = loadArticleDetailsAsPageContent(url.Substring(url.IndexOf("news/") + 5))
+			html = pc.html
+			title = pc.title
+		ElseIf Not url Is Nothing AndAlso url.Length > 0 AndAlso url.Contains("/news/") AndAlso url.Contains("/tag/") Then
+			pc = loadArticlesByTag(1, 999, url.Substring(url.LastIndexOf("/") + 1))
+			html = addArticleThumbsContainer(pc.html, pc.title)
+			title = pc.title
 		Else
-			Return renderPartialToString("/controls/pages/" & controlName & ".ascx")
+			html = renderPartialToString("/controls/pages/" & controlName & ".ascx")
+
+			' Page titles -- need to think of a different way?
+			If controlName = "about" Then
+				title = "Fort Worth Web Developers, Building Website and Web Applications"
+			ElseIf controlName = "services" Then
+				title = "Website Design, Website Development, Search Engine Optimization (SEO)"
+			ElseIf controlName = "portfolio" Then
+				title = "Award Winning Website Design and Development Projects from Select Interactive"
+			ElseIf controlName = "news" Then
+				title = "Web Design and Development news, awards, and notes from Select Interactive"
+			ElseIf controlName = "contact" Then
+				title = "Contact Us to Discuss Your Website or Web Application Needs"
+			Else
+				title = "Fort Worth Website Design and Web Development. Select Interactive."
+			End If
 		End If
+
+		Return jss.Serialize(New PageContent(title, html))
 	End Function
 
 	Private Function renderPartialToString(controlName As String) As String

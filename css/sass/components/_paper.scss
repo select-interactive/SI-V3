@@ -1,7 +1,7 @@
 ﻿.paper {
     @extend %position-relative;
     background: $white;
-    padding: 20px 15px;
+    padding: 30px 15px;
 
     &-pad-none {
         padding: 0 15px;
@@ -12,7 +12,7 @@
     }
 
     &-pad-med {
-        padding: 20px 15px;
+        padding: 25px 15px;
     }
 
     @include susy-media($bp-tablet) {

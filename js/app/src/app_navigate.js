@@ -27,7 +27,7 @@
 			if ( page !== pageToLoad || url !== target.getAttribute( 'href' ) ) {
 				url = target.getAttribute( 'href' );
 				page = pageToLoad;
-				loadPage( page, url );
+				loadPage( page, url, true );
 				history.pushState( { page: page, url: url }, page, url );
 			}
 
@@ -38,7 +38,7 @@
 		}
 	}
 
-	function loadPage( page, url ) {
+	function loadPage( page, url, logView ) {
 		var currentPage = main.querySelector( '.page-wrapper.in' );
 
 		app.nav.hide();
@@ -52,9 +52,15 @@
 			url: url
 		} ).then( function( rsp ) {
 			var pageWrapper = doc.createElement( 'div' );
+			rsp = JSON.parse( rsp );
 
 			pageWrapper.classList.add( 'page-wrapper' );
-			pageWrapper.innerHTML = rsp;
+			pageWrapper.innerHTML = rsp.html;
+			doc.title = rsp.title;
+
+			if ( logView ) {
+				app.analytics.logPageView( rsp.title );
+			}
 
 			if ( currentPage ) {
 				setTimeout( function() {
@@ -82,13 +88,16 @@
 			pageWrapper.classList.add( 'in' );
 			window.scrollTo( 0, 0 );
 
+			// check for containers to lazy load
+			app.lazyLoad.init( pageWrapper );
+
 			// init any gmaps on the page
 			if ( pageWrapper.querySelector( '.gmap' ) ) {
 				app.gmap.init( doc.querySelector( '.gmap' ) );
 			}
 
 			// init any menus added to the page
-			app.menu.initMenus( pageWrapper );
+			app.menu.initMenus( pageWrapper, true );
 		}, 10 );
 	}
 

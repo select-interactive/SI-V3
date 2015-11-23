@@ -112,14 +112,6 @@
     }
 }
 
-.share-menu {
-    right: 0;
-    
-    &.in {
-        top: -26px !important;
-    }
-}
-
 .article-alert {
     color: lighten($body-color, 20%);
     font-size: 1.1rem;

@@ -8,11 +8,11 @@
 
 .icon {
     @extend %display-inline-block;
-    height: 20px;
+    height: 24px;
     vertical-align: middle;
-    width: 20px;
+    width: 24px;
 
     &-twitter {
-        height: 16px;
+        height: 20px;
     }
 }

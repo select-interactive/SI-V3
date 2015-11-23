@@ -19,7 +19,7 @@
 			<div class="col col-4">
 				<h3 class="copy-hdr">Contact Information</h3>
 				<p>3343 Locke Ave<br />Suite 107<br />Fort Worth, TX 76107</p>
-				<p><a href="mailto:contact@select-interactive.com">contact@select-interactive.com</a><br /><a href="tel:972.948.8916">Tel. 972.948.8916</a></p>
+				<p><a href="mailto:contact@select-interactive.com">contact@select-interactive.com</a><br /><a style="text-decoration:none;" href="tel:817.210.4303">Tel. 817.210.4303</a></p>
 				<h4 class="copy-hdr">Connect With Us</h4>
 				<ul class="social-links">
 					<li><a href="https://twitter.com/sel_interactive" target="_blank"><i class="icon icon-twitter"></i></a></li>

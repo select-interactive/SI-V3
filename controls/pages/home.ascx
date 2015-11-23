@@ -49,14 +49,14 @@
 <div class="paper paper-pad-med">
 	<h2 class="copy-hdr copy-hdr-xl text-center">Some Friends</h2>
 	<ul class="clients">
-		<li class="client"><img src="/img/logos/nimble.v1.png" width="311" height="40" alt="Nimble Design Co." /></li>
-		<li class="client"><img src="/img/logos/slant.v1.png" width="150" height="40" alt="Slant Parnters" /></li>
-		<li class="client"><img src="/img/logos/ip.v1.png" width="399" height="40" alt="IP DFW" /></li>
-		<li class="client"><img src="/img/logos/branded.v1.png" width="236" height="40" alt="The Branded Company" /></li>
-		<li class="client"><img src="/img/logos/williams-trew.v1.png" width="293" height="40" alt="Williams Trew Real Estate" /></li>
+		<li class="client"><a href="https://www.nimbledesignco.com" target="_blank"><img src="/img/logos/nimble.v1.svg" width="297" height="40" alt="Nimble Design Co." /></a></li>
+		<li class="client"><a href="http://www.slantpartners.com" target="_blank"><img src="/img/logos/slant.v1.svg" width="153" height="40" alt="Slant Parnters" /></a></li>
+		<li class="client"><a href="http://www.ipdfw.org" target="_blank"><img src="/img/logos/ipdfw.v1.svg" width="477" height="40" alt="IP DFW" /></a></li>
+		<li class="client"><a href="http://www.thebrandedcompany.com" target="_blank"><img src="/img/logos/branded.v1.svg" width="236" height="40" alt="The Branded Company" /></a></li>
+		<li class="client"><a href="http://www.williamstrew.com" target="_blank"><img src="/img/logos/williams-trew.v1.svg" width="282" height="40" alt="Williams Trew Real Estate" /></a></li>
 	</ul>
 </div>
 <div class="paper paper-gray-dark">
 	<h2 class="copy-hdr copy-hdr-xl text-center">What&rsquo; Happening</h2>
-	<ul class="articles three-cols"><asp:Literal runat="server" ID="ltrlArticles" /></ul>
+	<ul class="articles three-cols lazy-load" data-ws="true" data-url="loadArticles" data-params="start:1,max:6"></ul>
 </div>

@@ -2082,6 +2082,7 @@ body {
 #nav-main {
   background: #dda14a;
   bottom: 0;
+  overflow-y: auto;
   padding: 15px;
   right: 0;
   top: 0;
@@ -2139,6 +2140,7 @@ body {
       box-shadow: none !important;
       display: inline-block;
       height: 64px;
+      overflow-y: hidden;
       padding: 0;
       position: absolute;
       right: 50px;
@@ -2198,7 +2200,7 @@ footer {
   .footer-links a:hover {
     color: #dda14a; }
   .footer-links a i {
-    font-size: 1.45rem;
+    font-size: 1.7rem;
     margin-right: 4px;
     vertical-align: middle; }
 
@@ -3910,13 +3912,13 @@ http://nicolasgallagher.com/micro-clearfix-hack/
 
 .paper, footer {
   background: #fff;
-  padding: 20px 15px; }
+  padding: 30px 15px; }
   .paper-pad-none {
     padding: 0 15px; }
   .paper-pad-sm, footer {
     padding: 20px 15px; }
   .paper-pad-med {
-    padding: 20px 15px; }
+    padding: 25px 15px; }
   @media (min-width: 768px) {
     .paper, footer {
       padding: 50px 30px; }
@@ -4075,11 +4077,11 @@ http://nicolasgallagher.com/micro-clearfix-hack/
   background-image: url(/img/icons/insta.v1.svg); }
 
 .icon {
-  height: 20px;
+  height: 24px;
   vertical-align: middle;
-  width: 20px; }
+  width: 24px; }
   .icon-twitter {
-    height: 16px; }
+    height: 20px; }
 
 .articles {
   margin-bottom: -3.8461538462%; }
@@ -4151,11 +4153,6 @@ http://nicolasgallagher.com/micro-clearfix-hack/
         font-size: 2rem; }
       .article-details .copy-hdr-xl {
         font-size: 2.2rem; } }
-
-.share-menu {
-  right: 0; }
-  .share-menu.in {
-    top: -26px !important; }
 
 .article-alert {
   color: #6c6c6c;
