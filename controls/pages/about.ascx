@@ -39,7 +39,7 @@
 					</div>
 					<ul class="card-tooblar">
 						<li><a href="mailto:dan@select-interactive.com"><i class="material-icons">email</i>Email</a></li>
-						<li><a href="tel:817.810.0021"><i class="material-icons">local_phone</i>817.810.0021</a></li>
+						<li><a href="tel:817.291.2202"><i class="material-icons">local_phone</i>817.291.2202</a></li>
 					</ul>
 					<div class="card-copy">
 						<p>Bringing over 30 years of programming experience to the team, Dan provides creative, proven ideas to solve challenging project needs. Dan has developed software solutions for a wide range of industries, including real estate, horticulture, advertising, and merchandising.</p>
