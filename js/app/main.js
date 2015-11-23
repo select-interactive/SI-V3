@@ -6028,7 +6028,6 @@ app.menu = ( function( doc ) {
 				trigger.setAttribute( 'data-initialized', 'true' );
 
 				trigger.addEventListener( 'mouseenter', function( e ) {
-					console.log( 'hover' );
 					showMenu( trigger );
 					e.preventDefault();
 				}, false );
