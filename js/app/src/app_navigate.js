@@ -7,6 +7,7 @@
 	'use strict';
 
 	var main = doc.getElementById( 'main' ),
+		pagePopped = false,
 		page, url, classes;
 
 	window.addEventListener( 'popstate', pop, false );
@@ -102,17 +103,22 @@
 	}
 
 	function pop( e ) {
-		if ( history.state && history.state.page ) {
-			page = history.state.page;
-			url = history.state.url;
+		if ( pagePopped ) {
+			if ( history.state && history.state.page ) {
+				page = history.state.page;
+				url = history.state.url;
+			}
+			else {
+				page = 'home';
+				url = page;
+			}
+
+			if ( main && page && url ) {
+				loadPage( page, url );
+			}
 		}
 		else {
-			page = 'home';
-			url = page;
-		}
-
-		if ( main && page && url ) {
-			loadPage( page, url );
+			pagePopped = true;
 		}
 	}
 

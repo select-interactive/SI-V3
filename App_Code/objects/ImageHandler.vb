@@ -24,7 +24,7 @@ Public Class ImageHandler
 
 		Dim cacheTime As New TimeSpan(90, 0, 0, 0)
 
-		If HttpContext.Current.Request.Headers.Get("accept").Contains("image/webp") Then
+		If context.Request.Headers.Get("accept").Contains("image/webp") Then
 			Dim webpUrl As String = path.Replace(".jpg", ".webp")
 			webpUrl = webpUrl.Replace(".png", ".webp")
 

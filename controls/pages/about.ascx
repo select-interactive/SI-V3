@@ -13,10 +13,10 @@
 		<ul class="team">
 			<li class="bio">
 				<div class="card">
-					<div class="card-img"><img src="/img/team/jeremy-burton.v2.jpg" alt="Jeremy Burton" /></div>
+					<div class="card-img"><img src="/img/team/jeremy-burton.v2.jpg" width="354" height="278" alt="Jeremy Burton" /></div>
 					<div class="card-banner">
 						<h2 class="card-banner-hdr">Jeremy Burton</h2>
-						<h3 class="card-banner-subhdr">Partner, Software Engineer</h3>
+						<h3 class="card-banner-subhdr">Partner, Lead Developer</h3>
 					</div>
 					<ul class="card-tooblar">
 						<li><a href="mailto:jeremy@select-interactive.com"><i class="material-icons">email</i>Email</a></li>
@@ -25,12 +25,14 @@
 					<div class="card-copy">
 						<p>Jeremy Burton is a Co-Founder and Partner of Select Interactive, overseeing implementation and development for all client accounts. Jeremy is also responsible for all development and technology strategy.</p>
 						<p>With over 13 years of programming experience, Jeremy specializes in front-end web development and is particularly skilled in HTML, CSS, and JavaScript. Jeremy also has a strong background in database implementation and design.</p>
+						<p>Jeremy has participated in a number of conferences including the Chrome Dev Summit in (2015, 2014, 2013), Edge Conf (2014, 2013), SXSWi (2013, 2012) in Austin, TX, HTML5TX 2013 in Austin, TX., and jQuery Conference 2012 in San Francisco, CA.</p>
 						<p>Aside from leading Select Interactive, Jeremy is also a co-founder of the startup <a href="http://www.livevicarious.com" target="_blank">Live Vicarious</a>.</p>
 					</div>
 				</div>
 			</li>
 			<li class="bio">
 				<div class="card">
+					<div class="card-img"><img src="/img/team/dan-harris.v3.jpg" width="354" height="278" alt="Dan Harris" /></div>
 					<div class="card-banner">
 						<h2 class="card-banner-hdr">Dan Harris</h2>
 						<h3 class="card-banner-subhdr">Partner, Software Engineer</h3>
@@ -57,7 +59,7 @@
 						<li><a href="tel:817.210.4307"><i class="material-icons">local_phone</i>817.210.4307</a></li>
 					</ul>
 					<div class="card-copy">
-						<p>Bryan joined Select Interactive in August 2015 and brings a strong software development background to the team with over 15 years of web development experience. Bryan is a full-stack developer both and working on both new projects and providing ongoing support and maintenance on existing projects.</p>
+						<p>Bryan joined Select Interactive in August 2015 and brings a strong software development background to the team with over 15 years of web development experience. Bryan is a full-stack developer working on both new projects and providing ongoing support and maintenance on existing projects.</p>
 					</div>
 				</div>
 			</li>

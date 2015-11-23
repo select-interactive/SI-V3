@@ -83,7 +83,7 @@ Public Class wsApp
 		Dim html As New StringBuilder
 		Dim endIndex As Integer = start + max - 1
 
-		pUtil.query("Blog", "datePublished", False)
+		pUtil.query("Blog", "datePublished", False, "active", "true")
 
 		If pUtil.itemList.Count > 0 Then
 			If pUtil.itemList.Count < endIndex Then
@@ -111,9 +111,17 @@ Public Class wsApp
 				endIndex = pUtil.itemList.Count
 			End If
 
-			For i As Integer = start - 1 To endIndex - 1
-				html.Append(pUtil.generateHtml("article-thumb", i))
-			Next
+			Dim countAdded As Integer = 0
+			Dim index As Integer = 0
+
+			While countAdded < endIndex And index < pUtil.itemList.Count
+				If pUtil.getField(index, "active") = True Then
+					html.Append(pUtil.generateHtml("article-thumb", index))
+					countAdded = countAdded + 1
+				End If
+
+				index = index + 1
+			End While
 		End If
 
 		Return html.ToString
@@ -143,9 +151,17 @@ Public Class wsApp
 					endIndex = pUtil.itemList.Count
 				End If
 
-				For i As Integer = start - 1 To endIndex - 1
-					html.Append(pUtil.generateHtml("article-thumb", i))
-				Next
+				Dim countAdded As Integer = 0
+				Dim index As Integer = 0
+
+				While countAdded < endIndex And index < pUtil.itemList.Count
+					If pUtil.getField(index, "active") = True Then
+						html.Append(pUtil.generateHtml("article-thumb", index))
+						countAdded = countAdded + 1
+					End If
+
+					index = index + 1
+				End While
 			End If
 		End If
 
