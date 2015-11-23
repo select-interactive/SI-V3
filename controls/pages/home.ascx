@@ -32,7 +32,7 @@
 		<div class="section">
 			<h2 class="copy-hdr"><i class="material-icons">important_devices</i>Mobile Friendly, Responsive Web Design</h2>
 			<p>With the ever growing number of mobile devices, it&rsquo;s now expected to have a site that is fully functional, accessible, and FAST on all of them. To accomplish this goal, we implement site designs using Responsive Web Design (RWD) to allow site layout and content to adapt to the device dimensions and render as optimal as possible.</p>
-			<p><a class="navigation" data-control="news" href="/news/tag/responsive-web-design">Driving Your Mobile Web</a></p>
+			<p><a class="navigation" data-control="news" href="/news/tag/responsive-web-design-(rwd)">Driving Your Mobile Web</a></p>
 		</div>
 		<div class="section">
 			<h2 class="copy-hdr"><i class="material-icons">whatshot</i>On the Cutting-Edge</h2>
@@ -57,6 +57,6 @@
 	</ul>
 </div>
 <div class="paper paper-gray-dark">
-	<h2 class="copy-hdr copy-hdr-xl text-center">What&rsquo; Happening</h2>
+	<h2 class="copy-hdr copy-hdr-xl text-center">What&rsquo;s Happening</h2>
 	<ul class="articles three-cols lazy-load" data-ws="true" data-url="loadArticles" data-params="start:1,max:6"></ul>
 </div>
