@@ -3,4 +3,5 @@
 <header id="hdr-main">
 	<h1 id="masthead-favicon"><a class="navigation" data-control="home" data-nav-class="home" href="/"><img src="/img/logos/select-interactive-s.v1.svg" width="50" height="44" alt="Select Interactive" /></a></h1>
 	<uc:nav runat="server" ID="ucNav" />
+	<a href="#nav" id="btn-nav-trigger"><i class="material-icons">menu</i></a>
 </header>

@@ -20,25 +20,33 @@ app.menu = ( function( doc ) {
 				trigger.setAttribute( 'data-initialized', 'true' );
 
 				trigger.addEventListener( 'mouseenter', function( e ) {
-					var menu = doc.querySelector( '[data-menu="' + trigger.getAttribute( 'data-menu-trigger' ) + '"]' );
+					showMenu( trigger );
+					e.preventDefault();
+				}, false );
 
-					if ( menu ) {
-						currentTrigger = trigger;
-						openMenu = menu;
-
-						menu.classList.add( 'in' );
-
-						menu.removeEventListener( 'mouseenter', keepMenu );
-						menu.removeEventListener( 'mouseout', hideMenu );
-
-						menu.addEventListener( 'mouseenter', keepMenu, false );
-						menu.addEventListener( 'mouseleave', hideMenu, false );
-					}
-
+				trigger.addEventListener( 'click', function( e ) {
+					showMenu( trigger );
 					e.preventDefault();
 				}, false );
 			}
 		} );
+	}
+
+	function showMenu( trigger ) {
+		var menu = doc.querySelector( '[data-menu="' + trigger.getAttribute( 'data-menu-trigger' ) + '"]' );
+
+		if ( menu && openMenu !== menu ) {
+			currentTrigger = trigger;
+			openMenu = menu;
+
+			menu.classList.add( 'in' );
+
+			menu.removeEventListener( 'mouseenter', keepMenu );
+			menu.removeEventListener( 'mouseout', hideMenu );
+
+			menu.addEventListener( 'mouseenter', keepMenu, false );
+			menu.addEventListener( 'mouseleave', hideMenu, false );
+		}
 	}
 	
 	function keepMenu() {

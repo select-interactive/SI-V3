@@ -3,7 +3,14 @@
     @extend %list-style-none;
     @extend %no-margin;
     @extend %text-align-center;
-    padding: 0 50px;
+    
+    @include susy-media($bp-large) {
+        padding: 0 20px;
+    }
+
+    @include susy-media($bp-xwide) {
+        padding: 0 50px;
+    }
 }
 
 .client {
@@ -11,7 +18,21 @@
     @extend %float-none;
     margin-bottom: 35px;
 
-    &:not(:last-child) {
-        margin-right: 50px;
+    @include susy-media($bp-tablet) {
+        margin-left: 10px;
+        margin-right: 10px;
+
+        &:first-child {
+            margin-left: 0;
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+
+    @include susy-media($bp-large) {
+        margin-left: 25px;
+        margin-right: 25px;
     }
 }

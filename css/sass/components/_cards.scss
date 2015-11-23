@@ -86,8 +86,7 @@
         }
 
         a {
-            @extend %text-decoration-none;
-            border-bottom: 1px dotted $color-primary;
+            @extend %text-decoration-underline;
             @include link-colors($color-primary, $color-primary);
         }
     }

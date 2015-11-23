@@ -27,7 +27,6 @@
 			if ( page !== pageToLoad || url !== target.getAttribute( 'href' ) ) {
 				url = target.getAttribute( 'href' );
 				page = pageToLoad;
-				console.log( target, page, url );
 				loadPage( page, url );
 				history.pushState( { page: page, url: url }, page, url );
 			}
@@ -41,6 +40,8 @@
 
 	function loadPage( page, url ) {
 		var currentPage = main.querySelector( '.page-wrapper.in' );
+
+		app.nav.hide();
 
 		if ( currentPage ) {
 			currentPage.classList.remove( 'in' );

@@ -7,35 +7,42 @@
 }
 
 .article {
-    @include span(6);
+    @include full;
     margin-bottom: gutter();
 
-    &:nth-child(2n) {
-        @include last;
-    }
-
-    &:nth-child(2n + 1) {
-        @include break;
-    }
-
-    .three-cols & {
-        @include span(4);
-        margin-bottom: gutter();
-
+    @include susy-media($bp-tablet) {
+        @include span(6);
+        @include nobreak;
+        
         &:nth-child(2n) {
-            @include span(4);
-        }
-
-        &:nth-child(2n + 1) {
-            @include nobreak;
-        }
-
-        &:nth-child(3n) {
             @include last;
         }
 
-        &:nth-child(3n + 1) {
+        &:nth-child(2n + 1) {
             @include break;
+        }
+    }
+
+    @include susy-media($bp-wide) {
+        .three-cols & {
+            @include span(4);
+            margin-bottom: gutter();
+
+            &:nth-child(2n) {
+                @include span(4);
+            }
+
+            &:nth-child(2n + 1) {
+                @include nobreak;
+            }
+
+            &:nth-child(3n) {
+                @include last;
+            }
+
+            &:nth-child(3n + 1) {
+                @include break;
+            }
         }
     }
 }
@@ -55,30 +62,62 @@
     margin-left: auto;
     margin-right: auto;
     max-width: 800px;
-    padding: 30px 50px;
+    padding: 20px 5px;
 
     .copy & {
-        font-size: 1.225rem;
+        font-size: 1.175rem;
     }
 
     .copy-hdr {
-        font-size: 2rem;
+        font-size: 1.6rem;
+        
     }
 
     .copy-hdr-xl {
         color: $color-primary;
         font-family: $font-med;
-        font-size: 2.6rem;
+        font-size: 1.6rem;
 
         &:not(:last-child) {
             margin-bottom: 15px;
+        }
+    }
+
+    @include susy-media($bp-tablet) {
+        padding: 30px;
+
+        .copy & {
+            font-size: 1.225rem;
+        }
+
+        .copy-hdr {
+            font-size: 1.8rem;
+        }
+
+        .copy-hdr-xl {
+            font-size: 2.2rem;
+        }
+    }
+
+    @include susy-media($bp-wide) {
+        padding: 30px 50px;
+
+        .copy-hdr {
+            font-size: 2rem;
+        }
+
+        .copy-hdr-xl {
+            font-size: 2.6rem;
         }
     }
 }
 
 .share-menu {
     right: 0;
-    top: -26px;
+    
+    &.in {
+        top: -26px !important;
+    }
 }
 
 .article-alert {

@@ -8,8 +8,8 @@
 <div id="gmap" class="gmap" data-map-center="32.731486,-97.366189" data-map-marker="true" data-infowindow="true" data-map-zoom="12"></div>
 <div class="paper paper-gray-light copy">
 	<div class="content-container">
-		<div class="row">
-			<div class="col col-8">
+		<div class="row row-cols-lg">
+			<div class="col col-8 col-mb-standard">
 				<h3 class="copy-hdr">New Projects &amp; General Inquiries</h3>
 				<p>Ready to start your next project or just curious to learn more? Please email us at <a href="mailto:contact@select-interactive.com">contact@select-interactive.com</a> and include your information and any project details, budget, and timeline.</p>
 				<h3 class="copy-hdr">Internship Inquiries</h3>

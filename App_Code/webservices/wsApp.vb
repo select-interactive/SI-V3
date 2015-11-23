@@ -158,6 +158,9 @@ Public Class wsApp
 				tags &= " <li><a href=""/news/tag/" & arrTagUrls(i) & """ data-control=""news"" class=""navigation"">" & arrTagNames(i) & "</a></li>"
 			Next
 
+			Dim datePublished As DateTime = pUtil.getField(0, "datePublished")
+			pUtil.setField(0, "datePublished", datePublished.ToString("MMMM dd, yyyy"))
+
 			pUtil.setField(0, "tags", tags)
 			html.Append(pUtil.generateHtml("article-details", 0))
 

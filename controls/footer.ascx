@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="VB" AutoEventWireup="false" CodeFile="footer.ascx.vb" Inherits="controls_footer" %>
 <footer>
 	<ul class="footer-links">
-		<li><a href="tel:972.948.8916"><i class="material-icons">local_phone</i>972.948.8916</a></li>
+		<li><a href="tel:817.210.4303"><i class="material-icons">local_phone</i>817.210.4303</a></li>
 		<li><a href="mailto:contact@select-interactive.com"><i class="material-icons">email</i>contact@select-interactive.com</a></li>
 		<li><a href="https://twitter.com/sel_interactive" target="_blank"><i class="icon icon-twitter"></i></a></li>
 		<li><a href="https://www.facebook.com/SelectInteractive" target="_blank"><i class="icon icon-facebook"></i></a></li>

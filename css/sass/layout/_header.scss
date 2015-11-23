@@ -8,10 +8,18 @@
     background: rgba($color-primary, .9);
     height: $hdr-bar-height;
     left: 0;
-    padding: 0 50px;
+    padding: 0 15px;
     top: 0;
     width: 100%;
     z-index: 10;
+
+    @include susy-media($bp-tablet) {
+        padding: 0 30px;
+    }
+
+    @include susy-media($bp-large) {
+        padding: 0 50px;
+    }
 
     .home & {
         box-shadow: none;
@@ -42,5 +50,25 @@
     a {
         @extend %display-block;
         @extend %text-decoration-none;
+    }
+}
+
+#btn-nav-trigger {
+    @extend %display-inline-block;
+    @extend %position-absolute;
+    @extend %text-decoration-none;
+    padding: 0 30px;
+    right: 0;
+    top: 0;
+    @include link-colors($white, $white);
+
+    @include susy-media($bp-large) {
+        display: none;
+    }
+
+    i {
+        font-size: 2.5rem;
+        height: $hdr-bar-height;
+        line-height: $hdr-bar-height;
     }
 }

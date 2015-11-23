@@ -7,16 +7,44 @@
 
 .project {
     &-col {
-        @include span(4);
-        @extend %position-relative;
+        @include full;
+        @include break;
         margin-bottom: gutter();
+        @extend %position-relative;
+        @extend %text-align-center;
 
-        &:nth-child(3n) {
-            @include last;
+        @include susy-media($bp-tablet) {
+            @include span(6);
+            @include nobreak;
+
+            &:nth-child(2n) {
+                @include last;
+            }
+
+            &:nth-child(2n + 1) {
+                @include break;
+            }
         }
 
-        &:nth-child(3n + 1) {
-            @include break;
+        @include susy-media($bp-large) {
+            @include span(4);
+            margin-bottom: gutter();
+
+            &:nth-child(2n) {
+                @include span(4);
+            }
+
+            &:nth-child(2n + 1) {
+                @include nobreak;
+            }
+
+            &:nth-child(3n) {
+                @include last;
+            }
+
+            &:nth-child(3n + 1) {
+                @include break;
+            }
         }
     }
 
@@ -53,20 +81,28 @@
 
     &-name {
         @extend %position-absolute;
+        @extend %text-align-left;
         background: rgba($white, .95);
         bottom: 0;
         color: $color-primary;
         font-family: $font-secondary;
-        font-size: 1.5rem;
+        font-size: 1.25rem;
         left: 0;
-        opacity: 0;
         padding: 15px 15px;
         right: 0;
-        transform: translateY(100%);
-        transition: opacity .275s ease,
-                    transform .275s ease;
         width: 100%;
         z-index: 2;
+
+        @include susy-media($bp-tablet) {
+            font-size: 1.5rem;
+        }
+
+        @include susy-media($bp-wide) {
+            opacity: 0;
+            transform: translateY(100%);
+            transition: opacity .275s ease,
+                        transform .275s ease;
+        }
     }
 }
 
@@ -74,11 +110,29 @@
 .project {
     @extend .clearfix;
 
-    &-img {
-        @include span(7);
+    &-img,
+    &-details {
+        @include full;
     }
 
-    &-details {
-        @include span(last 5);
+    &-img {
+        @extend %text-align-center;
+        margin-bottom: gutter() * 1.75;
+    }
+
+    @include susy-media($bp-large) {
+        &-img,
+        &-details {
+            @include nobreak;;
+        }
+
+        &-img {
+            @include span(7);
+            margin-bottom: 0;
+        }
+
+        &-details {
+            @include span(last 5);
+        }
     }
 }

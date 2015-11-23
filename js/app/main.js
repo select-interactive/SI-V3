@@ -5923,6 +5923,10 @@ app.gmap = ( function( doc ) {
 			marker.addListener( 'mouseover', function() {
 				infowindow.open( map, marker );
 			} );
+
+			marker.addListener( 'click', function() {
+				infowindow.open( map, marker );
+			} );
 		}
 
 		if ( mapBounds ) {
@@ -6024,25 +6028,33 @@ app.menu = ( function( doc ) {
 				trigger.setAttribute( 'data-initialized', 'true' );
 
 				trigger.addEventListener( 'mouseenter', function( e ) {
-					var menu = doc.querySelector( '[data-menu="' + trigger.getAttribute( 'data-menu-trigger' ) + '"]' );
+					showMenu( trigger );
+					e.preventDefault();
+				}, false );
 
-					if ( menu ) {
-						currentTrigger = trigger;
-						openMenu = menu;
-
-						menu.classList.add( 'in' );
-
-						menu.removeEventListener( 'mouseenter', keepMenu );
-						menu.removeEventListener( 'mouseout', hideMenu );
-
-						menu.addEventListener( 'mouseenter', keepMenu, false );
-						menu.addEventListener( 'mouseleave', hideMenu, false );
-					}
-
+				trigger.addEventListener( 'click', function( e ) {
+					showMenu( trigger );
 					e.preventDefault();
 				}, false );
 			}
 		} );
+	}
+
+	function showMenu( trigger ) {
+		var menu = doc.querySelector( '[data-menu="' + trigger.getAttribute( 'data-menu-trigger' ) + '"]' );
+
+		if ( menu && openMenu !== menu ) {
+			currentTrigger = trigger;
+			openMenu = menu;
+
+			menu.classList.add( 'in' );
+
+			menu.removeEventListener( 'mouseenter', keepMenu );
+			menu.removeEventListener( 'mouseout', hideMenu );
+
+			menu.addEventListener( 'mouseenter', keepMenu, false );
+			menu.addEventListener( 'mouseleave', hideMenu, false );
+		}
 	}
 	
 	function keepMenu() {
@@ -6075,6 +6087,55 @@ app.menu = ( function( doc ) {
  * Copyright 2015 Select Interactive, LLC. All rights reserved.
  * @author: The Select Interactive dev team (www.select-interactive.com) 
  */
+app.nav = ( function( doc ) {
+	'use strict';
+
+	var nav = doc.querySelector( '#nav-main' ),
+		btnNavTrigger = doc.querySelector( '#btn-nav-trigger' ),
+		evtOverlay = doc.querySelector( '#event-overlay' );
+
+	if ( nav && btnNavTrigger && evtOverlay ) {
+		btnNavTrigger.addEventListener( 'click', showNav, false );
+		evtOverlay.addEventListener( 'click', hideNav, false );
+	}
+	else {
+		console.warn( 'Website navigation elements not present.' );
+	}
+
+	function showNav( e ) {
+		doc.body.classList.toggle( 'nav-in' );
+
+		if ( doc.body.classList.contains( 'nav-in' ) ) {
+			evtOverlay.style.height = doc.body.offsetHeight + 'px';
+		}
+		else {
+			hideNav( e );
+		}
+
+		e.preventDefault();
+	}
+
+	function hideNav( e ) {
+		if ( doc.body.classList.contains( 'nav-in' ) ) {
+			doc.body.classList.remove( 'nav-in' );
+			evtOverlay.style.height = 0;
+
+			if ( e ) {
+				e.preventDefault();
+			}
+		}
+	}
+
+	return {
+		hide: hideNav
+	};
+
+}( document ) );
+///<reference path="../main.js">
+/**
+ * Copyright 2015 Select Interactive, LLC. All rights reserved.
+ * @author: The Select Interactive dev team (www.select-interactive.com) 
+ */
 ( function( doc ) {
 	'use strict';
 
@@ -6099,7 +6160,6 @@ app.menu = ( function( doc ) {
 			if ( page !== pageToLoad || url !== target.getAttribute( 'href' ) ) {
 				url = target.getAttribute( 'href' );
 				page = pageToLoad;
-				console.log( target, page, url );
 				loadPage( page, url );
 				history.pushState( { page: page, url: url }, page, url );
 			}
@@ -6113,6 +6173,8 @@ app.menu = ( function( doc ) {
 
 	function loadPage( page, url ) {
 		var currentPage = main.querySelector( '.page-wrapper.in' );
+
+		app.nav.hide();
 
 		if ( currentPage ) {
 			currentPage.classList.remove( 'in' );
@@ -6442,7 +6504,7 @@ app.toast = ( function( doc ) {
     }
 
     window.addEventListener( 'scroll', function( e ) {
-    	if ( window.mq( '(min-width:1024px)' ) && doc.body.classList.contains( 'home' ) ) {
+    	if ( doc.body.classList.contains( 'home' ) ) {
     		if ( getWindowScrollPosition() > 250 && !doc.body.classList.contains( 'home-scrolled' ) ) {
     			doc.body.classList.add( 'home-scrolled' );
     		}

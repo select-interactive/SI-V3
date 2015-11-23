@@ -1,8 +1,9 @@
 ﻿.banner {
+    @extend %text-align-center;
     background: rgba($color-primary, .9);
     color: $white;
     min-height: 30vh;
-    padding: 80px 50px;
+    padding: 30px 15px;
 
     &-hdr {
         font-size: 2rem;
@@ -14,15 +15,27 @@
     }
 
     &-tagline {
+        @extend %text-align-center;
         font-size: 1.65rem;
         line-height: 1.35;
 
-        .col:nth-child(2) & {
-            text-align: right;
-        }
-
         &:not(:last-child) {
             margin-bottom: 20px;
+        }
+    }
+
+    @include susy-media($bp-tablet) {
+        padding: 50px 30px;
+    }
+
+    @include susy-media($bp-large) {
+        padding: 80px 50px;
+        text-align: left;
+
+        &-tagline {
+            .col:nth-child(2) & {
+                text-align: right;
+            }
         }
     }
 }

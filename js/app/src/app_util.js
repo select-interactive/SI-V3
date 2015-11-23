@@ -43,7 +43,7 @@
     }
 
     window.addEventListener( 'scroll', function( e ) {
-    	if ( window.mq( '(min-width:1024px)' ) && doc.body.classList.contains( 'home' ) ) {
+    	if ( doc.body.classList.contains( 'home' ) ) {
     		if ( getWindowScrollPosition() > 250 && !doc.body.classList.contains( 'home-scrolled' ) ) {
     			doc.body.classList.add( 'home-scrolled' );
     		}
