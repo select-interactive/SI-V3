@@ -4368,20 +4368,24 @@ http://nicolasgallagher.com/micro-clearfix-hack/
     padding-left: 10px; }
 
 .sections {
-  margin-bottom: -6.7307692308%; }
+  margin-bottom: -11.5384615385%; }
+  @media (min-width: 768px) {
+    .sections {
+      margin-bottom: -4.8076923077%; } }
   .sections .section {
     clear: both;
     width: 100%;
     float: left;
     margin-left: 0;
     margin-right: 0;
-    margin-bottom: 6.7307692308%; }
+    margin-bottom: 11.5384615385%; }
     @media (min-width: 768px) {
       .sections .section {
         width: 48.0769230769%;
         float: left;
         margin-right: 3.8461538462%;
-        clear: none; }
+        clear: none;
+        margin-bottom: 4.8076923077%; }
         .sections .section:nth-child(2n) {
           float: right;
           margin-right: 0; }

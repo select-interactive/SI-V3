@@ -1,14 +1,19 @@
 ﻿.sections {
     @extend .row;
-    margin-bottom: (0 - (gutter() * 1.75));
+    margin-bottom: (0 - (gutter() * 3));
+
+    @include susy-media($bp-tablet) {
+        margin-bottom: (0 - (gutter() * 1.25));
+    }
 
     .section {
         @include full;
-        margin-bottom: gutter() * 1.75;
+        margin-bottom: gutter() * 3;
 
         @include susy-media($bp-tablet) {
             @include span(6);
             @include nobreak;
+            margin-bottom: gutter() * 1.25;
         
             &:nth-child(2n) {
                 @include last;

@@ -7,14 +7,14 @@
 importScripts( '/js/libs/serviceworker-cache-polyfill.js' );
 
 // cache version
-var CACHE_VERSION = 'cache-v-3';
+var CACHE_VERSION = 'cache-v-4';
 
 // Files we want to cache
 var urlsToCache = [
 	'/bower_components/es6-promise/promise.min.js',
 	'/bower_components/fetch/fetch.js',
 	'/js/libs/picturefill.min.js',
-	'/css/styles.v-3.1.min.css',
+	'/css/styles.v-3.3.min.css',
 	'/js/app/build/main.v-3.2.min.js'
 ];
 
