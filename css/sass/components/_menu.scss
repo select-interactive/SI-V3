@@ -2,6 +2,7 @@
     @extend %position-absolute;
     @extend .zdepth-1;
     background: $white;
+    min-width: 200px;
     opacity: 0;
     transform: scale(0.4, 0.4);
     transform-origin: center top;
