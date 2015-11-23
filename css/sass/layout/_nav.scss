@@ -27,6 +27,7 @@
         line-height: 1;
 
         &.mbl-logo {
+            @extend .mbl-only;
             @extend %text-align-center;
             background: #f2f2f9;
             margin: -15px;
