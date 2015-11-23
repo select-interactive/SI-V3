@@ -38,6 +38,7 @@
 
     a {
         @extend %display-block;
+        @extend %text-decoration-none;
         background: $white;
         border-bottom: none;
         font-size: 1rem;

@@ -2,7 +2,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="author" href="/humans.txt">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="Stylesheet" href="/css/styles.v-1.<%= Month(Now) & Day(Now) & Year(Now) & Hour(Now) & Minute(Now) & Second(Now)%>.css">
+<asp:Literal runat="server" ID="ltrlStyles" />
 <script async src="/bower_components/es6-promise/promise.min.js"></script>
 <script async src="/bower_components/fetch/fetch.js"></script>
 <script async src="/js/libs/picturefill.min.js"></script>

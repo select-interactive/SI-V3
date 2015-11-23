@@ -5,6 +5,10 @@
     min-height: 30vh;
     padding: 30px 15px;
 
+    @include susy-media(min-height 850px) {
+        min-height: 35vh;
+    }
+    
     &-hdr {
         font-size: 2rem;
         line-height: 1.4;

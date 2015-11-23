@@ -20,6 +20,7 @@ app.menu = ( function( doc ) {
 				trigger.setAttribute( 'data-initialized', 'true' );
 
 				trigger.addEventListener( 'mouseenter', function( e ) {
+					console.log( 'hover' );
 					showMenu( trigger );
 					e.preventDefault();
 				}, false );
@@ -59,10 +60,11 @@ app.menu = ( function( doc ) {
 	function hideMenu( menu ) {
 		hideMenuTimeout = setTimeout( function() {
 			openMenu.classList.add( 'hide' );
-
+			
 			setTimeout( function() {
 				openMenu.classList.remove( 'in' );
 				openMenu.classList.remove( 'hide' );
+				openMenu = null;
 			}, 500 );
 		}, 300 );
 	}

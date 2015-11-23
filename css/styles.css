@@ -516,7 +516,7 @@ input[type=radio] + label, input[type=checkbox][switch] + label .switch-toggle, 
 .copy a, .card-copy a {
   text-decoration: underline; }
 
-#masthead-favicon a, #btn-nav-trigger, #nav-main a, .footer-links a, #drawer-nav a, .btn, .alert-button, .select-opt, .tab-links a, .card-tooblar a, .social-links a, #nav-admin a, .project-link {
+#masthead-favicon a, #btn-nav-trigger, #nav-main a, .footer-links a, #drawer-nav a, .btn, .alert-button, .select-opt, .tab-links a, .card-tooblar a, .article-tags a, .social-links a, .menu a, #nav-admin a, .project-link {
   text-decoration: none; }
 
 .text-left, .toast, .project-name {
@@ -538,7 +538,7 @@ ul.list-no-style, ol.list-no-style, #nav-main ul, .footer-links, #drawer-nav ul,
   list-style: none; }
 
 @media (min-width: 1024px) {
-  .mbl-only {
+  .mbl-only, #nav-main li.mbl-logo {
     display: none !important; } }
 
 @media (max-width: 768px) {
@@ -3885,6 +3885,9 @@ http://nicolasgallagher.com/micro-clearfix-hack/
   color: #fff;
   min-height: 30vh;
   padding: 30px 15px; }
+  @media (min-height: 850px) {
+    .banner {
+      min-height: 35vh; } }
   .banner-hdr {
     font-size: 2rem;
     line-height: 1.4; }
@@ -3960,6 +3963,7 @@ http://nicolasgallagher.com/micro-clearfix-hack/
       .paper.bg-code, footer.bg-code {
         background-image: url(/img/bgs/si-code.v1.png); }
       .paper.bg .content, footer.bg .content {
+        max-width: 800px;
         -webkit-transform: translateX(-140px);
             -ms-transform: translateX(-140px);
                 transform: translateX(-140px); } }
@@ -4139,14 +4143,14 @@ http://nicolasgallagher.com/micro-clearfix-hack/
       .article-details .copy-hdr {
         font-size: 1.8rem; }
       .article-details .copy-hdr-xl {
-        font-size: 2.2rem; } }
+        font-size: 1.9rem; } }
   @media (min-width: 1200px) {
     .article-details {
       padding: 30px 50px; }
       .article-details .copy-hdr {
         font-size: 2rem; }
       .article-details .copy-hdr-xl {
-        font-size: 2.6rem; } }
+        font-size: 2.2rem; } }
 
 .share-menu {
   right: 0; }

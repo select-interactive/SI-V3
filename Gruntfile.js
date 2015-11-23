@@ -110,7 +110,7 @@ module.exports = function( grunt ) {
             testTask: {
                 outfile: '.tmp/critical.css',
                 css: 'css/styles.css',
-                url: 'http://localhost:9010',
+                url: 'http://localhost:9010/critical.html',
                 width: 1300,
                 height: 900
             },
