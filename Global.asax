@@ -11,7 +11,7 @@
 		routes.Add("newsWebUrlRoute", New System.Web.Routing.Route("news/{year}/{month}/{day}/{webUrl}", New CustomRouteHandler("~/news/entry/default.aspx")))
 		routes.Add("newsMonthUrlRoute", New System.Web.Routing.Route("news/{year}/{month}", New CustomRouteHandler("~/news/default.aspx")))
 		routes.Add("newsYearUrlRoute", New System.Web.Routing.Route("news/{year}", New CustomRouteHandler("~/news/default.aspx")))
-		routes.Add("newsTagRoute", New System.Web.Routing.Route("news/tag/{tagUrl}", New CustomRouteHandler("~/news/default.aspx")))
+		routes.Add("newsTagRoute", New System.Web.Routing.Route("news/tag/{tagUrl}", New CustomRouteHandler("~/news/tag/default.aspx")))
 		routes.Add("projectRoute", New System.Web.Routing.Route("project/{objId}", New CustomRouteHandler("~/portfolio/project/default.aspx")))
 	End Sub
 

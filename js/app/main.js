@@ -6026,9 +6026,9 @@ app.gmap = ( function( doc ) {
 
 		if ( target && target.classList && target.classList.contains( 'navigation' ) ) {
 			pageToLoad = target.getAttribute( 'data-control' );
-			url = target.getAttribute( 'href' );
 			
-			if ( page !== pageToLoad ) {
+			if ( page !== pageToLoad || url !== target.getAttribute( 'href' ) ) {
+				url = target.getAttribute( 'href' );
 				page = pageToLoad;
 				console.log( target, page, url );
 				loadPage( page, url );

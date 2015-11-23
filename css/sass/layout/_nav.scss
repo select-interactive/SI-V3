@@ -31,7 +31,7 @@
         line-height: $hdr-bar-height;
         padding: 0 10px;
         transition: color .225s ease;
-        @include link-colors(rgba($white, .8), $white);
+        @include link-colors(rgba($white, .85), $white);
 
         &:hover,
         &.selected {

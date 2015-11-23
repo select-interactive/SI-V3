@@ -40,7 +40,7 @@ app.bios = ( function( doc, $ ) {
         //   querySort = the column to sort items by
         parse = {
         	object: 'Blog',
-        	querySort: 'updatedAt'
+        	querySort: '-datePublished'
         },
 
         // events for buttons/inputs (file upload)
@@ -236,6 +236,7 @@ app.bios = ( function( doc, $ ) {
 
 			params.active = cbActive.checked;
 			params.url = app.admin.createUrl( params.title, params.datePublished );
+			params.datePublished = new Date( params.datePublished );
 			app.admin.saveItem( settings.save.fn, params );
 		}
 	}
@@ -253,7 +254,7 @@ app.bios = ( function( doc, $ ) {
 
 	function setImgThumbPrev( fileName ) {
 		if ( fileName && fileName.length ) {
-			imgThumbPrev.innerHTML = '<img src="/img/news/' + fileName + '" />';
+			imgThumbPrev.innerHTML = '<img src="/img/news/thumb/' + fileName + '" />';
 			btnImgThumbDetele.classList.remove( 'hidden' );
 		}
 		else {

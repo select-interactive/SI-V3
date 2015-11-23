@@ -93,7 +93,7 @@
 
     &-footer {
         border-top: 1px solid lighten($color-secondary-light, 20%);
-        margin: (0 - ($card-pad / 2)) (0 - $card-pad);
+        margin: 0 (0 - $card-pad) (0 - ($card-pad / 2));
         padding: ($card-pad / 2) $card-pad;
         padding-bottom: 0;
 

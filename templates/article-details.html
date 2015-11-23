@@ -1,5 +1,12 @@
 ﻿<article class="article-wrapper">
-	<div class="article-img"><img src="/img/news/lg/{{banner}}" alt="{{title}}" /></div>
+	<div class="article-img">
+		<picture>
+			<source srcset="/img/news/lg/{{banner}}" media="(min-width:1400px)" />
+			<source srcset="/img/news/med/{{banner}}" media="(min-width:1024px)" />
+			<img srcset="/img/news/sm/{{banner}}" alt="{{title}}" />
+		</picture>
+
+	</div>
 	<div class="paper paper-pad-med copy">
 		<div class="article-details">
 			<h2 class="copy-hdr copy-hdr-xl text-center">{{title}}</h2>

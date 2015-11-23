@@ -519,7 +519,7 @@ input[type=radio] + label, input[type=checkbox][switch] + label .switch-toggle, 
 .text-left, .toast {
   text-align: left; }
 
-.text-center, .btn, .alert-button, .btn i, .alert-button i, .tab-links a, .clients, .sg-element {
+.text-center, .btn, .alert-button, .btn i, .alert-button i, .tab-links a, .clients, .article-img, .sg-element {
   text-align: center; }
 
 .text-right, #nav-main, .input-field .error-label, #alert-buttons {
@@ -1390,7 +1390,7 @@ body {
     padding: 0 10px;
     -webkit-transition: color .225s ease;
             transition: color .225s ease;
-    color: rgba(255, 255, 255, 0.8); }
+    color: rgba(255, 255, 255, 0.85); }
     #nav-main a:hover {
       color: #fff; }
     #nav-main a:hover, #nav-main a.selected {
@@ -3195,7 +3195,7 @@ http://nicolasgallagher.com/micro-clearfix-hack/
         color: #dda14a; }
   .card-footer {
     border-top: 1px solid #d4d3d4;
-    margin: -15px -30px;
+    margin: 0 -30px -15px;
     padding: 15px 30px;
     padding-bottom: 0; }
     .card-footer a {
@@ -3234,6 +3234,22 @@ http://nicolasgallagher.com/micro-clearfix-hack/
     margin-right: 0; }
   .article:nth-child(2n + 1) {
     clear: both; }
+  .three-cols .article {
+    width: 30.7692307692%;
+    float: left;
+    margin-right: 3.8461538462%;
+    margin-bottom: 3.8461538462%; }
+    .three-cols .article:nth-child(2n) {
+      width: 30.7692307692%;
+      float: left;
+      margin-right: 3.8461538462%; }
+    .three-cols .article:nth-child(2n + 1) {
+      clear: none; }
+    .three-cols .article:nth-child(3n) {
+      float: right;
+      margin-right: 0; }
+    .three-cols .article:nth-child(3n + 1) {
+      clear: both; }
 
 .article-details {
   margin-left: auto;
@@ -3267,7 +3283,7 @@ http://nicolasgallagher.com/micro-clearfix-hack/
     float: left;
     margin-right: 3.8461538462%;
     line-height: 1.4;
-    margin-bottom: 3.8461538462%; }
+    margin-bottom: 20px !important; }
     .awards li:before {
       content: ">";
       display: inline-block;

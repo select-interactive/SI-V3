@@ -5,3 +5,4 @@
 <link rel="Stylesheet" href="/css/styles.v-1.<%= Month(Now) & Day(Now) & Year(Now) & Hour(Now) & Minute(Now) & Second(Now)%>.css">
 <script async src="/bower_components/es6-promise/promise.min.js"></script>
 <script async src="/bower_components/fetch/fetch.js"></script>
+<script async src="/js/libs/picturefill.min.js"></script>

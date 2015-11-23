@@ -609,8 +609,8 @@ app.admin = ( function( doc ) {
 
 		if ( dateObj ) {
 			datePart = dateObj.substring( 6 ) + '/';
-			datePart = datePart + dateObj.substring( 3, 5 ) + '/';
 			datePart = datePart + dateObj.substring( 0, 2 ) + '/';
+			datePart = datePart + dateObj.substring( 3, 5 ) + '/';
 			str = datePart + str;
 		}
 

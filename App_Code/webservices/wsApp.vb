@@ -20,10 +20,13 @@ Public Class wsApp
 
 	<WebMethod()>
 	Public Function loadControlContent(controlName As String, url As String) As String
-		If Not url Is Nothing AndAlso url.Length > 0 AndAlso url.Contains("project") Then
+		If Not url Is Nothing AndAlso url.Length > 0 AndAlso url.Contains("/project/") Then
 			Return loadProjectAsPageContent(url.Substring(url.LastIndexOf("/") + 1)).html
-		ElseIf Not url Is Nothing AndAlso url.Length > 0 AndAlso url.Contains("news") Then
-			Return loadArticleDetails(url.Substring(url.IndexOf("news/") + 5))
+		ElseIf Not url Is Nothing AndAlso url.Length > 0 AndAlso url.Contains("/news/") AndAlso Not url.Contains("/tag/") AndAlso url <> "/news/" Then
+			Return loadArticleDetailsAsPageContent(url.Substring(url.IndexOf("news/") + 5)).html
+		ElseIf Not url Is Nothing AndAlso url.Length > 0 AndAlso url.Contains("/news/") AndAlso url.contains("/tag/") Then
+			Dim pc As PageContent = loadArticlesByTag(1, 999, url.Substring(url.LastIndexOf("/") + 1))
+			Return addArticleThumbsContainer(pc.html, pc.title)
 		Else
 			Return renderPartialToString("/controls/pages/" & controlName & ".ascx")
 		End If
@@ -51,7 +54,7 @@ Public Class wsApp
 		Dim html As New StringBuilder
 		Dim endIndex As Integer = start + max - 1
 
-		pUtil.query("Blog", "updatedAt", False)
+		pUtil.query("Blog", "datePublished", False)
 
 		If pUtil.itemList.Count > 0 Then
 			If pUtil.itemList.Count < endIndex Then
@@ -66,29 +69,66 @@ Public Class wsApp
 		Return html.ToString
 	End Function
 
-	' Load article details as PageContent
+	' Load article thumbnails
 	<WebMethod()>
-	Public Function loadArticleDetails(url As String) As String
+	Public Function loadArticlesByYearOrMonth(start As Integer, max As Integer, url As String) As String
 		Dim html As New StringBuilder
+		Dim endIndex As Integer = start + max - 1
 
-		pUtil.query("Blog", "", True, "url", url)
+		pUtil.query("Blog", "datePublished", False, "url", url, True)
+
+		If pUtil.itemList.Count > 0 Then
+			If pUtil.itemList.Count < endIndex Then
+				endIndex = pUtil.itemList.Count
+			End If
+
+			For i As Integer = start - 1 To endIndex - 1
+				html.Append(pUtil.generateHtml("article-thumb", i))
+			Next
+		End If
+
+		Return html.ToString
+	End Function
+
+	' Load article thumbnails
+	<WebMethod()>
+	Public Function loadArticlesByTag(start As Integer, max As Integer, tagUrl As String) As PageContent
+		Dim tagObjId As String = ""
+		Dim title As String = ""
+		Dim desc As String = ""
+		Dim html As New StringBuilder
+		Dim endIndex As Integer = start + max - 1
+
+		' First get the tag objectId
+		pUtil.query("BlogTag", "", True, "url", tagUrl)
 
 		If pUtil.itemList.Count = 1 Then
-			Dim tagNames As String = pUtil.getField(0, "tagNames")
-			Dim arrTagNames() As String = tagNames.Split(",")
-			Dim tagUrls As String = pUtil.getField(0, "tagUrls")
-			Dim arrTagUrls() As String = tagUrls.Split(",")
+			tagObjId = pUtil.itemList(0).ObjectId
+			title = pUtil.getField(0, "tag")
+			desc = title & " - news and notes from Select Interactive. Website design and development Fort Worth, TX"
 
-			Dim tags As String = ""
+			pUtil.query("Blog", "datePublished", False, "tags", tagObjId, True)
 
-			For i As Integer = 0 To arrTagNames.Length - 1
-				tags &= "<li><a href=""/news/tags/" & arrTagUrls(i) & """ class=""navigation"">" & arrTagNames(i) & "</a></li>"
-			Next
+			If pUtil.itemList.Count > 0 Then
+				If pUtil.itemList.Count < endIndex Then
+					endIndex = pUtil.itemList.Count
+				End If
 
-			pUtil.setField(0, "tags", tags)
-
-			html.Append(pUtil.generateHtml("article-details", 0))
+				For i As Integer = start - 1 To endIndex - 1
+					html.Append(pUtil.generateHtml("article-thumb", i))
+				Next
+			End If
 		End If
+
+		Return New PageContent(title, desc, html.ToString)
+	End Function
+
+	Private Function addArticleThumbsContainer(thumbHTML As String, title As String) As String
+		Dim html As New StringBuilder
+		html.Append("<div class=""paper paper-gray-dark"">" _
+				  & "<h2 Class=""copy-hdr copy-hdr-xl text-center"">" & title & "</h2>" _
+				  & "<ul Class=""articles three-cols"">" & thumbHTML & "</ul>" _
+				  & "</div>")
 
 		Return html.ToString
 	End Function
@@ -107,14 +147,14 @@ Public Class wsApp
 			desc = pUtil.getField(0, "metaDesc")
 
 			Dim tagNames As String = pUtil.getField(0, "tagNames")
-			Dim arrTagNames() As String = tagNames.Split(",")
+			Dim arrTagNames() As String = tagNames.Split(", ")
 			Dim tagUrls As String = pUtil.getField(0, "tagUrls")
-			Dim arrTagUrls() As String = tagUrls.Split(",")
+			Dim arrTagUrls() As String = tagUrls.Split(", ")
 
 			Dim tags As String = ""
 
 			For i As Integer = 0 To arrTagNames.Length - 1
-				tags &= "<li><a href=""/news/tags/" & arrTagUrls(i) & """ class=""navigation"">" & arrTagNames(i) & "</a></li>"
+				tags &= " <li><a href=""/news/tag/" & arrTagUrls(i) & """ data-control=""news"" class=""navigation"">" & arrTagNames(i) & "</a></li>"
 			Next
 
 			pUtil.setField(0, "tags", tags)

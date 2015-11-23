@@ -7,7 +7,7 @@
     li {
         @include span(6);
         line-height: 1.4;
-        margin-bottom: gutter();
+        margin-bottom: 20px !important;
 
         &:before {
             content: ">";
