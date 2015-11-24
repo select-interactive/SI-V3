@@ -2475,13 +2475,19 @@ footer {
         left: 0;
         position: absolute;
         top: 0;
-        -webkit-transform: translate3d(-50%, -50%, 0);
-                transform: translate3d(-50%, -50%, 0);
+        -webkit-transform: translate3d(0, -50%, 0);
+                transform: translate3d(0, -50%, 0);
         right: auto; }
         @media (min-width: 1025px) {
           .btn[fab][fixed].btn-top, [fab][fixed].btn-top.alert-button {
+            -webkit-transform: translate3d(-20%, -50%, 0);
+                    transform: translate3d(-20%, -50%, 0); } }
+        @media (min-width: 1024px) {
+          .btn[fab][fixed].btn-top, [fab][fixed].btn-top.alert-button {
             left: 0;
-            top: 0; } }
+            top: 0;
+            -webkit-transform: translate3d(-50%, -50%, 0);
+                    transform: translate3d(-50%, -50%, 0); } }
     .btn[fab] i, [fab].alert-button i {
       font-size: 1.4rem;
       line-height: 48px; }

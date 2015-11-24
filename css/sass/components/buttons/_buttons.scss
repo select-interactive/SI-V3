@@ -148,12 +148,17 @@ $btn-lg-padding: 0 2.8rem;
                 left: 0;
                 position: absolute;
                 top: 0;
-                transform: translate3d(-50%, -50%, 0);
+                transform: translate3d(0, -50%, 0);
                 right: auto;
 
                 @include susy-media($bp-comp) {
+                    transform: translate3d(-20%, -50%, 0);
+                }
+
+                @include susy-media($bp-large) {
                     left: 0;
                     top: 0;
+                    transform: translate3d(-50%, -50%, 0);
                 }
             }
         }
