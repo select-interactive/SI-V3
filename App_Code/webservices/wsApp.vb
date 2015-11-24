@@ -334,12 +334,15 @@ Public Class wsApp
 	<WebMethod()>
 	Public Function loadProjectAsPageContent(objId As String) As PageContent
 		Dim title As String = ""
+		Dim projectName As String = ""
 		Dim html As New StringBuilder
+		Dim ogImage As String = ""
 
 		pUtil.query("Project", "sortOrder", True, "objectId", objId)
 
 		If pUtil.itemList.Count = 1 Then
-			title = "Website for " & pUtil.getField(0, "name")
+			projectName = pUtil.getField(0, "name")
+			title = "Website for " & projectName
 
 			Dim tagNames As String = pUtil.getField(0, "tagNames")
 			Dim arrTagNames() As String = tagNames.Split(", ")
@@ -365,9 +368,11 @@ Public Class wsApp
 			pUtil.setField(0, "designedBy", designedBy)
 
 			html.Append(pUtil.generateHtml("project-detail", 0))
+
+			ogImage = "https://www.select-interactive.com/img/projects/primary/" & pUtil.getField(0, "primaryImg")
 		End If
 
-		Return New PageContent(title, "Web Development Details for " & title, html.ToString)
+		Return New PageContent(title, "Web design and web development details for " & projectName, html.ToString, ogImage)
 	End Function
 
 	' Load project tags options for admin
