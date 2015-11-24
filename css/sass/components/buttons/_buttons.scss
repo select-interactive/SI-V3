@@ -142,6 +142,20 @@ $btn-lg-padding: 0 2.8rem;
                 bottom: 20px;
                 right: 36px;
             }
+
+            &.btn-top {
+                bottom: auto;
+                left: 0;
+                position: absolute;
+                top: 0;
+                transform: translate3d(-50%, -50%, 0);
+                right: auto;
+
+                @include susy-media($bp-comp) {
+                    left: 0;
+                    top: 0;
+                }
+            }
         }
 
 

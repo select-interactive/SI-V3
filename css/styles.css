@@ -2470,6 +2470,18 @@ footer {
         .btn[fab][fixed], [fab][fixed].alert-button {
           bottom: 20px;
           right: 36px; } }
+      .btn[fab][fixed].btn-top, [fab][fixed].btn-top.alert-button {
+        bottom: auto;
+        left: 0;
+        position: absolute;
+        top: 0;
+        -webkit-transform: translate3d(-50%, -50%, 0);
+                transform: translate3d(-50%, -50%, 0);
+        right: auto; }
+        @media (min-width: 1025px) {
+          .btn[fab][fixed].btn-top, [fab][fixed].btn-top.alert-button {
+            left: 0;
+            top: 0; } }
     .btn[fab] i, [fab].alert-button i {
       font-size: 1.4rem;
       line-height: 48px; }
@@ -4282,9 +4294,9 @@ http://nicolasgallagher.com/micro-clearfix-hack/
   -webkit-transform: scale(0.4, 0.4);
       -ms-transform: scale(0.4, 0.4);
           transform: scale(0.4, 0.4);
-  -webkit-transform-origin: center top;
-      -ms-transform-origin: center top;
-          transform-origin: center top;
+  -webkit-transform-origin: left top;
+      -ms-transform-origin: left top;
+          transform-origin: left top;
   -webkit-transition: opacity .375s ease, -webkit-transform .375s ease;
           transition: opacity .375s ease, transform .375s ease;
   top: -9999px;

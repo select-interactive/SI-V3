@@ -7,7 +7,7 @@
 	'use strict';
 
 	var main = doc.getElementById( 'main' ),
-		pagePopped = false,
+		pagePushed = false,
 		page, url, classes;
 
 	window.addEventListener( 'popstate', pop, false );
@@ -30,6 +30,7 @@
 				page = pageToLoad;
 				loadPage( page, url, true );
 				history.pushState( { page: page, url: url }, page, url );
+				pagePushed = true;
 			}
 
 			e.preventDefault();
@@ -103,7 +104,7 @@
 	}
 
 	function pop( e ) {
-		if ( pagePopped ) {
+		if ( pagePushed ) {
 			if ( history.state && history.state.page ) {
 				page = history.state.page;
 				url = history.state.url;
@@ -116,9 +117,6 @@
 			if ( main && page && url ) {
 				loadPage( page, url );
 			}
-		}
-		else {
-			pagePopped = true;
 		}
 	}
 

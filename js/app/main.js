@@ -6141,18 +6141,19 @@ app.menu = ( function( doc ) {
 	function setMenuPosition( trigger, dynamicLoad ) {
 		var menu = doc.querySelector( '[data-menu="' + trigger.getAttribute( 'data-menu-trigger' ) + '"]' ),
 			position = trigger.getBoundingClientRect(),
+			left = position.left - 1,
 			right = window.innerWidth - position.right - 1,
-			top = position.top;
+			top = position.top - 1;
 		
-		if ( window.mq( '(min-width:1025px)' ) ) {
-			right = right - 18;
-		}
-
+		//if ( window.mq( '(min-width:1025px)' ) ) {
+		//	right = right - 18;
+		//}
+		
 		if ( dynamicLoad ) {
 			top = top - 101;
 		}
 
-		menu.style.right = right + 'px';
+		menu.style.left = left + 'px';
 		menu.setAttribute( 'data-top', top );
 	}
 
@@ -6280,7 +6281,7 @@ app.nav = ( function( doc ) {
 	'use strict';
 
 	var main = doc.getElementById( 'main' ),
-		pagePopped = false,
+		pagePushed = false,
 		page, url, classes;
 
 	window.addEventListener( 'popstate', pop, false );
@@ -6303,6 +6304,7 @@ app.nav = ( function( doc ) {
 				page = pageToLoad;
 				loadPage( page, url, true );
 				history.pushState( { page: page, url: url }, page, url );
+				pagePushed = true;
 			}
 
 			e.preventDefault();
@@ -6376,7 +6378,7 @@ app.nav = ( function( doc ) {
 	}
 
 	function pop( e ) {
-		if ( pagePopped ) {
+		if ( pagePushed ) {
 			if ( history.state && history.state.page ) {
 				page = history.state.page;
 				url = history.state.url;
@@ -6389,9 +6391,6 @@ app.nav = ( function( doc ) {
 			if ( main && page && url ) {
 				loadPage( page, url );
 			}
-		}
-		else {
-			pagePopped = true;
 		}
 	}
 
