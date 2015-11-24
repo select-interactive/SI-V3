@@ -31,6 +31,10 @@ Public Class wsApp
 			pc = loadProjectAsPageContent(url.Substring(url.LastIndexOf("/") + 1))
 			html = pc.html
 			title = pc.title
+		ElseIf Not url Is Nothing AndAlso url.Length > 0 AndAlso url.Contains("/portfolio/tag/") Then
+			pc = loadProjectsByTag(1, 999, url.Substring(url.LastIndexOf("/") + 1))
+			html = addProjectThumbsContainer(pc.html, pc.title)
+			title = pc.title & " Projects"
 		ElseIf Not url Is Nothing AndAlso url.Length > 0 AndAlso url.Contains("/news/") AndAlso Not url.Contains("/tag/") AndAlso url <> "/news/" Then
 			pc = loadArticleDetailsAsPageContent(url.Substring(url.IndexOf("news/") + 5))
 			html = pc.html
@@ -267,6 +271,53 @@ Public Class wsApp
 		Return html.ToString
 	End Function
 
+	' Load article thumbnails
+	<WebMethod()>
+	Public Function loadProjectsByTag(start As Integer, max As Integer, tagUrl As String) As PageContent
+		Dim tagObjId As String = ""
+		Dim title As String = ""
+		Dim desc As String = ""
+		Dim html As New StringBuilder
+		Dim endIndex As Integer = start + max - 1
+
+		' First get the tag objectId
+		pUtil.query("ProjectTag", "", True, "url", tagUrl)
+
+		If pUtil.itemList.Count = 1 Then
+			tagObjId = pUtil.itemList(0).ObjectId
+			title = pUtil.getField(0, "tag")
+			desc = title & " Projects"
+
+			pUtil.query("Project", "sortOrder", True, "tags", tagObjId, True)
+
+			If pUtil.itemList.Count > 0 Then
+				If pUtil.itemList.Count < endIndex Then
+					endIndex = pUtil.itemList.Count
+				End If
+
+				For i As Integer = start - 1 To endIndex - 1
+					Dim projectHTML As String = pUtil.generateHtml("project-li", i)
+					projectHTML = projectHTML.Replace("{{objId}}", pUtil.itemList(i).ObjectId)
+					html.Append(projectHTML)
+				Next
+			End If
+		End If
+
+		Return New PageContent(title, desc, html.ToString)
+	End Function
+
+	Private Function addProjectThumbsContainer(thumbHTML As String, title As String) As String
+		Dim html As New StringBuilder
+		html.Append("<div class=""paper"">" _
+				  & "<div class=""content-container"">" _
+				  & "<h2 class=""copy-hdr copy-hdr-xl text-center"">" & title & "</h2>" _
+				  & "<ul class=""projects"">" & thumbHTML & "</ul>" _
+				  & "</div>" _
+				  & "</div>")
+
+		Return html.ToString
+	End Function
+
 	<WebMethod()>
 	Public Function loadProject(objId As String) As String
 		Dim html As New StringBuilder
@@ -289,10 +340,50 @@ Public Class wsApp
 
 		If pUtil.itemList.Count = 1 Then
 			title = "Website for " & pUtil.getField(0, "name")
+
+			Dim tagNames As String = pUtil.getField(0, "tagNames")
+			Dim arrTagNames() As String = tagNames.Split(", ")
+			Dim tagUrls As String = pUtil.getField(0, "tagUrls")
+			Dim arrTagUrls() As String = tagUrls.Split(", ")
+
+			Dim tags As String = ""
+
+			For i As Integer = 0 To arrTagNames.Length - 1
+				tags &= " <li><a href=""/portfolio/tag/" & arrTagUrls(i) & """ data-control=""portfolio"" class=""navigation"">" & arrTagNames(i) & "</a></li>"
+			Next
+
+			pUtil.setField(0, "tags", tags)
+
+			Dim designFirm As String = pUtil.getField(0, "designFirm")
+			Dim designFirmUrl As String = pUtil.getField(0, "designFirmUrl")
+			Dim designedBy = ""
+
+			If designFirm <> "" AndAlso designFirm <> "" Then
+				designedBy = "<br /><a href=""" & designFirmUrl & """ target=""_blank"">Designed by " & designFirm & "</a>"
+			End If
+
+			pUtil.setField(0, "designedBy", designedBy)
+
 			html.Append(pUtil.generateHtml("project-detail", 0))
 		End If
 
-		Return New PageContent(title, html.ToString)
+		Return New PageContent(title, "Web Development Details for " & title, html.ToString)
+	End Function
+
+	' Load project tags options for admin
+	<WebMethod()>
+	Public Function loadProjectTagOptions() As String
+		Dim html As New StringBuilder
+
+		pUtil.query("ProjectTag", "tag")
+
+		For i As Integer = 0 To pUtil.itemList.Count - 1
+			Dim projectHTML As String = pUtil.generateHtml("project-tag-option", i)
+			projectHTML = projectHTML.Replace("{{objId}}", pUtil.itemList(i).ObjectId)
+			html.Append(projectHTML)
+		Next
+
+		Return html.ToString
 	End Function
 
 #End Region

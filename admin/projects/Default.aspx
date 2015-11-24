@@ -62,16 +62,34 @@
 				</div>
 			</div>
 			<div class="row form-row">
-				<div class="col col-4">
+				<div class="col col-8">
+					<label for="ddl-tags">* Blog Tags:</label>
+					<select id="ddl-tags" class="chosen-select" multiple><asp:Literal runat="server" ID="ltrlTags" /></select>
+				</div>
+				<div></div>
+			</div>
+			<div class="row form-row">
+				<div class="col col-2">
 					<div class="input-field">
 						<input type="number" id="tb-sort-order" name="sortOrder" class="req" />
 						<label for="tb-sort-order">* Sort Order</label>
 					</div>
 				</div>
-				<div class="col col-4">
+				<div class="col col-2">
 					<input type="checkbox" id="cb-active" /><label for="cb-active" class="lbl-cb">Is Active?</label>
 				</div>
-				<div class="col"></div>
+				<div class="col col-4">
+					<div class="input-field">
+						<input type="url" id="tb-firm-url" name="designFirm" />
+						<label for="tb-firm-url">Design Firm:</label>
+					</div>
+				</div>
+				<div class="col col-4">
+					<div class="input-field">
+						<input type="url" id="tb-firm-url" name="designFirmUrl" />
+						<label for="tb-firm-url">Design Firm URL:</label>
+					</div>
+				</div>
 			</div>
 			<div class="row form-row">
 				<div class="col">
@@ -89,5 +107,7 @@
 
 <asp:Content ID="Content7" ContentPlaceHolderID="cphJS" Runat="Server">
 	<script defer src="/ckeditor/ckeditor.js"></script>
-	<script defer src="/js/app/admin.projects.v-1.0.js"></script>
+	<script defer src="/js/libs/jquery/dist/jquery.min.js"></script>
+	<script defer src="/js/libs/chosen/chosen.jquery.min.js"></script>
+	<script defer src="/js/app/admin.projects.v-1.1.js"></script>
 </asp:Content>

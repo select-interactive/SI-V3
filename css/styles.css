@@ -474,7 +474,7 @@ img {
   display: none; }
 
 .copy a, #masthead-favicon, #btn-nav-trigger, .footer-links a i, #drawer-nav a i, .hdr-bar [title], [drawer-nav-trigger], #hdr-nav li, .btn, .alert-button, .btn i, .alert-button i, input[type=checkbox] + label,
-input[type=radio] + label, input[type=checkbox][switch] + label .switch-toggle, input[type=checkbox][switch] + label .switch-toggle:after, input[type=radio] + label:before, .select-opt.active:before, .tab-links li, .client, .card-tooblar li, .icon, .article-note:before, .article-tags a, .social-links li, #nav-admin a {
+input[type=radio] + label, input[type=checkbox][switch] + label .switch-toggle, input[type=checkbox][switch] + label .switch-toggle:after, input[type=radio] + label:before, .select-opt.active:before, .tab-links li, .client, .card-tooblar li, .icon, .article-note:before, .article-tags a, .social-links li, #nav-admin a, .project-tags a {
   display: inline-block; }
 
 #masthead-favicon a, #nav-main a, .footer-links li, #drawer-nav a, #hdr-nav a, .select-opt, input[type=range], .tab-links a, .tab.active, .menu a, .project-link {
@@ -507,7 +507,7 @@ input[type=radio] + label, input[type=checkbox][switch] + label .switch-toggle, 
 .client {
   float: none; }
 
-#masthead-favicon, .article-tags li {
+#masthead-favicon, .article-tags li, .project-tags li {
   float: left; }
 
 #hdr-nav, input[type=range] + .range-label {
@@ -516,7 +516,7 @@ input[type=radio] + label, input[type=checkbox][switch] + label .switch-toggle, 
 .copy a, .card-copy a {
   text-decoration: underline; }
 
-#masthead-favicon a, #btn-nav-trigger, #nav-main a, .footer-links a, #drawer-nav a, .btn, .alert-button, .select-opt, .tab-links a, .card-tooblar a, .article-tags a, .social-links a, .menu a, #nav-admin a, .project-link {
+#masthead-favicon a, #btn-nav-trigger, #nav-main a, .footer-links a, #drawer-nav a, .btn, .alert-button, .select-opt, .tab-links a, .card-tooblar a, .article-tags a, .social-links a, .menu a, #nav-admin a, .project-link, .project-tags a {
   text-decoration: none; }
 
 .text-left, .toast, .project-name {
@@ -534,7 +534,7 @@ input[type=radio] + label, input[type=checkbox][switch] + label .switch-toggle, 
 .text-uppercase, #nav-main a, .tab-links a {
   text-transform: uppercase; }
 
-ul.list-no-style, ol.list-no-style, #nav-main ul, .footer-links, #drawer-nav ul, #hdr-nav ul, .select-opts, .tab-links, .clients, .card-tooblar, .articles, .article-tags, .team, .awards, .social-links, .menu-items, #nav-admin ul, .projects {
+ul.list-no-style, ol.list-no-style, #nav-main ul, .footer-links, #drawer-nav ul, #hdr-nav ul, .select-opts, .tab-links, .clients, .card-tooblar, .articles, .article-tags, .team, .awards, .social-links, .menu-items, #nav-admin ul, .projects, .project-tags {
   list-style: none; }
 
 @media (min-width: 1024px) {
@@ -545,14 +545,14 @@ ul.list-no-style, ol.list-no-style, #nav-main ul, .footer-links, #drawer-nav ul,
   .no-mbl {
     display: none !important; } }
 
-.clearfix::before, #hdr-main::before, .footer-links::before, .footer-links li::before, .clients::before, .articles::before, .article-tags::before, .team::before, .awards::before, .projects::before, .project::before,
+.clearfix::before, #hdr-main::before, .footer-links::before, .footer-links li::before, .clients::before, .articles::before, .article-tags::before, .team::before, .awards::before, .projects::before, .project::before, .project-tags::before,
 .row::before,
 .form-row::before,
 .sections::before {
   content: "";
   display: table; }
 
-.clearfix:after, #hdr-main:after, .footer-links:after, .footer-links li:after, .clients:after, .articles:after, .article-tags:after, .team:after, .awards:after, .projects:after, .project:after,
+.clearfix:after, #hdr-main:after, .footer-links:after, .footer-links li:after, .clients:after, .articles:after, .article-tags:after, .team:after, .awards:after, .projects:after, .project:after, .project-tags:after,
 .row:after,
 .form-row:after,
 .sections:after {
@@ -2394,7 +2394,7 @@ footer {
 .zdepth-0 {
   box-shadow: none !important; }
 
-.zdepth-1, #hdr-main, #nav-main, .container-drawer, .btn[raised], [raised].alert-button, .btn[fab], [fab].alert-button, .select-opts, .card, .article-tags a:hover, .menu {
+.zdepth-1, #hdr-main, #nav-main, .container-drawer, .btn[raised], [raised].alert-button, .btn[fab], [fab].alert-button, .select-opts, .card, .article-tags a:hover, .menu, .project-tags a:hover {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12); }
 
 .zdepth-1-half, .btn[raised]:hover, [raised].alert-button:hover, .btn[fab]:hover, [fab].alert-button:hover {
@@ -4498,6 +4498,25 @@ http://nicolasgallagher.com/micro-clearfix-hack/
 
 .project-img {
   margin-bottom: 6.7307692308%; }
+
+.project-tags {
+  margin: 30px 0 0; }
+  .project-tags li:not(:last-child) {
+    margin-right: 10px; }
+  .project-tags a {
+    box-shadow: none;
+    border: none;
+    background: #eaeaed;
+    border-radius: 2px;
+    font-size: .9rem;
+    height: 32px;
+    line-height: 32px;
+    padding: 0 16px;
+    -webkit-transition: box-shadow .225s ease;
+            transition: box-shadow .225s ease;
+    color: #393939; }
+    .project-tags a:hover {
+      color: #393939; }
 
 @media (min-width: 1024px) {
   .project-img, .project-details {
