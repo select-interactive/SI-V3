@@ -11,6 +11,11 @@
 		<li class="mbl-only">
 			<a class="inline" href="tel:817.210.4303"><i class="material-icons">local_phone</i></a>
 			<a class="inline" href="mailto:contact@select-interactive.com"><i class="material-icons">email</i></a>
+			<a class="inline" href="https://twitter.com/sel_interactive" target="_blank"><i class="icon icon-twitter-white"></i></a>
+			<a class="inline" style="margin-right:0;" href="https://www.facebook.com/SelectInteractive" target="_blank"><i class="icon icon-facebook-white"></i></a>
+			<a class="inline" href="https://instagram.com/select_interactive" target="_blank"><i class="icon icon-insta-white"></i></a>
+			<a class="inline" href="https://plus.google.com/+SelectInteractiveFortWorth" target="_blank"><i class="icon icon-gplus-white"></i></a>
+			<a class="inline material" href="http://goo.gl/maps/SQuyV" target="_blank"><i class="material-icons">place</i></a>
 		</li>
 		<li class="mbl-only text">&copy; 2012 - <%=Year(Now) %> Select Interactive, LLC.<br />All rights reserved.</li>
 	</ul>

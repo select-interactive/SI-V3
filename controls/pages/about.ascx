@@ -20,7 +20,7 @@
 					</div>
 					<ul class="card-tooblar">
 						<li><a href="mailto:jeremy@select-interactive.com"><i class="material-icons">email</i>Email</a></li>
-						<li><a href="tel:972.948.8916"><i class="material-icons">local_phone</i>972.948.8916</a></li>
+						<li><a href="tel:972.948.8916"><i class="material-icons">local_phone</i><span class="no-phone">972.948.8916</span><span class="phone-only">Call</span></a></li>
 					</ul>
 					<div class="card-copy">
 						<p>Jeremy Burton is a Co-Founder and Partner of Select Interactive, overseeing implementation and development for all client accounts. Jeremy is also responsible for all development and technology strategy.</p>
@@ -39,7 +39,7 @@
 					</div>
 					<ul class="card-tooblar">
 						<li><a href="mailto:dan@select-interactive.com"><i class="material-icons">email</i>Email</a></li>
-						<li><a href="tel:817.291.2202"><i class="material-icons">local_phone</i>817.291.2202</a></li>
+						<li><a href="tel:817.291.2202"><i class="material-icons">local_phone</i><span class="no-phone">817.291.2202</span><span class="phone-only">Call</span></a></li>
 					</ul>
 					<div class="card-copy">
 						<p>Bringing over 30 years of programming experience to the team, Dan provides creative, proven ideas to solve challenging project needs. Dan has developed software solutions for a wide range of industries, including real estate, horticulture, advertising, and merchandising.</p>
@@ -56,7 +56,7 @@
 					</div>
 					<ul class="card-tooblar">
 						<li><a href="mailto:bryan@select-interactive.com"><i class="material-icons">email</i>Email</a></li>
-						<li><a href="tel:817.210.4307"><i class="material-icons">local_phone</i>817.210.4307</a></li>
+						<li><a href="tel:817.210.4307"><i class="material-icons">local_phone</i><span class="no-phone">817.210.4307</span><span class="phone-only">Call</span></a></li>
 					</ul>
 					<div class="card-copy">
 						<p>Bryan joined Select Interactive in August 2015 and brings a strong software development background to the team with over 15 years of web development experience. Bryan is a full-stack developer working on both new projects and providing ongoing support and maintenance on existing projects.</p>

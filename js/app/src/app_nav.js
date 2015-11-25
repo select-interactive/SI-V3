@@ -8,14 +8,36 @@ app.nav = ( function( doc ) {
 
 	var nav = doc.querySelector( '#nav-main' ),
 		btnNavTrigger = doc.querySelector( '#btn-nav-trigger' ),
-		evtOverlay = doc.querySelector( '#event-overlay' );
+		evtOverlay = doc.querySelector( '#event-overlay' ),
+			
+		startX = -1;
 
 	if ( nav && btnNavTrigger && evtOverlay ) {
+		nav.addEventListener( 'touchstart', navTouchStart, false );
+		nav.addEventListener( 'touchend', navTouchEnd, false );
 		btnNavTrigger.addEventListener( 'click', showNav, false );
 		evtOverlay.addEventListener( 'click', hideNav, false );
 	}
 	else {
 		console.warn( 'Website navigation elements not present.' );
+	}
+
+	function navTouchStart( e ) {
+		if ( window.mq( '(max-width:1024px)' ) && e.touches ) {
+			startX = e.touches[0].clientX;
+		}
+	}
+
+	function navTouchEnd( e ) {
+		var endX;
+
+		if ( window.mq( '(max-width:1024px)' ) && e.changedTouches ) {
+			endX = e.changedTouches[0].pageX;
+			
+			if ( endX - startX >= 100 ) {
+				hideNav();
+			}
+		}
 	}
 
 	function showNav( e ) {

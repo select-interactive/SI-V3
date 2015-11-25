@@ -65,7 +65,6 @@
 
         &:hover,
         &.selected {
-            border-bottom: $color-primary;
             color: $white;
         }
 
@@ -75,6 +74,14 @@
 
             &:not(:last-child) {
                 margin-right: 15px;
+            }
+
+            &.material {
+                .material-icons {
+                    font-size: 1.8rem !important;
+                    position: relative !important;
+                    top: 9px !important;
+                }
             }
         }
     }

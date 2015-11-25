@@ -22,10 +22,10 @@
 				<p><a href="mailto:contact@select-interactive.com">contact@select-interactive.com</a><br /><a style="text-decoration:none;" href="tel:817.210.4303">Tel. 817.210.4303</a></p>
 				<h4 class="copy-hdr">Connect With Us</h4>
 				<ul class="social-links">
-					<li><a href="https://twitter.com/sel_interactive" target="_blank"><i class="icon icon-twitter"></i></a></li>
-					<li><a href="https://www.facebook.com/SelectInteractive" target="_blank"><i class="icon icon-facebook"></i></a></li>
-					<li><a href="https://instagram.com/select_interactive" target="_blank"><i class="icon icon-insta"></i></a></li>
-					<li><a href="https://plus.google.com/+SelectInteractiveFortWorth" target="_blank"><i class="icon icon-gplus"></i></a></li>
+					<li><a href="https://twitter.com/sel_interactive" target="_blank"><i class="icon icon-lg icon-twitter"></i></a></li>
+					<li><a href="https://www.facebook.com/SelectInteractive" target="_blank"><i class="icon icon-lg icon-facebook"></i></a></li>
+					<li><a href="https://instagram.com/select_interactive" target="_blank"><i class="icon icon-lg icon-insta"></i></a></li>
+					<li><a href="https://plus.google.com/+SelectInteractiveFortWorth" target="_blank"><i class="icon icon-lg icon-gplus"></i></a></li>
 				</ul>
 			</div>
 		</div>

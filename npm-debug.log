@@ -36,12 +36,12 @@
 21 silly addNameRange { name: 'grunt-jshint', range: '*', hasData: false }
 22 verbose request where is /grunt-jshint
 23 verbose request registry https://registry.npmjs.org/
-24 verbose request id 63444209333eb3bc
+24 verbose request id c2bc671bbcf66da8
 25 verbose url raw /grunt-jshint
 26 verbose url resolving [ 'https://registry.npmjs.org/', './grunt-jshint' ]
 27 verbose url resolved https://registry.npmjs.org/grunt-jshint
 28 verbose request where is https://registry.npmjs.org/grunt-jshint
-29 info trying registry request attempt 1 at 13:52:44
+29 info trying registry request attempt 1 at 10:32:43
 30 http GET https://registry.npmjs.org/grunt-jshint
 31 http 404 https://registry.npmjs.org/grunt-jshint
 32 silly registry.get cb [ 404,
@@ -49,14 +49,14 @@
 32 silly registry.get     'cache-control': 'max-age=0',
 32 silly registry.get     'content-length': '2',
 32 silly registry.get     'accept-ranges': 'bytes',
-32 silly registry.get     date: 'Tue, 24 Nov 2015 19:52:54 GMT',
+32 silly registry.get     date: 'Wed, 25 Nov 2015 16:32:55 GMT',
 32 silly registry.get     via: '1.1 varnish',
 32 silly registry.get     age: '0',
 32 silly registry.get     connection: 'keep-alive',
-32 silly registry.get     'x-served-by': 'cache-ord1731-ORD',
+32 silly registry.get     'x-served-by': 'cache-dfw1820-DFW',
 32 silly registry.get     'x-cache': 'MISS',
 32 silly registry.get     'x-cache-hits': '0',
-32 silly registry.get     'x-timer': 'S1448394774.678483,VS0,VE42' } ]
+32 silly registry.get     'x-timer': 'S1448469174.898027,VS0,VE187' } ]
 33 silly lockFile 324f7fab-grunt-jshint grunt-jshint@
 34 silly lockFile 324f7fab-grunt-jshint grunt-jshint@
 35 error 404 Not Found

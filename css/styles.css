@@ -537,12 +537,20 @@ input[type=radio] + label, input[type=checkbox][switch] + label .switch-toggle, 
 ul.list-no-style, ol.list-no-style, #nav-main ul, .footer-links, #drawer-nav ul, #hdr-nav ul, .select-opts, .tab-links, .clients, .card-tooblar, .articles, .article-tags, .team, .awards, .social-links, .menu-items, #nav-admin ul, .projects, .project-tags {
   list-style: none; }
 
+@media (min-width: 550px) {
+  .phone-only {
+    display: none !important; } }
+
 @media (min-width: 1024px) {
   .mbl-only, #nav-main li.mbl-logo {
     display: none !important; } }
 
 @media (max-width: 768px) {
   .no-mbl {
+    display: none !important; } }
+
+@media (max-width: 550px) {
+  .no-phone {
     display: none !important; } }
 
 .clearfix::before, #hdr-main::before, .footer-links::before, .footer-links li::before, .clients::before, .articles::before, .article-tags::before, .team::before, .awards::before, .projects::before, .project::before, .project-tags::before,
@@ -2126,13 +2134,16 @@ body {
     #nav-main a:hover {
       color: #fff; }
     #nav-main a:hover, #nav-main a.selected {
-      border-bottom: #dda14a;
       color: #fff; }
     #nav-main a.inline {
       display: inline-block;
       padding: 10px; }
       #nav-main a.inline:not(:last-child) {
         margin-right: 15px; }
+      #nav-main a.inline.material .material-icons {
+        font-size: 1.8rem !important;
+        position: relative !important;
+        top: 9px !important; }
   @media (min-width: 1024px) {
     #nav-main {
       background: none;
@@ -4094,12 +4105,29 @@ http://nicolasgallagher.com/micro-clearfix-hack/
 .icon-insta {
   background-image: url(/img/icons/insta.v1.svg); }
 
+.icon-twitter-white {
+  background-image: url(/img/icons/twitter-white.v1.svg); }
+
+.icon-facebook-white {
+  background-image: url(/img/icons/facebook-white.v1.svg); }
+
+.icon-gplus-white {
+  background-image: url(/img/icons/gplus-white.v1.svg); }
+
+.icon-insta-white {
+  background-image: url(/img/icons/insta-white.v1.svg); }
+
 .icon {
   height: 24px;
   vertical-align: middle;
   width: 24px; }
-  .icon-twitter {
+  .icon-lg {
+    height: 30px;
+    width: 30px; }
+  .icon-twitter, .icon-twitter-white {
     height: 20px; }
+    .icon-twitter.icon-lg, .icon-twitter-white.icon-lg {
+      height: 25px; }
 
 .articles {
   margin-bottom: -3.8461538462%; }
