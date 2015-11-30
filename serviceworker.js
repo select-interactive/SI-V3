@@ -14,7 +14,7 @@ var urlsToCache = [
 	'/bower_components/es6-promise/promise.min.js',
 	'/bower_components/fetch/fetch.js',
 	'/js/libs/picturefill.min.js',
-	'/css/styles.v-3.8.min.css',
+	'/css/styles.v-3.9.min.css',
 	'/js/app/build/main.v-3.10.min.js'
 ];
 
@@ -61,12 +61,36 @@ self.addEventListener( 'fetch', function( event ) {
 						} );
 					} );
 				}
+
+				// cache fonts
 				else if ( requestUrl.pathname.indexOf( '/font/' ) === 0 ) {
 					caches.open( CACHE_VERSION ).then( function( cache ) {
 						cache.put( fetchRequest, response ).then( function() {
 							console.log( 'Font added to the cache' );
 						}, function() {
 							console.log( 'Font not added to the cache' );
+						} );
+					} );
+				}
+
+				// make sure the css file is cached if it wasn't on install
+				else if ( requestUrl.pathname.indexOf( '/css/' ) === 0 ) {
+					caches.open( CACHE_VERSION ).then( function( cache ) {
+						cache.put( fetchRequest, response ).then( function() {
+							console.log( 'Stylesheet added to the cache' );
+						}, function() {
+							console.log( 'Stylesheet not added to the cache' );
+						} );
+					} );
+				}
+
+				// make sure our main js file is cached if it wasn't on install
+				else if ( requestUrl.pathname.indexOf( '/js/app/build/main' ) === 0 ) {
+					caches.open( CACHE_VERSION ).then( function( cache ) {
+						cache.put( fetchRequest, response ).then( function() {
+							console.log( 'Main JS added to the cache' );
+						}, function() {
+							console.log( 'Main JS not added to the cache' );
 						} );
 					} );
 				}

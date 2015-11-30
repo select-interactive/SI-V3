@@ -20,6 +20,6 @@
 
 <asp:Content ID="Content5" ContentPlaceHolderID="cphJS" Runat="Server">
 	<script>
-		loadCSS( "/css/styles.v-3.8.min.css" );
+		loadCSS( "/css/styles.v-3.9.min.css" );
 	</script>
 </asp:Content>

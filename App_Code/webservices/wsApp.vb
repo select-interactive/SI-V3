@@ -393,4 +393,20 @@ Public Class wsApp
 
 #End Region
 
+
+#Region "User Functions"
+
+	<WebMethod()>
+	Public Sub logUserIn(username As String, pwd As String)
+		pUtil.logUserIn(username, pwd)
+	End Sub
+
+	<WebMethod()>
+	Public Sub logUserOut()
+		pUtil.logUserOut()
+	End Sub
+
+#End Region
+
+
 End Class
