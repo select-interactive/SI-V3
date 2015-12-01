@@ -14,7 +14,7 @@ var urlsToCache = [
 	'/bower_components/es6-promise/promise.min.js',
 	'/bower_components/fetch/fetch.js',
 	'/js/libs/picturefill.min.js',
-	'/css/styles.v-3.9.min.css',
+	'/css/styles.v-3.10.min.css',
 	'/js/app/build/main.v-3.10.min.js'
 ];
 

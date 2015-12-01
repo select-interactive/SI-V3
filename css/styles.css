@@ -4323,6 +4323,7 @@ http://nicolasgallagher.com/micro-clearfix-hack/
 
 .menu {
   background: #fff;
+  border-radius: 2px;
   min-width: 200px;
   opacity: 0;
   -webkit-transform: scale(0.4, 0.4);
