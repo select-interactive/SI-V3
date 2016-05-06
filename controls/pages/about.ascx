@@ -48,21 +48,6 @@
 					</div>
 				</div>
 			</li>
-			<li class="bio">
-				<div class="card">
-					<div class="card-banner">
-						<h2 class="card-banner-hdr">Bryan McKinley</h2>
-						<h3 class="card-banner-subhdr">Software Engineer</h3>
-					</div>
-					<ul class="card-tooblar">
-						<li><a href="mailto:bryan@select-interactive.com"><i class="material-icons">email</i>Email</a></li>
-						<li><a href="tel:817.210.4307"><i class="material-icons">local_phone</i><span class="no-phone">817.210.4307</span><span class="phone-only">Call</span></a></li>
-					</ul>
-					<div class="card-copy">
-						<p>Bryan joined Select Interactive in August 2015 and brings a strong software development background to the team with over 15 years of web development experience. Bryan is a full-stack developer working on both new projects and providing ongoing support and maintenance on existing projects.</p>
-					</div>
-				</div>
-			</li>
 		</ul>
 	</div>
 </div>
