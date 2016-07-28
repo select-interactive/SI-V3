@@ -409,4 +409,378 @@ Public Class wsApp
 #End Region
 
 
+#Region "Projects from SQL"
+
+	Private Function projectGet(projectId As Integer, active As Boolean) As dsProjects.ProjectsDataTable
+		Dim ta As New dsProjectsTableAdapters.ProjectsTableAdapter
+		Dim dt As New dsProjects.ProjectsDataTable
+		ta.Fill(dt, projectId, active)
+		Return dt
+	End Function
+
+	<WebMethod()>
+	Public Function projectGetJson(projectId As Integer, active As Boolean) As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim dt As dsProjects.ProjectsDataTable = projectGet(projectId, active)
+			Dim projects As New List(Of nsApp.Project)
+
+			For Each row As dsProjects.ProjectsRow In dt
+				projects.Add(New nsApp.Project(row))
+			Next
+
+			rsp.setSuccess(projects)
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+
+	<WebMethod()>
+	Public Function projectSave(projectId As Integer,
+								name As String,
+								summary As String,
+								thumbnail As String,
+								primaryImg As String,
+								designFirmUrl As String,
+								designFirm As String,
+								sortOrder As Integer,
+								tagIds As String,
+								active As Boolean) As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim theProjectId As Integer = -1
+			Dim url As String = generateURLString(name)
+			Dim ta As New dsProjectsTableAdapters.ProjectsTableAdapter
+			ta.Update(projectId, name, summary, thumbnail, primaryImg, designFirmUrl, designFirm, url, sortOrder, tagIds, active, theProjectId)
+			rsp.setSuccess(theProjectId)
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+
+	<WebMethod()>
+	Public Function projectDelete(projectId As Integer) As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim ta As New dsProjectsTableAdapters.ProjectsTableAdapter
+			ta.Delete(projectId)
+			rsp.setSuccess()
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+
+#End Region
+
+#Region "Project Tags from SQL"
+
+	Private Function projectTagGet(tagId As Integer) As dsProjects.Projects_TagsDataTable
+		Dim ta As New dsProjectsTableAdapters.Projects_TagsTableAdapter
+		Dim dt As New dsProjects.Projects_TagsDataTable
+		ta.Fill(dt, tagId)
+		Return dt
+	End Function
+
+	<WebMethod()>
+	Public Function projectTagGetJson(tagId As Integer) As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim dt As dsProjects.Projects_TagsDataTable = projectTagGet(tagId)
+			Dim projectTags As New List(Of nsApp.Project_Tag)
+
+			For Each row As dsProjects.Projects_TagsRow In dt
+				projectTags.Add(New nsApp.Project_Tag(row))
+			Next
+
+			rsp.setSuccess(projectTags)
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+
+	<WebMethod()>
+	Public Function projectTagSave(tagId As Integer,
+								tag As String) As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim theTagId As Integer = -1
+			Dim url As String = generateURLString(tag)
+			Dim ta As New dsProjectsTableAdapters.Projects_TagsTableAdapter
+			ta.Update(tagId, tag, url, theTagId)
+			rsp.setSuccess(theTagId)
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+
+	<WebMethod()>
+	Public Function projectTagDelete(tagId As Integer) As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim ta As New dsProjectsTableAdapters.Projects_TagsTableAdapter
+			ta.Delete(tagId)
+			rsp.setSuccess()
+		Catch ex As Exception
+			rsp.setError(ex.ToString)
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+#End Region
+
+#Region "Blogs from SQL"
+
+	Private Function blogGet(blogId As Integer, tagIds As String, categoryId As Integer, url As String, active As Boolean) As dsBlogs.BlogsDataTable
+		Dim ta As New dsBlogsTableAdapters.BlogsTableAdapter
+		Dim dt As New dsBlogs.BlogsDataTable
+		ta.Fill(dt, blogId, tagIds, categoryId, url, active)
+		Return dt
+	End Function
+
+	Public Function blogGetJson(blogId As Integer, tagIds As String, categoryId As Integer, url As String, active As Boolean) As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim dt As dsBlogs.BlogsDataTable = blogGet(blogId, tagIds, categoryId, url, active)
+			Dim blogs As New List(Of nsApp.Blog)
+
+			For Each row As dsBlogs.BlogsRow In dt
+				blogs.Add(New nsApp.Blog(row))
+			Next
+
+			rsp.setSuccess(blogs)
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+
+	<WebMethod()>
+	Public Function blogSave(blogId As Integer,
+							 title As String,
+							 shortTitle As String,
+							 metaDesc As String,
+							 postSummary As String,
+							 postBody As String,
+							 thumbnail As String,
+							 banner As String,
+							 projectUrl As String,
+							 tagIds As String,
+							 categoryId As Integer,
+							 active As Boolean,
+							 publishDate As DateTime) As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim theBlogId As String = -1
+			Dim publishYear As String = publishDate.Year
+			Dim publishMonth As String = publishDate.Month
+			If publishMonth.Length = 1 Then
+				publishMonth = "0" & publishMonth
+			End If
+			Dim publishDay As String = publishDate.Day
+			If publishDay.Length = 1 Then
+				publishDay = "0" & publishDay
+			End If
+			Dim url As String = generateURLString(publishYear & "/" & publishMonth & "/" & publishDay & "/" & title)
+			Dim ta As New dsBlogsTableAdapters.BlogsTableAdapter
+			ta.Update(blogId, title, shortTitle, metaDesc, postSummary, postBody, thumbnail, banner, projectUrl, tagIds, categoryId, url, active, publishDate, theBlogId)
+			rsp.setSuccess(theBlogId)
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+
+	<WebMethod()>
+	Public Function blogDelete(blogId As Integer) As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim ta As New dsBlogsTableAdapters.BlogsTableAdapter
+			ta.Delete(blogId)
+			rsp.setSuccess()
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+#End Region
+
+#Region "Blog Category from SQL"
+
+	Private Function blogCategoryGet(categoryId As Integer) As dsBlogs.Blogs_CategoryDataTable
+		Dim ta As New dsBlogsTableAdapters.Blogs_CategoryTableAdapter
+		Dim dt As New dsBlogs.Blogs_CategoryDataTable
+		ta.Fill(dt, categoryId)
+		Return dt
+	End Function
+
+	<WebMethod()>
+	Public Function blogCategoryGetJson(categoryId As Integer) As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim dt As dsBlogs.Blogs_CategoryDataTable = blogCategoryGet(categoryId)
+			Dim blogCategories As New List(Of nsApp.Blog_Category)
+
+			For Each row As dsBlogs.Blogs_CategoryRow In dt
+				blogCategories.Add(New nsApp.Blog_Category(row))
+			Next
+
+			rsp.setSuccess(blogCategories)
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+
+	<WebMethod()>
+	Public Function blogCategorySave(categoryId As Integer,
+									 category As String) As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim theCategoryId As Integer = -1
+			Dim url As String = generateURLString(category)
+			Dim ta As New dsBlogsTableAdapters.Blogs_CategoryTableAdapter
+			ta.Update(categoryId, category, url, theCategoryId)
+			rsp.setSuccess(theCategoryId)
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+
+	<WebMethod()>
+	Public Function blogCategoryDelete(categoryId As Integer) As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim ta As New dsBlogsTableAdapters.Blogs_CategoryTableAdapter
+			ta.Delete(categoryId)
+			rsp.setSuccess()
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+
+#End Region
+
+#Region "Blog Tags from SQL"
+
+	Private Function blogTagGet(tagId As Integer) As dsBlogs.Blogs_TagsDataTable
+		Dim ta As New dsBlogsTableAdapters.Blogs_TagsTableAdapter
+		Dim dt As New dsBlogs.Blogs_TagsDataTable
+		ta.Fill(dt, tagId)
+		Return dt
+	End Function
+
+	<WebMethod()>
+	Public Function blogTagGetJson(tagId As Integer) As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim dt As dsBlogs.Blogs_TagsDataTable = blogTagGet(tagId)
+			Dim blogTags As New List(Of nsApp.Blog_Tag)
+
+			For Each row As dsBlogs.Blogs_TagsRow In dt
+				blogTags.Add(New nsApp.Blog_Tag(row))
+			Next
+
+			rsp.setSuccess(blogTags)
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+
+
+	<WebMethod()>
+	Public Function blogTagSave(tagId As Integer,
+								tag As String) As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim theTagId As Integer = -1
+			Dim url As String = generateURLString(tag)
+			Dim ta As New dsBlogsTableAdapters.Blogs_TagsTableAdapter
+			ta.Update(tagId, tag, url, theTagId)
+			rsp.setSuccess(theTagId)
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+#End Region
+
+#Region "Utilities"
+
+	Private Function userIdGet() As String
+		Dim mu As MembershipUser = Membership.GetUser(HttpContext.Current.User.Identity.Name)
+		Return mu.ProviderUserKey.ToString()
+	End Function
+
+	Private Function generateURLString(str As String) As String
+		Dim url As String = str.ToLower
+
+		url = url.Replace(".", "")
+		url = url.Replace(", ", "")
+		url = url.Replace(":   ", "")
+		url = url.Replace("&", "-")
+		url = url.Replace("#", "-")
+		url = url.Replace("!", "-")
+		url = url.Replace("?", "")
+		url = url.Replace("+", "-")
+		url = url.Replace("'", "-")
+		url = url.Replace("/", "-")
+		url = url.Replace(" ", "-")
+		url = url.Replace("----", "-")
+		url = url.Replace("---", "-")
+		url = url.Replace("--", "-")
+
+		Return url
+	End Function
+
+	Private Function getDomain() As String
+		Dim rsp As String = ""
+		Dim hostname As String = HttpContext.Current.Request.Url.Host.ToLower
+
+		If hostname.Contains("localhost") Then
+			rsp = "http://hpc.sidev.co"
+		Else
+			rsp = "http://www.hudsonpeters.com"
+		End If
+
+		Return rsp
+	End Function
+
+#End Region
+
+
 End Class
