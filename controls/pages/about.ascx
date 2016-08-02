@@ -13,14 +13,14 @@
 		<ul class="team">
 			<li class="bio">
 				<div class="card">
-					<div class="card-img"><img src="/img/team/jeremy-burton.v2.jpg" width="354" height="278" alt="Jeremy Burton" /></div>
+					<div class="card-img"><img src="/img/team/jeremy-burton.v3.jpg" width="354" height="278" alt="Jeremy Burton" /></div>
 					<div class="card-banner">
 						<h2 class="card-banner-hdr">Jeremy Burton</h2>
 						<h3 class="card-banner-subhdr">Partner, Lead Developer</h3>
 					</div>
 					<ul class="card-tooblar">
 						<li><a href="mailto:jeremy@select-interactive.com"><i class="material-icons">email</i>Email</a></li>
-						<li><a href="tel:972.948.8916"><i class="material-icons">local_phone</i><span class="no-phone">972.948.8916</span><span class="phone-only">Call</span></a></li>
+						<li><a href="tel:972.948.8916"><i class="material-icons">local_phone</i><span class="no-phone">817.210.4303</span><span class="phone-only">Call</span></a></li>
 					</ul>
 					<div class="card-copy">
 						<p>Jeremy Burton is a Co-Founder and Partner of Select Interactive, overseeing implementation and development for all client accounts. Jeremy is also responsible for all development and technology strategy.</p>
@@ -45,6 +45,40 @@
 						<p>Bringing over 30 years of programming experience to the team, Dan provides creative, proven ideas to solve challenging project needs. Dan has developed software solutions for a wide range of industries, including real estate, horticulture, advertising, and merchandising.</p>
 						<p>With a very strong database background, Dan has proven to consistently offer innovative, successful solutions to database infrastructures and architecture.</p>
 						<p>In 1995 Dan Harris founded SohoPros, Inc. as a computer technical support firm. Over the years SohoPros grew to offer a variety of services to their small business clients. Internet Access, Custom Programming, Web/Email Hosting and Web Site Development became the primary services provided. To meet the evolving demands of their clients, SohoPros began to focus more on custom web site development.</p>
+					</div>
+				</div>
+			</li>
+		</ul>
+		<ul class="team">
+			<li class="bio">
+				<div class="card">
+					<div class="card-img"><img src="/img/team/michael-hall.v1.jpg" width="354" height="278" alt="Michael Hall" /></div>
+					<div class="card-banner">
+						<h2 class="card-banner-hdr">Michael Hall</h2>
+						<h3 class="card-banner-subhdr">Intern</h3>
+					</div>
+					<ul class="card-tooblar">
+						<li><a href="mailto:michael@select-interactive.com"><i class="material-icons">email</i>Email</a></li>
+					</ul>
+					<div class="card-copy">
+						<p>Michael is joining us for a second straight summer in 2016. This year Michael assists our development team in testing project features and the integration of new development technologies.</p>
+						<p>Michael is currently majoring in Electrical Engineering at Texas A&amp;M University.</p>
+					</div>
+				</div>
+			</li>
+			<li class="bio">
+				<div class="card">
+					<div class="card-img"><img src="/img/team/ben-tandy.v1.jpg" width="354" height="278" alt="Ben Tandy" /></div>
+					<div class="card-banner">
+						<h2 class="card-banner-hdr">Ben Tandy</h2>
+						<h3 class="card-banner-subhdr">Intern</h3>
+					</div>
+					<ul class="card-tooblar">
+						<li><a href="mailto:ben@select-interactive.com"><i class="material-icons">email</i>Email</a></li>
+					</ul>
+					<div class="card-copy">
+						<p>Ben is a first-time summer intern at Select Interactive. He assists our development team in day to day project testing, while also working on project database migration.</p>
+						<p>Ben is currently majoring in Computer Science at Baylor University.</p>
 					</div>
 				</div>
 			</li>
