@@ -11,9 +11,7 @@ importScripts( '/js/libs/serviceworker-cache-polyfill.js' );
 var CACHE_VERSION = 'cache-v1';
 
 // Files we want to cache
-var urlsToCache = [
-	'/'
-];
+var urlsToCache = [];
 
 // set the callback for the install step
 self.addEventListener( 'install', function( event ) {

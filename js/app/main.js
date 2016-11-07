@@ -4086,14 +4086,6 @@
 
 } ) );
 /*jshint ignore:end */
-window.requestAnimationFrame = (function() {
-    return  window.requestAnimationFrame       ||
-            window.webkitRequestAnimationFrame ||
-            window.mozRequestAnimationFrame    ||
-            function( callback ){
-                window.setTimeout(callback, 1000 / 60);
-            };
-}());
 ///<reference path="../main.js">
 /**
  * Copyright 2016 Select Interactive, LLC. All rights reserved.
@@ -4518,6 +4510,62 @@ var app = {};
 }() );
 ///<reference path="../main.js">
 /**
+ * Copyright 2015 Select Interactive, LLC. All rights reserved.
+ * @author: The Select Interactive dev team (www.select-interactive.com) 
+ */
+ app.util = (function( doc ) {
+    'use strict';
+        
+    // will clone an object, not copying by reference
+    function cloneObj( obj ) {
+        return JSON.parse( JSON.stringify( obj ) );
+    }
+
+    function extend( obj1, obj2 ) {
+        var obj = obj1;
+
+        for ( var key in obj2 ) {
+            obj[key] = obj2[key];
+        }
+
+        return obj;
+    }
+
+    function getWindowScrollPosition() {
+        if ( typeof window.scrollY === 'undefined' ) {
+            return document.documentElement.scrollTop;
+        }
+        else {
+            return window.scrollY;
+        }
+    }
+
+    function callBackFn( instance, fnName ) {
+    	return function() {
+    		instance[fnName].apply( instance, arguments );
+    	};
+    }
+
+    function disableWindowScroll() {
+    	doc.body.classList.add( 'noscroll' );
+    }
+
+    function enableWindowScroll() {
+    	doc.body.classList.remove( 'noscroll' );
+    }
+
+    return {
+        cloneObj: cloneObj,
+        extend: extend,
+        getWindowScrollPosition: getWindowScrollPosition,
+        callBackFn: callBackFn,
+        disableWindowScroll: disableWindowScroll,
+        enableWindowScroll: enableWindowScroll
+    };
+
+}( document ) );
+///<reference path="../main.js">
+/**
  * Copyright 2016 Select Interactive, LLC. All rights reserved.
  * @author: The Select Interactive dev team (www.select-interactive.com) 
  */
@@ -4655,6 +4703,226 @@ var app = {};
 	app.Alert = Alert;
 
 }( document ) );
+///<reference path="../main.js">
+/**
+ * Copyright 2016 Select Interactive, LLC. All rights reserved.
+ * @author: The Select Interactive dev team (www.select-interactive.com) 
+ */
+( function( doc ) {
+	'use strict';
+
+	const cssClasses = {
+		ANIMATABLE: 'animatable',
+		NAV_IN: 'side-nav-in'
+	};
+
+	class SideNav {
+		constructor() {
+			this.btnShow = app.$( '.hdr-nav-trigger' );
+			this.sideNav = app.$( '.side-nav' );
+			this.sideNavContainer = app.$( '.side-nav-container' );
+			this.sideNavClose = app.$( '.side-nav-close' );
+
+			this.showSideNav = this.showSideNav.bind( this );
+			this.hideSideNav = this.hideSideNav.bind( this );
+			this.onTouchStart = this.onTouchStart.bind( this );
+			this.onTouchMove = this.onTouchMove.bind( this );
+			this.onTouchEnd = this.onTouchEnd.bind( this );
+			this.onTransitionEnd = this.onTransitionEnd.bind( this );
+			this.update = this.update.bind( this );
+
+			this.startX = 0;
+			this.currentX = 0;
+			this.touchingSideNav = false;
+
+			this.addEventListeners();
+		}
+
+		addEventListeners() {
+			this.btnShow.addEventListener( 'click', this.showSideNav );
+			this.sideNav.addEventListener( 'click', this.hideSideNav );
+			this.sideNavContainer.addEventListener( 'click', this.blockClicks );
+			this.sideNavClose.addEventListener( 'click', this.hideSideNav );
+			this.sideNav.addEventListener( 'touchstart', this.onTouchStart );
+
+			this.sideNav.addEventListener( 'touchmove', this.onTouchMove );
+			this.sideNav.addEventListener( 'touchend', this.onTouchEnd );
+		}
+
+		showSideNav( e ) {
+			this.sideNav.classList.add( cssClasses.ANIMATABLE );
+			doc.body.classList.add( cssClasses.NAV_IN );
+			this.sideNav.addEventListener( 'transitionend', this.onTransitionEnd );
+			e.preventDefault();
+		}
+
+		hideSideNav( e ) {
+			this.sideNav.classList.add( 'animatable' );
+			doc.body.classList.remove( cssClasses.NAV_IN );
+			this.sideNav.addEventListener( 'transitionend', this.onTransitionEnd );
+
+			if ( e ) {
+				e.preventDefault();
+			}
+		}
+
+		blockClicks( e ) {
+			e.stopPropagation();
+		}
+
+		onTouchStart( e ) {
+			if ( !doc.body.classList.contains( cssClasses.NAV_IN ) ) {
+				return;
+			}
+
+			this.startX = e.touches[0].pageX;
+			this.currentX = this.startX;
+
+			this.touchingSideNav = true;
+			requestAnimationFrame( this.update );
+		}
+
+		onTouchMove( e ) {
+			if ( !this.touchingSideNav ) {
+				return;
+			}
+
+			this.currentX = e.touches[0].pageX;
+			const translateX = Math.min( 0, this.currentX - this.startX );
+
+			if ( translateX < 0 ) {
+				e.preventDefault();
+			}
+		}
+
+		onTouchEnd( e ) {
+			if ( !this.touchingSideNav ) {
+				return;
+			}
+
+			this.touchingSideNav = false;
+
+			const translateX = Math.min( 0, this.currentX - this.startX );
+			this.sideNavContainer.style.transform = '';
+
+			if ( translateX < 0 ) {
+				this.hideSideNav();
+			}
+		}
+
+		update() {
+			if ( !this.touchingSideNav ) {
+				return;
+			}
+
+			requestAnimationFrame( this.update );
+
+			const translateX = Math.min( 0, this.currentX - this.startX );
+			this.sideNavContainer.style.transform = 'translateX(' + translateX + 'px)';
+		}
+
+		onTransitionEnd( e ) {
+			this.sideNav.classList.remove( cssClasses.ANIMATABLE );
+			this.sideNav.removeEventListener( 'transitionend', this.onTransitionEnd );
+		}
+	}
+
+	if ( app.$( '.side-nav' ) ) {
+		new SideNav();
+	}
+
+}( document ) );
+///<reference path="../main.js">
+/**
+ * Copyright 2016 Select Interactive, LLC. All rights reserved.
+ * @author: The Select Interactive dev team (www.select-interactive.com) 
+ */
+( function( doc ) {
+	'use strict';
+
+	let activeToast = null;
+
+	const cssClasses = {
+		ACTIVE: 'active',
+		TOAST: 'toast'
+	};
+
+	class Toast {
+		constructor() {
+			if ( activeToast ) {
+				console.log( 'A toast already exists.' );
+				return activeToast;
+			}
+
+			this.container = this.createToastElement();
+			this.duration = -1;
+			this.defaultDuration = 3000;
+			this.hideTimeout = null;
+
+			this.show = this.show.bind( this );
+			this.hide = this.hide.bind( this );
+
+			activeToast = this;
+		}
+
+		createToastElement() {
+			let el = doc.createElement( 'div' );
+			el.classList.add( cssClasses.TOAST );
+			doc.body.appendChild( el );
+			return el;
+		}
+
+		show( msg, duration ) {
+			let me = this;
+
+			if ( this.hideTimeout ) {
+				clearTimeout( this.hideTimeout );
+				this.hideTimeout = null;
+			}
+
+			this.container.innerHTML = msg;
+
+			setTimeout( function() {
+				me.container.classList.add( cssClasses.ACTIVE );
+			}, 1 );
+
+			this.duration = duration;
+			this.hide();
+		}
+
+		hide( now ) {
+			let me = this,
+        		duration = this.defaultDuration;
+
+			if ( now ) {
+				this.container.classList.remove( cssClasses.ACTIVE );
+				return;
+			}
+
+			if ( this.duration === -1 ) {
+				return;
+			}
+
+			if ( this.duration && this.duration !== -1 ) {
+				duration = this.duration;
+			}
+
+			this.hideTimeout = setTimeout( function() {
+				me.container.classList.remove( cssClasses.ACTIVE );
+			}, duration );
+		}
+	}
+
+	app.Toast = Toast;
+}( document ) );
+window.requestAnimationFrame = (function() {
+    return  window.requestAnimationFrame       ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame    ||
+            function( callback ){
+                window.setTimeout(callback, 1000 / 60);
+            };
+}());
 ///<reference path="../main.js">
 /**
  * Copyright 2015 Select Interactive, LLC. All rights reserved.
@@ -5634,135 +5902,6 @@ var app = {};
 /**
  * Copyright 2016 Select Interactive, LLC. All rights reserved.
  * @author: The Select Interactive dev team (www.select-interactive.com) 
- */
-( function( doc ) {
-	'use strict';
-
-	const cssClasses = {
-		ANIMATABLE: 'animatable',
-		NAV_IN: 'side-nav-in'
-	};
-
-	class SideNav {
-		constructor() {
-			this.btnShow = app.$( '.hdr-nav-trigger' );
-			this.sideNav = app.$( '.side-nav' );
-			this.sideNavContainer = app.$( '.side-nav-container' );
-			this.sideNavClose = app.$( '.side-nav-close' );
-
-			this.showSideNav = this.showSideNav.bind( this );
-			this.hideSideNav = this.hideSideNav.bind( this );
-			this.onTouchStart = this.onTouchStart.bind( this );
-			this.onTouchMove = this.onTouchMove.bind( this );
-			this.onTouchEnd = this.onTouchEnd.bind( this );
-			this.onTransitionEnd = this.onTransitionEnd.bind( this );
-			this.update = this.update.bind( this );
-
-			this.startX = 0;
-			this.currentX = 0;
-			this.touchingSideNav = false;
-
-			this.addEventListeners();
-		}
-
-		addEventListeners() {
-			this.btnShow.addEventListener( 'click', this.showSideNav );
-			this.sideNav.addEventListener( 'click', this.hideSideNav );
-			this.sideNavContainer.addEventListener( 'click', this.blockClicks );
-			this.sideNavClose.addEventListener( 'click', this.hideSideNav );
-			this.sideNav.addEventListener( 'touchstart', this.onTouchStart );
-
-			this.sideNav.addEventListener( 'touchmove', this.onTouchMove );
-			this.sideNav.addEventListener( 'touchend', this.onTouchEnd );
-		}
-
-		showSideNav( e ) {
-			this.sideNav.classList.add( cssClasses.ANIMATABLE );
-			doc.body.classList.add( cssClasses.NAV_IN );
-			this.sideNav.addEventListener( 'transitionend', this.onTransitionEnd );
-			e.preventDefault();
-		}
-
-		hideSideNav( e ) {
-			this.sideNav.classList.add( 'animatable' );
-			doc.body.classList.remove( cssClasses.NAV_IN );
-			this.sideNav.addEventListener( 'transitionend', this.onTransitionEnd );
-
-			if ( e ) {
-				e.preventDefault();
-			}
-		}
-
-		blockClicks( e ) {
-			e.stopPropagation();
-		}
-
-		onTouchStart( e ) {
-			if ( !doc.body.classList.contains( cssClasses.NAV_IN ) ) {
-				return;
-			}
-
-			this.startX = e.touches[0].pageX;
-			this.currentX = this.startX;
-
-			this.touchingSideNav = true;
-			requestAnimationFrame( this.update );
-		}
-
-		onTouchMove( e ) {
-			if ( !this.touchingSideNav ) {
-				return;
-			}
-
-			this.currentX = e.touches[0].pageX;
-			const translateX = Math.min( 0, this.currentX - this.startX );
-
-			if ( translateX < 0 ) {
-				e.preventDefault();
-			}
-		}
-
-		onTouchEnd( e ) {
-			if ( !this.touchingSideNav ) {
-				return;
-			}
-
-			this.touchingSideNav = false;
-
-			const translateX = Math.min( 0, this.currentX - this.startX );
-			this.sideNavContainer.style.transform = '';
-
-			if ( translateX < 0 ) {
-				this.hideSideNav();
-			}
-		}
-
-		update() {
-			if ( !this.touchingSideNav ) {
-				return;
-			}
-
-			requestAnimationFrame( this.update );
-
-			const translateX = Math.min( 0, this.currentX - this.startX );
-			this.sideNavContainer.style.transform = 'translateX(' + translateX + 'px)';
-		}
-
-		onTransitionEnd( e ) {
-			this.sideNav.classList.remove( cssClasses.ANIMATABLE );
-			this.sideNav.removeEventListener( 'transitionend', this.onTransitionEnd );
-		}
-	}
-
-	if ( app.$( '.side-nav' ) ) {
-		new SideNav();
-	}
-
-}( document ) );
-///<reference path="../main.js">
-/**
- * Copyright 2016 Select Interactive, LLC. All rights reserved.
- * @author: The Select Interactive dev team (www.select-interactive.com) 
  * 
  * Corresponding HTML should follow:
  * 
@@ -5954,145 +6093,6 @@ var app = {};
 
 	// Expose the TextBox object to the app
 	app.TextBox = TextBox;
-
-}( document ) );
-///<reference path="../main.js">
-/**
- * Copyright 2016 Select Interactive, LLC. All rights reserved.
- * @author: The Select Interactive dev team (www.select-interactive.com) 
- */
-( function( doc ) {
-	'use strict';
-
-	let activeToast = null;
-
-	const cssClasses = {
-		ACTIVE: 'active',
-		TOAST: 'toast'
-	};
-
-	class Toast {
-		constructor() {
-			if ( activeToast ) {
-				console.log( 'A toast already exists.' );
-				return activeToast;
-			}
-
-			this.container = this.createToastElement();
-			this.duration = -1;
-			this.defaultDuration = 3000;
-			this.hideTimeout = null;
-
-			this.show = this.show.bind( this );
-			this.hide = this.hide.bind( this );
-
-			activeToast = this;
-		}
-
-		createToastElement() {
-			let el = doc.createElement( 'div' );
-			el.classList.add( cssClasses.TOAST );
-			doc.body.appendChild( el );
-			return el;
-		}
-
-		show( msg, duration ) {
-			let me = this;
-
-			if ( this.hideTimeout ) {
-				clearTimeout( this.hideTimeout );
-				this.hideTimeout = null;
-			}
-
-			this.container.innerHTML = msg;
-
-			setTimeout( function() {
-				me.container.classList.add( cssClasses.ACTIVE );
-			}, 1 );
-
-			this.duration = duration;
-			this.hide();
-		}
-
-		hide( now ) {
-			let me = this,
-        		duration = this.defaultDuration;
-			
-			if ( now ) {
-				this.container.classList.remove( cssClasses.ACTIVE );
-				return;
-			}
-
-			if ( this.duration === -1 ) {
-				return;
-			}
-
-			if ( this.duration && this.duration !== -1 ) {
-				duration = this.duration;
-			}
-
-			this.hideTimeout = setTimeout( function() {
-				me.container.classList.remove( cssClasses.ACTIVE );
-			}, duration );
-		}
-	}
-
-	app.Toast = Toast;
-}( document ) );
-///<reference path="../main.js">
-/**
- * Copyright 2015 Select Interactive, LLC. All rights reserved.
- * @author: The Select Interactive dev team (www.select-interactive.com) 
- */
- app.util = (function( doc ) {
-    'use strict';
-        
-    // will clone an object, not copying by reference
-    function cloneObj( obj ) {
-        return JSON.parse( JSON.stringify( obj ) );
-    }
-
-    function extend( obj1, obj2 ) {
-        var obj = obj1;
-
-        for ( var key in obj2 ) {
-            obj[key] = obj2[key];
-        }
-
-        return obj;
-    }
-
-    function getWindowScrollPosition() {
-        if ( typeof window.scrollY === 'undefined' ) {
-            return document.documentElement.scrollTop;
-        }
-        else {
-            return window.scrollY;
-        }
-    }
-
-    function callBackFn( instance, fnName ) {
-    	return function() {
-    		instance[fnName].apply( instance, arguments );
-    	};
-    }
-
-    function disableWindowScroll() {
-    	doc.body.classList.add( 'noscroll' );
-    }
-
-    function enableWindowScroll() {
-    	doc.body.classList.remove( 'noscroll' );
-    }
-
-    return {
-        cloneObj: cloneObj,
-        extend: extend,
-        getWindowScrollPosition: getWindowScrollPosition,
-        callBackFn: callBackFn,
-        disableWindowScroll: disableWindowScroll,
-        enableWindowScroll: enableWindowScroll
-    };
 
 }( document ) );
 ///<reference path="../main.js">

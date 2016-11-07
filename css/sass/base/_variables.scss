@@ -6,7 +6,7 @@
 // ----------------------
 // Dimensions + Grid Vars
 // ----------------------
-$max-width-px:		1200px;
+$max-width-px:		1600px;
 $base-font-size:	16px;
 $base-line-height:	22px;
 
@@ -19,9 +19,9 @@ $column-width:	4em;
 // -------------------
 // Typography Settings
 // -------------------
-$font-primary: sans-serif;
-$font-secondary: serif;
-$font-bold: '';
+$font-primary: 'avenir-light', sans-serif;
+$font-secondary: 'avenir-medium', sans-serif;
+$font-bold: 'avenir-black', sans-serif;
 
 $font-weight-regular: 400;
 $font-weight-bold: 600;

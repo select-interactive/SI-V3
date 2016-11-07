@@ -12,6 +12,7 @@
     <meta charset="utf-8">
     <asp:ContentPlaceHolder runat="server" ID="cphMeta" />
     <uc:head runat="server" ID="ucHead" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <asp:ContentPlaceHolder runat="server" ID="cphHead" />
 </head>
 <body>

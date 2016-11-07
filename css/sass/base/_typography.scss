@@ -7,7 +7,29 @@
 // ------------------------------
 // Embedded Fonts with @font-face
 // ------------------------------
+@font-face {
+	font-family: 'avenir-light';
+	src: url('/font/avenir-light.woff2') format('woff2'),
+		 url('/font/avenir-light.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
 
+@font-face {
+	font-family: 'avenir-medium';
+	src: url('/font/avenir-medium.woff2') format('woff2'),
+         url('/font/avenir-medium.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'avenir-black';
+	src: url('/font/avenir-black.woff2') format('woff2'),
+         url('/font/avenir-black.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
 
 // -------
 // Helpers
