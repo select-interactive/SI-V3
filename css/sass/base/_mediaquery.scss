@@ -9,17 +9,8 @@ $bp-large:		1024px;
 $bp-tablet:		768px;
 $bp-mbl-bigger: 550px;
 $bp-phone-land: 480px;
+$bp-phone-lg:   370px;
 $bp-phone-port: 320px;
-
-
-// ----------
-// phone only
-// ----------
-.phone-only {
-	@include susy-media($bp-mbl-bigger) {
-		display: none !important;
-	}
-}
 
 
 // -----------
@@ -37,16 +28,6 @@ $bp-phone-port: 320px;
 // ----------------------------
 .no-mbl {
 	@include susy-media(max-width $bp-tablet) {
-		display: none !important;
-	}
-}
-
-
-// ---------------------------
-// Not to be included on phone
-// ---------------------------
-.no-phone {
-	@include susy-media(max-width $bp-mbl-bigger) {
 		display: none !important;
 	}
 }

@@ -1,0 +1,143 @@
+﻿.side-nav {
+    @extend %position-fixed;
+    height: 100%;
+    left: 0;
+    max-width: 400px;
+    overflow: hidden;
+    pointer-events: none;
+    top: 0;
+    width: 100%;
+    z-index: 9;
+
+    &:before {
+        @extend %display-block;
+        @extend %position-absolute;
+        background: rgba(0, 0, 0, .3);
+        content: '';
+        height: 100%;
+        left: 0;
+        opacity: 0;
+        top: 0;
+        transition: opacity 0.3s ease;
+        width: 100%;
+        will-change: opacity;
+    }
+
+    .side-nav-in & {
+        max-width: 100%;
+        pointer-events: auto;
+        width: 100%;
+
+        &:before {
+            opacity: 1;
+        }
+    }
+
+    &-container {
+        @extend %position-relative;
+        @extend .zdepth-1;
+        background: $white;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        max-width: 400px;
+        padding: 0 0 1rem;
+        transform: translateX(-102%);
+        width: 85%;
+        will-change: transform;
+
+        .animatable & {
+            transition: transform 0.225s ease;
+        }
+
+        .side-nav-in .animatable & {
+            transition: transform 0.3s ease;
+        }
+
+        .side-nav-in & {
+            transform: none;
+        }
+    }
+
+    @include susy-media($bp-comp) {
+        max-width: 300px;
+        pointer-events: auto;
+
+        &-container {
+            background: #fafafa;
+            box-shadow: 0 0 0 0 transparent;
+            padding: 0 0 2rem;
+            transform: none;
+            transition: none;
+            width: 300px;
+        }
+    }
+    
+    &-close {
+        @extend %display-inline-block;
+        @extend %position-absolute;
+        @extend %text-decoration-none;
+        left: 1rem;
+        top: 1rem;
+        @include link-colors($white, $white);
+        
+        i {
+            font-size: 1.75rem;
+        }
+        
+        @include susy-media($bp-comp) {
+            display: none;
+        }
+    }
+    
+    &-hdr {
+        align-items: flex-end;
+        background: $color-primary;
+        color: $white;
+        display: flex;
+        font-size: 1.35rem;
+        line-height: 1.1;
+        min-height: 25vh;
+        padding: 4rem 1rem 1rem;
+        
+        @include susy-media($bp-comp) {
+            min-height: 15vh;   
+        }
+    }
+
+    nav {
+        ul {
+            @extend %list-style-none;
+            @extend %no-margin;
+        }
+
+        li {
+            height: 3rem;
+            line-height: 3rem;
+        }
+
+        a {
+            @extend %display-block;
+            @extend %position-relative;
+            @extend %text-decoration-none;
+            background: none;
+            padding: 0 .75rem;
+            transition: background .175s ease;
+            @include link-colors($color-primary, $color-primary);
+
+            &:hover,
+            &.active {
+                background: #ececec;
+            }
+
+            i {
+                @extend %display-inline-block;
+                @extend %position-relative;
+                font-size: 1rem;
+                margin-right: .75rem;
+                top: -2px;
+                vertical-align: middle;
+            }
+        }
+    }   
+}

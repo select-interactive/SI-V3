@@ -3,6 +3,25 @@
  */
 
 
+// equal height columns
+.eq-height-item {
+    opacity: 0;
+    transition: opacity .075s ease;
+
+    &.in {
+        opacity: 1;
+    }
+}
+
+
+// background cover
+.bg-cover {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
 /*
  * Margin and padding helpers
  */

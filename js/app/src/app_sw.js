@@ -6,12 +6,10 @@
 ( function( doc ) {
 	'use strict';
 
-	if ( 'serviceWorker' in navigator ) {
-		navigator.serviceWorker.register( '/serviceworker.js' ).then( function( registration ) {
-			// registration was successful
+	if ( 'serviceWorker' in navigator && doc.URL.indexOf( 'localhost' ) === -1 ) {
+		navigator.serviceWorker.register( '/serviceworker.js' ).then( registration => {
 			console.log( 'serviceworker registration successful with scope: ' + registration.scope );
-	
-		} ).catch( function( err ) {
+		} ).catch( err => {
 			console.log( 'serviceworker registration failed: ', err );
 		} );
 	}

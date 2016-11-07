@@ -1,157 +1,47 @@
-﻿// Header Bar Styles
-//
-
-// Dimension Settings
-$hdr-background: $color-primary;
-$hdr-box-shadow: inset 0px 5px 6px -3px rgba(0, 0, 0, 0.4);
-$hdr-color: $white;
-$hdr-padding: 0 15px;
-
-// Mobile Height
-$hdr-mbl-height: 56px;
-
-// Full height
-$hdr-height: 64px;
-
-// Title Styles
-$hdr-title-font-family: $font-primary;
-$hdr-title-font-size: 1.3rem;
-$hdr-title-font-weight: normal;
-
-// Header Nav Styles
-$hdr-nav-link-color: $white;
-$hdr-nav-link-color-hover: $hdr-nav-link-color;
-$hdr-nav-link-padding: 0 5px;
-$hdr-nav-link-icon-font-size: 24px;
-
-
-// breakpoint to toggle the nav
-$bp-nav-break: $bp-comp;
-
-
-// --------------------
-// The hdr-bar element
-// --------------------
-.hdr-bar {
-    @extend %position-relative;
-    background: $hdr-background;
-    color: $hdr-color;
-    height: $hdr-mbl-height;
+﻿.hdr-bar {
+    @extend %position-fixed;
+    @extend .zdepth-1;
+    align-items: center;
+    background: $color-primary;
+    color: $white;
+    display: flex;
+    flex-direction: row;
+    height: 56px;
     left: 0;
-    line-height: $hdr-mbl-height;
+    padding: 0 1rem;
     top: 0;
-    padding: $hdr-padding;
     width: 100%;
-    z-index: 1;
+    z-index: 8;
 
-    &:after {
-        @extend %position-absolute;
-        bottom: -6px;
-        box-shadow: $hdr-box-shadow;
-        content: "";
-        height: 6px;
-        left: 0;
-        width: 100%;
-    }
-
-    @include susy-media($bp-nav-break) {
-        height: $hdr-height;
-        line-height: $hdr-height;
-    }
-
-
-    // --------------------
-    // Sizes
-    // --------------------
-    &[med] {
-        height: $hdr-height * 2;
-        line-height: $hdr-height * 2;
-    }
-
-    &[tall] {
-        height: $hdr-height * 3;
-        line-height: $hdr-height * 3;
-    }
-
-    // --------------------
-    // Title in header
-    // --------------------
-    [title] {
+    &-title {
         @extend %display-inline-block;
-        @extend %no-margin;
-        font-family: $hdr-title-font-family;
-        font-size: $hdr-title-font-size;
-        font-weight: $hdr-title-font-weight;
-        vertical-align: middle;
+        font-size: 1.25rem;
+        font-weight: normal;
+        line-height: 1;
+    }
+    
+    @include susy-media($bp-comp) {
+        left: 300px;
+        padding: 0 2rem;
+        width: calc(100% - 300px);
     }
 }
 
-
-// --------------------
-// Nav Trigger
-// --------------------
-[drawer-nav-trigger] {
+.hdr-nav-trigger {
     @extend %display-inline-block;
-    margin: 0 15px 0 -5px;
-    padding: 0 5px;
-    @include link-colors($hdr-nav-link-color, $hdr-nav-link-color-hover);
-        
-    // --------------------
-    // Icon
-    // --------------------
+    background: none;
+    border: none;
+    margin: 0 0.5rem 0 -0.5rem;
+    padding: 0 .5rem;
+    @include link-colors($white, $white);
+
     i {
-        font-size: $hdr-nav-link-icon-font-size;
-        vertical-align: middle;
+        font-size: 1.75rem;
+        height: 56px;
+        line-height: 56px;
     }
 
-
-    // Once we get to a larger breakpoint
-    //   let's hide the button
-    @include susy-media($bp-nav-break) {
+    @include susy-media($bp-comp) {
         display: none;
-    }
-}
-
-// --------------------
-// Hdr Nav Links
-// --------------------
-#hdr-nav {
-    @extend %float-right;
-    height: $hdr-mbl-height;
-
-    @include susy-media($bp-nav-break) {
-        height: $hdr-height;
-    }
-
-    ul {
-        @extend %list-style-none;
-        @extend %no-margin;
-    }
-
-    li {
-        @extend %display-inline-block;
-
-        &:not(:last-child) {
-            margin-right: 8px;
-        }
-    }
-
-
-    // --------------------
-    // Link styles
-    // --------------------
-    a {
-        @extend %display-block;
-        padding: $hdr-nav-link-padding;
-        @include link-colors($hdr-nav-link-color, $hdr-nav-link-color-hover);
-
-
-        // --------------------
-        // Icons
-        // --------------------
-        i {
-            font-size: $hdr-nav-link-icon-font-size;
-            vertical-align: middle;
-        }
     }
 }

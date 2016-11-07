@@ -21,14 +21,16 @@
 		"$$": true,
 		"app": true,
 		"CKEDITOR": true,
+		"CKFinder": true,
 		"FastClick": true,
-		"fetch": true,
+		"firebase": true,
 		"forEachElement": true,
-		"ga": true,
 		"google": true,
 		"jQuery": true,
+		"MaterialButton": true,
+		"MediumEditor": true,
 		"moment": true,
-		"Parse": true,
-		"Pikaday": true
+		"Pikaday": true,
+		"self": false
 	}
 }

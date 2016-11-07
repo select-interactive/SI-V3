@@ -1,1114 +1,3 @@
-/**	
- * SI JavaScript library
- *
- * @author Jeremy Burton - jeremy@select-interactive.com
- * @version 0.0.6
- *
- * @description To provide crossbrowser support for Select Interactive
- *   projects without relying on jQuery.
- *   
- * Targeting features such as:
- *   classList
- *   forEach
- *   placeholder
- *   .matchMedia support
- *   equal height columns
- */
-(function( window, doc, undefined ) {
-
-    var 
-        button = doc.createElement( 'button' ),
-        div = doc.createElement( 'div' ),
-        input = doc.createElement( 'input' );
-    
-
-    /**
-     * ------------------------------------------------------------------
-     * classList Polyfill -- Required for I9E
-     * ------------------------------------------------------------------
-     */
-    if ( ! ( 'classList' in div ) ) {
-        /* jshint ignore:start */
-        var prototype=Array.prototype,push=prototype.push,splice=prototype.splice,join=prototype.join;function DOMTokenList(a){this.el=a;a=a.className.replace(/^\s+|\s+$/g,"").split(/\s+/);for(var b=0;b<a.length;b++)push.call(this,a[b])} DOMTokenList.prototype={add:function(a){this.contains(a)||(push.call(this,a),this.el.className=this.toString())},contains:function(a){return-1!=this.el.className.indexOf(a)},item:function(a){return this[a]||null},remove:function(a){if(this.contains(a)){for(var b=0;b<this.length&&this[b]!=a;b++);splice.call(this,b,1);this.el.className=this.toString()}},toString:function(){return join.call(this," ")},toggle:function(a){this.contains(a)?this.remove(a):this.add(a);return this.contains(a)}}; window.DOMTokenList=DOMTokenList;function defineElementGetter(a,b,c){Object.defineProperty?Object.defineProperty(a,b,{get:c}):a.__defineGetter__(b,c)}defineElementGetter(Element.prototype,"classList",function(){return new DOMTokenList(this)});
-        /* jshint ignore:end */
-    }
-
-
-    /**
-     * -----------------------------------
-     * forEachElement using querySelectAll
-     * -----------------------------------
-     */
-    window.forEachElement = function( elements, fn, context ) {
-        var i = 0,
-            len;
-
-        if ( !elements || typeof elements === 'function' ) {
-        	console.log( 'elements is not a valid node list.' );
-        	return;
-        }
-
-        if ( typeof elements === 'string' || elements instanceof String ) {
-        	if ( context ) {
-        		elements = context.querySelectorAll( elements );
-        	}
-        	else {
-        		elements = doc.querySelectorAll( elements );
-        	}
-		}
-
-		len = elements.length;
-
-        for ( ; i < len; i++ ) {
-            if ( fn( elements[i], i ) ) {
-                break;
-            }
-        }
-    };
-
-    window.$$ = function( query, evt, fn, context ) {
-    	var elements;
-
-    	if ( typeof query === 'string' || query instanceof String ) {
-    		if ( context ) {
-    			elements = context.querySelectorAll( query );
-    		}
-    		else {
-    			elements = doc.querySelectorAll( query );
-    		}
-    	}
-    	else {
-    		console.log( 'unable to select ' + query );
-    	}
-
-    	window.forEachElement( elements, function( el ) {
-    		el.addEventListener( evt, fn, false );
-    	} );
-    };
-
-    /**
-     * --------------------
-     * Placeholder Polyfill
-     * --------------------
-     */
-     if  ( ! ( 'placeholder' in input ) ) {
-        window.forEachElement( doc.querySelectorAll( '[placeholder]' ), function( el ) {
-            var ph = el.getAttribute( 'placeholder' );
-
-            el.value = ph;
-
-            el.addEventListener( 'focus', function() {
-                if ( window.trimString( el.value ) === ph ) {
-                    el.value = '';
-                }
-            }, false );
-
-            el.addEventListener( 'blur', function() {
-                if ( window.trimString( el.value ) === '' ) {
-                    el.value = ph;
-                }
-            }, false );
-        });
-     }
-
-
-    /**
-     * -----------------------------------------------------------------------------
-     * Match media function
-     *
-     * If browsers don't support .matchMedia or CSS Animations (IE9-) we return true
-     * Otherwise we return if the passed mediaQuery matches
-     * -----------------------------------------------------------------------------
-     */
-    window.mq = function( mediaQuery ) {
-        return !( window.matchMedia ) || ( window.matchMedia && window.matchMedia( mediaQuery ).matches );
-    };
-
-
-    /**
-     * --------------------------------------------------------------
-     * Useful function for setting floated columns to the same height
-     * --------------------------------------------------------------
-     */
-    if ( doc.querySelectorAll( '.eq-height' ) ) {
-        var rows = doc.querySelectorAll( '.eq-height' );
-        
-        // Loop through each row that .eq-height
-        window.forEachElement( rows, function( row ) {
-            var 
-                // get each col
-                cols = row.querySelectorAll( '.eq-height-item' ),
-
-                // get all images
-                imgs = row.querySelectorAll( 'img' ),
-                imgsLoaded = 0,
-                
-                checkImgsLoaded = function() {
-                    imgsLoaded++;
-                    
-                    if ( imgs.length === imgsLoaded ) {
-                        setHeights();
-                    }
-                },
-                
-                setHeights = function() {
-                    var h = 0;
-                    
-                    window.forEachElement( cols, function( col ) {
-                        var colH = col.offsetHeight;
-
-                        if ( colH > h ) {
-                            h = colH;
-                        }
-                    });        
-                    
-                    window.forEachElement( cols, function( col ) {
-                        col.style.height = h + 'px';
-                    });
-                };
-
-            window.forEachElement( cols, function( col ) {
-                col.style.height = 'auto';
-            });
-
-            // if we have imgs, wait for them to load or check if they're cached
-            if ( imgs.length ) {
-                window.forEachElement( imgs, function( img ) {
-                    if ( img.complete ) {
-                        checkImgsLoaded();
-                    }
-                    else {
-                        img.onload = checkImgsLoaded;
-                    }
-                });
-            }
-
-            // if no images, just set the heights of the columns
-            else {
-                setHeights();
-            }
-
-        });
-    }
-
-    /**
-     * ---------------------------------------------------
-     * Helper method to set vendor prefixes for CSS3 items
-     * ---------------------------------------------------
-     */
-    window.addVendorPrefixes = function( element, property, value ) {
-        var capsProp = property.substring( 0, 1 ).toString().toUpperCase() + property.substring( 1 );
-
-        element.style['moz' + capsProp] = value;
-        element.style['ms' + capsProp] = value;
-        element.style['o' + capsProp] = value;
-        element.style['webkit' + capsProp] = value;
-        element.style[property] = value;
-    };
-
-
-    /**
-     * ------------------------------------------------------
-     * Helper to check if tab is visible using visibility API
-     * ------------------------------------------------------
-     */
-    window.getHiddenProp = function() {
-        var prefixes = ['webkit','moz','ms','o'];
-    
-        // if 'hidden' is natively supported just return it
-        if ( 'hidden' in document ) {
-            return 'hidden';
-        }
-    
-        // otherwise loop over all the known prefixes until we find one
-        for ( var i = 0; i < prefixes.length; i++ ){
-            if ( ( prefixes[i] + 'Hidden' ) in document ) {
-                return prefixes[i] + 'Hidden';
-            }
-        }
-
-        // otherwise it's not supported
-        return null;
-    };
-
-    window.isTabHidden = function() {
-        var prop = window.getHiddenProp();
-
-        if ( ! prop ) {
-            return false;
-        }
-    
-        return document[prop];
-    };
-     
-}( window, window.document, undefined ) );
-
-
-// Avoid 'console' errors in browsers that lack a console
-(function() {
-    var method;
-    var noop = function () {};
-    var methods = [
-        'assert', 'clear', 'count', 'debug', 'dir', 'dirxml', 'error',
-        'exception', 'group', 'groupCollapsed', 'groupEnd', 'info', 'log',
-        'markTimeline', 'profile', 'profileEnd', 'table', 'time', 'timeEnd',
-        'timeStamp', 'trace', 'warn'
-    ];
-    var length = methods.length;
-    var console = (window.console = window.console || {});
-
-    while (length--) {
-        method = methods[length];
-
-        // Only stub undefined methods.
-        if (!console[method]) {
-            console[method] = noop;
-        }
-    }
-}());
-/* jshint ignore:start */
-; ( function() {
-	'use strict';
-
-	/**
-	 * @preserve FastClick: polyfill to remove click delays on browsers with touch UIs.
-	 *
-	 * @codingstandard ftlabs-jsv2
-	 * @copyright The Financial Times Limited [All Rights Reserved]
-	 * @license MIT License (see LICENSE.txt)
-	 */
-
-	/*jslint browser:true, node:true*/
-	/*global define, Event, Node*/
-
-
-	/**
-	 * Instantiate fast-clicking listeners on the specified layer.
-	 *
-	 * @constructor
-	 * @param {Element} layer The layer to listen on
-	 * @param {Object} [options={}] The options to override the defaults
-	 */
-	function FastClick( layer, options ) {
-		var oldOnClick;
-
-		options = options || {};
-
-		/**
-		 * Whether a click is currently being tracked.
-		 *
-		 * @type boolean
-		 */
-		this.trackingClick = false;
-
-
-		/**
-		 * Timestamp for when click tracking started.
-		 *
-		 * @type number
-		 */
-		this.trackingClickStart = 0;
-
-
-		/**
-		 * The element being tracked for a click.
-		 *
-		 * @type EventTarget
-		 */
-		this.targetElement = null;
-
-
-		/**
-		 * X-coordinate of touch start event.
-		 *
-		 * @type number
-		 */
-		this.touchStartX = 0;
-
-
-		/**
-		 * Y-coordinate of touch start event.
-		 *
-		 * @type number
-		 */
-		this.touchStartY = 0;
-
-
-		/**
-		 * ID of the last touch, retrieved from Touch.identifier.
-		 *
-		 * @type number
-		 */
-		this.lastTouchIdentifier = 0;
-
-
-		/**
-		 * Touchmove boundary, beyond which a click will be cancelled.
-		 *
-		 * @type number
-		 */
-		this.touchBoundary = options.touchBoundary || 10;
-
-
-		/**
-		 * The FastClick layer.
-		 *
-		 * @type Element
-		 */
-		this.layer = layer;
-
-		/**
-		 * The minimum time between tap(touchstart and touchend) events
-		 *
-		 * @type number
-		 */
-		this.tapDelay = options.tapDelay || 200;
-
-		/**
-		 * The maximum time for a tap
-		 *
-		 * @type number
-		 */
-		this.tapTimeout = options.tapTimeout || 700;
-
-		if ( FastClick.notNeeded( layer ) ) {
-			return;
-		}
-
-		// Some old versions of Android don't have Function.prototype.bind
-		function bind( method, context ) {
-			return function() { return method.apply( context, arguments ); };
-		}
-
-
-		var methods = ['onMouse', 'onClick', 'onTouchStart', 'onTouchMove', 'onTouchEnd', 'onTouchCancel'];
-		var context = this;
-		for ( var i = 0, l = methods.length; i < l; i++ ) {
-			context[methods[i]] = bind( context[methods[i]], context );
-		}
-
-		// Set up event handlers as required
-		if ( deviceIsAndroid ) {
-			layer.addEventListener( 'mouseover', this.onMouse, true );
-			layer.addEventListener( 'mousedown', this.onMouse, true );
-			layer.addEventListener( 'mouseup', this.onMouse, true );
-		}
-
-		layer.addEventListener( 'click', this.onClick, true );
-		layer.addEventListener( 'touchstart', this.onTouchStart, false );
-		layer.addEventListener( 'touchmove', this.onTouchMove, false );
-		layer.addEventListener( 'touchend', this.onTouchEnd, false );
-		layer.addEventListener( 'touchcancel', this.onTouchCancel, false );
-
-		// Hack is required for browsers that don't support Event#stopImmediatePropagation (e.g. Android 2)
-		// which is how FastClick normally stops click events bubbling to callbacks registered on the FastClick
-		// layer when they are cancelled.
-		if ( !Event.prototype.stopImmediatePropagation ) {
-			layer.removeEventListener = function( type, callback, capture ) {
-				var rmv = Node.prototype.removeEventListener;
-				if ( type === 'click' ) {
-					rmv.call( layer, type, callback.hijacked || callback, capture );
-				} else {
-					rmv.call( layer, type, callback, capture );
-				}
-			};
-
-			layer.addEventListener = function( type, callback, capture ) {
-				var adv = Node.prototype.addEventListener;
-				if ( type === 'click' ) {
-					adv.call( layer, type, callback.hijacked || ( callback.hijacked = function( event ) {
-						if ( !event.propagationStopped ) {
-							callback( event );
-						}
-					} ), capture );
-				} else {
-					adv.call( layer, type, callback, capture );
-				}
-			};
-		}
-
-		// If a handler is already declared in the element's onclick attribute, it will be fired before
-		// FastClick's onClick handler. Fix this by pulling out the user-defined handler function and
-		// adding it as listener.
-		if ( typeof layer.onclick === 'function' ) {
-
-			// Android browser on at least 3.2 requires a new reference to the function in layer.onclick
-			// - the old one won't work if passed to addEventListener directly.
-			oldOnClick = layer.onclick;
-			layer.addEventListener( 'click', function( event ) {
-				oldOnClick( event );
-			}, false );
-			layer.onclick = null;
-		}
-	}
-
-	/**
-	* Windows Phone 8.1 fakes user agent string to look like Android and iPhone.
-	*
-	* @type boolean
-	*/
-	var deviceIsWindowsPhone = navigator.userAgent.indexOf( "Windows Phone" ) >= 0;
-
-	/**
-	 * Android requires exceptions.
-	 *
-	 * @type boolean
-	 */
-	var deviceIsAndroid = navigator.userAgent.indexOf( 'Android' ) > 0 && !deviceIsWindowsPhone;
-
-
-	/**
-	 * iOS requires exceptions.
-	 *
-	 * @type boolean
-	 */
-	var deviceIsIOS = /iP(ad|hone|od)/.test( navigator.userAgent ) && !deviceIsWindowsPhone;
-
-
-	/**
-	 * iOS 4 requires an exception for select elements.
-	 *
-	 * @type boolean
-	 */
-	var deviceIsIOS4 = deviceIsIOS && ( /OS 4_\d(_\d)?/ ).test( navigator.userAgent );
-
-
-	/**
-	 * iOS 6.0-7.* requires the target element to be manually derived
-	 *
-	 * @type boolean
-	 */
-	var deviceIsIOSWithBadTarget = deviceIsIOS && ( /OS [6-7]_\d/ ).test( navigator.userAgent );
-
-	/**
-	 * BlackBerry requires exceptions.
-	 *
-	 * @type boolean
-	 */
-	var deviceIsBlackBerry10 = navigator.userAgent.indexOf( 'BB10' ) > 0;
-
-	/**
-	 * Determine whether a given element requires a native click.
-	 *
-	 * @param {EventTarget|Element} target Target DOM element
-	 * @returns {boolean} Returns true if the element needs a native click
-	 */
-	FastClick.prototype.needsClick = function( target ) {
-		switch ( target.nodeName.toLowerCase() ) {
-
-			// Don't send a synthetic click to disabled inputs (issue #62)
-			case 'button':
-			case 'select':
-			case 'textarea':
-				if ( target.disabled ) {
-					return true;
-				}
-
-				break;
-			case 'input':
-
-				// File inputs need real clicks on iOS 6 due to a browser bug (issue #68)
-				if ( ( deviceIsIOS && target.type === 'file' ) || target.disabled ) {
-					return true;
-				}
-
-				break;
-			case 'label':
-			case 'iframe': // iOS8 homescreen apps can prevent events bubbling into frames
-			case 'video':
-				return true;
-		}
-
-		return ( /\bneedsclick\b/ ).test( target.className );
-	};
-
-
-	/**
-	 * Determine whether a given element requires a call to focus to simulate click into element.
-	 *
-	 * @param {EventTarget|Element} target Target DOM element
-	 * @returns {boolean} Returns true if the element requires a call to focus to simulate native click.
-	 */
-	FastClick.prototype.needsFocus = function( target ) {
-		switch ( target.nodeName.toLowerCase() ) {
-			case 'textarea':
-				return true;
-			case 'select':
-				return !deviceIsAndroid;
-			case 'input':
-				switch ( target.type ) {
-					case 'button':
-					case 'checkbox':
-					case 'file':
-					case 'image':
-					case 'radio':
-					case 'submit':
-						return false;
-				}
-
-				// No point in attempting to focus disabled inputs
-				return !target.disabled && !target.readOnly;
-			default:
-				return ( /\bneedsfocus\b/ ).test( target.className );
-		}
-	};
-
-
-	/**
-	 * Send a click event to the specified element.
-	 *
-	 * @param {EventTarget|Element} targetElement
-	 * @param {Event} event
-	 */
-	FastClick.prototype.sendClick = function( targetElement, event ) {
-		var clickEvent, touch;
-
-		// On some Android devices activeElement needs to be blurred otherwise the synthetic click will have no effect (#24)
-		if ( document.activeElement && document.activeElement !== targetElement ) {
-			document.activeElement.blur();
-		}
-
-		touch = event.changedTouches[0];
-
-		// Synthesise a click event, with an extra attribute so it can be tracked
-		clickEvent = document.createEvent( 'MouseEvents' );
-		clickEvent.initMouseEvent( this.determineEventType( targetElement ), true, true, window, 1, touch.screenX, touch.screenY, touch.clientX, touch.clientY, false, false, false, false, 0, null );
-		clickEvent.forwardedTouchEvent = true;
-		targetElement.dispatchEvent( clickEvent );
-	};
-
-	FastClick.prototype.determineEventType = function( targetElement ) {
-
-		//Issue #159: Android Chrome Select Box does not open with a synthetic click event
-		if ( deviceIsAndroid && targetElement.tagName.toLowerCase() === 'select' ) {
-			return 'mousedown';
-		}
-
-		return 'click';
-	};
-
-
-	/**
-	 * @param {EventTarget|Element} targetElement
-	 */
-	FastClick.prototype.focus = function( targetElement ) {
-		var length;
-
-		// Issue #160: on iOS 7, some input elements (e.g. date datetime month) throw a vague TypeError on setSelectionRange. These elements don't have an integer value for the selectionStart and selectionEnd properties, but unfortunately that can't be used for detection because accessing the properties also throws a TypeError. Just check the type instead. Filed as Apple bug #15122724.
-		if ( deviceIsIOS && targetElement.setSelectionRange && targetElement.type.indexOf( 'date' ) !== 0 && targetElement.type !== 'time' && targetElement.type !== 'month' ) {
-			length = targetElement.value.length;
-			targetElement.setSelectionRange( length, length );
-		} else {
-			targetElement.focus();
-		}
-	};
-
-
-	/**
-	 * Check whether the given target element is a child of a scrollable layer and if so, set a flag on it.
-	 *
-	 * @param {EventTarget|Element} targetElement
-	 */
-	FastClick.prototype.updateScrollParent = function( targetElement ) {
-		var scrollParent, parentElement;
-
-		scrollParent = targetElement.fastClickScrollParent;
-
-		// Attempt to discover whether the target element is contained within a scrollable layer. Re-check if the
-		// target element was moved to another parent.
-		if ( !scrollParent || !scrollParent.contains( targetElement ) ) {
-			parentElement = targetElement;
-			do {
-				if ( parentElement.scrollHeight > parentElement.offsetHeight ) {
-					scrollParent = parentElement;
-					targetElement.fastClickScrollParent = parentElement;
-					break;
-				}
-
-				parentElement = parentElement.parentElement;
-			} while ( parentElement );
-		}
-
-		// Always update the scroll top tracker if possible.
-		if ( scrollParent ) {
-			scrollParent.fastClickLastScrollTop = scrollParent.scrollTop;
-		}
-	};
-
-
-	/**
-	 * @param {EventTarget} targetElement
-	 * @returns {Element|EventTarget}
-	 */
-	FastClick.prototype.getTargetElementFromEventTarget = function( eventTarget ) {
-
-		// On some older browsers (notably Safari on iOS 4.1 - see issue #56) the event target may be a text node.
-		if ( eventTarget.nodeType === Node.TEXT_NODE ) {
-			return eventTarget.parentNode;
-		}
-
-		return eventTarget;
-	};
-
-
-	/**
-	 * On touch start, record the position and scroll offset.
-	 *
-	 * @param {Event} event
-	 * @returns {boolean}
-	 */
-	FastClick.prototype.onTouchStart = function( event ) {
-		var targetElement, touch, selection;
-
-		// Ignore multiple touches, otherwise pinch-to-zoom is prevented if both fingers are on the FastClick element (issue #111).
-		if ( event.targetTouches.length > 1 ) {
-			return true;
-		}
-
-		targetElement = this.getTargetElementFromEventTarget( event.target );
-		touch = event.targetTouches[0];
-
-		if ( deviceIsIOS ) {
-
-			// Only trusted events will deselect text on iOS (issue #49)
-			selection = window.getSelection();
-			if ( selection.rangeCount && !selection.isCollapsed ) {
-				return true;
-			}
-
-			if ( !deviceIsIOS4 ) {
-
-				// Weird things happen on iOS when an alert or confirm dialog is opened from a click event callback (issue #23):
-				// when the user next taps anywhere else on the page, new touchstart and touchend events are dispatched
-				// with the same identifier as the touch event that previously triggered the click that triggered the alert.
-				// Sadly, there is an issue on iOS 4 that causes some normal touch events to have the same identifier as an
-				// immediately preceeding touch event (issue #52), so this fix is unavailable on that platform.
-				// Issue 120: touch.identifier is 0 when Chrome dev tools 'Emulate touch events' is set with an iOS device UA string,
-				// which causes all touch events to be ignored. As this block only applies to iOS, and iOS identifiers are always long,
-				// random integers, it's safe to to continue if the identifier is 0 here.
-				if ( touch.identifier && touch.identifier === this.lastTouchIdentifier ) {
-					event.preventDefault();
-					return false;
-				}
-
-				this.lastTouchIdentifier = touch.identifier;
-
-				// If the target element is a child of a scrollable layer (using -webkit-overflow-scrolling: touch) and:
-				// 1) the user does a fling scroll on the scrollable layer
-				// 2) the user stops the fling scroll with another tap
-				// then the event.target of the last 'touchend' event will be the element that was under the user's finger
-				// when the fling scroll was started, causing FastClick to send a click event to that layer - unless a check
-				// is made to ensure that a parent layer was not scrolled before sending a synthetic click (issue #42).
-				this.updateScrollParent( targetElement );
-			}
-		}
-
-		this.trackingClick = true;
-		this.trackingClickStart = event.timeStamp;
-		this.targetElement = targetElement;
-
-		this.touchStartX = touch.pageX;
-		this.touchStartY = touch.pageY;
-
-		// Prevent phantom clicks on fast double-tap (issue #36)
-		if ( ( event.timeStamp - this.lastClickTime ) < this.tapDelay ) {
-			event.preventDefault();
-		}
-
-		return true;
-	};
-
-
-	/**
-	 * Based on a touchmove event object, check whether the touch has moved past a boundary since it started.
-	 *
-	 * @param {Event} event
-	 * @returns {boolean}
-	 */
-	FastClick.prototype.touchHasMoved = function( event ) {
-		var touch = event.changedTouches[0], boundary = this.touchBoundary;
-
-		if ( Math.abs( touch.pageX - this.touchStartX ) > boundary || Math.abs( touch.pageY - this.touchStartY ) > boundary ) {
-			return true;
-		}
-
-		return false;
-	};
-
-
-	/**
-	 * Update the last position.
-	 *
-	 * @param {Event} event
-	 * @returns {boolean}
-	 */
-	FastClick.prototype.onTouchMove = function( event ) {
-		if ( !this.trackingClick ) {
-			return true;
-		}
-
-		// If the touch has moved, cancel the click tracking
-		if ( this.targetElement !== this.getTargetElementFromEventTarget( event.target ) || this.touchHasMoved( event ) ) {
-			this.trackingClick = false;
-			this.targetElement = null;
-		}
-
-		return true;
-	};
-
-
-	/**
-	 * Attempt to find the labelled control for the given label element.
-	 *
-	 * @param {EventTarget|HTMLLabelElement} labelElement
-	 * @returns {Element|null}
-	 */
-	FastClick.prototype.findControl = function( labelElement ) {
-
-		// Fast path for newer browsers supporting the HTML5 control attribute
-		if ( labelElement.control !== undefined ) {
-			return labelElement.control;
-		}
-
-		// All browsers under test that support touch events also support the HTML5 htmlFor attribute
-		if ( labelElement.htmlFor ) {
-			return document.getElementById( labelElement.htmlFor );
-		}
-
-		// If no for attribute exists, attempt to retrieve the first labellable descendant element
-		// the list of which is defined here: http://www.w3.org/TR/html5/forms.html#category-label
-		return labelElement.querySelector( 'button, input:not([type=hidden]), keygen, meter, output, progress, select, textarea' );
-	};
-
-
-	/**
-	 * On touch end, determine whether to send a click event at once.
-	 *
-	 * @param {Event} event
-	 * @returns {boolean}
-	 */
-	FastClick.prototype.onTouchEnd = function( event ) {
-		var forElement, trackingClickStart, targetTagName, scrollParent, touch, targetElement = this.targetElement;
-
-		if ( !this.trackingClick ) {
-			return true;
-		}
-
-		// Prevent phantom clicks on fast double-tap (issue #36)
-		if ( ( event.timeStamp - this.lastClickTime ) < this.tapDelay ) {
-			this.cancelNextClick = true;
-			return true;
-		}
-
-		if ( ( event.timeStamp - this.trackingClickStart ) > this.tapTimeout ) {
-			return true;
-		}
-
-		// Reset to prevent wrong click cancel on input (issue #156).
-		this.cancelNextClick = false;
-
-		this.lastClickTime = event.timeStamp;
-
-		trackingClickStart = this.trackingClickStart;
-		this.trackingClick = false;
-		this.trackingClickStart = 0;
-
-		// On some iOS devices, the targetElement supplied with the event is invalid if the layer
-		// is performing a transition or scroll, and has to be re-detected manually. Note that
-		// for this to function correctly, it must be called *after* the event target is checked!
-		// See issue #57; also filed as rdar://13048589 .
-		if ( deviceIsIOSWithBadTarget ) {
-			touch = event.changedTouches[0];
-
-			// In certain cases arguments of elementFromPoint can be negative, so prevent setting targetElement to null
-			targetElement = document.elementFromPoint( touch.pageX - window.pageXOffset, touch.pageY - window.pageYOffset ) || targetElement;
-			targetElement.fastClickScrollParent = this.targetElement.fastClickScrollParent;
-		}
-
-		targetTagName = targetElement.tagName.toLowerCase();
-		if ( targetTagName === 'label' ) {
-			forElement = this.findControl( targetElement );
-			if ( forElement ) {
-				this.focus( targetElement );
-				if ( deviceIsAndroid ) {
-					return false;
-				}
-
-				targetElement = forElement;
-			}
-		} else if ( this.needsFocus( targetElement ) ) {
-
-			// Case 1: If the touch started a while ago (best guess is 100ms based on tests for issue #36) then focus will be triggered anyway. Return early and unset the target element reference so that the subsequent click will be allowed through.
-			// Case 2: Without this exception for input elements tapped when the document is contained in an iframe, then any inputted text won't be visible even though the value attribute is updated as the user types (issue #37).
-			if ( ( event.timeStamp - trackingClickStart ) > 100 || ( deviceIsIOS && window.top !== window && targetTagName === 'input' ) ) {
-				this.targetElement = null;
-				return false;
-			}
-
-			this.focus( targetElement );
-			this.sendClick( targetElement, event );
-
-			// Select elements need the event to go through on iOS 4, otherwise the selector menu won't open.
-			// Also this breaks opening selects when VoiceOver is active on iOS6, iOS7 (and possibly others)
-			if ( !deviceIsIOS || targetTagName !== 'select' ) {
-				this.targetElement = null;
-				event.preventDefault();
-			}
-
-			return false;
-		}
-
-		if ( deviceIsIOS && !deviceIsIOS4 ) {
-
-			// Don't send a synthetic click event if the target element is contained within a parent layer that was scrolled
-			// and this tap is being used to stop the scrolling (usually initiated by a fling - issue #42).
-			scrollParent = targetElement.fastClickScrollParent;
-			if ( scrollParent && scrollParent.fastClickLastScrollTop !== scrollParent.scrollTop ) {
-				return true;
-			}
-		}
-
-		// Prevent the actual click from going though - unless the target node is marked as requiring
-		// real clicks or if it is in the whitelist in which case only non-programmatic clicks are permitted.
-		if ( !this.needsClick( targetElement ) ) {
-			event.preventDefault();
-			this.sendClick( targetElement, event );
-		}
-
-		return false;
-	};
-
-
-	/**
-	 * On touch cancel, stop tracking the click.
-	 *
-	 * @returns {void}
-	 */
-	FastClick.prototype.onTouchCancel = function() {
-		this.trackingClick = false;
-		this.targetElement = null;
-	};
-
-
-	/**
-	 * Determine mouse events which should be permitted.
-	 *
-	 * @param {Event} event
-	 * @returns {boolean}
-	 */
-	FastClick.prototype.onMouse = function( event ) {
-
-		// If a target element was never set (because a touch event was never fired) allow the event
-		if ( !this.targetElement ) {
-			return true;
-		}
-
-		if ( event.forwardedTouchEvent ) {
-			return true;
-		}
-
-		// Programmatically generated events targeting a specific element should be permitted
-		if ( !event.cancelable ) {
-			return true;
-		}
-
-		// Derive and check the target element to see whether the mouse event needs to be permitted;
-		// unless explicitly enabled, prevent non-touch click events from triggering actions,
-		// to prevent ghost/doubleclicks.
-		if ( !this.needsClick( this.targetElement ) || this.cancelNextClick ) {
-
-			// Prevent any user-added listeners declared on FastClick element from being fired.
-			if ( event.stopImmediatePropagation ) {
-				event.stopImmediatePropagation();
-			} else {
-
-				// Part of the hack for browsers that don't support Event#stopImmediatePropagation (e.g. Android 2)
-				event.propagationStopped = true;
-			}
-
-			// Cancel the event
-			event.stopPropagation();
-			event.preventDefault();
-
-			return false;
-		}
-
-		// If the mouse event is permitted, return true for the action to go through.
-		return true;
-	};
-
-
-	/**
-	 * On actual clicks, determine whether this is a touch-generated click, a click action occurring
-	 * naturally after a delay after a touch (which needs to be cancelled to avoid duplication), or
-	 * an actual click which should be permitted.
-	 *
-	 * @param {Event} event
-	 * @returns {boolean}
-	 */
-	FastClick.prototype.onClick = function( event ) {
-		var permitted;
-
-		// It's possible for another FastClick-like library delivered with third-party code to fire a click event before FastClick does (issue #44). In that case, set the click-tracking flag back to false and return early. This will cause onTouchEnd to return early.
-		if ( this.trackingClick ) {
-			this.targetElement = null;
-			this.trackingClick = false;
-			return true;
-		}
-
-		// Very odd behaviour on iOS (issue #18): if a submit element is present inside a form and the user hits enter in the iOS simulator or clicks the Go button on the pop-up OS keyboard the a kind of 'fake' click event will be triggered with the submit-type input element as the target.
-		if ( event.target.type === 'submit' && event.detail === 0 ) {
-			return true;
-		}
-
-		permitted = this.onMouse( event );
-
-		// Only unset targetElement if the click is not permitted. This will ensure that the check for !targetElement in onMouse fails and the browser's click doesn't go through.
-		if ( !permitted ) {
-			this.targetElement = null;
-		}
-
-		// If clicks are permitted, return true for the action to go through.
-		return permitted;
-	};
-
-
-	/**
-	 * Remove all FastClick's event listeners.
-	 *
-	 * @returns {void}
-	 */
-	FastClick.prototype.destroy = function() {
-		var layer = this.layer;
-
-		if ( deviceIsAndroid ) {
-			layer.removeEventListener( 'mouseover', this.onMouse, true );
-			layer.removeEventListener( 'mousedown', this.onMouse, true );
-			layer.removeEventListener( 'mouseup', this.onMouse, true );
-		}
-
-		layer.removeEventListener( 'click', this.onClick, true );
-		layer.removeEventListener( 'touchstart', this.onTouchStart, false );
-		layer.removeEventListener( 'touchmove', this.onTouchMove, false );
-		layer.removeEventListener( 'touchend', this.onTouchEnd, false );
-		layer.removeEventListener( 'touchcancel', this.onTouchCancel, false );
-	};
-
-
-	/**
-	 * Check whether FastClick is needed.
-	 *
-	 * @param {Element} layer The layer to listen on
-	 */
-	FastClick.notNeeded = function( layer ) {
-		var metaViewport;
-		var chromeVersion;
-		var blackberryVersion;
-		var firefoxVersion;
-
-		// Devices that don't support touch don't need FastClick
-		if ( typeof window.ontouchstart === 'undefined' ) {
-			return true;
-		}
-
-		// Chrome version - zero for other browsers
-		chromeVersion = +( /Chrome\/([0-9]+)/.exec( navigator.userAgent ) || [, 0] )[1];
-
-		if ( chromeVersion ) {
-
-			if ( deviceIsAndroid ) {
-				metaViewport = document.querySelector( 'meta[name=viewport]' );
-
-				if ( metaViewport ) {
-					// Chrome on Android with user-scalable="no" doesn't need FastClick (issue #89)
-					if ( metaViewport.content.indexOf( 'user-scalable=no' ) !== -1 ) {
-						return true;
-					}
-					// Chrome 32 and above with width=device-width or less don't need FastClick
-					if ( chromeVersion > 31 && document.documentElement.scrollWidth <= window.outerWidth ) {
-						return true;
-					}
-				}
-
-				// Chrome desktop doesn't need FastClick (issue #15)
-			} else {
-				return true;
-			}
-		}
-
-		if ( deviceIsBlackBerry10 ) {
-			blackberryVersion = navigator.userAgent.match( /Version\/([0-9]*)\.([0-9]*)/ );
-
-			// BlackBerry 10.3+ does not require Fastclick library.
-			// https://github.com/ftlabs/fastclick/issues/251
-			if ( blackberryVersion[1] >= 10 && blackberryVersion[2] >= 3 ) {
-				metaViewport = document.querySelector( 'meta[name=viewport]' );
-
-				if ( metaViewport ) {
-					// user-scalable=no eliminates click delay.
-					if ( metaViewport.content.indexOf( 'user-scalable=no' ) !== -1 ) {
-						return true;
-					}
-					// width=device-width (or less than device-width) eliminates click delay.
-					if ( document.documentElement.scrollWidth <= window.outerWidth ) {
-						return true;
-					}
-				}
-			}
-		}
-
-		// IE10 with -ms-touch-action: none or manipulation, which disables double-tap-to-zoom (issue #97)
-		if ( layer.style.msTouchAction === 'none' || layer.style.touchAction === 'manipulation' ) {
-			return true;
-		}
-
-		// Firefox version - zero for other browsers
-		firefoxVersion = +( /Firefox\/([0-9]+)/.exec( navigator.userAgent ) || [, 0] )[1];
-
-		if ( firefoxVersion >= 27 ) {
-			// Firefox 27+ does not have tap delay if the content is not zoomable - https://bugzilla.mozilla.org/show_bug.cgi?id=922896
-
-			metaViewport = document.querySelector( 'meta[name=viewport]' );
-			if ( metaViewport && ( metaViewport.content.indexOf( 'user-scalable=no' ) !== -1 || document.documentElement.scrollWidth <= window.outerWidth ) ) {
-				return true;
-			}
-		}
-
-		// IE11: prefixed -ms-touch-action is no longer supported and it's recomended to use non-prefixed version
-		// http://msdn.microsoft.com/en-us/library/windows/apps/Hh767313.aspx
-		if ( layer.style.touchAction === 'none' || layer.style.touchAction === 'manipulation' ) {
-			return true;
-		}
-
-		return false;
-	};
-
-
-	/**
-	 * Factory method for creating a FastClick object
-	 *
-	 * @param {Element} layer The layer to listen on
-	 * @param {Object} [options={}] The options to override the defaults
-	 */
-	FastClick.attach = function( layer, options ) {
-		return new FastClick( layer, options );
-	};
-
-
-	if ( typeof define === 'function' && typeof define.amd === 'object' && define.amd ) {
-
-		// AMD. Register as an anonymous module.
-		define( function() {
-			return FastClick;
-		} );
-	} else if ( typeof module !== 'undefined' && module.exports ) {
-		module.exports = FastClick.attach;
-		module.exports.FastClick = FastClick;
-	} else {
-		window.FastClick = FastClick;
-	}
-}() );
-/* jshint ignore:end */
 //! moment.js
 //! version : 2.10.3
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
@@ -5197,1030 +4086,573 @@
 
 } ) );
 /*jshint ignore:end */
+window.requestAnimationFrame = (function() {
+    return  window.requestAnimationFrame       ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame    ||
+            function( callback ){
+                window.setTimeout(callback, 1000 / 60);
+            };
+}());
 ///<reference path="../main.js">
 /**
- * Copyright 2015 Select Interactive, LLC. All rights reserved.
+ * Copyright 2016 Select Interactive, LLC. All rights reserved.
  * @author: The Select Interactive dev team (www.select-interactive.com) 
  */
 var app = {};
-///<reference path="../main.js">
-/**
- * Copyright 2015 Select Interactive, LLC. All rights reserved.
- * @author: The Select Interactive dev team (www.select-interactive.com) 
+///<reference path="main.js">
+/**	
+ * SI JavaScript library
+ *
+ * @author Jeremy Burton - jeremy@select-interactive.com
+ * @version 0.1.1
+ *
+ * @description To provide crossbrowser support for Select Interactive
+ *   projects without relying on jQuery.
+ *   
+ * Featured detection and polyfill for
+ *   Promises
+ *   Fetch
+ * 
+ * Targeting features such as:
+ *   forEach
+ *   .matchMedia support
+ *   equal height columns
+ *   fetch
  */
- app.ajax = (function( doc ) {
+( function( window, doc, undefined ) {
 
-    // global ajax function
-    function ajax( wsUrl, wsData, callSuccess, callFailure, async ) {
-        try {
-            // XMLHttpRequest object
-            // Supports IE9
-            var request = window.XMLHttpRequest ? new window.XMLHttpRequest() : new window.ActiveXObject( 'MSXML2.XMLHTTP.3.0' );
-
-            // Open using POST call to wsUrl and boolean async
-            request.open( 'POST', wsUrl, async );
-
-            // Set the content-type header to expect JSON
-            request.setRequestHeader( 'Content-Type', 'application/json; charset=utf-8' );
-
-            // Onload of request
-            request.onload = function() {
-                // if the request was successful, call the success callback function
-                if ( request.status >= 200 && request.status < 400 ) {
-                    callSuccess( JSON.parse( request.responseText ) );
-                }
-
-                // If the webservice returned an error, call the error function if it exists
-                else {
-                    if ( callFailure ) {
-                        callFailure();
-                    }
-                }
-            };
-
-            // An error trying to connect to the webservice
-            request.onerror = callFailure ? callFailure : function() {};
-
-            // Make sure the data is a JSON string
-            if ( typeof wsData !== 'string' ) {
-                wsData = JSON.stringify( wsData );
-            }
-
-            // Make the request
-            request.send( wsData );
-        }
-        catch( e ) {
-            console.log( 'No XHR support.' );
-        }
-    }
-
-    // shorthand ajax call that assumes 
-    //   no failure callback and async = true
-    function xhr( wsUrl, wsData, fnSuccess ) {
-        return ajax( wsUrl, wsData, fnSuccess, function() {}, true );
-    }
-
-    // Ajax with Promise -- NOTE: Not compatible in IE
-    //   would be called like:
-    //   xhrPromise( '/webservices/ws.asmx/function', { id: 1 } ).then(function( response ) {
-    //     console.log( 'Success', response );
-    //   }, function( error ) {
-    //     console.log( 'Failed.', error );
-    //   });
-    function xhrPromise( wsUrl, wsData ) {
-        return new Promise( function( resolve, reject ) {
-            ajax( wsUrl, wsData, resolve, reject, true );
-        });
-    }
-
- 	// fetch
-    function ajaxFetch( url, data ) {
-    	// Make sure the data is a JSON string
-    	if ( typeof data !== 'string' && data !== {} ) {
-    		data = JSON.stringify( data );
-    	}
-
-    	return fetch( url, {
-    		body: data,
-    		headers: {
-    			'Accept': 'application/json',
-    			'Content-type': 'application/json'
-    		},
-    		method: 'post'
-    	} ).then( function( rsp ) {
-    		return rsp.json();
-    	} ).then( function( data ) {
-    		return data.d;
-    	} );
-    }
-
-    return {
-        ajax: ajax,
-        xhr: xhr,
-        xhrPromise: xhrPromise,
-        fetch: ajaxFetch
-    };
-
-}( document ) );
-///<reference path="../main.js">
-/**
- * Copyright 2015 Select Interactive, LLC. All rights reserved.
- * @author: The Select Interactive dev team (www.select-interactive.com) 
- */
-app.alerts = ( function( doc ) {
-	'use strict';
-
-	var elHTML = doc.querySelector( 'html' ),
-		container, hdr, content, confirm, deny, overlay;
-	
-	function loadComponent() {
-		var link = doc.createElement( 'link' );
-		link.rel = 'import';
-		link.href = '/templates/components/alerts/alert.html';
-
-		link.onload = function() {
-			var content = link.import,
-				el = content.querySelector( '#alert' ),
-				elOverlay = content.querySelector( '#alert-overlay' );
-
-			doc.body.appendChild( el.cloneNode( true ) );
-			doc.body.appendChild( elOverlay.cloneNode( true ) );
-
-			container = doc.getElementById( 'alert' );
-			hdr = doc.getElementById( 'alert-hdr' );
-			content = doc.getElementById( 'alert-content' );
-			confirm = doc.getElementById( 'alert-confirm' );
-			deny = doc.getElementById( 'alert-deny' );
-			overlay = doc.getElementById( 'alert-overlay' );
-		};
-
-		doc.head.appendChild( link );
-	}
-
-	function promptAlert( hdrText, html, confirmText, denyText, fnConfirm, fnDeny ) {
-		var cloneConfirm, cloneDeny;
-		
-		if ( container ) {
-			// clone the buttons to remove any previous event listeners
-			cloneConfirm = confirm.cloneNode( true );
-			cloneDeny = deny.cloneNode( true );
-
-			confirm.parentNode.replaceChild( cloneConfirm, confirm );
-			deny.parentNode.replaceChild( cloneDeny, deny );
-
-			confirm = cloneConfirm;
-			deny = cloneDeny;
-
-			// add new events for the buttons
-			if ( fnConfirm && typeof fnConfirm === 'function' ) {
-				confirm.addEventListener( 'click', fnConfirm, false );
-			}
-
-			if ( fnDeny && typeof fnDeny === 'function' ) {
-				deny.addEventListener( 'click', fnDeny, false );
-			}
-
-			setContent( hdrText, html, confirmText, denyText );
-			showAlert();
-		}
-		else {
-			console.warn( 'The elements for the alert component are not available.' );
-		}
-	}
-
-	function setContent( hdrText, html, confirmText, denyText ) {
-		hdr.innerHTML = hdrText;
-		doc.getElementById( 'alert-content' ).innerHTML = html;
-		confirm.innerText = confirmText;
-		deny.innerText = denyText;
-	}
-
-	function showAlert() {
-		elHTML.classList.add( 'alert-visible' );
-		overlay.style.height = doc.body.offsetHeight + 'px';
-	}
-
-	function closeAlert() {
-		elHTML.classList.remove( 'alert-visible' );
-		overlay.style.height = '0';
-	}
-
-	loadComponent();
-
-	return {
-		promptAlert: promptAlert,
-		dismissAlert: closeAlert
+	// $ - maps to querySelector to return an element
+	// @elements - a node list of elements or selector
+	// @contenxt - optional - the parent container of the elements. Defaults to document.
+	var $ = function( expr, context ) {
+		return typeof expr === 'string' ? ( context || doc ).querySelector( expr ) : expr || null;
 	};
 
-}( document ) );
-///<reference path="../main.js">
-/**
- * Copyright 2015 Select Interactive, LLC. All rights reserved.
- * @author: The Select Interactive dev team (www.select-interactive.com) 
- */
-app.analytics = ( function( doc ) {
-	'use strict';
-
-	function logPageView( title ) {
-		if ( ga ) {
-			ga( 'send', 'pageview', window.location.pathname, {
-				title: title
-			} );
-		}
-	}
-
-	return {
-		logPageView: logPageView
+	// $$ - maps to querySelectorAll to return a node list of elements
+	// @expr - the selector expression to search for
+	// @contenxt - optional - the parent container of the elements. Defaults to document.
+	var $$ = function( expr, context ) {
+		return typeof expr === 'string' ? ( context || doc ).querySelectorAll( expr ) : expr || null;
 	};
 
-}( document ) );
-///<reference path="../main.js">
-/**
- * Copyright 2015 Select Interactive, LLC. All rights reserved.
- * @author: The Select Interactive dev team (www.select-interactive.com) 
- */
-app.container = ( function( doc ) {
-	'use strict';
+	// $.addScript - helper function to load scripts
+	// @src - String - the source of the script to load
+	// @parent - Element - the element that the script should be appended to
+	// @async - Boolean - should the script be loaded async
+	$.addScript = function( src, parent, async ) {
+		var script = doc.createElement( 'script' );
+		script.src = src;
+		script.async = async;
+		parent.appendChild( script );
+	};
 
-	var drawer = doc.querySelector( '.container-drawer' ),
-		drawerOverlay = doc.querySelector( '#container-drawer-overlay' );
+	// if we need to polyfill promises
+	if ( typeof self.Promise === 'undefined' || !self.Promise ) {
+		$.addScript( '/bower_components/es6-promise/promise.min.js', doc.querySelector( 'head' ), true );
+	}
 
-	if ( drawer ) {
-		window.forEachElement( drawer.querySelectorAll( 'a' ), function( link ) {
-			var href = link.href;
+	// If we need to polyfill fetch
+	if ( typeof self.fetch === 'undefined' || !self.fetch ) {
+		$.addScript( '/bower_components/fetch/fetch.min.js', doc.querySelector( 'head' ), true );
+	}
 
-			if ( href && doc.URL.toLowerCase() === href.toLowerCase() ) {
-				link.classList.add( 'active' );
+	// $.forEach / window.forEachElement = traverses a node list of elements and executes a function over them
+	// @elements - a node list of elements or selector
+	// @fn - the function to execute over the list of elements
+	// @contenxt - optional - the parent container of the elements. Defaults to document.
+	$.forEach = function( elements, fn, context ) {
+		var i = 0,
+            len;
+
+		if ( !elements || typeof elements === 'function' ) {
+			console.log( 'elements is not a valid node list.' );
+			return;
+		}
+
+		if ( typeof elements === 'string' || elements instanceof String ) {
+			elements = $$( elements, context );
+		}
+
+		len = elements.length;
+
+		for ( ; i < len; i++ ) {
+			if ( fn( elements[i], i ) ) {
+				break;
 			}
+		}
+	};
 
-			link.addEventListener( 'click', function( e ) {
-				var active = drawer.querySelector( '.active' );
+	// keep backwards compatibility for forEachElement
+	window.forEachElement = $.forEach;
 
-				if ( active ) {
-					active.classList.remove( 'active' );
-				}
+	// $.addEvent - traverses a node list of elements and attaches and event handler to them
+	// @elements - a node list of elements or selector 
+	// @evt - the event to watch for (i.e. 'click', 'mouseenter')
+	// @fn - the function to execute when the event is raised
+	// @contenxt - optional - the parent container of the elements. Defaults to document.
+	$.addEvent = function( elements, evt, fn, context ) {
+		if ( !elements || typeof elements === 'function' ) {
+			console.log( 'elements is not a valid node list.' );
+			return;
+		}
 
-				if ( href && href.indexOf( '#' ) === -1 ) {
-					window.location = href;
-				}
+		if ( typeof elements === 'string' || elements instanceof String ) {
+			elements = $$( elements, context );
+		}
 
-				link.classList.add( 'active' );
-
-				if ( doc.body.classList.contains( 'container-drawer-open' ) ) {
-					toggleDrawer();
-				}
-
-				e.preventDefault();
+		$.forEach( elements, function( el ) {
+			el.addEventListener( evt, function( e ) {
+				fn( e, el );
 			}, false );
 		} );
-	}
-
-	if ( !drawerOverlay && !doc.body.classList.contains( 'nocomponents' ) ) {
-		console.warn( 'No container drawer overlay found, added automatically' );
-
-		drawerOverlay = doc.createElement( 'div' );
-		drawerOverlay.id = 'container-drawer-overlay';
-		doc.body.appendChild( drawerOverlay );
-	}
-
-	if ( drawerOverlay ) {
-		window.forEachElement( '[drawer-nav-trigger]', function( el ) {
-			el.addEventListener( 'click', toggleDrawer, false );
-		} );
-
-		drawerOverlay.addEventListener( 'click', toggleDrawer, false );
-	}
-
-	function toggleDrawer( e ) {
-		doc.body.classList.toggle( 'container-drawer-open' );
-
-		if ( e ) {
-			e.preventDefault();
-		}
-	}
-
-	return {
-		toggleDrawer: toggleDrawer
 	};
 
-}( document ) );
-///<reference path="../main.js">
-/**
- * Copyright 2015 Select Interactive, LLC. All rights reserved.
- * @author: The Select Interactive dev team (www.select-interactive.com) 
- */
-app.forms = ( function( doc ) {
-	'use strict';
+	// $.findUp - helper function to recursively traverse up the DOM to find a specified element 
+	// @startEl - the element that we start at and move up from
+	// @selector - the selector of the element we are looking for
+	// @attr - optional - the data attribute of the element we may want a value for
+	// @endTag - optional - the selector of the end tag to stop at. Defaults to the body tag.
+	// @fn - optional - a function to run once the element has been found
+	$.findUp = function( startEl, selector, attr, endTag, fn ) {
+		var el = startEl,
+			rspObj = {};
 
-	var inputFields = doc.querySelectorAll( '.input-field' ),
-		ranges = doc.querySelectorAll( 'input[type=range]' ),
-		
-		// keep track of an open select element
-		openSelect,
-
-		// TODO: Add regular expressions for validating type=email and type=tel
-		//  input fields
-		emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
-		telRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/,
-		dateRegex = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/;
-
-	// Handles text inputs and select elements
-	window.forEachElement( inputFields, function( container ) {
-		var lbl = container.querySelector( 'label' ),
-			input = container.querySelector( 'input' ),
-			select, opts;
-
-		// if textarea
-		if ( !input ) {
-			input = container.querySelector( 'textarea' );
+		if ( !endTag ) {
+			endTag = doc.body;
 		}
 
-		// if select
-		if ( !input ) {
-			input = container.querySelector( 'select' );
+		function moveUp() {
+			if ( $.matches( el, selector ) ) {
+				rspObj = {
+					el: el,
+					val: attr && attr.length ? el.getAttribute( attr ) : ''
+				};
 
-			if ( input ) {
-				input = initSelect( input );
-				select = container.querySelector( '.select-opts' );
-			}
-		}
-
-		// check if date input and if we are on larger screen
-		//   if we are on mobile, we'll let the device use the default date picker.
-		if ( input && input.classList.contains( 'input-date' ) && window.mq( '(min-width:1025px)' ) ) {
-			input.type = 'text';
-
-			var picker = new Pikaday( {
-				field: input,
-				format: 'MM/DD/YYYY',
-				onSelect: function() {
-					input.value = this.getMoment().format( 'MM/DD/YYYY' );
-				}
-			} );
-		}
-		
-		// add events for the labels
-		if ( lbl && input ) {
-			input.addEventListener( 'focus', function( e ) {
-				lbl.classList.add( 'active' );
-			}, false );
-
-			if ( select ) {
-				input.addEventListener( 'click', function( e ) {
-					var overlay;
-
-					select.classList.add( 'active' );
-					openSelect = select;
-
-					overlay = doc.createElement( 'div' );
-					overlay.id = 'select-pg-overlay';
-					doc.body.appendChild( overlay );
-				}, false );
-			}
-
-			if ( !select ) {
-				if ( input.value.length ) {
-					lbl.classList.add( 'active' );
+				if ( fn ) {
+					fn( rspObj );
 				}
 
-				// --------------------------------------------------
-				// TODO: this is getting called twice on date fields?
-				// --------------------------------------------------
-				input.addEventListener( 'blur', function( e ) {
-					var val = input.value.trim();
-					
-					if ( !val.length ) {
-						lbl.classList.remove( 'active' );
-					}
-					
-					validateField( input );
-				}, false );
-			}
-		}
-
-		// -------------------------------------------------------------------
-		// TODO: Not working on iOS. The overlay is on top of the select list?
-		// -------------------------------------------------------------------
-		// check for select opts
-		if ( select ) {
-			opts = select.querySelectorAll( '.select-opt' );
-				
-			window.forEachElement( opts, function( opt ) {
-				opt.addEventListener( 'click', function( e ) {
-					var active = select.querySelector( '.active' ),
-						val = '';
-					
-					if ( active && active !== opt && !input.classList.contains( 'multiple' ) ) {
-						active.classList.remove( 'active' );
-					}
-					
-					opt.classList.toggle( 'active' );
-					
-					if ( input.classList.contains( 'multiple' ) ) {
-						active = select.querySelectorAll( '.active' );
-
-						window.forEachElement( active, function( a, i ) {
-							if ( i > 0 ) {
-								val += ', ';
-							}
-
-							val += a.innerHTML;
-						} );
-
-						input.value = val;
-					}
-					else if ( opt.classList.contains( 'active' ) ) {
-						input.value = opt.innerHTML;
-						closeSelect();
-					}
-					else {
-						input.value = '';
-						closeSelect();
-					}
-					
-					validateField( input );
-
-					e.preventDefault();
-					return false;
-				}, false );
-			} );
-		}
-	} );
-
-	function checkSelectValues( el ) {
-		var input = el.parentNode.querySelector( 'input[type="text"]' ),
-			opts = el.parentNode.querySelectorAll( '.select-opt.active' ),
-			val = '';
-
-		if ( !opts || opts.length === 0 ) {
-			input.value = '';
-		}
-
-		window.forEachElement( opts, function( opt, i ) {
-			if ( input.classList.contains( 'multiple' ) ) {
-				if ( i > 0 ) {
-					val += ', ';
-				}
-
-				val += opt.innerHTML;
+				return rspObj;
 			}
 			else {
-				val = opt.innerHTML;
-			}
-		} );
+				el = el.parentNode;
 
-		input.value = val;
-	}
-
-	function initSelect( el ) {
-		var container, input, icon, optionList, options = '', label;
-
-		container = el.parentNode;
-		container.classList.add( 'input-field-select' );
-		
-		input = doc.createElement( 'input' );
-		input.classList.add( 'input-icon-select' );
-		input.id = 'tb-' + el.id;
-		input.readOnly = true;
-		input.type = 'text';
-
-		for ( var i = 0; i < el.classList.length; i++ ) {
-			input.classList.add( el.classList[i] );
-		}
-
-		if ( el.getAttribute( 'multiple' ) !== null ) {
-			input.classList.add( 'multiple' );
-		}
-		
-		icon = doc.createElement( 'i' );
-		icon.classList.add( 'material-icons' );
-		icon.classList.add( 'icon-drop-down' );
-		icon.innerHTML = 'arrow_drop_down';
-
-		label = container.querySelector( 'label' );
-
-		if ( label ) {
-			container.removeChild( label );
-			label.setAttribute( 'for', input.id );
-		}
-
-		window.forEachElement( el.querySelectorAll( 'option' ), function( opt ) {
-			options += '<li><a class="select-opt" href="#" data-val="' + opt.value + '">' + opt.text + '</a></li>';
-		} );
-
-		optionList = doc.createElement( 'ul' );
-		optionList.innerHTML = options;
-		optionList.classList.add( 'select-opts' );
-
-		el.classList.add( 'hidden' );
-		container.appendChild( input );
-		container.appendChild( label );
-		container.appendChild( icon );
-		container.appendChild( optionList );
-
-		return input;
-	}
-
-	// event to hide select elements
-	doc.body.addEventListener( 'click', function( e ) {
-		if ( e.target.id === 'select-pg-overlay' ) {
-			closeSelect();
-			e.preventDefault();
-		}
-	}, false );
-
-	function closeSelect() {
-		var lbl = openSelect.parentNode.querySelector( 'label' ),
-			overlay = doc.getElementById( 'select-pg-overlay' );
-		
-		doc.body.removeChild( overlay );
-
-		openSelect.classList.remove( 'active' );
-		validateField( openSelect.parentNode.querySelector( 'input' ) );
-
-		if ( !openSelect.querySelector( '.active' ) && lbl ) {
-			lbl.classList.remove( 'active' );
-		}
-
-		openSelect = null;
-	}
-
-	function checkActiveInputs() {
-		window.forEachElement( inputFields, function( container ) {
-			var lbl = container.querySelector( 'label' ),
-				input = container.querySelector( 'input' );
-
-			if ( !input ) {
-				input = container.querySelector( 'textarea' );
-			}
-
-			if ( lbl && input && input.value.trim().length ) {
-				lbl.classList.add( 'active' );
-			}
-		} );
-	}
-
-	// Handles ranges
-	window.forEachElement( ranges, function( range ) {
-		var lbl = doc.createElement( 'span' );
-		lbl.classList.add( 'range-label' );
-		lbl.innerHTML = range.value + ' / ' + range.getAttribute( 'max' );
-		range.parentNode.appendChild( lbl );
-
-		range.addEventListener( 'change', function() { setRangeValue( range, lbl ); }, false );
-		range.addEventListener( 'input', function() { setRangeValue( range, lbl ); }, false );
-	} );
-
-	function setRangeValue( range, lbl ) {
-		if ( lbl ) {
-			lbl.innerHTML = range.value + ' / ' + range.getAttribute( 'max' );
-		}
-	}
-
-	function validateField( field ) {
-		var valid = true,
-			val = field.value.trim(),
-			minChars = field.getAttribute( 'min-chars' ),
-			prevError = field.parentNode.querySelector( '.error-label' ),
-			lbl, msg;
-		
-		// check for some value in a .req field
-		if ( field.classList.contains( 'req' ) && !val.length ) {
-			valid = false;
-			msg = 'Required field.';
-		}
-
-		// check for min characters entered
-		else if ( minChars && val.length < minChars ) {
-			valid = false;
-			msg = minChars + ' characters required.';
-		}
-
-		// check for valid email addresses
-		else if ( field.type.toLowerCase() === 'email' && !emailRegex.test( val ) ) {
-			valid = false;
-			msg = 'Invalid email address.';
-		}
-
-		// check for valid phone number
-		else if ( field.type.toLowerCase() === 'tel' && !telRegex.test( val ) ) {
-			valid = false;
-			msg = 'Invalid phone number.';
-		}
-
-		// check for date
-		else if ( field.classList.contains( 'input-date' ) && !dateRegex.test( val ) ) {
-			valid = false;
-			msg = 'Incorrect date format.';
-		}
-
-
-		// remove any previous error messages
-		if ( prevError ) {
-			prevError.parentNode.removeChild( prevError );
-		}
-
-		// if the field is valid
-		if ( valid ) {
-			field.classList.remove( 'invalid' );
-		}
-
-		// if invalid, make sure it is highlighted
-		else {
-			field.classList.add( 'invalid' );
-
-			// if we have a msg
-			if ( msg ) {
-				lbl = doc.createElement( 'span' );
-				lbl.classList.add( 'error-label' );
-				lbl.innerHTML = msg;
-				field.parentNode.appendChild( lbl );
-			}
-		}
-	}
-
-	return {
-		checkActive: checkActiveInputs,
-		checkSelectValues: checkSelectValues
-	};
-
-}( document ) );
-///<reference path="../main.js">
-/**
- * Copyright 2015 Select Interactive, LLC. All rights reserved.
- * @author: The Select Interactive dev team (www.select-interactive.com) 
- */
-app.gmap = ( function( doc ) {
-	'use strict';
-
-	var gmapEl, map, status,
-		icon = '/img/map-marker.v1.png',
-
-		mapStyles = [{ 'featureType': 'administrative', 'elementType': 'labels.text.fill', 'stylers': [{ 'color': '#444444' }] }, { 'featureType': 'landscape', 'elementType': 'all', 'stylers': [{ 'color': '#f2f2f2' }] }, { 'featureType': 'poi', 'elementType': 'all', 'stylers': [{ 'visibility': 'off' }] }, { 'featureType': 'road', 'elementType': 'all', 'stylers': [{ 'saturation': -100 }, { 'lightness': 45 }] }, { 'featureType': 'road.highway', 'elementType': 'all', 'stylers': [{ 'visibility': 'simplified' }] }, { 'featureType': 'road.arterial', 'elementType': 'labels.icon', 'stylers': [{ 'visibility': 'off' }] }, { 'featureType': 'transit', 'elementType': 'all', 'stylers': [{ 'visibility': 'off' }] }, { 'featureType': 'water', 'elementType': 'all', 'stylers': [{ 'color': '#4f595d' }, { 'visibility': 'on' }] }],
-
-		markers = [],
-		mapBounds,
-
-		originalCenter,
-		originalZoom,
-
-		loadCallback,
-			
-		gmapsInitialized = false;
-
-	function init( el, statusEl, fn ) {
-		gmapEl = el;
-		status = statusEl;
-		loadCallback = fn;
-		loadGmaps();
-	}
-
-	function loadGmaps() {
-		var script;
-		
-		if ( !gmapsInitialized ) {
-			script = doc.createElement( 'script' );
-			script.async = true;
-			script.src = 'https://maps.googleapis.com/maps/api/js?callback=app.gmap.initGmap';
-			doc.body.appendChild( script );
-			gmapsInitialized = true;
-		}
-		else {
-			initGmap();
-		}
-	}
-
-	function initGmap() {
-		var latLng = gmapEl.getAttribute( 'data-map-center' ).split( ',' );
-
-		originalCenter = {
-			lat: parseFloat( latLng[0] ),
-			lng: parseFloat( latLng[1] )
-		};
-
-		originalZoom = parseInt( gmapEl.getAttribute( 'data-map-zoom' ), 10 );
-
-		google.maps.visualRefresh = true;
-
-		map = new google.maps.Map( gmapEl, {
-			center: originalCenter,
-			disableDefaultUI: true,
-			mapTypeId: google.maps.MapTypeId.ROAD,
-			scrollwheel: false,
-			streetViewControl: true,
-			zoom: originalZoom,
-			zoomControl: true
-		} );
-
-		map.setOptions( { styles: mapStyles } );
-
-		if ( gmapEl.getAttribute( 'data-map-marker' ) ) {
-			addMarker( {
-				lat: originalCenter.lat,
-				lng: originalCenter.lng
-			} );
-		}
-
-		mapBounds = new google.maps.LatLngBounds();
-
-		if ( loadCallback ) {
-			loadCallback();
-		}
-
-		gmapEl.init = true;
-	}
-
-	function clearMarkers() {
-		for ( var i = 0, len = markers.length; i < len; i++ ) {
-			markers[i].setMap( null );
-		}
-
-		mapBounds = new google.maps.LatLngBounds();
-	}
-
-	function addMarker( listing, fn, mapClickFn ) {
-		var marker = new google.maps.Marker( {
-			icon: icon,
-			position: {
-				lat: listing.lat,
-				lng: listing.lng
-			},
-			objId: listing.objectId
-		} ),
-
-			bounds;
-
-		marker.setMap( map );
-		markers.push( marker );
-
-		bounds = new google.maps.LatLng( listing.lat, listing.lng );
-
-		if ( gmapEl.getAttribute( 'data-infowindow' ) ) {
-			var content = '<div id="info-window-content"><span class="color-primary text-xlarge">Select Interactive</span><br />3343 Locke Avenue<br />Suite 107<br />Fort Worth, TX 76107</div>';
-			var infowindow = new google.maps.InfoWindow( {
-				content: content
-			} );
-
-			marker.addListener( 'mouseover', function() {
-				infowindow.open( map, marker );
-			} );
-
-			marker.addListener( 'click', function() {
-				infowindow.open( map, marker );
-			} );
-		}
-
-		if ( mapBounds ) {
-			mapBounds.extend( bounds );
-		}
-
-		if ( fn ) {
-			google.maps.event.addListener( marker, 'mouseover', function() {
-				fn( listing.objectId );
-			} );
-		}
-
-		if ( mapClickFn ) {
-			google.maps.event.addListener( map, 'click', function( e ) {
-				var latLng = e.latLng;
-				marker.setPosition( e.latLng );
-				mapClickFn( e );
-			} );
-		}
-	}
-
-	function fitBounds() {
-		map.fitBounds( mapBounds );
-
-		if ( map.getZoom() > 14 ) {
-			map.setZoom( 14 );
-		}
-	}
-
-	function setStatus( msg ) {
-		status.innerHTML = '<p>' + msg + '</p>';
-		status.classList.add( 'in' );
-	}
-
-	function clearStatus() {
-		if ( status ) {
-			status.classList.remove( 'in' );
-		}
-	}
-
-	function reset() {
-		map.setCenter( originalCenter );
-		map.setZoom( originalZoom );
-	}
-
-	function triggerResize() {
-		setTimeout( function() {
-			google.maps.event.trigger( map, 'resize' );
-			map.setCenter( originalCenter );
-		}, 500 );
-	}
-
-	function setCenter( lat, lng ) {
-		map.setCenter( { lat: lat, lng: lng } );
-	}
-
-	function setZoom( zoom ) {
-		map.setZoom( zoom );
-	}
-
-	if ( doc.querySelector( '#gmap' ) ) {
-		init( doc.getElementById( 'gmap' ) );
-	}
-
-	return {
-		init: init,
-		initGmap: initGmap,
-		addMarker: addMarker,
-		fitBounds: fitBounds,
-		clearMarkers: clearMarkers,
-		setStatus: setStatus,
-		clearStatus: clearStatus,
-		resetMap: reset,
-		triggerResize: triggerResize,
-		setCenter: setCenter,
-		setZoom: setZoom
-	};
-
-}( document ) );
-///<reference path="../main.js">
-/**
- * Copyright 2015 Select Interactive, LLC. All rights reserved.
- * @author: The Select Interactive dev team (www.select-interactive.com) 
- */
-app.lazyLoad = ( function( doc ) {
-	'use strict';
-
-	var wsUrl = '/webservices/wsApp.asmx/',
-		loadContainers;
-
-	function init( context ) {
-		if ( !context ) {
-			context = doc;
-		}
-
-		loadContainers = context.querySelectorAll( '.lazy-load' );
-
-		forEachElement( loadContainers, function( container ) {
-			if ( !container.getAttribute( 'data-loaded' ) ) {
-				container.setAttribute( 'data-loaded', 'true' );
-				loadContent( container );
-			}
-		} );
-	}
-
-	function loadContent( container ) {
-		var ws = container.getAttribute( 'data-ws' ),
-			url = container.getAttribute( 'data-url' ),
-			params = container.getAttribute( 'data-params' ),
-			wsData = {};
-
-		if ( ws ) {
-			url = wsUrl + url;
-		}
-
-		if ( params ) {
-			params = params.split( ',' );
-
-			for ( var i = 0, len = params.length; i < len; i++ ) {
-				var param = params[i].split( ':' ),
-					key = param[0],
-					value = param[1];
-				wsData[key] = value;
-			}
-		}
-
-		app.ajax.fetch( url, wsData ).then( function( rsp ) {
-			container.innerHTML = rsp;
-		} );
-	}
-
-	init();
-
-	return {
-		init: init
-	};
-
-}( document ) );
-///<reference path="../main.js">
-/**
- * Copyright 2015 Select Interactive, LLC. All rights reserved.
- * @author: The Select Interactive dev team (www.select-interactive.com) 
- */
-app.menu = ( function( doc ) {
-	'use strict';
-
-	var triggers, currentTrigger, openMenu, hideMenuTimeout,
-		evtOverlay = doc.querySelector( '#event-overlay' );
-
-	window.addEventListener( 'resize', resetMenuPosition, false );
-
-	function init( context, dynamicLoad ) {
-		var menu, position;
-
-		if ( !context ) {
-			context = doc;
-		}
-
-		triggers = context.querySelectorAll( '[data-menu-trigger]' );
-
-		forEachElement( triggers, function( trigger ) {
-			if ( !trigger.getAttribute( 'data-initialized' ) ) {
-				trigger.setAttribute( 'data-initialized', 'true' );
-				menu = context.querySelector( '[data-menu="' + trigger.getAttribute( 'data-menu-trigger' ) + '"]' );
-				menu.parentNode.removeChild( menu );
-				doc.body.appendChild( menu );
-
-				setMenuPosition( trigger, dynamicLoad );
-				
-				trigger.addEventListener( 'mouseenter', function( e ) {
-					showMenu( trigger );
-					e.preventDefault();
-				}, false );
-
-				trigger.addEventListener( 'click', function( e ) {
-					showMenu( trigger );
-					e.preventDefault();
-				}, false );
-			}
-		} );
-	}
-
-	function resetMenuPosition() {
-		triggers = doc.querySelectorAll( '[data-menu-trigger]' );
-
-		forEachElement( triggers, function( trigger ) {
-			setMenuPosition( trigger );
-		} );
-	}
-
-	function setMenuPosition( trigger, dynamicLoad ) {
-		var menu = doc.querySelector( '[data-menu="' + trigger.getAttribute( 'data-menu-trigger' ) + '"]' ),
-			position = trigger.getBoundingClientRect(),
-			left = position.left - 1,
-			right = window.innerWidth - position.right - 1,
-			top = position.top - 1;
-		
-		//if ( window.mq( '(min-width:1025px)' ) ) {
-		//	right = right - 18;
-		//}
-		
-		if ( dynamicLoad ) {
-			top = top - 101;
-		}
-
-		menu.style.left = left + 'px';
-		menu.setAttribute( 'data-top', top );
-	}
-
-	function showMenu( trigger ) {
-		var menu = doc.querySelector( '[data-menu="' + trigger.getAttribute( 'data-menu-trigger' ) + '"]' );
-
-		if ( menu && openMenu !== menu ) {
-			currentTrigger = trigger;
-			openMenu = menu;
-
-			menu.style.top = menu.getAttribute( 'data-top' ) + 'px';
-			menu.classList.add( 'in' );
-
-			menu.removeEventListener( 'mouseenter', keepMenu );
-			menu.removeEventListener( 'mouseout', hideMenu );
-
-			menu.addEventListener( 'mouseenter', keepMenu, false );
-			menu.addEventListener( 'mouseleave', hideMenu, false );
-
-			if ( window.mq( '(max-width:1024px)' ) ) {
-				if ( evtOverlay ) {
-					evtOverlay.classList.add( 'in' );
-
-					setTimeout( function() {
-						evtOverlay.style.height = doc.body.offsetHeight + 'px';
-						evtOverlay.addEventListener( 'click', hideMenu, false );
-					}, 10 );
+				if ( el === endTag || $.matches( el, endTag ) ) {
+					return null;
 				}
 				else {
-					console.warn( 'No event overlay found to close menu on mobile.' );
+					return moveUp();
 				}
 			}
 		}
+
+		return moveUp();
+	};
+
+	// $.mq - helper function to check for mediaquery
+	// @mediaQuery - the mediaquery to test for (i.e. '(min-width:1024px)')
+	$.mq = function( mediaQuery ) {
+		return !( window.matchMedia ) || ( window.matchMedia && window.matchMedia( mediaQuery ).matches );
+	};
+
+	// keep backwards compatibility for mq
+	window.mq = $.mq;
+
+	// $.eqHeight - Helper function to set columns to the same height
+	// @context - Optional - Element - the parent element to find rows in. Defaults to body.
+	$.eqHeight = function( context ) {
+		if ( !context || !context.querySelector ) {
+			context = doc;
+		}
+
+		// if the promise polyfill hasn't loaded for browsers that need it
+		if ( typeof self.Promise === 'undefined' || !self.Promise ) {
+			setTimeout( function() {
+				$.eqHeight( context );
+			}, 10 );
+
+			return;
+		}
+
+		// collect all of the rows
+		$.forEach( '.eq-height', function( row ) {
+			var cols = $$( '.eq-height-item', row ),
+
+				// keep all the image promises as an array
+				imagePromises = [];
+
+			// only if we are over a mq of 768px or the row has class .mbl-eq-height
+			if ( $.mq( '(min-width:768px)' ) || row.classList.contains( 'mbl-eq-height' ) ) {
+
+				// check if this is large item only
+				if ( !row.classList.contains( 'eq-height-item-lg' ) || $.mq( '(min-width:1024px)' ) ) {
+					// loop through any images, create a promise for them and add to the imagePromises array
+					$.forEach( 'img', function( img ) {
+						imagePromises.push( new Promise( function( resolve, reject ) {
+							// the image is cached (or has already loaded?)
+							if ( img.complete ) {
+								resolve( this );
+							}
+							else {
+								// image has loaded
+								img.addEventListener( 'load', function() {
+									console.log( 'image loaded' );
+									resolve( this );
+								}, false );
+							}
+						} ) );
+					}, row );
+
+					// if there are images, wait for them to all load before setting the column height
+					if ( imagePromises.length ) {
+						Promise.all( imagePromises ).then( function() {
+							// all images have been loaded
+							setColumnHeights( cols );
+						}, function() {
+							console.warn( 'An image has failed to load.' );
+						} );
+					}
+
+						// if no images in the container/row, set the column heights now
+					else {
+						setColumnHeights( cols );
+					}
+				}
+				else {
+					$.forEach( cols, function( col ) {
+						col.classList.add( 'in' );
+					} );
+				}
+			}
+			else {
+				$.forEach( cols, function( col ) {
+					col.classList.add( 'in' );
+				} );
+			}
+		}, context );
+
+		function setColumnHeights( cols ) {
+			var h = 0;
+
+			// find the tallest column
+			$.forEach( cols, function( col ) {
+				if ( col.offsetHeight > h ) {
+					h = col.offsetHeight;
+				}
+			} );
+
+			// set the height of all the columns to the tallest one
+			$.forEach( cols, function( col ) {
+				col.style.height = h + 'px';
+				col.classList.add( 'in' );
+			} );
+		}
+	};
+
+	// on load let's run eqHeight
+	window.addEventListener( 'load', $.eqHeight );
+
+	// $.fetch - Replacing Ajax
+	// url - String - the url to fetch
+	// options - JSON object - options such as data, method, etc...
+	// type - optional - String - the method type. Set to 'GET' to perform a GET request
+	$.fetch = function( url, options, type, callbackFn ) {
+		var opts, headers;
+
+		// if no url was passed in break now
+		if ( !url ) {
+			console.warn( 'No url provided to fetch' );
+			return;
+		}
+
+		// if the promise polyfill hasn't loaded yet
+		//   overwrite .then and wait 100 milliseconds then try again.
+		if ( typeof self.Promise === 'undefined' || !self.Promise ) {
+			return {
+				then: function( fn ) {
+					setTimeout( function() {
+						return $.fetch( url, options, type, fn );
+					}, 100 );
+				}
+			};
+		}
+
+		// if the fetch polyfill hasn't loaded yet
+		//   overwrite .then and wait 100 milliseconds then try again.
+		if ( !self.fetch ) {
+			return {
+				then: function( fn ) {
+					setTimeout( function() {
+						return $.fetch( url, options, type, fn );
+					}, 100 );
+				}
+			};
+		}
+		else {
+			// init options to empty object if none were passed in
+			if ( !options ) {
+				options = {};
+			}
+
+			// check fetch request type -- assuming this would a POST request
+			if ( !type || type !== 'GET' ) {
+				// if additional headers need to be added
+				headers = app.util.extend( {
+					'Accept': 'application/json',
+					'Content-type': 'application/json'
+				}, options.headers || {} );
+
+				// setup some default options for a POST request
+				//  and extend to include any options that were passed in
+				//  specifically the body property for webservice parameters
+				opts = app.util.extend( {
+					url: url,
+					body: '',
+					method: 'POST'
+				}, options );
+
+				// make sure we include all of the needed headers
+				opts.headers = headers;
+
+				// make sure the body property has been stringified
+				if ( opts.body && typeof opts.body !== 'string' && opts.body !== {} ) {
+					opts.body = JSON.stringify( opts.body );
+				}
+
+				// make the fetch call
+				return fetch( url, opts ).then( function( rsp ) {
+					return rsp.json();
+				} ).then( function( data ) {
+					if ( callbackFn ) {
+						callbackFn( data.d );
+					}
+					else {
+						return data.d;
+					}
+				} ).then( function( rsp ) {
+					return JSON.parse( rsp );
+				} );
+			}
+			else {
+				// if additional headers need to be added
+				headers = app.util.extend( {
+					'Content-Type': 'text/plain'
+				}, options.headers || {} );
+				
+				// setup default options for a GET request
+				//  expecting text/plain content type by default
+				opts = app.util.extend( {
+					method: 'GET'
+				}, options );
+
+				// make sure we include all of the needed headers
+				opts.headers = headers;
+
+				// make the fetch call
+				return fetch( url, opts ).then( function( rsp ) {
+					return rsp.text();
+				} ).then( function( rsp ) {
+					if ( callbackFn ) {
+						callbackFn( rsp );
+					}
+					else {
+						return rsp;
+					}
+				} );
+			}
+		}
+	};
+
+	$.matches = function( elm, selector ) {
+		var _matches = ( elm.document || elm.ownerDocument ).querySelectorAll( selector ),
+			i = _matches.length;
+		while ( --i >= 0 && _matches.item( i ) !== elm ) { }
+		return i > -1;
+	};
+
+	app.$ = $;
+	app.$$ = $$;
+}( window, window.document, undefined ) );
+
+// Polyfill for CustomEvent
+( function() {
+
+	if ( typeof window.CustomEvent === 'function' ) {
+		return false;
 	}
-	
-	function keepMenu() {
-		if ( hideMenuTimeout ) {
-			clearTimeout( hideMenuTimeout );
-			hideMenuTimeout = null;
+
+	function CustomEvent( event, params ) {
+		params = params || { bubbles: false, cancelable: false, detail: undefined };
+		var evt = document.createEvent( 'CustomEvent' );
+		evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
+		return evt;
+	}
+
+	CustomEvent.prototype = window.Event.prototype;
+
+	window.CustomEvent = CustomEvent;
+} )();
+
+// Avoid 'console' errors in browsers that lack a console
+( function() {
+	var method;
+	var noop = function() { };
+	var methods = [
+        'assert', 'clear', 'count', 'debug', 'dir', 'dirxml', 'error',
+        'exception', 'group', 'groupCollapsed', 'groupEnd', 'info', 'log',
+        'markTimeline', 'profile', 'profileEnd', 'table', 'time', 'timeEnd',
+        'timeStamp', 'trace', 'warn'
+	];
+	var length = methods.length;
+	var console = ( window.console = window.console || {} );
+
+	while ( length-- ) {
+		method = methods[length];
+
+		// Only stub undefined methods.
+		if ( !console[method] ) {
+			console[method] = noop;
+		}
+	}
+}() );
+///<reference path="../main.js">
+/**
+ * Copyright 2016 Select Interactive, LLC. All rights reserved.
+ * @author: The Select Interactive dev team (www.select-interactive.com) 
+ */
+( function( doc ) {
+	'use strict';
+
+	let activeAlert = null;
+
+	const cssClasses = {
+		ALERT_ACTIVE: 'alert-active',
+		ALERT_EL: 'alert-el',
+		ALERT_HDR: 'alert-header',
+		ALERT_INFO: 'alert-info',
+		BTN: 'alert-btn',
+		BTN_CONFIRM: 'alert-btn-confirm',
+		BTN_CONTAINER: 'alert-btn-container',
+		BTN_DISMISS: 'alert-btn-dismiss',
+		CONTAINER: 'alert-container'
+	};
+
+	const keys = {
+		ESCAPE: 27
+	};
+
+	class Alert {
+		constructor() {
+			if ( activeAlert ) {
+				console.log( 'An alert already exists.' );
+				return activeAlert;
+			}
+
+			this.alertContainer = this.createAlertElements();
+
+			this.onConfirm = function() { };
+			this.onDismiss = function() { };
+
+			this.promptAlert = this.promptAlert.bind( this );
+			this.updateButtons = this.updateButtons.bind( this );
+			this.showAlert = this.showAlert.bind( this );
+			this.handleKeyDown = this.handleKeyDown.bind( this );
+			this.dismissAlert = this.dismissAlert.bind( this );
+
+			this.addEventListeners();
+
+			activeAlert = this;
+		}
+
+		createAlertElements() {
+			let el = doc.createElement( 'div' );
+			el.classList.add( cssClasses.CONTAINER );
+			doc.body.appendChild( el );
+
+			this.alertEl = doc.createElement( 'div' );
+			this.alertEl.classList.add( cssClasses.ALERT_EL );
+
+			this.alertHeader = doc.createElement( 'h3' );
+			this.alertHeader.classList.add( cssClasses.ALERT_HDR );
+
+			this.alertInfo = doc.createElement( 'div' );
+			this.alertInfo.classList.add( cssClasses.ALERT_INFO );
+
+			let btnContainer = doc.createElement( 'div' );
+			btnContainer.classList.add( cssClasses.BTN_CONTAINER );
+
+			this.btnDismiss = doc.createElement( 'button' );
+			this.btnDismiss.classList.add( cssClasses.BTN );
+			this.btnDismiss.classList.add( cssClasses.BTN_CONFIRM );
+			this.btnDismiss.classList.add( 'btn-ripple' );
+			this.btnDismiss.textContent = 'Dismiss';
+
+			this.btnConfirm = doc.createElement( 'button' );
+			this.btnConfirm.classList.add( cssClasses.BTN );
+			this.btnConfirm.classList.add( cssClasses.BTN_CONFIRM );
+			this.btnConfirm.classList.add( 'btn-ripple' );
+			this.btnConfirm.textContent = 'Confirm';
+
+			btnContainer.appendChild( this.btnDismiss );
+			btnContainer.appendChild( this.btnConfirm );
+
+			el.appendChild( this.alertEl );
+			this.alertEl.appendChild( this.alertHeader );
+			this.alertEl.appendChild( this.alertInfo );
+			this.alertEl.appendChild( btnContainer );
+
+			return el;
+		}
+
+		addEventListeners() {
+			this.btnConfirm.addEventListener( 'click', this.onConfirm, false );
+			this.btnDismiss.addEventListener( 'click', this.onDismiss, false );
+		}
+
+		promptAlert( hdr, content, btnConfirmText, btnDismissText, fnConfirm, fnDismiss ) {
+			this.alertHeader.textContent = hdr;
+			this.alertInfo.innerHTML = content;
+			this.updateButtons( btnConfirmText, btnDismissText, fnConfirm, fnDismiss );
+			this.showAlert();
+
+			doc.body.addEventListener( 'keydown', this.handleKeyDown, false );
+		}
+
+		updateButtons( btnConfirmText, btnDismissText, fnConfirm, fnDismiss ) {
+			this.btnConfirm.textContent = btnConfirmText;
+			this.btnDismiss.textContent = btnDismissText;
+
+			this.btnDismiss.MaterialButton = new MaterialButton( this.btnDismiss );
+			this.btnConfirm.MaterialButton = new MaterialButton( this.btnConfirm );
+
+			this.btnConfirm.removeEventListener( 'click', this.onConfirm, false );
+			this.btnDismiss.removeEventListener( 'click', this.onDismiss, false );
+
+			this.onConfirm = fnConfirm;
+			this.onDismiss = fnDismiss;
+
+			this.btnConfirm.addEventListener( 'click', this.onConfirm, false );
+			this.btnDismiss.addEventListener( 'click', this.onDismiss, false );
+		}
+
+		showAlert() {
+			doc.body.classList.add( cssClasses.ALERT_ACTIVE );
+		}
+
+		handleKeyDown( e ) {
+			if ( e.keyCode === keys.ESCAPE ) {
+				this.onDismiss();
+			}
+		}
+
+		dismissAlert() {
+			doc.body.classList.remove( cssClasses.ALERT_ACTIVE );
+			doc.body.removeEventListener( 'keydown', this.handleKeyPress, false );
 		}
 	}
 
-	function hideMenu() {
-		hideMenuTimeout = setTimeout( function() {
-			openMenu.classList.add( 'hide' );
-
-			evtOverlay.removeEventListener( 'click', hideMenu, false );
-			evtOverlay.classList.remove( 'in' );
-			evtOverlay.style.height = 0;
-
-			setTimeout( function() {
-				openMenu.classList.remove( 'in' );
-				openMenu.classList.remove( 'hide' );
-				openMenu.style.top = '-99999px';
-
-				setTimeout( function() {
-					openMenu = null;
-				}, 10 );
-			}, 500 );
-		}, 300 );
-	}
-
-	init();
-
-	return {
-		initMenus: init
-	};
+	app.Alert = Alert;
 
 }( document ) );
 ///<reference path="../main.js">
@@ -6228,412 +4660,1384 @@ app.menu = ( function( doc ) {
  * Copyright 2015 Select Interactive, LLC. All rights reserved.
  * @author: The Select Interactive dev team (www.select-interactive.com) 
  */
-app.nav = ( function( doc ) {
+( function( doc ) {
 	'use strict';
 
-	var nav = doc.querySelector( '#nav-main' ),
-		btnNavTrigger = doc.querySelector( '#btn-nav-trigger' ),
-		evtOverlay = doc.querySelector( '#event-overlay' ),
+	var MaterialButton = function MaterialButton( element ) {
+		this.element_ = element;
+		this.init();
+	};
+
+	window.MaterialButton = MaterialButton;
+
+	// Definte css classes
+	MaterialButton.prototype.cssClasses_ = {
+		RIPPLE_BUTTON: 'btn-ripple',
+		RIPPLE_CONTAINER: 'btn-ripple-container',
+		RIPPLE: 'btn-ripple-element',
+		RIPPLE_CENTER: 'btn-ripple-center',
+		RIPPLE_IS_ANIMATING: 'is-animating',
+		RIPPLE_IS_VISIBLE: 'is-visible'
+	};
+
+	MaterialButton.prototype.RippleConstant = {
+		INITIAL_SCALE: 'scale(0.0001, 0.0001)',
+		INITIAL_SIZE: '1px',
+		INITIAL_OPACITY: '0.4',
+		FINAL_OPACITY: '0',
+		FINAL_SCALE: ''
+	};
+
+	// initialize the element
+	MaterialButton.prototype.init = function() {
+		if ( this.element_ ) {
 			
-		startX = -1;
+			// if this button needs the ripple effect
+			//   add the necessary ripple elements and events
+			if ( this.element_.classList.contains( this.cssClasses_.RIPPLE_BUTTON ) ) {
+				this.initRipple();
+			}
+		}
+	};
 
-	if ( nav && btnNavTrigger && evtOverlay ) {
-		nav.addEventListener( 'touchstart', navTouchStart, false );
-		nav.addEventListener( 'touchend', navTouchEnd, false );
-		btnNavTrigger.addEventListener( 'click', showNav, false );
-		evtOverlay.addEventListener( 'click', hideNav, false );
-	}
-	else {
-		console.warn( 'Website navigation elements not present.' );
-	}
+	MaterialButton.prototype.initRipple = function() {
+		var recentering;
 
-	function navTouchStart( e ) {
-		if ( window.mq( '(max-width:1024px)' ) && e.touches ) {
-			startX = e.touches[0].clientX;
+		// first add the elements
+		this.addRippleElements();
+
+		// set defaults and add event handlers
+		recentering = this.element_.classList.contains( this.cssClasses_.RIPPLE_CENTER );
+		this.frameCount_ = 0;
+		this.rippleSize_ = 0;
+		this.x_ = 0;
+		this.y_ = 0;
+
+		// Touch start produces a compat mouse down event, which would cause a
+		// second ripple. To avoid that, we use this property to ignore the first
+		// mouse down after a touch start.
+		this.ignoringMouseDown_ = false;
+
+		this.boundDownHandler = this.downHandler_.bind( this );
+		this.element_.addEventListener( 'mousedown', this.boundDownHandler, false );
+		this.element_.addEventListener( 'touchstart', this.boundDownHandler, false );
+
+		this.boundUpHandler = this.upHandler_.bind( this );
+		this.element_.addEventListener( 'mouseup', this.boundUpHandler, false );
+		this.element_.addEventListener( 'mouseleave', this.boundUpHandler, false );
+		this.element_.addEventListener( 'touchend', this.boundUpHandler, false );
+		this.element_.addEventListener( 'blur', this.boundUpHandler, false );
+
+		// helpers
+		this.getFrameCount = function() {
+			return this.frameCount_;
+		};
+
+		this.setFrameCount = function( fC ) {
+			this.frameCount_ = fC;
+		};
+
+		this.getRippleElement = function() {
+			return this.rippleElement_;
+		};
+
+		this.setRippleXY = function( newX, newY ) {
+			this.x_ = newX;
+			this.y_ = newY;
+		};
+
+		// styles
+		this.setRippleStyles = function( start ) {
+			if ( this.rippleElement_ !== null ) {
+				var transformString, scale, size,
+					offset = 'translate(' + this.x_ + 'px, ' + this.y_ + 'px)';
+
+				if ( start ) {
+					scale = this.RippleConstant.INITIAL_SCALE;
+					size = this.RippleConstant.INITIAL_SIZE;
+				}
+				else {
+					scale = this.RippleConstant.FINAL_SCALE;
+					size = this.rippleSize_ + 'px';
+
+					if ( recentering ) {
+						offset = 'translate(' + this.boundWidth / 2 + 'px, ' + this.boundHeight / 2 + 'px)';
+					}
+				}
+
+				transformString = 'translate(-50%, -50%) ' + offset + scale;
+
+				this.rippleElement_.style.webkitTransform = transformString;
+				this.rippleElement_.style.msTransform = transformString;
+				this.rippleElement_.style.transform = transformString;
+
+				if ( start ) {
+					this.rippleElement_.classList.remove( this.cssClasses_.RIPPLE_IS_ANIMATING );
+				}
+				else {
+					this.rippleElement_.classList.add( this.cssClasses_.RIPPLE_IS_ANIMATING );
+				}
+			}
+		};
+
+		// RAF
+		this.animFrameHandler = function() {
+			if ( this.frameCount_-- > 0 ) {
+				requestAnimationFrame( this.animFrameHandler.bind( this ) );
+			}
+			else {
+				this.setRippleStyles( false );
+			}
+		};
+	};
+
+	MaterialButton.prototype.addRippleElements = function() {
+		var container = doc.createElement( 'span' );
+		container.classList.add( this.cssClasses_.RIPPLE_CONTAINER );
+
+		this.rippleElement_ = doc.createElement( 'span' );
+		this.rippleElement_.classList.add( this.cssClasses_.RIPPLE );
+
+		container.appendChild( this.rippleElement_ );
+
+		this.boundRippleBlurHandler = this.blurHandler_.bind( this );
+		this.rippleElement_.addEventListener( 'mouseup', this.boundRippleBlurHandler );
+		this.element_.appendChild( container );
+	};
+
+	// blur event handler
+	MaterialButton.prototype.blurHandler_ = function( e ) {
+		if ( e ) {
+			this.element_.blur();
+		}
+	};
+
+	// disable the button
+	MaterialButton.prototype.disable = function() {
+		this.element_.disabled = true;
+	};
+
+	// button downHandler
+	MaterialButton.prototype.downHandler_ = function( e ) {
+		var bound, x, y, clientX, clientY;
+
+		if ( !this.rippleElement_.style.width && !this.rippleElement_.style.height ) {
+			var rect = this.element_.getBoundingClientRect();
+			this.boundHeight = rect.height;
+			this.boundWidth = rect.width;
+			this.rippleSize_ = Math.sqrt( rect.width * rect.width + rect.height * rect.height ) * 2 + 2;
+			this.rippleElement_.style.width = this.rippleSize_ + 'px';
+			this.rippleElement_.style.height = this.rippleSize_ + 'px';
+		}
+
+		this.rippleElement_.classList.add( this.cssClasses_.RIPPLE_IS_VISIBLE );
+
+		if ( e.type === 'mousedown' && this.ignoringMouseDown_ ) {
+			this.ignoringMouseDown_ = false;
+		}
+		else {
+			if ( e.type === 'touchstart' ) {
+				this.ignoringMouseDown_ = true;
+			}
+
+			var frameCount = this.getFrameCount();
+			if ( frameCount > 0 ) {
+				return;
+			}
+
+			this.setFrameCount( 1 );
+
+			bound = e.currentTarget.getBoundingClientRect();
+
+			// Check if we are handling a keyboard click.
+			if ( e.clientX === 0 && e.clientY === 0 ) {
+				x = Math.round( bound.width / 2 );
+				y = Math.round( bound.height / 2 );
+			} else {
+				clientX = e.clientX ? e.clientX : e.touches[0].clientX;
+				clientY = e.clientY ? e.clientY : e.touches[0].clientY;
+				x = Math.round( clientX - bound.left );
+				y = Math.round( clientY - bound.top );
+			}
+
+			this.setRippleXY( x, y );
+			this.setRippleStyles( true );
+
+			window.requestAnimationFrame( this.animFrameHandler.bind( this ) );
+		}
+	};
+
+	// button upHandler
+	MaterialButton.prototype.upHandler_ = function( e ) {
+		// Don't fire for the artificial "mouseup" generated by a double-click.
+		if ( e && e.detail !== 2 ) {
+			this.rippleElement_.classList.remove( this.cssClasses_.RIPPLE_IS_VISIBLE );
+		}
+
+		// Allow a repaint to occur before removing this class, so the animation
+		// shows for tap events, which seem to trigger a mouseup too soon after mousedown.
+		window.setTimeout( function() {
+			this.rippleElement_.classList.remove( this.cssClasses_.RIPPLE_IS_VISIBLE );
+		}.bind( this ), 0 );
+	};
+
+	// enable the button
+	MaterialButton.prototype.enable = function() {
+		this.element_.disabled = false;
+	};
+
+	app.$.forEach( '.btn-ripple', function( btn ) {
+		btn.MaterialButton = new MaterialButton( btn );
+	} );
+}( document ) );
+///<reference path="../main.js">
+/**
+ * Copyright 2016 Select Interactive, LLC. All rights reserved.
+ * @author: The Select Interactive dev team (www.select-interactive.com) 
+ */
+( function( doc ) {
+	'use strict';
+
+	const ckEditorSettings = {
+		allowedContent: true,
+		height: 350,
+		toolbar: 'Simple'
+	};
+
+	const formCssClasses = {
+		chosenSelect: 'chosen-select',
+		ckeditor: 'use-ckeditor',
+		errorLabel: 'error-label',
+		hidden: 'hidden',
+		inputField: 'input-field',
+		invalid: 'invalid',
+		mediumEditor: 'use-medium-editor',
+		required: 'req'
+	};
+
+	class Form {
+		// When creating a new Form, we can pass in a selected element (i.e. doc.querySelect( '#form' ))
+		// or we can pass in a selector (i.e. '#form' )
+		constructor( el ) {
+			if ( typeof el === 'string' ) {
+				el = app.$( el );
+			}
+			
+			this.container = el;
+			this.fields = el.querySelectorAll( 'input:not([type="file"]),textarea,select' );
+			this.reqFields = el.querySelectorAll( '.' + formCssClasses.required );
+			this.inputFields = el.querySelectorAll( '.' + formCssClasses.inputField );
+
+			this.initFormElements = this.initFormElements.bind( this );
+			this.initEditors = this.initEditors.bind( this );
+			this.checkActiveInputs = this.checkActiveInputs.bind( this );
+			this.validateFields = this.validateFields.bind( this );
+			this.collectData = this.collectData.bind( this );
+			this.setFieldValues = this.setFieldValues.bind( this );
+			this.clearForm = this.clearForm.bind( this );
+
+			this.initFormElements();
+			this.initEditors();
+		}
+
+		// This function will loop through all input field elements to check for
+		// inputs and select elements to create our custom TextBox or Select objects
+		initFormElements() {
+			app.$.forEach( this.inputFields, container => {
+				let select = container.querySelector( 'select' );
+				let input = container.querySelector( 'input' );
+				
+				if ( select && !select.Select ) {
+					select.Select = new app.Select( select );
+				}
+
+				if ( !input ) {
+					input = container.querySelector( 'textarea' );
+				}
+
+				if ( !input ) {
+					input = container.querySelector( '.' + formCssClasses.mediumEditor );
+				}
+
+				if ( input ) {
+					let tag = input.tagName.toLowerCase();
+					let type = input.type.toLowerCase();
+
+					if ( !input.TextBox && type !== 'checkbox' && type !== 'radio' ) {
+						input.TextBox = new app.TextBox( input );
+					}
+				}
+			} );
+		}
+
+		// Helper functions to initialize textareas with MediumEditor or CKEDITOR
+		// depending on specified class
+		initEditors() {
+			app.$.forEach( this.fields, field => {
+				if ( field.classList.contains( formCssClasses.mediumEditor ) ) {
+					if ( !window.MediumEditor ) {
+						console.warn( 'MediumEditor source not found. Unable to use MediumEditor.' );
+					}
+					else {
+						new MediumEditor( field, {
+							placeholder: {
+								text: ''
+							}
+						} );
+					}
+				}
+				else if ( field.classList.contains( formCssClasses.ckeditor ) ) {
+					if ( !window.CKEDITOR ) {
+						console.warn( 'CKEDITOR source not found. Unable to use CKEDITOR' );
+					}
+					else {
+						CKEDITOR.replace( field.id, ckEditorSettings );
+
+						if ( field.classList.contains( 'ckfinder' ) ) {
+							CKFinder.setupCKEditor( CKEDITOR.instances[field.id], '/ckfinder/' );
+						}
+					}
+				}
+			} );
+		}
+
+		// Check if inputs/selects have values to set or remove active class
+		// on the sibling label
+		checkActiveInputs() {
+			app.$.forEach( this.inputFields, container => {
+				let lbl = container.querySelector( 'label' );
+				let select = container.querySelector( 'select' );
+				let input = container.querySelector( 'input' );
+
+				if ( lbl ) {
+					lbl.classList.remove( 'active' );
+				}
+
+				if ( select && select.Select ) {
+					select.Select.checkForValue();
+				}
+
+				if ( !input ) {
+					input = container.querySelector( 'textarea' );
+				}
+
+				if ( !input ) {
+					input = container.querySelector( '.' + formCssClasses.mediumEditor );
+				}
+
+				if ( input && input.TextBox ) {
+					input.TextBox.checkForValue();
+				}
+			} );
+		}
+
+		// Helper function to check if required fields have valid data
+		validateFields() {
+			let isValid = true;
+
+			app.$.forEach( this.reqFields, field => {
+				let val = '';
+				let tag = field.tagName.toLowerCase();
+
+				if ( field.classList.contains( formCssClasses.mediumEditor ) ) {
+					val = field.innerHTML;
+				}
+				else if ( field.classList.contains( formCssClasses.ckeditor ) ) {
+					val = CKEDITOR.instances[field.id].getData().trim();
+				}
+				else if ( tag === 'select' ) {
+					if ( field.Select ) {
+						val = field.Select.getValue();
+					}
+					else if ( !field.classList.contains( formCssClasses.chosenSelect ) ) {
+						val = field.options[field.selectedIndex].value;
+					}
+				}
+				else {
+					val = field.value.trim();
+				}
+
+				if ( val === '' || val === '-1' || val === -1 ) {
+					field.classList.add( formCssClasses.invalid );
+					isValid = false;
+				}
+				else {
+					field.value = val;
+					field.classList.remove( formCssClasses.invalid );
+				}
+			} );
+
+			return isValid;
+		}
+
+		// Helper function to collect data from form fields and return as
+		// JSON key/value pair object. Uses the element's name attribute as the key.
+		collectData() {
+			let params = {};
+
+			app.$.forEach( this.fields, field => {
+				let key = field.getAttribute( 'name' );
+				let val = '';
+				let tag = field.tagName.toLowerCase();
+				let type = field.type ? field.type.toLowerCase() : '';
+
+				if ( type === 'checkbox' ) {
+					val = field.checked;
+				}
+				else if ( field.classList.contains( formCssClasses.mediumEditor ) ) {
+					val = field.innerHTML;
+				}
+				else if ( field.classList.contains( formCssClasses.ckeditor ) ) {
+					val = CKEDITOR.instances[field.id].getData().trim();
+				}
+				else if ( tag === 'select' ) {
+					if ( field.Select ) {
+						val = field.Select.getValue();
+					}
+					else if ( !field.classList.contains( formCssClasses.chosenSelect ) ) {
+						val = field.options[field.selectedIndex].value;
+					}
+				}
+				else {
+					val = field.value.trim();
+
+					if ( field.classList.contains( 'integer' ) ) {
+						val = parseInt( val, 10 );
+					}
+					else if ( field.classList.contains( 'decimal' ) ) {
+						val = parseFloat( val );
+					}
+				}
+
+				params[key] = val;
+			} );
+
+			return params;
+		}
+
+		// Helper function to set the values of form fields. Will use the 
+		// name attribute of each field element to select the respective value
+		// from the obj parameter.
+		setFieldValues( obj ) {
+			app.$.forEach( this.fields, field => {
+				let val = obj[field.getAttribute( 'name' )];
+				let type = field.type ? field.type.toLowerCase() : '';
+				let tag = field.tagName.toLowerCase();
+
+				if ( !obj ) {
+					console.warn( 'Property does not exist for key ' + field.getAttribute( 'name' ) );
+				}
+				else {
+					if ( type === 'checkbox' ) {
+						field.checked = val;
+					}
+					else if ( field.classList.contains( formCssClasses.mediumEditor ) ) {
+						field.innerHTML = val;
+					}
+					else if ( field.classList.contains( formCssClasses.ckeditor ) ) {
+						val = CKEDITOR.instances[field.id].setData( val );
+					}
+					else if ( tag === 'select' && field.Select ) {
+						field.Select.setValue( val );
+					}
+					else {
+						if ( field.classList.contains( 'input-date' ) ) {
+							if ( obj[field.getAttribute( 'name' ) + 'Str'] ) {
+								val = obj[field.getAttribute( 'name' ) + 'Str'];
+							}
+							else {
+								val = moment( val ).format( 'MM/DD/YYYY' );
+							}
+						}
+
+						field.value = val;
+					}
+				}
+			} );
+
+			this.checkActiveInputs();
+		}
+
+		// Helper function to clear out the values of a form. Will additionally
+		// remove all HTML from containers with class .row-preview and hide
+		// all elements with class .btn-item-upload-delete. It will then
+		// run checkActiveInputs to reset the labels.
+		clearForm() {
+			app.$.forEach( this.fields, field => {
+				let lbl = field.querySelector( '.' + formCssClasses.errorLabel );
+				let type = field.type ? field.type.toLowerCase() : '';
+				let tag = field.tagName.toLowerCase();
+
+				if ( type === 'checkbox' ) {
+					field.checked = false;
+				}
+				else if ( field.classList.contains( formCssClasses.mediumEditor ) ) {
+					field.innerHTML = '';
+				}
+				else if ( tag === 'textarea' ) {
+					CKEDITOR.instances[field.id].setData( '' );
+				}
+				else if ( tag === 'select' ) {
+					if ( field.Select ) {
+						field.Select.setValue( '-1' );
+					}
+					else if ( field.multiple && field.classList.contains( formCssClasses.chosenSelect ) ) {
+						app.$.forEach( field.querySelectorAll( 'option' ), function( opt ) {
+							opt.selected = false;
+						} );
+
+						jQuery( field ).trigger( 'chosen:updated' );
+					}
+					else {
+						field.value = '-1';
+					}
+				}
+				else {
+					field.value = '';
+				}
+
+				field.classList.remove( formCssClasses.invalid );
+
+				if ( lbl ) {
+					field.parentNode.removeChild( lbl );
+				}
+			} );
+
+			app.$.forEach( '.row-preview', row => {
+				row.innerHTML = '';
+			}, this.container );
+
+			app.$.forEach( '.btn-item-upload-delete', btn => {
+				btn.classList.add( 'hidden' );
+			}, this.container );
+
+			this.checkActiveInputs();
+		}
+
+		hide() {
+			this.container.classList.add( formCssClasses.hidden );
+		}
+
+		show() {
+			this.checkActiveInputs();
+			this.container.classList.remove( formCssClasses.hidden );
 		}
 	}
 
-	function navTouchEnd( e ) {
-		var endX;
+	// Expose the Form object to the rest of the project
+	app.Form = Form;
+}( document ) );
+///<reference path="../main.js">
+/**
+ * Copyright 2016 Select Interactive, LLC. All rights reserved.
+ * @author: The Select Interactive dev team (www.select-interactive.com) 
+ */
+( function( doc ) {
+	'use strict';
 
-		if ( window.mq( '(max-width:1024px)' ) && e.changedTouches ) {
-			endX = e.changedTouches[0].pageX;
+	const cssClasses = {
+		ERROR_LABEL: 'error-label',
+		INVALID_REQ_FIELD: 'invalid',
+		MD_MENU: 'md-select',
+		MENU: 'md-select-menu',
+		MENU_OPEN: 'active',
+		LIST_ITEM: 'md-select-menu-item',
+		LIST_ITEM_HOVER: 'keyover',
+		REQUIRED_FIELD: 'req'
+	};
+
+	class Select {
+		constructor( select ) {
+			// if on a touch device, default to native select
+			if ( 'ontouchstart' in doc.documentElement && app.$.mq( '(max-width:1024px)' ) ) {
+				return;
+			}
+
+			// elements
+			this.select = select;
+			this.select.classList.add( cssClasses.MD_MENU );
+			this.container = this.select.parentNode;
+			this.label = this.container.querySelector( 'label' );
+			this.menu = null;
+
+			// if this is a multiple select
+			this.multiple = this.select.multiple;
+
+			this.open = false;
+			this.currentIndex = 0;
+
+			this.listItems = [];
+
+			//this.onChange = function() { };
+
+			this.createMenu = this.createMenu.bind( this );
+			this.setMenuPosition = this.setMenuPosition.bind( this );
+			this.showMenu = this.showMenu.bind( this );
+			this.hideMenu = this.hideMenu.bind( this );
+			this.changeHandler = this.changeHandler.bind( this );
+			this.focusHanlder = this.focusHanlder.bind( this );
+			this.blurHandler = this.blurHandler.bind( this );
+			this.keyDownHandler = this.keyDownHandler.bind( this );
+			this.bodyClickHandler = this.bodyClickHandler.bind( this );
+			this.checkIfRequired = this.checkIfRequired.bind( this );
+
+			this.createMenu();
+			this.addEventListeners();
+		}
+
+		addEventListeners() {
+			this.select.addEventListener( 'focus', this.focusHanlder, false );
+			this.select.addEventListener( 'blur', this.blurHandler, false );
+		}
+
+		// add change event
+		setChangeEvent( fn ) {
+			this.onChange = fn;
+		}
+
+		// create the drop down
+		createMenu() {
+			let opts = this.select.children;
+			let len = opts.length;
+			let i;
+			let opt;
+			let listItem;
+			let li;
+
+			this.menu = doc.createElement( 'ul' );
+			this.menu.classList.add( cssClasses.MENU );
+
+			// loop through all of the options and create the ListItems
+			for ( i = 0; i < len; i++ ) {
+				opt = opts[i];
+
+				listItem = new ListItem( opt, i, this );
+				this.listItems.push( listItem );
+				this.menu.appendChild( listItem.listItem );
+			}
+
+			doc.body.appendChild( this.menu );
+
+			this.setMenuPosition();
+		}
+
+		// reset the menu
+		reloadMenu() {
+			let container;
+
+			if ( this.menu ) {
+				container = this.menu.parentNode;
+				container.removeChild( this.menu );
+				this.listItems = [];
+				this.createMenu();
+			}
+		}
+
+		// set the menu position on the page
+		setMenuPosition() {
+			const rect = this.select.getBoundingClientRect();
+			this.menu.style.top = rect.bottom + app.util.getWindowScrollPosition() + 'px';
+			this.menu.style.left = rect.left + 'px';
+			this.menu.style.width = this.select.offsetWidth + 'px';
+		}
+
+		// show the menu
+		showMenu() {
+			let me = this;
+
+			// always start at the top of the list
+			this.menu.scrollTop = 0;
+
+			this.currentIndex = -1;
+			this.menu.classList.add( cssClasses.MENU_OPEN );
+			this.open = true;
+
+			setTimeout( function() {
+				doc.body.addEventListener( 'keydown', me.keyDownHandler, false );
+				doc.body.addEventListener( 'click', me.bodyClickHandler, false );
+
+				me.select.blur();
+			}, 100 );
+						
+			// disable window from scrolling
+			app.util.disableWindowScroll();
+		}
+
+		// hide the menu
+		hideMenu() {
+			let item;
+
+			this.menu.classList.remove( cssClasses.MENU_OPEN );
+			this.open = false;
+
+			// make sure no listItems ahve the keyover class
+			item = this.menu.querySelector( '.' + cssClasses.LIST_ITEM_HOVER );
+
+			if ( item ) {
+				item.classList.remove( cssClasses.LIST_ITEM_HOVER );
+			}
+
+			// remove event listeners
+			doc.body.removeEventListener( 'keydown', this.keyDownHandler, false );
+			doc.body.removeEventListener( 'click', this.bodyClickHandler, false );
+
+			// re-enable window scrolling
+			app.util.enableWindowScroll();
+		}
+
+		focusHanlder( e ) {
+			this.setMenuPosition();
+			this.showMenu();
+		}
+
+		blurHandler( e ) {
 			
-			if ( endX - startX >= 100 ) {
-				hideNav();
+		}
+
+		keyDownHandler( e ) {
+			let index = this.currentIndex;
+			let keyCode = -1;
+			let menuScrollTop = this.menu.scrollTop;
+			let menuHeight = this.menu.offsetHeight;
+			let li;
+
+			if ( e && e.keyCode ) {
+				keyCode = e.keyCode;
+				
+				if ( keyCode === 9 ) {
+					this.hideMenu();
+					e.preventDefault();
+				}
+
+				// move down the list
+				else if ( keyCode === 40 ) {
+					e.preventDefault();
+					this.currentIndex++;
+
+					if ( this.currentIndex === this.listItems.length ) {
+						this.currentIndex--;
+						return;
+					}
+
+					if ( index >= 0 ) {
+						this.listItems[index].listItem.classList.remove( cssClasses.LIST_ITEM_HOVER );
+					}
+
+					li = this.listItems[this.currentIndex].listItem;
+					li.classList.add( cssClasses.LIST_ITEM_HOVER );
+
+					// check scroll top
+					if ( li.offsetTop + li.offsetHeight > menuScrollTop + menuHeight ) {
+						this.menu.scrollTop = menuScrollTop + li.offsetHeight;
+					}
+				}
+
+				// move up the list
+				else if ( keyCode === 38 ) {
+					e.preventDefault();
+					this.currentIndex--;
+
+					if ( this.currentIndex < 0 ) {
+						this.currentIndex = -1;
+						return;
+					}
+
+					if ( index >= 0 ) {
+						this.listItems[index].listItem.classList.remove( cssClasses.LIST_ITEM_HOVER );
+					}
+
+					if ( this.currentIndex >= 0 ) {
+						li = this.listItems[this.currentIndex].listItem;
+						li.classList.add( cssClasses.LIST_ITEM_HOVER );
+
+						// check scroll top
+						if ( li.offsetTop < menuScrollTop ) {
+							this.menu.scrollTop = menuScrollTop - li.offsetHeight;
+						}
+					}
+				}
+
+				// enter key is clicked
+				else if ( keyCode === 13 ) {
+					e.preventDefault();
+
+					if ( this.currentIndex === -1 ) {
+						this.currentIndex = 0;
+					}
+
+					// trigger list item click
+					this.listItems[this.currentIndex].selectItem();
+				}
+
+				// if escape key is clicked
+				else if ( keyCode === 27 ) {
+					e.preventDefault();
+					this.hideMenu();
+				}
+			}
+		}
+
+		changeHandler( e ) {
+			if ( this.onChange && typeof this.onChange === 'function' ) {
+				this.onChange();
+			}
+		}
+
+		bodyClickHandler( e ) {
+			if ( e && e.target && ( e.target === this.select || e.target.classList.contains( cssClasses.LIST_ITEM ) || e.target.classList.contains( 'btn-ripple-container' ) || e.target.classList.contains( 'btn-ripple-element' ) ) ) {
+				// let the list item click event handle this
+			}
+			else {
+				// clicked outside of the menu, hide the menu
+				this.hideMenu();
+			}
+		}
+
+		checkForValue() {
+
+		}
+
+		checkIfRequired() {
+			let selected = this.menu.querySelector( '[selected="true"]' );
+			let errorLbl = this.container.querySelector( '.' + cssClasses.ERROR_LABEL );
+			let lbl;
+
+			// remove any previous error messages
+			if ( errorLbl ) {
+				this.container.removeChild( errorLbl );
+			}
+
+			// if we don't have a selected option and this is a required field
+			if ( !selected && this.select.classList.contains( cssClasses.REQUIRED_FIELD ) ) {
+				lbl = doc.createElement( 'span ' );
+				lbl.classList.add( cssClasses.ERROR_LABEL );
+				lbl.textContent = 'Required field.';
+				this.container.appendChild( lbl );
+				this.select.classList.add( cssClasses.INVALID_REQ_FIELD );
+			}
+
+			// if we're all good, rmeove the invalid class
+			else {
+				this.select.classList.remove( cssClasses.INVALID_REQ_FIELD );
+			}
+		}
+
+		setValue( value ) {
+			let li = this.menu.querySelector( '[data-val="' + value + '"]' );
+			let i = 0;
+			let len = this.listItems.length;
+			let listItem = null;
+
+			if ( li ) {
+				for ( i = 0; i < len; i++ ) {
+					listItem = this.listItems[i];
+
+					if ( listItem.listItem === li ) {
+						if ( !listItem.listItem.getAttribute( 'selected' ) ) {
+							listItem.selectItem();
+						}
+					}
+				}
+			}
+		}
+
+		getValue() {
+			if ( !this.multiple ) {
+				return this.select.options[this.select.selectedIndex].value;
+			}
+		}
+
+		getTextValue() {
+			if ( !this.multiple ) {
+				return this.select.options[this.selectedIndex].text;
 			}
 		}
 	}
 
-	function showNav( e ) {
-		doc.body.classList.toggle( 'nav-in' );
+	class ListItem {
+		constructor( opt, index, select ) {
+			this.listItem = doc.createElement( 'li' );
+			this.select = select;
+			this.index = index;
 
-		if ( doc.body.classList.contains( 'nav-in' ) ) {
-			evtOverlay.style.height = doc.body.offsetHeight + 'px';
-		}
-		else {
-			hideNav( e );
+			this.listItem.classList.add( cssClasses.LIST_ITEM );
+			this.listItem.classList.add( 'btn-ripple' );
+			this.listItem.textContent = opt.textContent;
+			this.listItem.setAttribute( 'data-val', opt.value );
+
+			if ( opt.selected ) {
+				this.listItem.setAttribute( 'selected', 'true' );
+			}
+
+			this.selectItem = this.selectItem.bind( this );
+
+			this.addEventListeners();
+
+			return this;
 		}
 
-		e.preventDefault();
+		addEventListeners() {
+			this.listItem.addEventListener( 'click', this.selectItem, false );
+		}
+
+		selectItem( e ) {
+			let selected;
+			
+			// if clicking the currently selected item
+			if ( this.listItem.getAttribute( 'selected' ) === 'true' ) {
+				this.listItem.removeAttribute( 'selected' );
+
+				if ( !this.select.multiple ) {
+					this.select.select.value = '';
+				}
+
+				this.select.checkIfRequired();
+			}
+			else {
+				// check if an item is already selected
+				selected = this.select.menu.querySelector( '[selected="true"]' );
+
+				// unselect a previously selected item if this is not a multiple select
+				if ( selected && !this.select.multiple ) {
+					selected.removeAttribute( 'selected' );
+				}
+
+				// select the selected item
+				this.listItem.setAttribute( 'selected', 'true' );
+
+				// update the selected element
+				if ( !this.select.multiple ) {
+					this.select.select.value = this.listItem.getAttribute( 'data-val' );
+					this.select.checkIfRequired();
+				}
+
+				this.select.select.classList.remove( cssClasses.INVALID_REQ_FIELD );
+
+				// hide the menu if this ins not a multiple select
+				if ( !this.select.multiple ) {
+					this.select.hideMenu();
+				}
+			}
+
+			this.select.changeHandler();
+
+			if ( e ) {
+				e.stopPropagation();
+			}
+		}
 	}
 
-	function hideNav( e ) {
-		if ( doc.body.classList.contains( 'nav-in' ) ) {
-			doc.body.classList.remove( 'nav-in' );
-			evtOverlay.style.height = 0;
+	app.Select = Select;
+
+}( document ) );
+///<reference path="../main.js">
+/**
+ * Copyright 2016 Select Interactive, LLC. All rights reserved.
+ * @author: The Select Interactive dev team (www.select-interactive.com) 
+ */
+( function( doc ) {
+	'use strict';
+
+	const cssClasses = {
+		ANIMATABLE: 'animatable',
+		NAV_IN: 'side-nav-in'
+	};
+
+	class SideNav {
+		constructor() {
+			this.btnShow = app.$( '.hdr-nav-trigger' );
+			this.sideNav = app.$( '.side-nav' );
+			this.sideNavContainer = app.$( '.side-nav-container' );
+			this.sideNavClose = app.$( '.side-nav-close' );
+
+			this.showSideNav = this.showSideNav.bind( this );
+			this.hideSideNav = this.hideSideNav.bind( this );
+			this.onTouchStart = this.onTouchStart.bind( this );
+			this.onTouchMove = this.onTouchMove.bind( this );
+			this.onTouchEnd = this.onTouchEnd.bind( this );
+			this.onTransitionEnd = this.onTransitionEnd.bind( this );
+			this.update = this.update.bind( this );
+
+			this.startX = 0;
+			this.currentX = 0;
+			this.touchingSideNav = false;
+
+			this.addEventListeners();
+		}
+
+		addEventListeners() {
+			this.btnShow.addEventListener( 'click', this.showSideNav );
+			this.sideNav.addEventListener( 'click', this.hideSideNav );
+			this.sideNavContainer.addEventListener( 'click', this.blockClicks );
+			this.sideNavClose.addEventListener( 'click', this.hideSideNav );
+			this.sideNav.addEventListener( 'touchstart', this.onTouchStart );
+
+			this.sideNav.addEventListener( 'touchmove', this.onTouchMove );
+			this.sideNav.addEventListener( 'touchend', this.onTouchEnd );
+		}
+
+		showSideNav( e ) {
+			this.sideNav.classList.add( cssClasses.ANIMATABLE );
+			doc.body.classList.add( cssClasses.NAV_IN );
+			this.sideNav.addEventListener( 'transitionend', this.onTransitionEnd );
+			e.preventDefault();
+		}
+
+		hideSideNav( e ) {
+			this.sideNav.classList.add( 'animatable' );
+			doc.body.classList.remove( cssClasses.NAV_IN );
+			this.sideNav.addEventListener( 'transitionend', this.onTransitionEnd );
 
 			if ( e ) {
 				e.preventDefault();
 			}
 		}
-	}
 
-	return {
-		hide: hideNav
-	};
-
-}( document ) );
-///<reference path="../main.js">
-/**
- * Copyright 2015 Select Interactive, LLC. All rights reserved.
- * @author: The Select Interactive dev team (www.select-interactive.com) 
- */
-( function( doc ) {
-	'use strict';
-
-	var main = doc.getElementById( 'main' ),
-		pagePushed = false,
-		page, url, classes;
-
-	window.addEventListener( 'popstate', pop, false );
-
-	doc.addEventListener( 'click', function( e ) {
-		if ( e && e.target ) {
-			checkClickTarget( e.target, e );
-		}
-	}, false );
-
-	function checkClickTarget( target, e ) {
-		var pageToLoad;
-
-		if ( target && target.classList && target.classList.contains( 'navigation' ) ) {
-			pageToLoad = target.getAttribute( 'data-control' );
-			classes = target.getAttribute( 'data-nav-class' );
-			
-			if ( page !== pageToLoad || url !== target.getAttribute( 'href' ) ) {
-				url = target.getAttribute( 'href' );
-				page = pageToLoad;
-				loadPage( page, url, true );
-				history.pushState( { page: page, url: url }, page, url );
-				pagePushed = true;
-			}
-
-			e.preventDefault();
-		}
-		else if ( target && target.parentNode && target.parentNode !== doc.body ) {
-			checkClickTarget( target.parentNode, e );
-		}
-	}
-
-	function loadPage( page, url, logView ) {
-		var currentPage = main.querySelector( '.page-wrapper.in' );
-
-		app.nav.hide();
-
-		if ( currentPage ) {
-			currentPage.classList.remove( 'in' );
+		blockClicks( e ) {
+			e.stopPropagation();
 		}
 
-		app.ajax.fetch( '/webservices/wsApp.asmx/loadControlContent', {
-			controlName: page,
-			url: url
-		} ).then( function( rsp ) {
-			var pageWrapper = doc.createElement( 'div' );
-			rsp = JSON.parse( rsp );
-
-			pageWrapper.classList.add( 'page-wrapper' );
-			pageWrapper.innerHTML = rsp.html;
-			doc.title = rsp.title;
-
-			if ( logView ) {
-				app.analytics.logPageView( rsp.title );
+		onTouchStart( e ) {
+			if ( !doc.body.classList.contains( cssClasses.NAV_IN ) ) {
+				return;
 			}
 
-			if ( currentPage ) {
-				setTimeout( function() {
-					if ( classes ) {
-						doc.body.className = 'nocomponents ' + classes;
-					}
-					else {
-						doc.body.className = 'nocomponents';
-					}
+			this.startX = e.touches[0].pageX;
+			this.currentX = this.startX;
 
-					main.removeChild( currentPage );
-					showNewPage( pageWrapper );
-				}, 375 );
-			}
-			else {
-				showNewPage( pageWrapper );
-			}
-		} );
-	}
-
-	function showNewPage( pageWrapper ) {
-		main.appendChild( pageWrapper );
-
-		setTimeout( function() {
-			pageWrapper.classList.add( 'in' );
-			window.scrollTo( 0, 0 );
-
-			// check for containers to lazy load
-			app.lazyLoad.init( pageWrapper );
-
-			// init any gmaps on the page
-			if ( pageWrapper.querySelector( '.gmap' ) ) {
-				app.gmap.init( doc.querySelector( '.gmap' ) );
-			}
-
-			// init any menus added to the page
-			app.menu.initMenus( pageWrapper, true );
-		}, 10 );
-	}
-
-	function pop( e ) {
-		if ( pagePushed ) {
-			if ( history.state && history.state.page ) {
-				page = history.state.page;
-				url = history.state.url;
-			}
-			else {
-				page = 'home';
-				url = page;
-			}
-
-			if ( main && page && url ) {
-				loadPage( page, url );
-			}
-		}
-	}
-
-}( document ) );
-///<reference path="../main.js">
-/**
- * Copyright 2015 Select Interactive, LLC. All rights reserved.
- * @author: The Select Interactive dev team (www.select-interactive.com) 
- */
-app.scroll = ( function( doc ) {
-	'use strict';
-
-	var hdr = doc.getElementById( 'hdr-main' ),
-		container = doc.querySelector( '.container-main-content' ),
-		links = doc.querySelectorAll( '.link-scroll' ),
-		lastY = 0,
-
-		SCROLL_TIME = 500;
-
-	window.forEachElement( links, function( link ) {
-		link.addEventListener( 'click', linkClick, false );
-	} );
-
-	function linkClick( e ) {
-		var href = this.getAttribute( 'href' ),
-			id = href.replace( /\//g, '' ),
-			target = doc.querySelector( '#' + id );
-		
-		if ( target ) {
-			lastY = container.scrollTop;
-			scrollToY( target.offsetTop );
-			e.preventDefault();
-		}
-	}
-
-	function scrollToY( scrollTargetY ) {
-		var scrollY = container.scrollTop,
-			speed = SCROLL_TIME,
-			easing = easing || 'easeOutSine',
-			currentTime = 0,
-
-			time = Math.max( 0.1, Math.min( Math.abs( scrollY - scrollTargetY ) / speed, 0.8 ) ),
-
-			PI_D2 = Math.PI / 2,
-			easingEquations = {
-				easeOutSine: function( pos ) {
-					return Math.sin( pos * ( Math.PI / 2 ) );
-				},
-				easeInOutSine: function( pos ) {
-					return ( -0.5 * ( Math.cos( Math.PI * pos ) - 1 ) );
-				},
-				easeInOutQuint: function( pos ) {
-					if ( ( pos /= 0.5 ) < 1 ) {
-						return 0.5 * Math.pow( pos, 5 );
-					}
-					return 0.5 * ( Math.pow(( pos - 2 ), 5 ) + 2 );
-				}
-			};
-
-		function tick() {
-			currentTime += 1 / 60;
-
-			var p = currentTime / time;
-			var t = easingEquations[easing]( p );
-
-			if ( p < 1 ) {
-				requestAnimationFrame( tick );
-
-				container.scrollTop = scrollY + ( ( scrollTargetY - scrollY ) * t );
-			} else {
-				container.scrollTop = scrollTargetY;
-			}
+			this.touchingSideNav = true;
+			requestAnimationFrame( this.update );
 		}
 
-		tick();
-	}
+		onTouchMove( e ) {
+			if ( !this.touchingSideNav ) {
+				return;
+			}
 
-	return {
-		scrollToY: scrollToY
-	};
+			this.currentX = e.touches[0].pageX;
+			const translateX = Math.min( 0, this.currentX - this.startX );
 
-}( document ) );
-///<reference path="../main.js">
-/**
- * Copyright 2015 Select Interactive, LLC. All rights reserved.
- * @author: The Select Interactive dev team (www.select-interactive.com) 
- */
-( function( doc ) {
-	'use strict';
-
-	if ( 'serviceWorker' in navigator ) {
-		navigator.serviceWorker.register( '/serviceworker.js' ).then( function( registration ) {
-			// registration was successful
-			console.log( 'serviceworker registration successful with scope: ' + registration.scope );
-	
-		} ).catch( function( err ) {
-			console.log( 'serviceworker registration failed: ', err );
-		} );
-	}
-
-}( document ) );
-///<reference path="../main.js">
-/**
- * Copyright 2015 Select Interactive, LLC. All rights reserved.
- * @author: The Select Interactive dev team (www.select-interactive.com) 
- */
-app.tabs = ( function( doc ) {
-	'use strict';
-
-	var tabLinks = doc.querySelectorAll( '.tab-links' );
-
-	window.forEachElement( tabLinks, function( els ) {
-		var links = els.querySelectorAll( 'a' ),
-			tabGroup = els.getAttribute( 'data-tab-group' );
-
-		if ( links.length !== doc.querySelectorAll( '[data-tab-group="' + tabGroup + '"].tab' ).length ) {
-			console.warn( 'Different # of links and tabs for tab group: ' + tabGroup );
-		}
-
-		window.forEachElement( links, function( link ) {
-			link.addEventListener( 'click', function( e ) {
-				var tab = link.getAttribute( 'href' ).toString().substring( 1 );
-
-				window.forEachElement( doc.querySelectorAll( '[data-tab-group="' + tabGroup + '"].tab.active' ), function( el ) {
-					el.classList.remove( 'active' );
-				} );
-
-				tab = doc.querySelector( '[data-tab-group="' + tabGroup + '"][data-tab="' + tab + '"]' );
-				
-				if ( !link.classList.contains( 'active' ) ) {
-					els.querySelector( '.active' ).classList.remove( 'active' );
-				}
-
-				link.classList.add( 'active' );
-				tab.classList.add( 'active' );
-				
+			if ( translateX < 0 ) {
 				e.preventDefault();
-			}, false );
-		} );
-	} );
+			}
+		}
+
+		onTouchEnd( e ) {
+			if ( !this.touchingSideNav ) {
+				return;
+			}
+
+			this.touchingSideNav = false;
+
+			const translateX = Math.min( 0, this.currentX - this.startX );
+			this.sideNavContainer.style.transform = '';
+
+			if ( translateX < 0 ) {
+				this.hideSideNav();
+			}
+		}
+
+		update() {
+			if ( !this.touchingSideNav ) {
+				return;
+			}
+
+			requestAnimationFrame( this.update );
+
+			const translateX = Math.min( 0, this.currentX - this.startX );
+			this.sideNavContainer.style.transform = 'translateX(' + translateX + 'px)';
+		}
+
+		onTransitionEnd( e ) {
+			this.sideNav.classList.remove( cssClasses.ANIMATABLE );
+			this.sideNav.removeEventListener( 'transitionend', this.onTransitionEnd );
+		}
+	}
+
+	if ( app.$( '.side-nav' ) ) {
+		new SideNav();
+	}
 
 }( document ) );
 ///<reference path="../main.js">
 /**
- * Copyright 2015 Select Interactive, LLC. All rights reserved.
+ * Copyright 2016 Select Interactive, LLC. All rights reserved.
  * @author: The Select Interactive dev team (www.select-interactive.com) 
+ * 
+ * Corresponding HTML should follow:
+ * 
+ * <div class="input-field">
+ *   <input type="text" id="tb-mytb" name="dbCol" />
+ *   <label for="tb-mytb">Label Text</label>
+ * </div>
+ * 
+ * To make a field required, add class="req"
+ * To make a field use a datepicker, add class="input-date"
+ * 
+ * To autovalidate email, set type="email"
+ * To auotvalidate phone numbers, set type="tel" 
  */
-app.toast = ( function( doc ) {
+( function( doc ) {
 	'use strict';
 
-	var container, label, btn, hideTimeout,
-		defaultHideDuration = 3500,
-		callback;
-
-	function loadComponent() {
-		var link = doc.createElement( 'link' );
-		link.rel = 'import';
-		link.href = '/templates/components/toast/toast.html';
-
-		link.onload = function() {
-			var content = link.import,
-				el = content.querySelector( '#toast' );
-
-			doc.body.appendChild( el.cloneNode( true ) );
-
-			container = doc.getElementById( 'toast' );
-			label = container.querySelector( '.toast-label' );
-			btn = container.querySelector( '.toast-btn' );
-		};
-
-		doc.head.appendChild( link );
-	}
-
-	function show( msg, duration, fn ) {
-		if ( container ) {
-			if ( hideTimeout ) {
-				clearTimeout( hideTimeout );
-				hideTimeout = null;
-			}
-
-			label.innerHTML = msg;
-
-			// if no duration value is passed in, or if 0 is passed in,
-			//   hide the toast after the defaultHideDuration
-			if ( duration !== -1 && ( !duration || !isNaN( duration ) || duration === 0 ) ) {
-				duration = defaultHideDuration;
-			}
-
-			// if -1 is passed in, let the toast persist
-			if ( duration !== -1 ) {
-				hideTimeout = setTimeout( hide, duration );
-			}
-
-			if ( fn ) {
-				callback = fn;
-			}
-
-			container.classList.add( 'active' );
-		}
-		else {
-			console.warn( 'The elements for the toast component are not available.' );
-		}
-	}
-
-	function hide() {
-		container.classList.remove( 'active' );
-
-		if ( callback && typeof callback === 'function' ) {
-			callback();
-		}
-	}
-
-	if ( !doc.body.classList.contains( 'nocomponents' ) ) {
-		loadComponent();
-	}
-
-	return {
-		show: show,
-		hide: hide
+	const cssClasses = {
+		ACTIVE_FIELD_CLASS: 'active',
+		DATE_SELECTOR: 'input-date',
+		ERROR_LABEL: 'error-label',
+		INVALID_REQ_FIELD: 'invalid',
+		REQUIRED_FIELD: 'req'
 	};
 
+	// Regex's for validating field data
+	const regExpressions = {
+		EMAIL: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
+		TEL: /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/,
+		DATE: /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/
+	};
+
+	class TextBox {
+		// Provide the input element for this TextBox
+		constructor( input ) {
+			// elements
+			this.input = input;
+			this.container = input.parentNode;
+			this.label = this.container.querySelector( 'label' );
+
+			// check for date
+			if ( this.input.classList.contains( cssClasses.DATE_SELECTOR ) ) {
+				this.initDatePicker();
+			}
+
+			// check for initial value
+			this.checkForValue();
+
+			this.initDatePicker = this.initDatePicker.bind( this );
+			this.focusHandler = this.focusHandler.bind( this );
+			this.blurHandler = this.blurHandler.bind( this );
+			this.validateField = this.validateField.bind( this );
+			this.checkForValue = this.checkForValue.bind( this );
+			this.setValue = this.setValue.bind( this );
+			this.getValue = this.getValue.bind( this );
+
+			this.addEventListeners();
+		}
+
+		// Add the event listeners
+		addEventListeners() {
+			this.input.addEventListener( 'focus', this.focusHandler, false );
+			this.input.addEventListener( 'blur', this.blurHandler, false );
+			this.input.addEventListener( 'change', this.checkForValue, false );
+		}
+
+		// Initialize the date picker if the input has class .input-date
+		initDatePicker() {
+			let field = this.input;
+			let picker;
+
+			// make sure it is a text input
+			field.type = 'text';
+
+			// if touch device use default date picker
+			if ( 'ontouchstart' in doc.documentElement ) {
+				field.type = 'date';
+				return;
+			}
+
+			picker = new Pikaday( {
+				field: field,
+				format: 'MM/DD/YYYY',
+				onSelect: function() {
+					field.value = this.getMoment().format( 'MM/DD/YYYY' );
+				}
+			} );
+		}
+
+		// OnFocus event handler
+		focusHandler() {
+			this.label.classList.add( cssClasses.ACTIVE_FIELD_CLASS );
+		}
+
+		// OnBlur event handler
+		blurHandler() {
+			this.checkForValue();
+			this.validateField();
+		}
+
+		// Helper function to check for a value and handle the active class of the label
+		checkForValue() {
+			if ( this.getValue() !== '' ) {
+				this.label.classList.add( cssClasses.ACTIVE_FIELD_CLASS );
+				this.validateField();
+			}
+			else {
+				this.label.classList.remove( cssClasses.ACTIVE_FIELD_CLASS );
+			}
+		}
+
+		// Helper function to provide validation of field data based on input type and classes
+		validateField() {
+			let field = this.input;
+			let type = field.type.toLowerCase();
+			let valid = true;
+			let val = this.getValue();
+			let minChars = field.getAttribute( 'min-chars' );
+			let prevError = this.container.querySelector( '.' + cssClasses.ERROR_LABEL );
+			let lbl;
+			let msg = '';
+
+			// check for a value in a required field
+			if ( field.classList.contains( cssClasses.REQUIRED_FIELD ) && val === '' ) {
+				valid = false;
+				msg = 'Required field.';
+			}
+
+			// check for min characters
+			else if ( minChars && val.length < parseInt( minChars, 10 ) ) {
+				valid = false;
+				msg = minChars + ' characters required.';
+			}
+
+			// check for valid email address
+			else if ( type === 'email' && !regExpressions.EMAIL.test( val ) ) {
+				valid = false;
+				msg = 'Invalid email address.';
+			}
+
+			// check for valid phone number
+			else if ( type === 'tel' && !regExpressions.TEL.test( val ) ) {
+				valid = false;
+				msg = 'Inavlid phone number.';
+			}
+
+			// check for date
+			else if ( field.classList.contains( cssClasses.DATE_SELECTOR ) && !regExpressions.DATE.test( val ) ) {
+				valid = false;
+				msg = 'Incorrect date format.';
+			}
+
+			// remove any previous error messages
+			if ( prevError ) {
+				this.container.removeChild( prevError );
+			}
+
+			// if the field is valid
+			if ( valid ) {
+				field.classList.remove( cssClasses.INVALID_REQ_FIELD );
+			}
+
+			// if invalid, make sure it is highlighted
+			else {
+				field.classList.add( cssClasses.INVALID_REQ_FIELD );
+
+				// if we have a message
+				if ( msg !== '' ) {
+					lbl = doc.createElement( 'span' );
+					lbl.classList.add( cssClasses.ERROR_LABEL );
+					lbl.textContent = msg;
+					this.container.appendChild( lbl );
+				}
+			}
+		}
+
+		// Helper function to set the value of the input
+		setValue( val ) {
+			this.input.value = val;
+			this.checkForValue();
+			this.validateField();
+		}
+
+		// Helper function get the value of the input
+		getValue() {
+			return this.input.value.trim();
+		}
+	}
+
+	// Expose the TextBox object to the app
+	app.TextBox = TextBox;
+
+}( document ) );
+///<reference path="../main.js">
+/**
+ * Copyright 2016 Select Interactive, LLC. All rights reserved.
+ * @author: The Select Interactive dev team (www.select-interactive.com) 
+ */
+( function( doc ) {
+	'use strict';
+
+	let activeToast = null;
+
+	const cssClasses = {
+		ACTIVE: 'active',
+		TOAST: 'toast'
+	};
+
+	class Toast {
+		constructor() {
+			if ( activeToast ) {
+				console.log( 'A toast already exists.' );
+				return activeToast;
+			}
+
+			this.container = this.createToastElement();
+			this.duration = -1;
+			this.defaultDuration = 3000;
+			this.hideTimeout = null;
+
+			this.show = this.show.bind( this );
+			this.hide = this.hide.bind( this );
+
+			activeToast = this;
+		}
+
+		createToastElement() {
+			let el = doc.createElement( 'div' );
+			el.classList.add( cssClasses.TOAST );
+			doc.body.appendChild( el );
+			return el;
+		}
+
+		show( msg, duration ) {
+			let me = this;
+
+			if ( this.hideTimeout ) {
+				clearTimeout( this.hideTimeout );
+				this.hideTimeout = null;
+			}
+
+			this.container.innerHTML = msg;
+
+			setTimeout( function() {
+				me.container.classList.add( cssClasses.ACTIVE );
+			}, 1 );
+
+			this.duration = duration;
+			this.hide();
+		}
+
+		hide( now ) {
+			let me = this,
+        		duration = this.defaultDuration;
+			
+			if ( now ) {
+				this.container.classList.remove( cssClasses.ACTIVE );
+				return;
+			}
+
+			if ( this.duration === -1 ) {
+				return;
+			}
+
+			if ( this.duration && this.duration !== -1 ) {
+				duration = this.duration;
+			}
+
+			this.hideTimeout = setTimeout( function() {
+				me.container.classList.remove( cssClasses.ACTIVE );
+			}, duration );
+		}
+	}
+
+	app.Toast = Toast;
 }( document ) );
 ///<reference path="../main.js">
 /**
@@ -6667,41 +6071,44 @@ app.toast = ( function( doc ) {
         }
     }
 
-	// Initiate Fastclick
-    if ( 'addEventListener' in doc ) {
-    	if ( !window.FastClick ) {
-    		console.warn( 'FastClick is not installed.' );
-    		return;
-    	}
-
-		doc.addEventListener( 'DOMContentLoaded', function() {
-    		FastClick.attach( doc.body );
-    	}, false );
+    function callBackFn( instance, fnName ) {
+    	return function() {
+    		instance[fnName].apply( instance, arguments );
+    	};
     }
 
-    window.addEventListener( 'scroll', function( e ) {
-    	if ( doc.body.classList.contains( 'home' ) ) {
-    		if ( getWindowScrollPosition() > 250 && !doc.body.classList.contains( 'home-scrolled' ) ) {
-    			doc.body.classList.add( 'home-scrolled' );
-    		}
-    		else if ( getWindowScrollPosition() <= 250 && doc.body.classList.contains( 'home-scrolled' ) ) {
-    			doc.body.classList.remove( 'home-scrolled' );
-    		}
-    	}
-    }, false );
+    function disableWindowScroll() {
+    	doc.body.classList.add( 'noscroll' );
+    }
+
+    function enableWindowScroll() {
+    	doc.body.classList.remove( 'noscroll' );
+    }
 
     return {
         cloneObj: cloneObj,
         extend: extend,
-        getWindowScrollPosition: getWindowScrollPosition
+        getWindowScrollPosition: getWindowScrollPosition,
+        callBackFn: callBackFn,
+        disableWindowScroll: disableWindowScroll,
+        enableWindowScroll: enableWindowScroll
     };
 
 }( document ) );
-window.requestAnimationFrame = (function() {
-    return  window.requestAnimationFrame       ||
-            window.webkitRequestAnimationFrame ||
-            window.mozRequestAnimationFrame    ||
-            function( callback ){
-                window.setTimeout(callback, 1000 / 60);
-            };
-}());
+///<reference path="../main.js">
+/**
+ * Copyright 2015 Select Interactive, LLC. All rights reserved.
+ * @author: The Select Interactive dev team (www.select-interactive.com) 
+ */
+( function( doc ) {
+	'use strict';
+
+	if ( 'serviceWorker' in navigator && doc.URL.indexOf( 'localhost' ) === -1 ) {
+		navigator.serviceWorker.register( '/serviceworker.js' ).then( registration => {
+			console.log( 'serviceworker registration successful with scope: ' + registration.scope );
+		} ).catch( err => {
+			console.log( 'serviceworker registration failed: ', err );
+		} );
+	}
+
+}( document ) );

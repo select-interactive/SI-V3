@@ -3,18 +3,23 @@
 # Folders to Ignore #
 .tmp/
 .sass-cache/
+.vscode/
 bower_components/susy/
-ckeditor/
 css/sass/
-js/libs/jquery/src/
+js/libs/jquery/
+js/libs/moment/
+js/libs/pikaday/
+js/plugins/
 node_modules/
 styleguide/
 
 # Files to Ignore #
 *.wpp.targets
+.babelrc
 .bowerrc
 .gitignore
 .jshintrc
+ApplicationHost.xdt
 bower.json
 critical.html
 Gruntfile.js

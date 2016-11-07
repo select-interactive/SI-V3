@@ -1,0 +1,252 @@
+﻿// Helper Mixin for Setting Placeholder style
+@mixin set-placeholder-style($color: $body-color) {
+    &::-webkit-input-placeholder {
+        color: $color;
+    }
+
+    &:-moz-placeholder {
+        color: $color;
+    }
+
+    &::-moz-placeholder {
+        color: $color;
+    }
+
+    &:-ms-input-placeholder {  
+        color: $color;
+    }
+}
+
+// Default Text Input Styles
+$input-background: transparent;
+$input-border-color: $color-primary;
+$input-border: none;
+$input-border-bottom: 1px solid rgba($input-border-color, .35);
+$input-border-radius: 0;
+$input-box-shadow: none;
+$input-color: lighten($body-color, 10%);
+$input-error-label-font-size: .7rem;
+$input-focus-color: $input-border-color;
+$input-font-family: $font-primary;
+$input-font-size: 1rem;
+$input-height: 3rem;
+$input-invalid-color: $error-text;
+$input-margin: 0;
+$input-padding: 0;
+$input-placeholder-color: #d2d2d2;
+$input-outline: none;
+$input-transition: all .125s ease-out;
+$input-width: 100%;
+
+// Text Areas
+$ta-min-height: 10rem;
+$ta-padding: .75rem 0 0;
+
+// Label Styles
+$label-font-size: .75rem;
+
+// Icons
+$input-icon-color: rgba($body-color, .55);
+$input-icon-margin: 2.25rem;
+$input-icon-font-size: 1.5rem;
+
+
+// --------------------
+// Default Text Inputs
+// --------------------
+input[type=text],
+input[type=password],
+input[type=email],
+input[type=url],
+input[type=time],
+input[type=date],
+input[type=datetime-local],
+input[type=tel],
+input[type=number],
+input[type=search],
+textarea,
+.text-editor,
+select {
+    // default styles
+    background: $input-background;
+    border: $input-border;
+    border-bottom: $input-border-bottom;
+    border-radius: $input-border-radius;
+    box-shadow: $input-box-shadow;
+    color: $input-color;
+    font-family: $input-font-family;
+    font-size: $input-font-size;
+    height: $input-height;
+    margin: $input-margin;
+    //margin-bottom: 15px;
+    margin-bottom: $input-margin;
+    max-width: 100%;
+    outline: $input-outline;
+    padding: $input-padding;
+    transition: $input-transition;
+    width: $input-width;
+    @include set-placeholder-style($input-placeholder-color);
+
+    @include susy-media($bp-tablet) {
+        margin-bottom: $input-margin;
+    }
+
+
+    // -----------------------------------------
+    // for inputs that have a placeholder,
+    //   make sure the label is not on top of it
+    // -----------------------------------------
+    &[placeholder] + label {
+        font-size: $label-font-size;
+        transform: translateY(-120%);
+        transition: none;
+    }
+
+
+    // --------------------
+    // focus styles
+    // --------------------
+    &:focus:not([readonly]) {
+        border-bottom-color: $input-focus-color;
+        box-shadow: 0 1px 0 0 $input-focus-color;
+    }
+
+
+    // --------------------
+    // invalid input styls
+    // --------------------
+    &.invalid,
+    &:focus.invalid {
+        border-bottom-color: $input-invalid-color;
+        box-shadow: 0 1px 0 0 $input-invalid-color;
+    }
+
+
+    // --------------------------------------------------
+    // set label and any icon color when input is invalid
+    // --------------------------------------------------
+    &.invalid + label,
+    &.invalid ~ i {
+        color: $input-invalid-color !important;
+    }
+
+
+    // --------------------
+    // Inputs with icons
+    // --------------------
+    &[class*="input-icon"] {
+        width: calc(#{$input-width} - #{$input-icon-margin});
+
+        &.input-icon-select {
+            cursor: pointer;
+
+            & + label {
+                cursor: pointer;
+            }
+
+            &:not(.input-icon-prefix),
+            &:not(.input-icon-suffix) {
+                width: 100%;
+            }
+        }
+    }
+
+    &[class*="input-icon"] ~ i {
+        @extend %position-absolute;
+        color: $input-icon-color;
+        font-size: $input-icon-font-size;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: $input-transition;
+    }
+
+    &.input-icon-prefix,
+    &.input-icon-prefix + label {
+        margin-left: $input-icon-margin;
+    }
+
+    &.input-icon-prefix ~ i {
+        left: 0;
+    }
+
+    &.input-icon-suffix,
+    &.input-icon-suffix + label {
+        margin-right: $input-icon-margin;
+    }
+
+    &.input-icon-suffix ~ i {
+        right: 0;
+    }
+
+    &[class*="input-icon"]:focus ~ i {
+        color: $input-focus-color;
+    }
+}
+
+
+// -------------------------
+// Text Area Specific Styles
+// -------------------------
+textarea,
+.text-editor {
+    min-height: $ta-min-height;
+    overflow-y: hidden;
+    padding: $ta-padding;
+    resize: none;
+
+    &[contenteditable] {
+        min-height: $ta-min-height * 2;
+        outline: none;
+        overflow-y: auto;
+
+        &.sm {
+            min-height: 8rem;
+        }
+
+        &.tall {
+            min-height: $ta-min-height * 3;
+        }
+    }
+}
+
+
+// -------------------
+// Input field wrapper
+// -------------------
+.input-field {
+    @extend %position-relative;
+
+    label {
+        @extend %position-absolute;
+        color: $input-border-color;
+        cursor: text;
+        font-family: $input-font-family;
+        font-size: $input-font-size * .9;
+        left: 0;
+        transition: $input-transition;
+        top: 0.8rem;
+
+        @include susy-media($bp-wide) {
+            font-size: $input-font-size;
+        }
+
+        &.active {
+            font-size: $label-font-size;
+            transform: translateY(-120%);
+        }
+    }
+
+    .error-label {
+        @extend %position-absolute;
+        @extend %text-align-right;
+        bottom: 0;
+        color: $input-invalid-color;
+        font-size: $input-error-label-font-size;
+        right: 0;
+        transform: translateY(20%);
+
+        @include susy-media($bp-tablet) {
+            transform: translateY(100%);
+        }
+    }
+}

@@ -1,0 +1,175 @@
+﻿// Select Elements
+$select-background: $white;
+$select-active-top: 49px;
+$select-max-height: 300px;
+$select-opt-background: $white;
+$select-opt-background-hover: darken($select-opt-background, 2.5%);
+$select-opt-color: $input-color;
+$select-opt-color-hover: $input-focus-color;
+$select-opt-font-size: .85rem;
+$select-opt-height: 48px;
+$select-opt-padding: 0 15px;
+$select-opt-transition: background .175s linear,
+                        color .175s linear;
+$select-opt-will-change: background, color;
+
+
+// --------------------
+// Select Elements 
+// --------------------
+select {
+    cursor: pointer;
+
+    & + label {
+        font-size: $label-font-size !important;
+        transform: translateY(-120%);
+    }   
+
+    &[multiple] {
+        overflow: hidden;
+
+        option {
+            display: none;
+        }
+    }
+
+    &.md-select {
+        border-bottom-color: $color-primary !important;
+        box-shadow: 0 0 0 0 transparent !important;
+        outline: none !important;
+
+        option {
+            display: none;
+        }
+    }
+}
+
+
+// -------------------------
+// Icons uses for drop downs
+// -------------------------
+i.icon-drop-down {
+    cursor: pointer;
+    left: auto !important;
+    right: 0 !important;
+}
+
+
+// --------------------
+// Option List
+// --------------------
+.md-select-menu {
+    @extend %list-style-none;
+    @extend %no-margin;
+    @extend %position-absolute;
+    @extend .zdepth-1;
+    background: $select-background;
+    border-radius: 2px;
+    left: 0;
+    max-height: $select-max-height;
+    opacity: 0;
+    overflow-y: auto;
+    top: -999999px;
+    transform: scale(1, 0);
+    transform-origin: center top;
+    transition: opacity .275s ease,
+                transform .275s ease;
+    width: 100%;
+    will-change: opacity, transform;
+    visibility: hidden;
+    z-index: 9999;
+
+    &.active {
+        opacity: 1;
+        top: $select-active-top;
+        transform: scale(1, 1);
+        visibility: visible;
+    }
+}
+
+.md-select-menu-item {
+    @extend %display-block;
+    @extend %position-relative;
+    @extend %text-decoration-none;
+    cursor: pointer;
+    font-size: $select-opt-font-size;
+    height: $select-opt-height;
+    line-height: $select-opt-height;
+    padding: $select-opt-padding;
+    transition: $select-opt-transition;
+    will-change: $select-opt-will-change;
+    @include link-colors($select-opt-color, $select-opt-color-hover);
+
+    &[selected="true"] {
+        background: $select-opt-background-hover;
+        color: $select-opt-color-hover;
+    }
+
+    &:hover,
+    &.keyover {
+        background: darken($select-opt-background-hover, 3.5%);;
+    }
+
+    &[selected="true"] {
+        &:before {
+            @extend %display-inline-block;
+            border: 2px solid transparent;
+            border-bottom-color: $select-opt-color-hover;
+            border-right-color: $select-opt-color-hover;
+            content: "";
+            height: 10px;
+            margin: 0 16px 0 0;
+            transform: rotateZ(37deg);
+            transform-origin: 100% 100%;
+            width: 4px;
+        }
+    }
+}
+
+#select-pg-overlay {
+    @extend %position-absolute;
+    bottom: 0;
+    height: 100%;
+    left: 0;
+    opacity: 0;
+    top: 0;
+    width: 100%;
+    z-index: 4;
+}
+
+
+// ----------------
+// Chosen overrides
+// ----------------
+.chosen-container {
+    width: 100% !important;
+
+    input {
+        width: 100%;
+    }
+
+    .chosen-choices {
+        background: $white !important;
+        border-color: $color-primary !important;
+        box-shadow: 0 0 0 0 #fff !important;
+        padding: 5px !important;
+    }
+
+    .search-choice {
+        background: $color-primary !important;
+        border-color: $color-primary !important;
+        box-shadow: 0 0 1px 0 rgba(0, 0, 0, .15) !important;
+        color: $white !important;
+        padding: 5px 20px 5px 5px !important;
+
+        .search-choice-close {
+            top: 6px !important;
+        }
+    }
+
+    .active-result {
+        &.highlighted {
+            background: $color-primary !important;
+        }
+    }
+}

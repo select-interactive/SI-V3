@@ -1,0 +1,121 @@
+﻿// Alert Box Styles
+//
+
+// Default Alert Container Styles
+$alert-background: $white;
+$alert-font-size: 1rem;
+$alert-max-width: 450px;
+$alert-padding: 30px;
+$alert-top-active: 30%;
+$alert-top-hidden: 20%;
+$alert-transition: opacity .175s linear,
+                   top .175s ease-out;
+$alert-will-change: opacity, top;
+
+// Mobile size
+$alert-mbl-width: 95%;
+
+// Medium size - 768px+
+$alert-med-width: auto;
+
+// Alert Header
+$alert-hdr-font-family: $font-primary;
+$alert-hdr-font-size: 1.2rem;
+$alert-hdr-line-height: 1.35;
+$alert-hdr-margin: 0 0 10px;
+
+// Alert Content
+$alert-content-margin: 0 0 30px;
+
+// Alert Overlay
+$alert-overlay-background: rgba(0, 0, 0, .5);
+
+.alert-container {
+    @extend %position-fixed;
+    background: $alert-overlay-background;
+    height: 0;
+    left: -9999px;
+    overflow: hidden;
+    top: -9999px;
+    will-change: opacity;
+    width: 0;
+    z-index: 99;
+
+    .alert-active & {
+        left: 0;
+        height: 100%;
+        opacity: 1;
+        top: 0;
+        width: 100%;
+    }
+}
+
+.alert-el {
+    @extend %position-fixed;
+    @extend .zdepth-3;
+
+    background: $alert-background;
+    font-size: $alert-font-size;
+    left: 50%;
+    opacity: 0;
+    max-width: $alert-max-width;
+    min-width: 300px;
+    padding: $alert-padding;
+    top: $alert-top-hidden;
+    transform: translateX(-50%) translateY(-99999px);
+    transition: $alert-transition;
+    width: $alert-mbl-width;
+    will-change: $alert-will-change;
+    z-index: 100;
+
+    @include susy-media($bp-tablet) {
+        width: $alert-med-width;
+    }
+
+    .alert-active & {
+        opacity: 1;
+        top: $alert-top-active;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+.alert-header {
+    font-family: $alert-hdr-font-family;
+    font-size: $alert-hdr-font-size;
+    line-height: $alert-hdr-line-height;
+    margin: $alert-hdr-margin;
+}
+
+.alert-info {
+    margin: $alert-content-margin;
+
+    p,
+    ol,
+    ul {
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.alert-btn-container {
+    @extend %text-align-right;
+    margin: 0 -8px;
+}
+
+.alert-btn {
+    @extend .btn;
+    padding: 0 8px;
+
+    &:not(:last-child) {
+        margin-right: .5rem;
+    }
+
+    &-confirm {
+        @include link-colors($color-primary, $color-primary);
+    }
+
+    &-deny {
+        @include link-colors($body-color, $body-color);
+    }
+}

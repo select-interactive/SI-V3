@@ -11,8 +11,10 @@ html {
 	overflow-y: scroll;
 
 	// Font
-	font-size: $base-font-size; 
-	line-height: $base-line-height;
+	font-family: $font-primary; 
+    font-size: $base-font-size; 
+    font-weight: $font-weight-regular;
+    line-height: $base-line-height;
 
 	// Prevent iOS, WinMobile from adjusting font size
 	-webkit-text-size-adjust: none;
@@ -31,13 +33,15 @@ body {
 	// Color
 	background: $body-background; 
 	color: $body-color;
-
-	// Font
-	font-family: $font-primary; 
-	text-align: left;
+    text-align: left;
     
     &.modal-in {
         overflow: hidden;
+    }
+
+    .noscroll {
+        overflow: hidden !important;
+        max-height: 100%;
     }
 }
 
@@ -45,24 +49,5 @@ body {
 // ---------
 // Selection
 // ---------
-::-moz-selection{ background: $color-primary; color: #fff; }
-::selection{ background: $color-primary; color: #fff; }
-
-
-// -------------------
-// Browse Happy prompt
-// -------------------
-.browsehappy {
-	margin: 0.2em 0;
-	background: #ccc;
-	color: #000;
-	padding: 0.2em 0;
-}
-
-#main {
-    @extend %position-relative;
-    margin-bottom: $hdr-bar-height;
-    min-height: calc(100vh - #{$hdr-bar-height * 2});
-    top: $hdr-bar-height;
-    z-index: 0;
-}
+::-moz-selection{ background: #b3d4fc; color: #fff; }
+::selection{ background: #b3d4fc; color: #fff; }

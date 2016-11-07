@@ -31,7 +31,7 @@
 	function loginUser( e ) {
 		var un = tbUn.value.trim(),
 			pwd = tbPwd.value.trim();
-
+		
 		if ( un === '' || pwd === '' ) {
 			status.innerHTML = '<p>Both username and password are required.</p>';
 			status.classList.remove( 'hidden' );

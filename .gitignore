@@ -17,3 +17,5 @@ WebWorkbench.mswwsettings
 
 #Ignore publish settings
 website.publishproj
+
+test/

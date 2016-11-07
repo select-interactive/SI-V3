@@ -1,0 +1,39 @@
+﻿// Default Row Spacing
+$form-row-mrg: 2rem;
+
+
+// --------------------
+// Form Row Defaults
+// --------------------
+.form-row {
+    @extend .row;
+    margin: 0;
+
+    &:not(:last-child),
+    &.mrg {
+        margin: 0 0 $form-row-mrg;
+    }
+
+    &.no-mrg {
+        margin-bottom: 0 !important;
+    }
+}
+
+.form-section-hdr {
+    color: $color-secondary;
+    font-size: 1.25rem;
+    font-weight: $font-weight-bold;
+    line-height: 1.1;
+
+    &:not(:first-child) {
+        margin-top: 3.5rem;
+    }
+
+    &:after {
+        @extend %display-block;
+        border-top: 2px solid $color-secondary;
+        content: '';
+        margin: 1.5rem 0;
+        width: 45px;
+    }
+}

@@ -7,63 +7,7 @@
 // ------------------------------
 // Embedded Fonts with @font-face
 // ------------------------------
-@font-face {
-	font-family: 'telegrafico';
-	src: url('/font/telegrafico.eot');
-	src: url('/font/telegrafico.eot?#iefix') format('embedded-opentype'),
-         url('/font/telegrafico.woff2') format('woff2'),
-		 url('/font/telegrafico.woff') format('woff'),
-		 url('/font/telegrafico.ttf') format('truetype'),
-		 url('/font/telegrafico.svg#TelegraficoRegular') format('svg');
-	font-weight: normal;
-	font-style: normal;
-}
 
-@font-face {
-	font-family: 'avenir-light';
-	src: url('/font/avenir-light.eot');
-	src: url('/font/avenir-light.eot?#iefix') format('embedded-opentype'),
-         url('/font/avenir-light.woff2') format('woff2'),
-		 url('/font/avenir-light.woff') format('woff'),
-         url('/font/avenir-light.ttf') format('truetype'),
-		 url('/font/avenir-light.svg#avenirlight') format('svg');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'avenir-medium';
-	src: url('/font/avenir-medium.eot');
-	src: url('/font/avenir-medium.eot?#iefix') format('embedded-opentype'),
-		 url('/font/avenir-medium.woff2') format('woff2'),
-         url('/font/avenir-medium.woff') format('woff'),
-		 url('/font/avenir-medium.ttf') format('truetype'),
-		 url('/font/avenir-medium.svg#avenirMedium') format('svg');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'avenir-black';
-	src: url('/font/avenir-black.eot');
-	src: url('/font/avenir-black.eot?#iefix') format('embedded-opentype'),
-		 url('/font/avenir-black.woff2') format('woff2'),
-         url('/font/avenir-black.woff') format('woff'),
-		 url('/font/avenir-black.ttf') format('truetype'),
-		 url('/font/avenir-black.svg#avenirblack') format('svg');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'soucrce-code-pro-reg';
-	src: url('/font/SourceCodePro-Regular.eot');
-	src: url('/font/SourceCodePro-Regular.eot?#iefix') format('embedded-opentype'),
-		 url('/font/SourceCodePro-Regular.woff') format('woff'),
-		 url('/font/SourceCodePro-Regular.svg#sourcecodeproreg') format('svg');
-	font-weight: normal;
-	font-style: normal;
-}
 
 // -------
 // Helpers
@@ -79,96 +23,6 @@
 .text-smaller { font-size: .75em; }
 .text-xsmall { font-size: .6em; }
 .text-uppercase { @extend %text-transform-uppercase }
-.color-primary { color: $color-primary; }
-
-
-// ------------
-// General copy
-// ------------
-.copy {
-    font-size: 1.15rem;
-
-    &-hdr {
-        @extend %position-relative;
-        font-size: 1.5rem;
-        line-height: 1.25;
-        
-        &:not(:first-child) {
-            margin-top: 35px;
-        }
-
-        &:not(:last-child) {
-            margin-bottom: 15px;
-        }
-
-        @include susy-media($bp-tablet) {
-            font-size: 1.65rem;
-        }
-
-        @include susy-media($bp-large) {
-            font-size: 1.8rem;
-        }
-
-        &-xl {
-            font-size: 2rem;
-        
-            &:not(:last-child) {
-                margin-bottom: 30px;
-            }
-
-            @include susy-media($bp-tablet) {
-                font-size: 2.65rem;
-            }
-
-            @include susy-media($bp-large) {
-                font-size: 3rem;
-            }
-        }
-
-        i {
-            @extend %position-relative;
-            color: lighten($body-color, 15%);
-            font-size: 2rem;
-            margin-right: 8px;
-            top: -2px;
-            vertical-align: middle;
-        }
-    }
-
-    p {
-        @extend %no-margin;
-        line-height: 1.5;
-
-        &:not(:last-child) {
-            margin-bottom: 20px;
-        }
-
-        &.mbs {
-            margin-bottom: 10px;
-        }
-    }
-
-    ul,
-    ol {
-        &:not(:last-child) {
-            margin-bottom: 20px;
-        }
-
-        li {
-            line-height: 1.3;
-
-            &:not(:last-child) {
-                margin-bottom: 8px;
-            }
-        }
-    }
-
-    a {
-        @extend %display-inline-block;
-        @extend %text-decoration-underline;
-        @include link-colors($color-primary, $color-primary);
-    }
-}
 
 
 // -------
@@ -181,25 +35,20 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
+// ---------
+// Body Text
+// ---------
+p {
+	margin: 0 0 $base-line-height / 2;
+}
+
+
 // -----
 // Lists
 // -----
 ul, ol {
 	padding: 0;
 	margin: 0 0 ($base-line-height / 2) 25px;
-
-    &.list-no-style {
-        @extend %list-style-none;
-        margin-left: 0;
-
-        li {
-            line-height: 1.25;
-
-            &:not(:last-child) {
-                margin-bottom: 6px;
-            }
-        }
-    }
 }
 ul ul,
 ul ol,
@@ -217,10 +66,4 @@ li {
 // -----
 a {
 	@include link-colors($link-color, $link-color-hover);	
-}
-
-strong,
-b {
-    font-family: $font-bold;
-    font-weight: normal;
 }

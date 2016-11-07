@@ -1,31 +1,104 @@
-﻿#nav-admin {
-    ul {
-        @extend %list-style-none;
-        @extend %no-margin;
+﻿.admin-card {
+    @extend .zdepth-1;
+    background: $white;
+    border-radius: 2px;
+    font-size: 1rem;
+    margin: 0 0 50px;
+    padding: 24px;
+}
+
+.admin-grid {
+    @extend .admin-card;
+    max-width: 100%;
+    padding: 0;
+
+    &-hdr {
+        font-size: 1.65rem;
+        height: 64px;
+        line-height: 64px;
+        margin: 0;
+        padding: 0 24px;
     }
 
-    li {
-        margin: 15px 0 0;
+    &-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background .125s ease;
 
-        &:first-child {
-            margin-top: 0;
+        &.hdr {
+            font-weight: $font-weight-bold;
+        }
+
+        &:not(:last-child) {
+            border-bottom: 1px solid #d2d2d2;
+        }
+
+        &:hover {
+            &:not(.hdr) {
+                background: #fdfdfd;
+            }
         }
     }
 
-    a {
-        @extend %display-inline-block;
-        @extend %text-decoration-none;
-        border-left: 4px solid #999;
-        font-size: 16px;
-        line-height: 1;
-        padding: 6px 8px;
-        transition: all .125s linear;
-        @include link-colors(#999, #444);
+    &-col {
+        flex: 1;
+        line-height: 1.2;
+        padding: 8px 1rem;
+        overflow: hidden;
 
-        &:hover,
-        &.selected {
-            border-left-color: #444;
-            padding-left: 10px;
+        &-sm {
+            flex: .25;
+        }
+
+        &-primary {
+            flex: 2;
+        }
+
+        &:last-child {
+            flex: 1;
+            text-align: right;
+        }
+
+        .btn {
+            height: 32px;
+            line-height: 32px;
+            padding: 0 1rem;
+
+            .hdr & {
+                display: none;
+            }
+        }
+    }
+
+    p {
+        padding: 0 24px;
+    }
+}
+
+.admin-option-list {
+    @extend %list-style-none;
+    margin: 0;
+
+    &:not(:last-child) {
+        margin-bottom: 25px;
+    }
+
+    &-heading {
+        font-size: 1.1rem;
+        font-weight: $font-weight-bold;
+        margin: 0 0 10px;
+    }
+
+    &-hdr {
+        margin-bottom: 5px;
+    }
+
+    &-item {
+        padding-left: 18px;
+
+        &:not(:last-child) {
+            margin-bottom: 3px;
         }
     }
 }

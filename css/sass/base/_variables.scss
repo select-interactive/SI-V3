@@ -6,10 +6,9 @@
 // ----------------------
 // Dimensions + Grid Vars
 // ----------------------
-$max-width-px:		1400px;
+$max-width-px:		1200px;
 $base-font-size:	16px;
 $base-line-height:	22px;
-$hdr-bar-height:    64px;
 
 
 // Susy Settings
@@ -20,16 +19,12 @@ $column-width:	4em;
 // -------------------
 // Typography Settings
 // -------------------
-$av-light:	  'avenir-light', sans-serif;
-$av-medium:   'avenir-medium', sans-serif;
-$av-black:    'avenir-black', sans-serif;
-$telegrafico: 'telegrafico', sans-serif;
+$font-primary: sans-serif;
+$font-secondary: serif;
+$font-bold: '';
 
-$font-primary: $av-light;
-$font-secondary: $telegrafico;
-$font-med: $av-medium;
-$font-bold: $av-black;
-
+$font-weight-regular: 400;
+$font-weight-bold: 600;
 
 // --------------------------
 // Colors
@@ -41,7 +36,7 @@ $color-primary-dark: darken($color-primary, 7.5%);
 $color-primary-light: lighten($color-primary, 7.5%);
 
 // Secondary Colors
-$color-secondary: #8e8d8e;
+$color-secondary: #777;
 $color-secondary-dark: darken($color-secondary, 7.5%);
 $color-secondary-light: lighten($color-secondary, 7.5%);
 
@@ -72,7 +67,7 @@ $info-border:		darken(adjust-hue($info-bg, -10), 7%);
 // Default Body Styles
 // --------------------------
 $body-background:	$white;
-$body-color:		lighten($black, 22.5%);
+$body-color:		lighten($black, 17.5%);
 
 
 // --------------------------

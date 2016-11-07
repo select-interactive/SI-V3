@@ -1,6 +1,6 @@
 ﻿/*!
- * CSS for Select Interactive, LLC
- * @author: Jeremy Burton (jeremy@select-interactive.com/www.select-interactive.com)
+ * CSS for website
+ * @author: [name] [(email/web site)]
  */
 
 
@@ -38,34 +38,20 @@
 @import "layout/footer";
 
 // Components
-@import "components/layout/container";
-@import "components/layout/hdr-bar";
 @import "components/material/icons";
 @import "components/material/zdepth";
-@import "components/buttons/buttons";
-@import "components/forms/chosen";
-@import "components/forms/forms";
+@import "components/layout/container";
+@import "components/layout/hdr-bar";
+@import "components/layout/side-nav";
+@import "components/forms/form";
+@import "components/forms/input";
 @import "components/forms/pikaday";
-@import "components/alerts/alerts";
-@import "components/toasts/toasts";
-@import "components/tabs/tabs";
-@import "components/pages";
-@import "components/banner";
-@import "components/paper";
-@import "components/clients";
-@import "components/cards";
-@import "components/icons";
-@import "components/articles";
-@import "components/bios";
-@import "components/awards";
-@import "components/gmap";
-@import "components/social";
-@import "components/menu";
-@import "components/event-overlay";
-@import "components/admin/admin.grid";
+@import "components/forms/select";
+@import "components/forms/checkbox-radio";
+@import "components/toast";
+@import "components/alert";
+@import "components/button";
+
 
 // Page Specific Styles
 @import "pages/admin";
-@import "pages/home";
-@import "pages/projects";
-@import "pages/styleguide";

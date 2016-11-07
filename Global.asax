@@ -8,12 +8,28 @@
 	End Sub
 
 	Sub RegisterRoutes(ByVal routes As System.Web.Routing.RouteCollection)
-		routes.Add("newsWebUrlRoute", New System.Web.Routing.Route("news/{year}/{month}/{day}/{webUrl}", New CustomRouteHandler("~/news/entry/default.aspx")))
-		routes.Add("newsMonthUrlRoute", New System.Web.Routing.Route("news/{year}/{month}", New CustomRouteHandler("~/news/default.aspx")))
-		routes.Add("newsYearUrlRoute", New System.Web.Routing.Route("news/{year}", New CustomRouteHandler("~/news/default.aspx")))
-		routes.Add("newsTagRoute", New System.Web.Routing.Route("news/tag/{tagUrl}", New CustomRouteHandler("~/news/tag/default.aspx")))
-		routes.Add("projectRoute", New System.Web.Routing.Route("project/{objId}", New CustomRouteHandler("~/portfolio/project/default.aspx")))
-		routes.Add("portfolioTagRoute", New System.Web.Routing.Route("portfolio/tag/{tagUrl}", New CustomRouteHandler("~/portfolio/tag/default.aspx")))
+		'routes.Add("apiRoute", New System.Web.Routing.Route("api/{fn}/", New RouteHandler("~/webservices/wsApp.asmx")))
+	End Sub
+
+	Sub Application_BeginRequest(ByVal sender As Object, ByVal e As EventArgs)
+		Dim req = HttpContext.Current.Request.Url.AbsolutePath
+
+		If req.Contains("/api/") Then
+			Dim apiPath As String = "/webservices/wsApp.asmx/"
+
+			Dim path As String = req.Substring(req.IndexOf("/api/") + 5)
+
+			If path.Contains("/") Then
+				Dim ws As String = path.Substring(0, path.IndexOf("/"))
+				apiPath = "/webservices/ws" & ws & ".asmx/" & path.Substring(path.IndexOf("/") + 1)
+			Else
+				apiPath = "/webservices/wsApp.asmx/"
+				apiPath &= req.Substring(req.IndexOf("/api/") + 5)
+			End If
+
+
+			Context.RewritePath(apiPath)
+		End If
 	End Sub
 
 	Sub Application_Error(ByVal sender As Object, ByVal e As EventArgs)

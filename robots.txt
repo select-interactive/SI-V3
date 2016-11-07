@@ -2,11 +2,15 @@
 
 User-agent: *
 Disallow: /.sass-cache/
+Disallow: /admin/
 Disallow: /App_Code/
 Disallow: /App_Data/
 Disallow: /bin/
 Disallow: /controls/
 Disallow: /font/
+Disallow: /login/
 Disallow: /masterpages/
 Disallow: /node_modules/
+Disallow: /styleguide/
+Disallow: /templates/
 Disallow: /webservices/

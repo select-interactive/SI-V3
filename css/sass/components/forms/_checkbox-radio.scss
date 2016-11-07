@@ -1,0 +1,143 @@
+﻿// Radio Buttons/Checkboxes
+$rb-label-color: rgba($body-color, .85);
+$rb-label-font-size: .95rem;
+$rb-label-padding: 0 0 0 28px;
+$rb-background: $white;
+$rb-background-checked: $color-primary;
+$rb-border-color: rgba($body-color, .75);
+$rb-border-color-checked: $color-primary;
+$rb-size: 14px;
+$rb-transition-settings: .225s ease;
+
+
+// ----------------------------
+// Checkbox/Radio Button Inputs
+// ----------------------------
+.form-checkbox-list {
+    @extend %list-style-none;
+    margin-left: 0;
+
+    li {
+        &:not(:last-child) {
+            margin-bottom: 5px;
+        }
+    }
+}
+
+input[type=checkbox],
+input[type=radio] {
+    //@extend %position-absolute;
+    //left: -99999px;
+    display: inline-block;
+    height: 0;
+    opacity: 0;
+    width: 0;
+    
+    & + label {
+        @extend %display-inline-block;
+        @extend %position-relative;
+        color: $rb-label-color;
+        cursor: pointer;
+        font-size: $rb-label-font-size * .9;
+        padding: $rb-label-padding;
+        vertical-align: middle;
+
+        @include susy-media($bp-wide) {
+            font-size: $rb-label-font-size;
+        }
+
+        &:before,
+        &:after {
+            @extend %position-absolute;
+            content: "";
+            left: 0;
+            top: 1px;
+        }
+    }
+}
+
+
+// Checkboxes
+input[type=checkbox]:not([switch]) {
+    & + label {
+        &:before {
+            background: $rb-background;
+            border: 2px solid  $rb-border-color;
+            border-radius: 2px;
+            height: $rb-size + 2px;
+            top: 0;
+            transition: background $rb-transition-settings,
+                        border $rb-transition-settings;
+            width: $rb-size + 2px;
+        }
+
+        &:after {
+            border: 2px solid transparent;
+            height: 10px;
+            left: 1px;
+            transform: rotateZ(37deg);
+            transform-origin: 100% 100%;
+            transition: border $rb-transition-settings;
+            top: 2px;
+            width: 4px;
+        }
+    }
+
+    &:checked {
+        & + label {
+            &:before {
+                background: $rb-background-checked;
+                border-color: $rb-border-color-checked;
+            }
+
+            &:after {
+                border-bottom-color: $white;
+                border-right-color: $white;
+            }
+        }
+    }
+}
+
+
+// Radio Buttons
+input[type=radio] {
+    & + label {
+        &:before,
+        &:after {
+            border-radius: 50%;
+        }
+
+        &:before {
+            @extend %display-inline-block;
+            background: $rb-background;
+            border: 2px solid $rb-border-color;
+            height: $rb-size;
+            transition: border $rb-transition-settings;
+            vertical-align: middle;
+            width: $rb-size;
+            will-change: border;
+        }
+
+        &:after {
+            background: $rb-background;
+            height: $rb-size - 4px;
+            left: 4px;
+            top: 5px;
+            transition: background $rb-transition-settings;
+            width: $rb-size - 4px;
+            will-change: background;
+        }
+    }
+
+    &:checked {
+        & + label {
+            &:before {
+                border-color: $rb-border-color-checked;
+            }
+
+            &:after {
+                background: $rb-background-checked;
+            }   
+        }
+    }
+}

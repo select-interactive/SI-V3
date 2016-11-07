@@ -1,0 +1,247 @@
+﻿// Button Styles
+//
+// Button Types:
+//  1. Flat Button (default button styles)
+//  2. Raised Button (requires class btn-raised -- <button class="btn btn-raised">Text</button>
+//  3. Floating Action Button (requires class btn-fab -- <button class="btn btn-fab">+</button>
+
+
+// button defaults (flat buttons)
+$btn-background: transparent;
+$btn-background-hover: rgba(#eaeaea, .9);
+$btn-border: none;
+$btn-border-radius: 2px;
+$btn-color: $color-primary;
+$btn-font-family: $font-primary;
+$btn-font-weight: 400;
+$btn-font-size: 1em;
+$btn-height: 36px;
+$btn-line-height: $btn-height;
+$btn-padding: 0 1.6rem;
+
+// raised buttons
+$btn-raised-background: $color-primary;
+$btn-raised-background-hover: lighten($btn-raised-background, 5%);
+$btn-raised-color: $white;
+
+// floating action buttons (fab)
+$btn-fab-background: $white;
+$btn-fab-background-hover: darken($btn-fab-background, 2.5%);
+$btn-fab-color: $color-primary;
+$btn-fab-icon-size: 1.2rem;
+$btn-fab-size: 42px;
+$btn-fab-padding: 0; 
+
+// sizes - small
+$btn-sm-font-size: .8em;
+$btn-sm-padding: 0 1.2rem;
+
+// sizes- large
+$btn-lg-font-size: 1.35rem;
+$btn-lg-height: 48px;
+$btn-lg-line-height: $btn-lg-height;
+$btn-lg-padding: 0 2.8rem;
+
+// ripples
+$animation-curve-linear-out-slow-in: cubic-bezier(0, 0, 0.2, 1);
+
+
+.btn {
+    // -------------------------------
+    // button defaults -- Flat Buttons
+    // -------------------------------
+    @extend %display-inline-block;
+    @extend %position-relative;
+    @extend %text-align-center;
+    @extend %text-decoration-none;
+    background: $btn-background;
+    border: $btn-border;
+    border-radius: $btn-border-radius;
+    color: $btn-color;
+    cursor: pointer;
+    font-family: $btn-font-family;
+    font-size: $btn-font-size;
+    font-weight: $btn-font-weight;
+    height: $btn-height;
+    line-height: $btn-line-height;
+    outline: none;
+    overflow: hidden;
+    padding: $btn-padding;
+    transition: background .275s ease;
+    vertical-align: middle;
+    -webkit-tap-highlight-color: transparent;
+
+    
+    // --------------------
+    // Flat buttons
+    // --------------------
+    &:hover {
+        background: $btn-background-hover;
+        color: $btn-color;
+    }
+
+
+    &-white {
+        color: $white;
+
+        &:hover {
+            background: rgba($btn-background-hover, .2);
+            color: $white
+        }
+    }
+
+
+    // --------------------
+    // raised buttons
+    // --------------------
+    &-raised {
+        @extend .zdepth-1;
+        background: $btn-raised-background;
+        color: $btn-raised-color;
+        letter-spacing: .5px;
+        transition: background .2s ease-out,
+                    box-shadow .2s ease-out,
+                    color .2s ease-out;
+
+        &:hover {
+            @extend .zdepth-1-half;
+            background: $btn-raised-background-hover;
+            color: $btn-raised-color;
+        }
+
+        &.btn-white {
+            background: $white;
+            border-color: $white;
+            color: $color-primary;
+        }
+
+        &.btn-full {
+            font-size: $btn-font-size * 1.25;
+            height: $btn-height * 1.5;
+            line-height: $btn-line-height * 1.5;
+            width: 100%;
+        }
+    }
+
+
+    // -----------------------
+    // floating action buttons
+    // -----------------------
+    &-fab {
+        @extend .zdepth-1;
+        background: $btn-fab-background;
+        border-radius: 50%;
+        color: $btn-fab-color;
+        height: $btn-fab-size;
+        padding: $btn-fab-padding;
+        transition: background .2s ease-out,
+                    box-shadow .2s ease-out,
+                    color .2s ease-out;
+        width: $btn-fab-size;
+
+        &:hover {
+            @extend .zdepth-1-half;
+            background: $btn-fab-background-hover;
+        }
+
+
+        // --------------------
+        // Fixed position FAB
+        // --------------------
+        &-fixed {
+            @extend %position-fixed;
+            bottom: 23px;
+            right: 23px;
+            z-index: 1;
+
+            @include susy-media($bp-comp) {
+                bottom: 20px;
+                right: 36px;
+            }
+        }
+
+
+        // --------------------
+        // Icons in FAB
+        // --------------------
+        i {
+            font-size: $btn-fab-icon-size;
+            line-height: $btn-fab-size;
+        }
+    }
+
+
+    // -------------------
+    // small button
+    // -------------------
+    &-sm {
+        font-size: $btn-sm-font-size;
+        padding: $btn-sm-padding;
+    }
+
+
+    // -------------------
+    // large button
+    // -------------------
+    &-lg {
+        font-size: $btn-lg-font-size;
+        height: $btn-lg-height;
+        line-height: $btn-lg-line-height;
+        padding: $btn-lg-padding;
+    }
+
+    
+    // --------------------
+    // icon within button
+    // --------------------
+    i {
+        @extend %display-inline-block;
+        @extend %text-align-center;
+        width: inherit;
+    }
+
+
+    // --------------------
+    // Ripple Elements
+    // --------------------
+    &-ripple-container {
+        @extend %display-block;
+        @extend %position-absolute;
+        height: 100%;
+        left: 0;
+        overflow: hidden;
+        top: 0;
+        width: 100%;
+        z-index: 0;
+
+        // if inside a fab
+        [fab] & {
+            border-radius: 50%;
+        }
+    }
+
+    &-ripple-element {
+        @extend %position-absolute;
+        background: rgba(75, 75, 75, .25);
+        border-radius: 50%;
+        height: 50px;
+        left: 0;
+        opacity: 0;
+        overflow: hidden;
+        pointer-events: none;
+        top: 0;
+        transform: translate(-50%, -50%);
+        width: 50px;
+
+        &.is-animating {
+            transition: width 0.3s $animation-curve-linear-out-slow-in,
+                        height 0.3s $animation-curve-linear-out-slow-in,
+                        opacity 0.6s $animation-curve-linear-out-slow-in,
+                        transform 0.3s $animation-curve-linear-out-slow-in;
+        }
+
+        &.is-visible {
+            opacity: 0.3;
+        }
+    }
+}

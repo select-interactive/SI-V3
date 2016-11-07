@@ -1,0 +1,13 @@
+{
+  "env": {
+    "browser": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 6
+  },
+  "rules": {
+    "space-before-function-paren": [2, {"named": "never", "anonymous": "never"}],
+    "quotes": ["error", "single"],
+    "space-in-parens": ["error", "always"]
+  }
+}
