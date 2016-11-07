@@ -4,7 +4,7 @@
  * Copyright 2015 Select Interactive, LLC. All rights reserved.
  * @author: The Select Interactive dev team (www.select-interactive.com) 
  */
-( function( doc ) {
+( function( doc, $ ) {
 	'use strict';
 
 	var
@@ -64,27 +64,75 @@
 				el: doc.getElementById( 'btn-img-delete' ),
 				evtName: 'click',
 				handler: deleteThumb
+			},
+			{
+				el: doc.getElementById( 'btn-img-monitor-trigger' ),
+				evtName: 'click',
+				handler: triggerImgMonitorUpload
+			},
+			{
+				el: doc.getElementById( 'f-img-monitor' ),
+				evtName: 'change',
+				handler: imgMonitorSelected
+			},
+			{
+				el: doc.getElementById( 'btn-img-monitor-delete' ),
+				evtName: 'click',
+				handler: deleteMonitorImg
 			}
         ],
 
         // optional other data for the item
         otherData = {
-			active: false,
+        	active: false,
+        	primaryImg: '',
+			tags: '',
 			thumbnail: ''
         },
 		
         fImg = doc.getElementById( 'f-img' ),
         imgPrev = doc.getElementById( 'img-prev' ),
         btnImgDetele = doc.getElementById( 'btn-img-delete' ),
+		fImgMonitor = doc.getElementById( 'f-img-monitor' ),
+        imgMonitorPrev = doc.getElementById( 'img-monitor-prev' ),
+        btnImgMonitorDetele = doc.getElementById( 'btn-img-monitor-delete' ),
+		ddlTags = doc.getElementById( 'ddl-tags' ),
         cbActive = doc.getElementById( 'cb-active' );
 
 	// call the admin init function passing this pages specific data/items
 	app.admin.init( settings, parse, inputEvents, otherData, saveItem );
 
+	function init() {
+		initChosenSelects();
+	}
+
+	function initChosenSelects() {
+		$( ddlTags ).chosen();
+	}
+
 	function loadItem() {
+		setLoadedTags();
 		app.forms.checkActive();
 		setImgPrev( app.admin.getOtherDataProperty( 'thumbnail' ) );
+		setImgMonitorPrev( app.admin.getOtherDataProperty( 'primaryImg' ) );
 		cbActive.checked = app.admin.getOtherDataProperty( 'active' );
+	}
+
+	function setLoadedTags() {
+		var tags = app.admin.getOtherDataProperty( 'tags' ),
+    		i = 0, len, tag;
+
+		if ( tags && tags.length ) {
+			tags = tags.split( ',' );
+			len = tags.length;
+
+			for ( ; i < len; i++ ) {
+				tag = tags[i];
+				ddlTags.querySelector( '[value="' + tag + '"]' ).selected = true;
+			}
+
+			$( ddlTags ).trigger( 'chosen:updated' );
+		}
 	}
 
 	function triggerImgUpload() {
@@ -110,11 +158,51 @@
 		setImgPrev( null );
 	}
 
+	function triggerImgMonitorUpload() {
+		fImgMonitor.click();
+	}
+
+	function imgMonitorSelected( e ) {
+		var files = e.dataTransfer ? e.dataTransfer.files : e.currentTarget.files,
+			file = files[0];
+
+		app.admin.uploadFile( file, true, '/admin/projects/uploadMonitorImg.ashx', function( fileName ) {
+			if ( fileName ) {
+				setTimeout( function() {
+					app.admin.setOtherDataProperty( 'primaryImg', fileName );
+					setImgMonitorPrev( fileName );
+				}, 500 );
+			}
+		} );
+	}
+
+	function deleteMonitorImg( e ) {
+		app.admin.setOtherDataProperty( 'primaryImg', '' );
+		setImgMonitorPrev( null );
+	}
+
 	function saveItem() {
 		var params = app.admin.collectData(),
             isValid = app.admin.validateReqFields();
 
 		if ( isValid ) {
+			params.tags = '';
+			params.tagNames = '';
+			params.tagUrls = '';
+			window.forEachElement( ddlTags.querySelectorAll( 'option' ), function( opt, i ) {
+				if ( opt.selected ) {
+					if ( params.tags !== '' ) {
+						params.tags += ',';
+						params.tagNames += ', ';
+						params.tagUrls += ',';
+					}
+
+					params.tags += opt.value;
+					params.tagNames += opt.text;
+					params.tagUrls += opt.getAttribute( 'data-tag-url' );
+				}
+			} );
+
 			params.sortOrder = parseInt( params.sortOrder, 10 );
 			params.active = cbActive.checked;
 			app.admin.saveItem( settings.save.fn, params );
@@ -132,4 +220,17 @@
 		}
 	}
 
-}( document ) );
+	function setImgMonitorPrev( fileName ) {
+		if ( fileName && fileName.length ) {
+			imgMonitorPrev.innerHTML = '<img src="/img/projects/primary/' + fileName + '" />';
+			btnImgMonitorDetele.classList.remove( 'hidden' );
+		}
+		else {
+			imgMonitorPrev.innerHTML = '';
+			btnImgMonitorDetele.classList.add( 'hidden' );
+		}
+	}
+
+	init();
+
+}( document, jQuery ) );

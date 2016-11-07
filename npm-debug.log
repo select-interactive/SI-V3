@@ -1,0 +1,76 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files (x86)\\nodejs\\\\node.exe',
+1 verbose cli   'C:\\Program Files (x86)\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   'grunt-jshint' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.33
+4 verbose node symlink C:\Program Files (x86)\nodejs\\node.exe
+5 warn package.json Project-Name@ No description
+6 warn package.json Project-Name@ No repository field.
+7 warn package.json Project-Name@ No README data
+8 warn package.json sass@0.5.0 No repository field.
+9 verbose readDependencies using package.json deps
+10 verbose cache add [ 'grunt-jshint', null ]
+11 verbose cache add name=undefined spec="grunt-jshint" args=["grunt-jshint",null]
+12 verbose parsed url { protocol: null,
+12 verbose parsed url   slashes: null,
+12 verbose parsed url   auth: null,
+12 verbose parsed url   host: null,
+12 verbose parsed url   port: null,
+12 verbose parsed url   hostname: null,
+12 verbose parsed url   hash: null,
+12 verbose parsed url   search: null,
+12 verbose parsed url   query: null,
+12 verbose parsed url   pathname: 'grunt-jshint',
+12 verbose parsed url   path: 'grunt-jshint',
+12 verbose parsed url   href: 'grunt-jshint' }
+13 silly lockFile 8e85dfb3-grunt-jshint grunt-jshint
+14 verbose lock grunt-jshint C:\Users\jermbo002\AppData\Roaming\npm-cache\8e85dfb3-grunt-jshint.lock
+15 silly lockFile 8e85dfb3-grunt-jshint grunt-jshint
+16 silly lockFile 8e85dfb3-grunt-jshint grunt-jshint
+17 verbose addNamed [ 'grunt-jshint', '' ]
+18 verbose addNamed [ null, '*' ]
+19 silly lockFile 324f7fab-grunt-jshint grunt-jshint@
+20 verbose lock grunt-jshint@ C:\Users\jermbo002\AppData\Roaming\npm-cache\324f7fab-grunt-jshint.lock
+21 silly addNameRange { name: 'grunt-jshint', range: '*', hasData: false }
+22 verbose request where is /grunt-jshint
+23 verbose request registry https://registry.npmjs.org/
+24 verbose request id c2bc671bbcf66da8
+25 verbose url raw /grunt-jshint
+26 verbose url resolving [ 'https://registry.npmjs.org/', './grunt-jshint' ]
+27 verbose url resolved https://registry.npmjs.org/grunt-jshint
+28 verbose request where is https://registry.npmjs.org/grunt-jshint
+29 info trying registry request attempt 1 at 10:32:43
+30 http GET https://registry.npmjs.org/grunt-jshint
+31 http 404 https://registry.npmjs.org/grunt-jshint
+32 silly registry.get cb [ 404,
+32 silly registry.get   { 'content-type': 'application/json',
+32 silly registry.get     'cache-control': 'max-age=0',
+32 silly registry.get     'content-length': '2',
+32 silly registry.get     'accept-ranges': 'bytes',
+32 silly registry.get     date: 'Wed, 25 Nov 2015 16:32:55 GMT',
+32 silly registry.get     via: '1.1 varnish',
+32 silly registry.get     age: '0',
+32 silly registry.get     connection: 'keep-alive',
+32 silly registry.get     'x-served-by': 'cache-dfw1820-DFW',
+32 silly registry.get     'x-cache': 'MISS',
+32 silly registry.get     'x-cache-hits': '0',
+32 silly registry.get     'x-timer': 'S1448469174.898027,VS0,VE187' } ]
+33 silly lockFile 324f7fab-grunt-jshint grunt-jshint@
+34 silly lockFile 324f7fab-grunt-jshint grunt-jshint@
+35 error 404 Not Found
+35 error 404
+35 error 404 'grunt-jshint' is not in the npm registry.
+35 error 404 You should bug the author to publish it
+35 error 404 It was specified as a dependency of 'Project-Name'
+35 error 404
+35 error 404 Note that you can also install from a
+35 error 404 tarball, folder, or http url, or git url.
+36 error System Windows_NT 6.2.9200
+37 error command "C:\\Program Files (x86)\\nodejs\\\\node.exe" "C:\\Program Files (x86)\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "grunt-jshint"
+38 error cwd C:\inetpub\wwwroot\SI-V3
+39 error node -v v0.10.33
+40 error npm -v 1.4.28
+41 error code E404
+42 verbose exit [ 1, true ]

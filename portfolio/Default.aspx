@@ -2,7 +2,8 @@
 <%@ Register TagPrefix="page" TagName="portfolio" Src="~/controls/pages/portfolio.ascx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cphMeta" Runat="Server">
-	<title>Website Design and Development Projects from Select Interactive</title>
+	<title>Award Winning Website Design and Development Projects from Select Interactive</title>
+    <meta name="description" content="View a number of our website design and development projects featuring a number of responsive web design and custom content management projects.">
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="cphHead" Runat="Server">

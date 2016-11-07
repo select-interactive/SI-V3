@@ -74,14 +74,14 @@ Public Class uploadImgThumb : Implements IHttpHandler
 					codecParams.Param(0) = ratio
 					codecParams.Param(1) = New EncoderParameter(Encoder.RenderMethod, EncoderValue.RenderProgressive)
 
-                    ' Check the sizing
+                    ' Check the sizign
                     Dim bmp As New Bitmap(tempFile)
 					Dim curWidth As Integer = bmp.Width
 					Dim curHeight As Integer = bmp.Height
 
 					' ***** FULL SIZE FILE *****
-					Dim maxWidth As Integer = 750
-					Dim maxHeight As Integer = 450
+					Dim maxWidth As Integer = 700
+					Dim maxHeight As Integer = 350
 
 					If curWidth < 100 Or curHeight < maxHeight Then
 						strResponse = "{""status"":""error"",""msg"":""Error: The image must be at least " & 100 & "px by " & maxHeight & "px.""}"

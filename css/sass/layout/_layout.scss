@@ -11,8 +11,10 @@
 .row {
     @include container(100%);
 
-    &:not(:last-child) {
-        margin-bottom: gutter();
+    @include susy-media($bp-tablet) {
+        &:not(:last-child) {
+            margin-bottom: gutter();
+        }
     }
 }
 
@@ -24,8 +26,38 @@
             margin-bottom: gutter() * 2.75;
             padding: 0;
 
+            &-mb-standard {
+                margin-bottom: gutter() * 2;
+            }
+
             // At tabletPlus, start to resize
             @include susy-media($bp-tablet) {
+                @include nobreak;
+                @include span(($total-columns / $col) of $total-columns);
+                margin-bottom: 0;
+
+                &-mb-standard {
+                    margin-bottom: 0;
+                }
+
+                &:not(:first-child) {
+                    &:last-child {
+                        @include last;
+                    }
+                }
+            }
+        }
+    }
+
+    .row-cols-lg-#{$col} {
+        .col {
+            // By default, always be full width - mobile first
+            @include full;
+            margin-bottom: gutter() * 2.75;
+            padding: 0;
+
+            // At tabletPlus, start to resize
+            @include susy-media($bp-large) {
                 @include nobreak;
                 @include span(($total-columns / $col) of $total-columns);
                 margin-bottom: 0;
@@ -60,8 +92,47 @@
             }
         }
     }
-}
 
+    .row-cols-lg {
+        &:not(:last-child) {
+            margin-bottom: 0 !important;
+        }
+
+        @include susy-media($bp-large) {
+            &:not(:last-child) {
+                margin-bottom: gutter();
+            }
+        }
+
+        .col-mb-standard {
+            margin-bottom: gutter() * 2;
+
+            @include susy-media($bp-large) {
+                margin-bottom: 0;
+            }
+        }
+
+        .col-#{$col} {
+            // By default, always be full width - mobile first
+            @include full;
+            margin-bottom: gutter() * 2.75;
+            padding: 0;
+
+            // At tabletPlus, start to resize
+            @include susy-media($bp-large) {
+                @include nobreak;
+                @include span($col);
+                margin-bottom: 0;
+
+                &:not(:first-child) {
+                    &:last-child {
+                        @include last;
+                    }
+                }
+            }
+        }
+    }
+}
 
 // ----------------------------------
 // Additional tweaks for mediaqueries

@@ -3,6 +3,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cphMeta" Runat="Server">
 	<title>Website Design, Website Development, Search Engine Optimization (SEO)</title>
+	<meta name="description" content="Offering services such as web design and development, responsive web design, search engine optimization, and custom content managemet systems, Select Interactive is a full-service web development company.">
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="cphHead" Runat="Server">

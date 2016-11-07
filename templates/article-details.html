@@ -1,11 +1,26 @@
 ﻿<article class="article-wrapper">
-	<div class="article-img"><img src="/img/news/lg/{{banner}}" alt="{{title}}" /></div>
-	<div class="paper paper-pad-med copy">
+	<div class="article-img">
+		<picture>
+			<source srcset="/img/news/lg/{{banner}}" media="(min-width:1400px)" />
+			<source srcset="/img/news/med/{{banner}}" media="(min-width:1024px)" />
+			<img srcset="/img/news/sm/{{banner}}" alt="{{title}}" />
+		</picture>
+
+	</div>
+	<div class="paper paper-pad-none copy">
 		<div class="article-details">
-			<h2 class="copy-hdr copy-hdr-xl text-center">{{title}}</h2>
+			<div class="menu share-menu" data-menu="article-share">
+				<ul class="menu-items">
+					<li class="menu-item"><a href="https://twitter.com/intent/tweet?text=New+post+from+Select+Interactive+--+{{title}}&url=http://www.select-interactive.com/news/{{url}}" target="_blank">Share on Twitter</a></li>
+					<li class="menu-item"><a href="https://www.facebook.com/sharer/sharer.php?u=http://www.select-interactive.com/news/{{url}}" target="_blank">Share on Facebook</a></li>
+					<li class="menu-item"><a href="mailto:&subject={{title}}&body=Read this new post from Select Interactive -- http://www.select-interactive.com/news/{{url}}">Email Link</a></li>
+				</ul>
+			</div>
+			<h2 class="copy-hdr copy-hdr-xl">{{title}}</h2>
+			<a href="#" class="btn btn-top" fab data-menu-trigger="article-share" fixed><i class="material-icons">share</i></a>
 			{{postBody}}
 			<div class="article-footer">
-				<p>Posted by <a href="mailto:jeremy@select-interactive.com">Jeremy Burton</a> on {{datePublished}}</p>
+				<p>Posted by <a href="mailto:jeremy@select-interactive.com">Jeremy Burton</a> on {{datePublished}}.</p>
 				<ul class="article-tags">{{tags}}</ul>
 			</div>
 		</div>

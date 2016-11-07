@@ -2,7 +2,7 @@
 # The humans responsible & technology colophon
 
 # TEAM
-  Developer:
+  Developer: Jeremy Burton
   Site: www.select-interactive.com
   Twitter: @Sel_Interactive
   Location: Fort Worth, TX

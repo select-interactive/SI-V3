@@ -24,6 +24,7 @@
 		"FastClick": true,
 		"fetch": true,
 		"forEachElement": true,
+		"ga": true,
 		"google": true,
 		"jQuery": true,
 		"moment": true,

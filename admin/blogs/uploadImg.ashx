@@ -72,8 +72,8 @@ Public Class uploadImg : Implements IHttpHandler
                     context.Request.SaveAs(tempFile, False)
 
 					' ***** FULL SIZE FILE *****
-					Dim minWidth As Integer = 2000
-					Dim minHeight As Integer = 500
+					Dim minWidth As Integer = 1800
+					Dim minHeight As Integer = 450
 
 					' Check the sizing
 					Dim bmp As New Bitmap(tempFile)
@@ -86,13 +86,13 @@ Public Class uploadImg : Implements IHttpHandler
 						strResponse = "{""status"":""error"",""msg"":""Error: The image must be at least " & minWidth & "px by " & minHeight & "px.""}"
 					Else
 						' Save the large version
-						createImage(tempFile, dirLg & fileName, saveAsFileType, 2000, 600)
+						createImage(dir, tempFile, dirLg & fileName, saveAsFileType, 1800, 450)
 
 						' Save the medium version
-						createImage(tempFile, dirMed & fileName, saveAsFileType, 1399, 400)
+						createImage(dir, tempFile, dirMed & fileName, saveAsFileType, 1399, 350)
 
 						' Save the small version
-						createImage(tempFile, dirSm & fileName, saveAsFileType, 1023, 300)
+						createImage(dir, tempFile, dirSm & fileName, saveAsFileType, 1023, 256)
 
 						strResponse = "{""status"":""success"",""fileName"":""" & fileName & """}"
 					End If
@@ -108,7 +108,7 @@ Public Class uploadImg : Implements IHttpHandler
 		context.Response.Write(strResponse)
 	End Sub
 
-	Public Sub createImage(tempFile As String, fullFile As String, saveAsFileType As Imaging.ImageFormat, maxWidth As Integer, maxHeight As Integer)
+	Public Sub createImage(baseDir As String, tempFile As String, fullFile As String, saveAsFileType As Imaging.ImageFormat, maxWidth As Integer, maxHeight As Integer)
 		' Resizing Codecs
 		Dim ratio As New EncoderParameter(Encoder.Quality, 100L)
 		Dim codecParams As New EncoderParameters(2)
@@ -164,7 +164,7 @@ Public Class uploadImg : Implements IHttpHandler
 		g.Dispose()
 
 		If saveAsFileType.Equals(Imaging.ImageFormat.Jpeg) Then
-			optimizeImage(Dir, fullFile)
+			optimizeImage(baseDir, fullFile)
 		End If
 
 		'createWebP(dir, fullFile)

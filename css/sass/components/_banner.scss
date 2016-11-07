@@ -1,9 +1,14 @@
 ﻿.banner {
+    @extend %text-align-center;
     background: rgba($color-primary, .9);
     color: $white;
-    min-height: 40vh;
-    padding: 120px 50px;
+    min-height: 30vh;
+    padding: 30px 15px;
 
+    @include susy-media(min-height 850px) {
+        min-height: 35vh;
+    }
+    
     &-hdr {
         font-size: 2rem;
         line-height: 1.4;
@@ -14,11 +19,27 @@
     }
 
     &-tagline {
+        @extend %text-align-center;
         font-size: 1.65rem;
         line-height: 1.35;
 
-        .col:nth-child(2) & {
-            text-align: right;
+        &:not(:last-child) {
+            margin-bottom: 20px;
+        }
+    }
+
+    @include susy-media($bp-tablet) {
+        padding: 50px 30px;
+    }
+
+    @include susy-media($bp-large) {
+        padding: 80px 50px;
+        text-align: left;
+
+        &-tagline {
+            .col:nth-child(2) & {
+                text-align: right;
+            }
         }
     }
 }

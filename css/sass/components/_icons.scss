@@ -1,4 +1,4 @@
-﻿$icons: twitter facebook gplus insta;
+﻿$icons: twitter facebook gplus insta twitter-white facebook-white gplus-white insta-white;
 
 @each $icon in $icons {
     .icon-#{$icon} {
@@ -8,11 +8,21 @@
 
 .icon {
     @extend %display-inline-block;
-    height: 20px;
+    height: 24px;
     vertical-align: middle;
-    width: 20px;
+    width: 24px;
 
-    &-twitter {
-        height: 16px;
+    &-lg {
+        height: 30px;
+        width: 30px;
+    }
+
+    &-twitter,
+    &-twitter-white {
+        height: 20px;
+
+        &.icon-lg {
+            height: 25px;
+        }
     }
 }

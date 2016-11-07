@@ -12,6 +12,16 @@ $bp-phone-land: 480px;
 $bp-phone-port: 320px;
 
 
+// ----------
+// phone only
+// ----------
+.phone-only {
+	@include susy-media($bp-mbl-bigger) {
+		display: none !important;
+	}
+}
+
+
 // -----------
 // mobile only
 // -----------
@@ -27,6 +37,16 @@ $bp-phone-port: 320px;
 // ----------------------------
 .no-mbl {
 	@include susy-media(max-width $bp-tablet) {
+		display: none !important;
+	}
+}
+
+
+// ---------------------------
+// Not to be included on phone
+// ---------------------------
+.no-phone {
+	@include susy-media(max-width $bp-mbl-bigger) {
 		display: none !important;
 	}
 }

@@ -7,7 +7,8 @@
 	'use strict';
 
 	var main = doc.getElementById( 'main' ),
-		page, url;
+		pagePushed = false,
+		page, url, classes;
 
 	window.addEventListener( 'popstate', pop, false );
 
@@ -22,13 +23,14 @@
 
 		if ( target && target.classList && target.classList.contains( 'navigation' ) ) {
 			pageToLoad = target.getAttribute( 'data-control' );
-			url = target.getAttribute( 'href' );
+			classes = target.getAttribute( 'data-nav-class' );
 			
-			if ( page !== pageToLoad ) {
+			if ( page !== pageToLoad || url !== target.getAttribute( 'href' ) ) {
+				url = target.getAttribute( 'href' );
 				page = pageToLoad;
-				console.log( target, page, url );
-				loadPage( page, url );
+				loadPage( page, url, true );
 				history.pushState( { page: page, url: url }, page, url );
+				pagePushed = true;
 			}
 
 			e.preventDefault();
@@ -38,8 +40,10 @@
 		}
 	}
 
-	function loadPage( page, url ) {
+	function loadPage( page, url, logView ) {
 		var currentPage = main.querySelector( '.page-wrapper.in' );
+
+		app.nav.hide();
 
 		if ( currentPage ) {
 			currentPage.classList.remove( 'in' );
@@ -50,12 +54,25 @@
 			url: url
 		} ).then( function( rsp ) {
 			var pageWrapper = doc.createElement( 'div' );
+			rsp = JSON.parse( rsp );
 
 			pageWrapper.classList.add( 'page-wrapper' );
-			pageWrapper.innerHTML = rsp;
+			pageWrapper.innerHTML = rsp.html;
+			doc.title = rsp.title;
+
+			if ( logView ) {
+				app.analytics.logPageView( rsp.title );
+			}
 
 			if ( currentPage ) {
 				setTimeout( function() {
+					if ( classes ) {
+						doc.body.className = 'nocomponents ' + classes;
+					}
+					else {
+						doc.body.className = 'nocomponents';
+					}
+
 					main.removeChild( currentPage );
 					showNewPage( pageWrapper );
 				}, 375 );
@@ -68,28 +85,38 @@
 
 	function showNewPage( pageWrapper ) {
 		main.appendChild( pageWrapper );
-		setTimeout( function() {
-			window.scrollTo( 0, 0 );
-			pageWrapper.classList.add( 'in' );
 
+		setTimeout( function() {
+			pageWrapper.classList.add( 'in' );
+			window.scrollTo( 0, 0 );
+
+			// check for containers to lazy load
+			app.lazyLoad.init( pageWrapper );
+
+			// init any gmaps on the page
 			if ( pageWrapper.querySelector( '.gmap' ) ) {
 				app.gmap.init( doc.querySelector( '.gmap' ) );
 			}
+
+			// init any menus added to the page
+			app.menu.initMenus( pageWrapper, true );
 		}, 10 );
 	}
 
 	function pop( e ) {
-		if ( history.state && history.state.page ) {
-			page = history.state.page;
-			url = history.state.url;
-		}
-		else {
-			page = 'home';
-			url = page;
-		}
+		if ( pagePushed ) {
+			if ( history.state && history.state.page ) {
+				page = history.state.page;
+				url = history.state.url;
+			}
+			else {
+				page = 'home';
+				url = page;
+			}
 
-		if ( main && page && url ) {
-			loadPage( page, url );
+			if ( main && page && url ) {
+				loadPage( page, url );
+			}
 		}
 	}
 

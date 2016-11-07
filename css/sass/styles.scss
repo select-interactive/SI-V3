@@ -1,6 +1,6 @@
 ﻿/*!
- * CSS for website
- * @author: [name] [(email/web site)]
+ * CSS for Select Interactive, LLC
+ * @author: Jeremy Burton (jeremy@select-interactive.com/www.select-interactive.com)
  */
 
 
@@ -60,8 +60,12 @@
 @import "components/awards";
 @import "components/gmap";
 @import "components/social";
+@import "components/menu";
+@import "components/event-overlay";
+@import "components/admin/admin.grid";
 
 // Page Specific Styles
 @import "pages/admin";
+@import "pages/home";
 @import "pages/projects";
 @import "pages/styleguide";

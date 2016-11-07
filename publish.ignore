@@ -4,8 +4,9 @@
 .tmp/
 .sass-cache/
 bower_components/susy/
+ckeditor/
 css/sass/
-js/libs/jquery/
+js/libs/jquery/src/
 node_modules/
 styleguide/
 

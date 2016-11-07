@@ -3,11 +3,12 @@
 		<div class="project">
 			<h2 class="copy-hdr copy-hdr-xl text-center">{{name}}</h2>
 			<div class="project-img">
-				<img src="/img/projects/{{thumbnail}}" width="450" height="280" alt="{{name}}" />
+				<img src="/img/projects/primary/{{primaryImg}}" width="652" height="500" alt="{{name}}" />
 			</div>
 			<div class="project-details">
 				{{summary}}
-				<p><a href="{{url}}" target="_blank">View Site</a></p>
+				<p><a href="{{url}}" target="_blank">View Site</a>{{designedBy}}</p>
+				<ul class="project-tags">{{tags}}</ul>
 			</div>
 		</div>
 	</div>

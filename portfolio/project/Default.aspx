@@ -2,6 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cphMeta" Runat="Server">
 	<title><asp:Literal runat="server" ID="ltrlTitle" /></title>
+	<asp:Literal runat="server" ID="ltrlMeta" />
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="cphHead" Runat="Server">

@@ -5,13 +5,39 @@
 }
 
 .bio {
-    @include span(4);
+    @include full;
+    margin-bottom: gutter();
 
-    &:nth-child(3n) {
-        @include last;
+    @include susy-media($bp-tablet) {
+        @include span(6);
+        @include nobreak;
+
+        &:nth-child(2n) {
+            @include last;
+        }
+
+        &:nth-child(2n + 1) {
+            @include break;
+        }
     }
 
-    &:nth-child(3n + 1) {
-        @include break;
+    @include susy-media($bp-wide) {
+        @include span(4);
+
+        &:nth-child(2n) {
+            @include span(4);
+        }
+
+        &:nth-child(2n + 1) {
+            @include nobreak;
+        }
+
+        &:nth-child(3n) {
+            @include last;
+        }
+
+        &:nth-child(3n + 1) {
+            @include break;
+        }
     }
 }

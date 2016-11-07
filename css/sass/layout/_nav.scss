@@ -2,22 +2,51 @@
 // Nav
 // ---
 #nav-main {
-    @extend %text-align-right;
-    height: $hdr-bar-height;
+    @extend .zdepth-1;
+    @extend %position-fixed;
+    background: $color-primary;
+    bottom: 0;
+    overflow-y: auto;
+    padding: 15px;
+    right: 0;
+    top: 0;
+    transform: translateX(110%);
+    transition: transform .325s ease;
+    width: 270px;
+    z-index: 10;
+
+    .nav-in & {
+        transform: translateX(0);
+    }
 
     ul {
-        @extend %display-inline-block;
         @extend %list-style-none;
         @extend %no-margin;
     }
 
     li {
-        @extend %display-inline-block;
-        @extend %float-left;
         line-height: 1;
 
-        &:not(:last-child) {
-            margin-right: 50px;
+        &.mbl-logo {
+            @extend .mbl-only;
+            @extend %text-align-center;
+            background: #f2f2f9;
+            margin: -15px;
+            margin-bottom: 0;
+            padding: 15px;
+            width: calc(100% + 30px);
+
+            a {
+                border-bottom: none;
+                padding: 0;
+            }
+        }
+
+        &.text {
+            color: rgba($white, .85);
+            font-size: .85rem;
+            line-height: 1.4;
+            padding: 25px 0 15px;
         }
     }
 
@@ -25,17 +54,77 @@
         @extend %display-block;
         @extend %text-decoration-none;
         @extend %text-transform-uppercase;
+        border-bottom: 2px solid rgba($white, .85);
         font-family: $font-secondary;
         font-size: 1.25rem;
         height: $hdr-bar-height;
         line-height: $hdr-bar-height;
-        padding: 0 10px;
+        padding: 10px 0;
         transition: color .225s ease;
-        @include link-colors(rgba($white, .8), $white);
+        @include link-colors(rgba($white, .85), $white);
 
         &:hover,
         &.selected {
             color: $white;
+        }
+
+        &.inline {
+            display: inline-block;
+            padding: 10px;
+
+            &:not(:last-child) {
+                margin-right: 15px;
+            }
+
+            &.material {
+                .material-icons {
+                    font-size: 1.8rem !important;
+                    position: relative !important;
+                    top: 9px !important;
+                }
+            }
+        }
+    }
+
+    @include susy-media($bp-large) {
+        background: none;
+        bottom: auto;
+        box-shadow: none !important;
+        display: inline-block;
+        height: $hdr-bar-height;
+        overflow-y: hidden;
+        padding: 0;
+        position: absolute;
+        right: 50px;
+        transform: translateX(0);
+        transition: none;
+        text-align: right;
+        width: auto;
+
+        ul {
+            display: inline-block;
+
+            &.mbl-logo {
+                display: none;
+            }
+        }
+
+        li {
+            display: inline-block;
+            float: left;
+
+            &:not(:last-child) {
+                margin-right: 50px;
+            }
+
+            &.last-main {
+                margin-right: 0;
+            }
+        }
+
+        a {
+            border-bottom: none;
+            padding: 0 10px;
         }
     }
 }

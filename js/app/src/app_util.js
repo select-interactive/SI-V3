@@ -42,6 +42,17 @@
     	}, false );
     }
 
+    window.addEventListener( 'scroll', function( e ) {
+    	if ( doc.body.classList.contains( 'home' ) ) {
+    		if ( getWindowScrollPosition() > 250 && !doc.body.classList.contains( 'home-scrolled' ) ) {
+    			doc.body.classList.add( 'home-scrolled' );
+    		}
+    		else if ( getWindowScrollPosition() <= 250 && doc.body.classList.contains( 'home-scrolled' ) ) {
+    			doc.body.classList.remove( 'home-scrolled' );
+    		}
+    	}
+    }, false );
+
     return {
         cloneObj: cloneObj,
         extend: extend,

@@ -2,12 +2,12 @@
     @extend .clearfix;
     @extend %list-style-none;
     @extend %no-margin;
-    margin-bottom: (0 - gutter());
 
     li {
-        @include span(6);
+        @include full;
         line-height: 1.4;
-        margin-bottom: gutter();
+        margin-bottom: 20px !important;
+        padding-left: 18px;
 
         &:before {
             content: ">";
@@ -16,12 +16,17 @@
             margin: 0 7px 0 -18px;
         }
 
-        &:nth-child(2n) {
-            @include last;
-        }
+        @include susy-media($bp-tablet) {
+            @include span(6);
+            @include nobreak;
+            
+            &:nth-child(2n) {
+                @include last;
+            }
 
-        &:nth-child(2n + 1) {
-            @include break;
+            &:nth-child(2n + 1) {
+                @include break;
+            }
         }
     }
 }

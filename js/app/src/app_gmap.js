@@ -114,6 +114,10 @@ app.gmap = ( function( doc ) {
 				content: content
 			} );
 
+			marker.addListener( 'mouseover', function() {
+				infowindow.open( map, marker );
+			} );
+
 			marker.addListener( 'click', function() {
 				infowindow.open( map, marker );
 			} );

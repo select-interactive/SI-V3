@@ -13,9 +13,9 @@
    @return em($base-line-height * $amount, $context);
 }
 
-@mixin bg-img($start: $white, $end: $gray-lighter) {
-	@include background-image(linear-gradient($start, $end));
-}	
+//@mixin bg-img($start: $white, $end: $gray-lighter) {
+//	@include background-image(linear-gradient($start, $end));
+//}	
 
 @mixin link-colors($link-color, $hover-color) {
     color: $link-color;

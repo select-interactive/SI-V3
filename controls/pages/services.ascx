@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="VB" AutoEventWireup="false" CodeFile="services.ascx.vb" Inherits="controls_pages_services" %>
-<div class="paper copy">
-	<div class="content-container-xsm">
+<div class="paper bg bg-proj copy">
+	<div class="content content-container-xsm">
 		<h2 class="copy-hdr copy-hdr-xl text-center">Website and Web Application <br class="no-mbl" />Design and Development.</h2>
 		<p>It&rsquo;s estimated that up to 50 percent of visitors to landing pages will bail in the first eight seconds. It&rsquo;s our job to make those seconds count. How do we accomplish this for you? By creating a site that engages visitors from the very beginning &mdash; a site that&rsquo;s visually appealing, highly functional, and clearly communicates what your services are all about.</p>
 	</div>
@@ -61,12 +61,12 @@
 	</div>
 </div>
 <div class="paper paper-pad-med paper-gray-dark">
-	<h2 class="copy-hdr copy-hdr-xl text-center">Who We Work With</h2>
+	<h2 class="copy-hdr copy-hdr-xl text-center">Our Friends</h2>
 	<ul class="clients">
-		<li class="client"><a href="" target="_blank"><img src="/img/logos/nimble.v1.png" width="311" height="40" alt="Nimble Design Co." /></a></li>
-		<li class="client"><a href="" target="_blank"><img src="/img/logos/slant.v1.png" width="150" height="40" alt="Slant Parnters" /></a></li>
-		<li class="client"><a href="" target="_blank"><img src="/img/logos/branded.v1.png" width="236" height="40" alt="The Branded Company" /></a></li>
-		<li class="client"><a href="" target="_blank"><img src="/img/logos/bluerock.v1.png" width="204" height="40" alt="BlueRock Marketing" /></a></li>
-		<li class="clinet"><a href="http://www.pytchblack.com" target="_blank"><img src="/img/logos/pytchblack.v3.png" width="288" height="40" alt="PytchBlack" /></a></li>
+		<li class="client"><a href="https://www.nimbledesignco.com" target="_blank"><img src="/img/logos/nimble.v1.svg" width="297" height="40" alt="Nimble Design Co." /></a></li>
+		<li class="client"><a href="http://www.slantpartners.com" target="_blank"><img src="/img/logos/slant.v1.svg" width="153" height="40" alt="Slant Parnters" /></a></li>
+		<li class="client"><a href="http://www.thebrandedcompany.com" target="_blank"><img src="/img/logos/branded.v1.svg" width="236" height="40" alt="The Branded Company" /></a></li>
+		<li class="client"><a href="http://www.bluerockmarketing.net" target="_blank"><img src="/img/logos/bluerock.v1.svg" width="188" height="40" alt="BlueRock Marketing" /></a></li>
+		<li class="client"><a href="http://www.pytchblack.com" target="_blank"><img src="/img/logos/pytchblack.v1.svg" width="279" height="40" alt="PytchBlack" /></a></li>
 	</ul>
 </div>
