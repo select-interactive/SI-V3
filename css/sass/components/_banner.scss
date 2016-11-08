@@ -35,7 +35,7 @@
         @include susy-media($bp-tablet) {
             float: left;
             padding: 0 2rem 0 0;
-            width: 45%;
+            width: 40%;
 
             &:not(:last-child) {
                 margin-bottom: 0;
@@ -45,13 +45,14 @@
                 float: right;
                 padding: 0 0 0 2rem;
                 text-align: right;
-                width: 55%;
+                width: 60%;
             }
         }
     }
 
     &-tagline {
         font-size: 1.45rem;
+        letter-spacing: 1px;
         line-height: 1.35;
 
         &:not(:last-child) {

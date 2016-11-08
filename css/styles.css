@@ -3166,16 +3166,17 @@ input[type=radio]:checked + label:after {
     .banner-col {
       float: left;
       padding: 0 2rem 0 0;
-      width: 45%; }
+      width: 40%; }
       .banner-col:not(:last-child) {
         margin-bottom: 0; }
       .banner-col:last-child {
         float: right;
         padding: 0 0 0 2rem;
         text-align: right;
-        width: 55%; } }
+        width: 60%; } }
   .banner-tagline {
     font-size: 1.45rem;
+    letter-spacing: 1px;
     line-height: 1.35; }
     .banner-tagline:not(:last-child) {
       margin-bottom: 1.5rem; }
@@ -3223,6 +3224,7 @@ input[type=radio]:checked + label:after {
       margin-bottom: .5rem; }
   .section-hdr {
     font-size: 1.5rem;
+    letter-spacing: 1px;
     line-height: 1.1;
     margin: 0 0 1rem; }
     @media (min-width: 768px) {
