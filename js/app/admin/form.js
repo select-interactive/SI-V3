@@ -382,7 +382,7 @@
 		//   @isImg - boolean if uploading an image
 		//   @handler - the ashx file to handle the file upload
 		//   @fn - optional - callback function to run after the image has been uploaded
-		uploadHelper( file, isImg, handler, fn ) {
+		uploadHelper( file, isImg, handler, headers, fn ) {
 			let fileName = file.name;
 			let fileType = file.type;
 			let fReader = new FileReader();
@@ -399,6 +399,10 @@
 					xhr.setRequestHeader( 'X-File-Name', fileName );
 					xhr.setRequestHeader( 'X-File-Size', file.size );
 					xhr.setRequestHeader( 'X-File-Type', fileType );
+
+					for ( const key in headers ) {
+						xhr.setRequestHeader( key, headers[key] );
+					}
 
 					// callback of xhr load
 					xhr.addEventListener( 'load', function( response ) {

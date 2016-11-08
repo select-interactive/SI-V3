@@ -69,6 +69,15 @@
                 </div>
             </div>
             <div class="form-row">
+                <div class="col col-6">
+					<label>Image should be a SVG file</label><br />
+					<button id="btn-upload-img" class="btn btn-raised">Upload Partner Logo</button>
+					<input type="file" id="f-upload-img" class="hidden" />
+					<div id="prev-img" style="padding:1rem 0;position:relative;"></div>
+					<button id="btn-img-delete" class="btn btn-sm btn-raised hidden">Delete Logo</button>
+				</div>
+            </div>
+            <div class="form-row">
                 <div class="col">
                     <input type="checkbox" id="cb-active" name="active" /><label for="cb-active">Active Partner?</label>
                 </div>

@@ -346,6 +346,94 @@ Public Class wsApp
 #End Region
 
 
+#Region "Employee Bios"
+
+	Private Function biosGet(bioId As Integer,
+							 url As String,
+							 active As Boolean) As dsBios.BiosDataTable
+		Dim ta As New dsBiosTableAdapters.BiosTableAdapter
+		Dim dt As New dsBios.BiosDataTable
+		ta.Fill(dt, bioId, url, active)
+		Return dt
+	End Function
+
+	<WebMethod()>
+	Public Function biosGetJson(bioId As Integer) As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim dt As dsBios.BiosDataTable = biosGet(bioId, "", False)
+			Dim bios As New List(Of Bio)
+
+			For Each row As dsBios.BiosRow In dt
+				bios.Add(New Bio(row))
+			Next
+
+			rsp.setSuccess(bios)
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+
+	<WebMethod()>
+	Public Function bioSave(data As String) As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim theId As Integer = -1
+			Dim ta As New dsBiosTableAdapters.BiosTableAdapter
+
+			Dim params As Bio = jss.Deserialize(Of Bio)(data)
+			params.url = generateURLString(params.fname & "-" & params.lname)
+
+			With params
+				ta.Update(.bioId,
+						  .fname,
+						  .lname,
+						  .title,
+						  .email,
+						  .phone,
+						  .description,
+						  .twitter,
+						  .linkedIn,
+						  .insta,
+						  .url,
+						  .imgPath,
+						  .imgFileName,
+						  .sortOrder,
+						  .active,
+						  .deleted,
+						  theId)
+			End With
+
+			rsp.setSuccess(theId)
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+
+	<WebMethod()>
+	Public Function bioDelete(bioId As Integer) As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim ta As New dsBiosTableAdapters.BiosTableAdapter
+			ta.Delete(bioId)
+			rsp.setSuccess()
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+
+#End Region
+
+
 #Region "Utilities"
 
 	Private Function generateHtmlTmpl(tmpl As String, dt As Data.DataTable) As String

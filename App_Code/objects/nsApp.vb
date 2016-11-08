@@ -92,7 +92,45 @@ Namespace nsApp
 				End If
 			Next
 		End Sub
+
 	End Class
 
+
+	Public Class Bio
+
+		Public Property bioId As Integer
+		Public Property fname As String
+		Public Property lname As String
+		Public Property title As String
+		Public Property email As String
+		Public Property phone As String
+		Public Property description As String
+		Public Property twitter As String
+		Public Property linkedIn As String
+		Public Property insta As String
+		Public Property url As String
+		Public Property imgPath As String
+		Public Property imgFileName As String
+		Public Property sortOrder As Integer
+		Public Property active As Boolean
+		Public Property deleted As Boolean
+		Public Property createDate As DateTime
+		Public Property editDate As DateTime
+
+		Public Sub New()
+
+		End Sub
+
+		Public Sub New(ByRef row As dsBios.BiosRow)
+			For Each col As DataColumn In row.Table.Columns
+				If row(col.ColumnName) Is System.DBNull.Value Then
+					Me.GetType().GetProperty(col.ColumnName).SetValue(Me, Nothing, Nothing)
+				Else
+					Me.GetType().GetProperty(col.ColumnName).SetValue(Me, row(col.ColumnName), Nothing)
+				End If
+			Next
+		End Sub
+
+	End Class
 
 End Namespace

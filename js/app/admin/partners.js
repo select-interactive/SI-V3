@@ -4,10 +4,12 @@
 */
 (function( doc ) {
     'use strict';
+	
+	const alert = new app.Alert();
 
     let adminForm = new app.AdminForm( {
-		labelItemText: 'Tag',
-		labelItemsText: 'Tags',
+		labelItemText: 'Partner',
+		labelItemsText: 'Partners',
 		loadItems: {
 			fn: 'partnersGetJson',
 			params: {
@@ -27,7 +29,8 @@
 			params: {
                 projectId: -1
             },
-			itemId: 'partnerId'
+			itemId: 'partnerId',
+			callback: editItemCallback
 		},
 		saveItem: {
 			fn: 'partnerSave',
@@ -38,11 +41,70 @@
 			fn: 'partnerDelete',
 			itemId: 'partnerId'
 		},
-		back: {},
+		back: {
+			fn: back
+		},
 		additionalProperties: {
             logoPath: '',
             logoFileName: ''
         }
 	} );
+
+	const btnUploadImg = app.$( '#btn-upload-img' );
+	const fUploadImg = app.$( '#f-upload-img' );
+	const prevImg = app.$( '#prev-img' );
+	const btnImgDelete = app.$( '#btn-img-delete' );
+
+	btnUploadImg.addEventListener( 'click', e => fUploadImg.click() );
+
+	fUploadImg.addEventListener( 'change', e => {
+		let files = e.dataTransfer ? e.dataTransfer.files : e.currentTarget.files,
+			file = files[0];
+
+		adminForm.uploadHelper( file, true, '/admin/uploadFile.ashx', {
+            'X-File-Path': 'img/partners/',
+			'X-Mime-Type': 'image/svg+xml'
+        }, rsp => {
+			if ( rsp ) {
+				adminForm.setAdditionalPropertyData( 'logoPath', rsp.filePath );
+				adminForm.setAdditionalPropertyData( 'logoFileName', rsp.fileName );
+				setPrevImg( rsp.filePath );
+			}
+
+			fUploadImg.value = '';
+		} ); 
+	} );
+
+	btnImgDelete.addEventListener( 'click', e => {
+		alert.promptAlert( 'Confirm Delete', '<p>Are you sure you want to delete this image?', 'Delete', 'Cancel', evt => {
+			adminForm.setAdditionalPropertyData( 'logoPath', '' );
+			adminForm.setAdditionalPropertyData( 'logoFileName', '' );
+			setPrevImg( '' );
+			alert.dismissAlert();
+			evt.preventDefault();
+		}, evt => {
+			alert.dismissAlert();
+			evt.preventDefault();
+		} );
+	} );
+
+	function editItemCallback( obj ) {
+		setPrevImg( adminForm.getAdditionalPropertyData( 'logoPath' ) );
+	}
+
+	function setPrevImg( filePath ) {
+		if ( filePath === '' ) {
+			prevImg.innerHTML = '';
+			btnImgDelete.classList.add( 'hidden' );
+			return;
+		}
+
+		prevImg.innerHTML = '<img style="max-width:300px;" src="' + filePath + '" />';
+		btnImgDelete.classList.remove( 'hidden' );
+	}
+
+	function back() {
+		setPrevImg( '' );
+	}
 
 }( document ) );
