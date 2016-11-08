@@ -49,5 +49,9 @@ body {
 // ---------
 // Selection
 // ---------
-::-moz-selection{ background: #b3d4fc; color: #fff; }
-::selection{ background: #b3d4fc; color: #fff; }
+::-moz-selection{ background: $color-primary; color: #fff; }
+::selection{ background: $color-primary; color: #fff; }
+
+main {
+    padding: 4rem 0 0;
+}

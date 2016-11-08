@@ -1,0 +1,55 @@
+.home-section-block {
+    &:not(:last-child) {
+        margin-bottom: 2.25rem;
+    }
+
+    @include susy-media($bp-tablet) {
+        float: left;
+        margin: 0 2rem 0 0;
+        margin-bottom: 0 !important;
+        width: calc(50% - 1rem);
+
+        &:nth-child(2n) {
+            float: right;
+            margin-right: 0;
+        }
+
+        &:nth-child(2n + 1) {
+            clear: both;
+        }
+
+        &:nth-child(n + 3) {
+            margin-top: 2.25rem;
+        }
+    }
+
+    @include susy-media($bp-wide) {
+        width: calc(33.33% - 1.333rem);
+
+        &:nth-child(2n) {
+            float: left;
+            margin-right: 2rem;
+        }
+
+        &:nth-child(2n + 1) {
+            clear: none;
+        }
+
+        &:nth-child(n + 3) {
+            margin-top: 0;
+        }
+
+        &:nth-child(3n) {
+            float: right;
+            margin-right: 0;
+        }
+
+        &:nth-child(3n + 1) {
+            clear: both;
+        }
+
+        &:nth-child(n + 4) {
+            margin-top: 3rem;
+        }
+    }
+}

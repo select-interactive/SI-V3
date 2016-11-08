@@ -1,0 +1,82 @@
+.section {
+    padding: 1.5rem;
+    position: relative;
+
+    @include susy-media($bp-tablet) {
+        padding: 2rem;
+    }
+
+    @include susy-media($bp-large) {
+        padding: 2.5rem;
+    }
+
+    @include susy-media($bp-wide) {
+        padding: 4rem;
+    }
+
+    @include susy-media($bp-massive) {
+        padding: 6.5rem;
+    }
+
+    // ---------------
+    // Section Content
+    // ---------------
+    &-content {
+        @extend .content-container;
+        @extend .clearfix;
+
+        p,
+        ul,
+        ol {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            @include susy-media($bp-large) {
+                font-size: 1.2rem;
+            }
+        }
+
+        p {
+            line-height: 1.5;
+        }
+
+        li {
+            line-height: 1.25;
+
+            &:not(:last-child) {
+                margin-bottom: .5rem;
+            }
+        }
+    }
+
+
+    // ---------------
+    // Section Headers
+    // ---------------
+    &-hdr {
+        font-size: 1.3rem;
+        line-height: 1.1;
+        margin: 0 0 1rem;
+
+        @include susy-media($bp-tablet) {
+            font-size: 1.5rem;
+        }
+
+        @include susy-media($bp-large) {
+            font-size: 1.7rem;
+            line-height: 1.2;
+        }
+
+        @include susy-media($bp-wide) {
+            font-size: 1.9rem;
+        }
+
+        @include susy-media($bp-xwide) {
+            font-size: 2rem;
+        }
+    }
+}

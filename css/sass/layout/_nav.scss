@@ -2,5 +2,39 @@
 // Nav
 // ---
 #nav-main {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    right: 1.5rem;
+    top: 0;
+    z-index: 100;
 
+    @include susy-media($bp-large) {
+        flex-direction: row;
+    }
+
+    a {
+        display: inline-block;
+        font-family: $font-secondary;
+        font-size: 1.2rem;
+        text-decoration: none;
+        text-transform: uppercase;
+        transition: color .125s ease;
+        @include link-colors(rgba($white, .9), $white);
+
+        @include susy-media($bp-large) {
+            height: 4rem;
+            line-height: 4rem;
+
+            &:not(:last-child) {
+                margin-right: 3rem;
+            }
+        }
+
+        @include susy-media($bp-wide) {
+            &:not(:last-child) {
+                margin-right: 4rem;
+            }
+        }
+    }
 }

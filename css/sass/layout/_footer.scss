@@ -1,4 +1,75 @@
 ﻿// ------
 // Footer
 // ------
-footer { }
+footer {
+    border-top: 1px solid #e1e1e0;
+    color: $color-secondary;
+    padding: 1.5rem;
+
+    @include susy-media($bp-wide) {
+        padding: 2rem;
+    }
+}
+
+.footer-links {
+    @extend .clearfix;
+    @extend %list-style-none;
+    @extend %no-margin;
+    @extend %text-align-center;
+
+    li {
+        @extend .clearfix;
+        @extend %display-block;
+        
+        &:not(:last-child) {
+            margin-bottom: 15px;
+        }
+
+        &:nth-child(3),
+        &:nth-child(4),
+        &:nth-child(5),
+        &:nth-child(6),
+        &:nth-child(7) {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        &:nth-child(7) {
+            margin-right: 0;
+        }
+
+        &:nth-child(8) {
+            clear: both;
+        }
+
+        @include susy-media($bp-wide) {
+            display: inline-block;
+            float: left;
+            margin-bottom: 0 !important;
+
+            &:not(:last-child) {
+                margin-right: 15px;
+            }
+
+            &:nth-child(8) {
+                clear: none;
+            }
+
+            &:last-child {
+                float: right;
+            }
+        }
+    }
+
+    a {
+        @extend %text-decoration-none;
+        @include link-colors($color-primary, $color-primary);
+
+        i {
+            @extend %display-inline-block;
+            font-size: 1.7rem;
+            margin-right: 4px;
+            vertical-align: middle;
+        }
+    }
+}

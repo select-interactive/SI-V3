@@ -1,0 +1,28 @@
+$icons: twitter facebook gplus insta twitter-white facebook-white gplus-white insta-white;
+
+@each $icon in $icons {
+    .icon-#{$icon} {
+        background-image: url(/img/icons/#{$icon}.v1.svg);
+    }
+}
+
+.icon {
+    @extend %display-inline-block;
+    height: 24px;
+    vertical-align: middle;
+    width: 24px;
+
+    &-lg {
+        height: 30px;
+        width: 30px;
+    }
+
+    &-twitter,
+    &-twitter-white {
+        height: 20px;
+
+        &.icon-lg {
+            height: 25px;
+        }
+    }
+}
