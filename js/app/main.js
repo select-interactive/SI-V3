@@ -5192,7 +5192,7 @@ window.requestAnimationFrame = (function() {
 			}
 			
 			this.container = el;
-			this.fields = el.querySelectorAll( 'input:not([type="file"]),textarea,select' );
+			this.fields = el.querySelectorAll( 'input:not([type="file"]),textarea,.text-editor,select' );
 			this.reqFields = el.querySelectorAll( '.' + formCssClasses.required );
 			this.inputFields = el.querySelectorAll( '.' + formCssClasses.inputField );
 

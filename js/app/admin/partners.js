@@ -9,37 +9,40 @@
 		labelItemText: 'Tag',
 		labelItemsText: 'Tags',
 		loadItems: {
-			fn: 'projectTagsGetJson',
+			fn: 'partnersGetJson',
 			params: {
-                tagId: -1,
+                partnerId: -1,
                 projectId: -1
             },
-			rowTmpl: '<div class="admin-grid-row{{rowClass}}" data-id="{{tagId}}">' +
-					 '<div class="admin-grid-col admin-grid-col-primary">{{tag}}</div>' +
+			rowTmpl: '<div class="admin-grid-row{{rowClass}}" data-id="{{partnerId}}">' +
+					 '<div class="admin-grid-col admin-grid-col-primary">{{name}}</div>' +
                      '<div class="admin-grid-col">{{active}}</div>' +
 					 '<div class="admin-grid-col"><button class="btn btn-ripple btn-edit">Edit</button><button class="btn btn-ripple btn-delete">Delete</button></div>' +
 					 '</div>',
-			rowTmplHeaders: ['', 'Tag Name', 'Active'],
-			rowTmplProps: ['tagId', 'tag', 'active']
+			rowTmplHeaders: ['', 'Partner', 'Active'],
+			rowTmplProps: ['partnerId', 'name', 'active']
 		},
 		editItem: {
-			fn: 'projectTagsGetJson',
+			fn: 'partnersGetJson',
 			params: {
                 projectId: -1
             },
-			itemId: 'tagId'
+			itemId: 'partnerId'
 		},
 		saveItem: {
-			fn: 'projectTagSave',
-			itemId: 'tagId',
+			fn: 'partnerSave',
+			itemId: 'partnerId',
             sendAsString: true
 		},
 		deleteItem: {
-			fn: 'projectTagDelete',
-			itemId: 'tagId'
+			fn: 'partnerDelete',
+			itemId: 'partnerId'
 		},
 		back: {},
-		additionalProperties: {}
+		additionalProperties: {
+            logoPath: '',
+            logoFileName: ''
+        }
 	} );
 
 }( document ) );

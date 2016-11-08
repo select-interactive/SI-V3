@@ -98,6 +98,48 @@ Public Class wsApp
 		Return jss.Serialize(rsp)
 	End Function
 
+	<WebMethod()>
+	Public Function projectsTagsAssign(projectId As Integer,
+									   tags() As Integer) As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim ta As New dsProjectsTableAdapters.ProjectsTableAdapter
+			ta.Tags_Assign_Delete(projectId, -1)
+
+			For Each tagId As Integer In tags
+				ta.Tags_Assign_Save(projectId, tagId)
+			Next
+
+			rsp.setSuccess()
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+
+	<WebMethod()>
+	Public Function projectsPartnersAssign(projectId As Integer,
+										   partners() As Integer) As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim ta As New dsProjectsTableAdapters.ProjectsTableAdapter
+			ta.Partners_Assign_Delete(projectId, -1)
+
+			For Each partnerId As Integer In partners
+				ta.Partners_Assign_Save(projectId, partnerId)
+			Next
+
+			rsp.setSuccess()
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+
 #End Region
 
 
@@ -114,11 +156,12 @@ Public Class wsApp
 	End Function
 
 	<WebMethod()>
-	Public Function projectTagsGetJson(tagId As Integer) As String
+	Public Function projectTagsGetJson(tagId As Integer,
+									   projectId As Integer) As String
 		Dim rsp As New WSResponse
 
 		Try
-			Dim dt As dsProjects.Projects_TagsDataTable = projectTagsGet(tagId, -1, "", False)
+			Dim dt As dsProjects.Projects_TagsDataTable = projectTagsGet(tagId, projectId, "", False)
 			Dim tags As New List(Of ProjectTag)
 
 			For Each row As dsProjects.Projects_TagsRow In dt
@@ -126,6 +169,26 @@ Public Class wsApp
 			Next
 
 			rsp.setSuccess(tags)
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+
+	<WebMethod()>
+	Public Function projectTagsGetOptions() As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim dt As dsProjects.Projects_TagsDataTable = projectTagsGet(-1, -1, "", True)
+			Dim html As New StringBuilder()
+
+			For Each row As dsProjects.Projects_TagsRow In dt
+				html.Append("<option value=""" & row.tagId & """>" & row.tag & "</option>")
+			Next
+
+			rsp.setSuccess(html.ToString())
 		Catch ex As Exception
 			rsp.setError(ex.ToString())
 		End Try
@@ -191,11 +254,12 @@ Public Class wsApp
 	End Function
 
 	<WebMethod()>
-	Public Function partnersGetJson(partnerId As Integer) As String
+	Public Function partnersGetJson(partnerId As Integer,
+									projectId As Integer) As String
 		Dim rsp As New WSResponse
 
 		Try
-			Dim dt As dsPartners.PartnersDataTable = partnersGet(partnerId, -1, "", False)
+			Dim dt As dsPartners.PartnersDataTable = partnersGet(partnerId, projectId, "", False)
 			Dim partners As New List(Of Partner)
 
 			For Each row As dsPartners.PartnersRow In dt
@@ -203,6 +267,26 @@ Public Class wsApp
 			Next
 
 			rsp.setSuccess(partners)
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+
+	<WebMethod()>
+	Public Function partnersGetOptions() As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim dt As dsPartners.PartnersDataTable = partnersGet(-1, -1, "", True)
+			Dim html As New StringBuilder()
+
+			For Each row As dsPartners.PartnersRow In dt
+				html.Append("<option value=""" & row.partnerId & """>" & row.name & "</option>")
+			Next
+
+			rsp.setSuccess(html.ToString())
 		Catch ex As Exception
 			rsp.setError(ex.ToString())
 		End Try

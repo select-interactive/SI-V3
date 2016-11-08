@@ -7,6 +7,8 @@
 		<li><a href="/admin/projects/"><i class="material-icons">assignment</i>Projects</a></li>
 		<li><a href="/admin/projects/tags/"><i class="material-icons">list</i>Project Tags</a></li>
 		<li>&nbsp;</li>
+		<li><a href="/admin/partners/"><i class="material-icons">recent_actors</i>Partners</a></li>
+		<li>&nbsp;</li>
 		<li><a href="/"><i class="material-icons">home</i>Website Home Page</a></li>
 		<li><a href="/?logout"><i class="material-icons">clear</i>Logout</a></li>
 	</ul>

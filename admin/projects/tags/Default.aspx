@@ -25,6 +25,19 @@
         </div>
         <div id="form-edit" class="hidden">
             <div class="form-row">
+                <div class="col col-4">
+                    <div class="input-field">
+                        <input type="text" id="tb-tag" name="tag" class="req" />
+                        <label for="tb-tag">* Tag Name:</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <input type="checkbox" id="cb-active" name="active" /><label for="cb-active">Active Tag?</label>
+                </div>
+            </div>
+            <div class="form-row">
                 <div class="col text-right">
                     <button id="btn-back" class="btn btn-raised btn-ripple">Back</button>
                     <button id="btn-delete" class="btn btn-raised btn-ripple hidden">Delete</button>

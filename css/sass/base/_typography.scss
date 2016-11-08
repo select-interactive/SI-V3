@@ -31,6 +31,14 @@
 	font-style: normal;
 }
 
+@font-face {
+	font-family: 'telegrafico';
+	src: url('/font/telegrafico.woff2') format('woff2'),
+         url('/font/telegrafico.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
 // -------
 // Helpers
 // -------
