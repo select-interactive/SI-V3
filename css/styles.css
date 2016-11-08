@@ -1334,7 +1334,7 @@ main {
   background: none;
   border: none;
   color: #fff;
-  outline: 1px solid #dda14a;
+  outline: none;
   padding: 0 1.5rem;
   position: absolute;
   right: 0;
@@ -1409,18 +1409,18 @@ main {
         height: 4rem;
         line-height: 4rem;
         padding: 0; }
-        #nav-main a:not(:last-child) {
+        #nav-main a:not(:last-of-type) {
           border-bottom: none;
           margin: 0 3rem 0 0; } }
     @media (min-width: 1200px) {
-      #nav-main a:not(:last-child) {
+      #nav-main a:not(:last-of-type) {
         margin-right: 4rem; } }
 
 #btn-nav-close {
   background: none;
   border: none;
   color: #fff;
-  outline: 1px solid #dda14a;
+  outline: none;
   padding: 0 1.5rem;
   position: absolute;
   right: 0;

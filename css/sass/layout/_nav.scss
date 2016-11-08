@@ -53,14 +53,14 @@
             line-height: 4rem;
             padding: 0;
 
-            &:not(:last-child) {
+            &:not(:last-of-type) {
                 border-bottom: none;
                 margin: 0 3rem 0 0;
             }
         }
 
         @include susy-media($bp-wide) {
-            &:not(:last-child) {
+            &:not(:last-of-type) {
                 margin-right: 4rem;
             }
         }
@@ -71,7 +71,7 @@
     background: none;
     border: none;
     color: #fff;
-    outline: 1px solid $color-primary;
+    outline: none;
     padding: 0 1.5rem;
     position: absolute;
     right: 0;
