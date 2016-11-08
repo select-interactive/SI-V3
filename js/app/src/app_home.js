@@ -13,7 +13,7 @@
                 let wh = window.innerHeight;
                 let y = window.scrollY;
 
-                if ( y >= wh / 3 ) {
+                if ( y >= wh / 2.5 ) {
                     doc.body.classList.remove( 'home-top' );
                 }
                 else {

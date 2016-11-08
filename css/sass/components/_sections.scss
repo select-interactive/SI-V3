@@ -1,21 +1,21 @@
 .section {
-    padding: 1.5rem;
+    padding: 2.5rem 1.5rem;
     position: relative;
 
     @include susy-media($bp-tablet) {
-        padding: 2rem;
+        padding: 3.5rem 2rem;
     }
 
     @include susy-media($bp-large) {
-        padding: 2.5rem;
+        padding: 4rem 2.5rem;
     }
 
     @include susy-media($bp-wide) {
-        padding: 4rem;
+        padding: 6.5rem 4rem;
     }
 
     @include susy-media($bp-massive) {
-        padding: 6.5rem;
+        padding: 8rem 6.5rem;
     }
 
     // ---------------
@@ -58,25 +58,25 @@
     // Section Headers
     // ---------------
     &-hdr {
-        font-size: 1.3rem;
+        font-size: 1.5rem;
         line-height: 1.1;
         margin: 0 0 1rem;
 
         @include susy-media($bp-tablet) {
-            font-size: 1.5rem;
+            font-size: 1.65rem;
         }
 
         @include susy-media($bp-large) {
-            font-size: 1.7rem;
+            font-size: 1.85rem;
             line-height: 1.2;
         }
 
         @include susy-media($bp-wide) {
-            font-size: 1.9rem;
+            font-size: 2rem;
         }
 
         @include susy-media($bp-xwide) {
-            font-size: 2rem;
+            font-size: 2.2rem;
         }
     }
 }

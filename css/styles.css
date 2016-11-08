@@ -1330,7 +1330,26 @@ main {
   .home-top #masthead {
     opacity: 0; }
 
+#btn-nav-trigger {
+  background: none;
+  border: none;
+  color: #fff;
+  outline: 1px solid #dda14a;
+  padding: 0 1.5rem;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 101; }
+  #btn-nav-trigger .material-icons {
+    font-size: 2.2rem;
+    height: 4rem;
+    line-height: 4rem; }
+  @media (min-width: 1024px) {
+    #btn-nav-trigger {
+      display: none; } }
+
 #nav-main {
+  background: #dda14a;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1338,20 +1357,42 @@ main {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  height: 100%;
+  padding: 2.5rem 1.5rem 1.5rem;
   position: fixed;
-  right: 1.5rem;
+  right: 0;
   top: 0;
+  -webkit-transform: translateX(105%);
+          transform: translateX(105%);
+  -webkit-transition: -webkit-transform .275s ease-out;
+          transition: transform .275s ease-out;
+  width: 100%;
+  will-change: transform;
   z-index: 100; }
+  .nav-in #nav-main {
+    -webkit-transform: translateX(0);
+            transform: translateX(0); }
   @media (min-width: 1024px) {
     #nav-main {
+      background: none;
       -webkit-box-orient: horizontal;
       -webkit-box-direction: normal;
           -ms-flex-direction: row;
-              flex-direction: row; } }
+              flex-direction: row;
+      height: 4rem;
+      padding: 0;
+      right: 1.5rem;
+      -webkit-transform: translateX(0);
+              transform: translateX(0);
+      -webkit-transition: none;
+              transition: none;
+      width: auto;
+      will-change: none; } }
   #nav-main a {
-    display: inline-block;
+    display: block;
     font-family: "telegrafico";
-    font-size: 1.2rem;
+    font-size: 1.35rem;
+    padding: 1.5rem 1rem;
     text-decoration: none;
     text-transform: uppercase;
     -webkit-transition: color .125s ease;
@@ -1359,15 +1400,39 @@ main {
     color: rgba(255, 255, 255, 0.9); }
     #nav-main a:hover {
       color: #fff; }
+    #nav-main a:not(:last-of-type) {
+      border-bottom: 3px solid #fff; }
     @media (min-width: 1024px) {
       #nav-main a {
+        display: inline-block;
+        font-size: 1.2rem;
         height: 4rem;
-        line-height: 4rem; }
+        line-height: 4rem;
+        padding: 0; }
         #nav-main a:not(:last-child) {
-          margin-right: 3rem; } }
+          border-bottom: none;
+          margin: 0 3rem 0 0; } }
     @media (min-width: 1200px) {
       #nav-main a:not(:last-child) {
         margin-right: 4rem; } }
+
+#btn-nav-close {
+  background: none;
+  border: none;
+  color: #fff;
+  outline: 1px solid #dda14a;
+  padding: 0 1.5rem;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 101; }
+  #btn-nav-close .material-icons {
+    font-size: 2.2rem;
+    height: 4rem;
+    line-height: 4rem; }
+  @media (min-width: 1024px) {
+    #btn-nav-close {
+      display: none; } }
 
 footer {
   border-top: 1px solid #e1e1e0;
@@ -3095,36 +3160,47 @@ input[type=radio]:checked + label:after {
     @media (min-width: 1200px) {
       .banner-content {
         padding: 2.5rem 5.5rem; } }
+  .banner-col:not(:last-child) {
+    margin-bottom: 2rem; }
   @media (min-width: 768px) {
     .banner-col {
       float: left;
       padding: 0 2rem 0 0;
-      width: 50%; }
+      width: 45%; }
+      .banner-col:not(:last-child) {
+        margin-bottom: 0; }
       .banner-col:last-child {
         float: right;
         padding: 0 0 0 2rem;
-        text-align: right; } }
+        text-align: right;
+        width: 55%; } }
   .banner-tagline {
-    font-size: 1.65rem;
+    font-size: 1.45rem;
     line-height: 1.35; }
     .banner-tagline:not(:last-child) {
       margin-bottom: 1.5rem; }
+    @media (min-width: 768px) {
+      .banner-tagline {
+        font-size: 1.65rem; } }
+    @media (min-width: 1200px) {
+      .banner-tagline {
+        font-size: 1.85rem; } }
 
 .section {
-  padding: 1.5rem;
+  padding: 2.5rem 1.5rem;
   position: relative; }
   @media (min-width: 768px) {
     .section {
-      padding: 2rem; } }
+      padding: 3.5rem 2rem; } }
   @media (min-width: 1024px) {
     .section {
-      padding: 2.5rem; } }
+      padding: 4rem 2.5rem; } }
   @media (min-width: 1200px) {
     .section {
-      padding: 4rem; } }
+      padding: 6.5rem 4rem; } }
   @media (min-width: 1800px) {
     .section {
-      padding: 6.5rem; } }
+      padding: 8rem 6.5rem; } }
   .section-content p,
   .section-content ul,
   .section-content ol {
@@ -3146,22 +3222,22 @@ input[type=radio]:checked + label:after {
     .section-content li:not(:last-child) {
       margin-bottom: .5rem; }
   .section-hdr {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     line-height: 1.1;
     margin: 0 0 1rem; }
     @media (min-width: 768px) {
       .section-hdr {
-        font-size: 1.5rem; } }
+        font-size: 1.65rem; } }
     @media (min-width: 1024px) {
       .section-hdr {
-        font-size: 1.7rem;
+        font-size: 1.85rem;
         line-height: 1.2; } }
     @media (min-width: 1200px) {
       .section-hdr {
-        font-size: 1.9rem; } }
+        font-size: 2rem; } }
     @media (min-width: 1400px) {
       .section-hdr {
-        font-size: 2rem; } }
+        font-size: 2.2rem; } }
 
 .admin-card, .admin-grid {
   background: #fff;
@@ -3242,12 +3318,12 @@ input[type=radio]:checked + label:after {
       margin-bottom: 3px; }
 
 .home-section-block:not(:last-child) {
-  margin-bottom: 2.25rem; }
+  margin-bottom: 2.5rem; }
 
 @media (min-width: 768px) {
   .home-section-block {
     float: left;
-    margin: 0 2rem 0 0;
+    margin: 0 2em 0 0;
     margin-bottom: 0 !important;
     width: calc(50% - 1rem); }
     .home-section-block:nth-child(2n) {
@@ -3256,7 +3332,7 @@ input[type=radio]:checked + label:after {
     .home-section-block:nth-child(2n + 1) {
       clear: both; }
     .home-section-block:nth-child(n + 3) {
-      margin-top: 2.25rem; } }
+      margin-top: 2.75rem; } }
 
 @media (min-width: 1200px) {
   .home-section-block {
@@ -3274,4 +3350,4 @@ input[type=radio]:checked + label:after {
     .home-section-block:nth-child(3n + 1) {
       clear: both; }
     .home-section-block:nth-child(n + 4) {
-      margin-top: 3rem; } }
+      margin-top: 3.25rem; } }

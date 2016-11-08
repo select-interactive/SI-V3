@@ -1,11 +1,11 @@
 .home-section-block {
     &:not(:last-child) {
-        margin-bottom: 2.25rem;
+        margin-bottom: 2.5rem;
     }
 
     @include susy-media($bp-tablet) {
         float: left;
-        margin: 0 2rem 0 0;
+        margin: 0 2em 0 0;
         margin-bottom: 0 !important;
         width: calc(50% - 1rem);
 
@@ -19,7 +19,7 @@
         }
 
         &:nth-child(n + 3) {
-            margin-top: 2.25rem;
+            margin-top: 2.75rem;
         }
     }
 
@@ -49,7 +49,7 @@
         }
 
         &:nth-child(n + 4) {
-            margin-top: 3rem;
+            margin-top: 3.25rem;
         }
     }
 }
