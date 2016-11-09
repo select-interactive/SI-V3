@@ -76,7 +76,12 @@
             transform: translateX(0) !important;
         }
 
+        &.no-pull {
+            transform: translateX(0) !important;
+        }
+
         @include susy-media($bp-tablet) {
+            flex-flow: row;
             max-width: 704px;
         }
 
@@ -86,6 +91,7 @@
 
         @include susy-media($bp-wide) {
             max-width: 1050px;
+            padding: 5.5rem;
             transform: translateX(-180px);
         }
 
@@ -109,14 +115,6 @@
             @include susy-media($bp-xwide) {
                 font-size: 1.45rem;
             }
-        }
-
-        @include susy-media($bp-tablet) {
-            flex-flow: row;
-        }
-
-        @include susy-media($bp-wide) {
-            padding: 8rem 5.5rem;
         }
     }
 

@@ -91,6 +91,10 @@
         line-height: 1.1;
         margin: 0 0 1rem;
 
+        &:not(:first-child) {
+            margin-top: 2rem;
+        }
+
         &.xl {
             font-size: 2.3rem;
             margin: 0 0 1.5rem;

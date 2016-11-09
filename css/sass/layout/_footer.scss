@@ -31,7 +31,7 @@ footer {
         &:nth-child(6),
         &:nth-child(7) {
             display: inline-block;
-            margin-right: 10px;
+            margin-right: .75rem;
         }
 
         &:nth-child(7) {
@@ -42,13 +42,28 @@ footer {
             clear: both;
         }
 
-        @include susy-media($bp-wide) {
+        @include susy-media($bp-large) {
             display: inline-block;
-            float: left;
             margin-bottom: 0 !important;
 
             &:not(:last-child) {
-                margin-right: 15px;
+                margin-right: 1rem;
+            }
+
+            &:nth-child(7) {
+                margin-right: 0;
+            }
+
+            &:last-child {
+                margin-top: 1rem;
+            }
+        }
+
+        @include susy-media($bp-xwide) {
+            float: left;
+
+            &:nth-child(7) {
+                margin-right: 1rem;
             }
 
             &:nth-child(8) {
@@ -57,6 +72,7 @@ footer {
 
             &:last-child {
                 float: right;
+                margin-top: 0;
             }
         }
     }

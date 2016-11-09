@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="VB" AutoEventWireup="false" CodeFile="navMain.ascx.vb" Inherits="controls_navMain" %>
+<div id="nav-overlay" class="nav-trigger"></div>
 <nav id="nav-main" role="navigation">
     <a href="/" class="mbl-only text-center"><img src="/img/logos/select-interactive-white.v1.svg" width="266.67" height="80" alt="Select Interactive" /></a>
     <a href="/about/">About Us</a>

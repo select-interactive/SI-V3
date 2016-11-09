@@ -38,12 +38,18 @@
 	// @src - String - the source of the script to load
 	// @parent - Element - the element that the script should be appended to
 	// @async - Boolean - should the script be loaded async
-	$.addScript = function( src, parent, async ) {
+	$.addScript = function( src, parent, async, fn ) {
 		var script = doc.createElement( 'script' );
 		script.src = src;
 		script.async = async;
+
+		if ( fn && typeof fn === 'function' ) {
+			script.onload = fn;
+		}
+
 		parent.appendChild( script );
 	};
+
 
 	// if we need to polyfill promises
 	if ( typeof self.Promise === 'undefined' || !self.Promise ) {

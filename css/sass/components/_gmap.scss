@@ -1,0 +1,16 @@
+.gmap {
+    min-height: 250px;
+    position: relative;
+
+    img {
+        max-width: none;
+    }
+
+    @include susy-media($bp-tablet) {
+        min-height: 350px;
+    }
+
+    @include susy-media($bp-wide) {
+        min-height: 450px;
+    }
+}

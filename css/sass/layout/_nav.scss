@@ -6,6 +6,7 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    max-width: 450px;
     padding: 2.5rem 1.5rem 1.5rem;
     position: fixed;
     right: 0;
@@ -24,6 +25,7 @@
         background: none;
         flex-direction: row;
         height: 4rem;
+        max-width: none;
         padding: 0;
         right: 1.5rem;
         transform: translateX(0);
@@ -64,6 +66,24 @@
                 margin-right: 4rem;
             }
         }
+    }
+}
+
+#nav-overlay {
+    background: rgba(#444, .65);
+    content: '';
+    height: 0;
+    left: 0;
+    opacity: 0;
+    position: fixed;
+    transition: opacity .225s ease-out;
+    width: 0;
+    z-index: 99;
+
+    .nav-in & {
+        height: 100%;
+        opacity: 1;
+        width: 100%;
     }
 }
 

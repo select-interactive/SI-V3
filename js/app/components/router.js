@@ -63,6 +63,7 @@
                 requestAnimationFrame( () => {
                     requestAnimationFrame( () => {
                         app.$.eqHeight( this.mainContainer );
+                        app.GmapInitializer.init();
 
                         this.fadePageIn_().then( _ => {
                             if ( updateState ) {

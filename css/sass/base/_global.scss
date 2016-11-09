@@ -35,6 +35,7 @@ body {
 	color: $body-color;
     text-align: left;
     
+    &.nav-in,
     &.modal-in {
         overflow: hidden;
     }

@@ -39,11 +39,31 @@
         .col-#{$col} {
             // By default, always be full width - mobile first
             @include full;
-            margin-bottom: gutter() * 2.75;
+            margin-bottom: 2rem;
             padding: 0;
 
             // At tabletPlus, start to resize
             @include susy-media($bp-tablet) {
+                @include nobreak;
+                @include span($col);
+                margin-bottom: 0;
+
+                &:not(:first-child) {
+                    &:last-child {
+                        @include last;
+                    }
+                }
+            }
+        }
+
+        .col-med-#{$col} {
+            // By default, always be full width - mobile first
+            @include full;
+            margin-bottom: 2rem;
+            padding: 0;
+
+            // At tabletPlus, start to resize
+            @include susy-media($bp-large) {
                 @include nobreak;
                 @include span($col);
                 margin-bottom: 0;

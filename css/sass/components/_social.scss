@@ -1,0 +1,17 @@
+.social-links {
+    @extend %list-style-none;
+    @extend %no-margin;
+
+    li {
+        @extend %display-inline-block;
+
+        &:not(:last-child) {
+            margin-right: .75rem;
+        }
+    }
+
+    a {
+        @extend %text-decoration-none;
+        border-bottom: none;
+    }
+}

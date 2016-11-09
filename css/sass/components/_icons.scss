@@ -3,6 +3,8 @@ $icons: twitter facebook gplus insta twitter-white facebook-white gplus-white in
 @each $icon in $icons {
     .icon-#{$icon} {
         background-image: url(/img/icons/#{$icon}.v1.svg);
+        background-position: center center;
+        background-repeat: no-repeat;
     }
 }
 
