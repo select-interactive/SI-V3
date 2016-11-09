@@ -12,10 +12,24 @@
         display: flex;
         flex-flow: column;
         min-height: 30vh;
-        padding: 1.5rem;
+        padding: 3rem 1.5rem;
         
         .banner-home & {
             min-height: 450px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            @include susy-media($bp-large) {
+                font-size: 1.2rem;
+            }
         }
 
         @include susy-media($bp-tablet) {
@@ -23,13 +37,18 @@
         }
 
         @include susy-media($bp-wide) {
-            padding: 2.5rem 5.5rem;
+            padding: 8rem 5.5rem;
         }
     }
 
     &-col {
         &:not(:last-child) {
             margin-bottom: 2rem;
+        }
+
+        &.solo {
+            text-align: center  !important;
+            width: 100% !important;
         }
 
         @include susy-media($bp-tablet) {
@@ -48,6 +67,11 @@
                 width: 60%;
             }
         }
+    }
+
+    &-hdr {
+        @extend .section-hdr;
+        @extend .xl;
     }
 
     &-tagline {

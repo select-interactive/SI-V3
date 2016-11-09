@@ -19,6 +19,13 @@
     }
 
     // ---------------
+    // Alternate Backgrounds
+    // ---------------
+    &-gray {
+        background: #fcfcfc;
+    }
+
+    // ---------------
     // Section Content
     // ---------------
     &-content {
@@ -63,21 +70,42 @@
         line-height: 1.1;
         margin: 0 0 1rem;
 
+        &.xl {
+            font-size: 2rem;
+            margin: 0 0 1.5rem;
+        }
+
         @include susy-media($bp-tablet) {
             font-size: 1.65rem;
+
+            &.xl {
+                font-size: 2.15rem;
+            }
         }
 
         @include susy-media($bp-large) {
             font-size: 1.85rem;
             line-height: 1.2;
+
+            &.xl {
+                font-size: 2.35rem;
+            }
         }
 
         @include susy-media($bp-wide) {
             font-size: 2rem;
+
+            &.xl {
+                font-size: 2.55rem;
+            }
         }
 
         @include susy-media($bp-xwide) {
             font-size: 2.2rem;
+
+            &.xl {
+                font-size: 2.75rem;
+            }
         }
     }
 }

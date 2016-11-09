@@ -40,6 +40,7 @@
     position: absolute;
     top: .5rem;
     transition: opacity .275s linear;
+    z-index: 99;
 
     .home-top & {
         opacity: 0;

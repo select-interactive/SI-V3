@@ -14,7 +14,7 @@
     <uc:head runat="server" ID="ucHead" />
     <asp:ContentPlaceHolder runat="server" ID="cphHead" />
 </head>
-<body runat="server" id="body">
+<body runat="server" id="body" frontend>
 	<uc:header runat="server" ID="ucHeader" />
     <uc:nav runat="server" ID="ucNav" />
     <main id="content-wrapper" role="main">

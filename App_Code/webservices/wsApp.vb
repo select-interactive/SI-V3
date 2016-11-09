@@ -295,6 +295,22 @@ Public Class wsApp
 	End Function
 
 	<WebMethod()>
+	Public Function partnersGetGrid() As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim dt As dsPartners.PartnersDataTable = partnersGet(-1, -1, "", True)
+			Dim tmpl As String = File.ReadAllText(Server.MapPath("/templates/partners/list-item.html"))
+			Dim html As String = generateHtmlTmpl(tmpl, dt)
+			rsp.setSuccess(html)
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+
+	<WebMethod()>
 	Public Function partnerSave(data As String) As String
 		Dim rsp As New WSResponse
 
@@ -434,6 +450,59 @@ Public Class wsApp
 #End Region
 
 
+#Region "Content"
+
+	<WebMethod()>
+	Public Function loadControlContent(controlName As String, url As String) As String
+		Dim rsp As New WSResponse
+		Dim title As String = ""
+		Dim html As String = ""
+
+		Try
+			If controlName = "/" Then
+				controlName = "home"
+			End If
+
+			' Get page HTML
+			html = renderPartialToString("/controls/pages/" & controlName.Replace("/", "") & ".ascx")
+
+			' Page titles -- need to think of a different way?
+			If controlName = "about" Then
+				title = "Fort Worth Web Developers, Building Website and Web Applications"
+			ElseIf controlName = "services" Then
+				title = "Website Design, Website Development, Search Engine Optimization (SEO)"
+			ElseIf controlName = "portfolio" Then
+				title = "Award Winning Website Design and Development Projects from Select Interactive"
+			ElseIf controlName = "news" Then
+				title = "Web Design and Development news, awards, and notes from Select Interactive"
+			ElseIf controlName = "contact" Then
+				title = "Contact Us to Discuss Your Website or Web Application Needs"
+			Else
+				title = "Fort Worth Website Design and Web Development. Select Interactive."
+			End If
+
+			rsp.setSuccess(New PageContent(title, html))
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+
+	Private Function renderPartialToString(controlName As String) As String
+		Dim p As New Page()
+		Dim c As Control = p.LoadControl(controlName)
+		p.Controls.Add(c)
+
+		Dim w As New StringWriter
+		HttpContext.Current.Server.Execute(p, w, False)
+
+		Return w.ToString
+	End Function
+
+#End Region
+
+
 #Region "Utilities"
 
 	Private Function generateHtmlTmpl(tmpl As String, dt As Data.DataTable) As String
@@ -487,5 +556,6 @@ Public Class wsApp
 	End Function
 
 #End Region
+
 
 End Class

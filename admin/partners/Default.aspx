@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="VB" MasterPageFile="~/masterpages/admin.master" AutoEventWireup="false" CodeFile="Default.aspx.vb" Inherits="admin_partners_Default" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cphMeta" Runat="Server">
-    <title>Projects</title>
+    <title>Partners</title>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="cphHead" Runat="Server">
@@ -10,7 +10,7 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="cphPageTitle" Runat="Server">
-    Projects
+    Partners
 </asp:Content>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="cphLeft" Runat="Server">
