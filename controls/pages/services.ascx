@@ -1,5 +1,7 @@
 ﻿<%@ Control Language="VB" AutoEventWireup="false" CodeFile="services.ascx.vb" Inherits="controls_pages_services" %>
 <div class="banner">
+	<div class="banner-bg banner-bg-services"></div>
+	<div class="banner-overlay"></div>
 	<div class="banner-content">
 		<div class="banner-col solo">
 			<h2 class="banner-hdr">Website and Web Application<br class="no-mbl" /> Design and Development.</h2>
@@ -32,7 +34,7 @@
 			<div class="col col-6">
 				<h3 class="section-hdr"><i class="material-icons">insert_photo</i>Content Management Systems</h3>
 				<p>Does your site need to be kept up-to-date at a moment&rsquo;s notice? We can provide you with a custom Content Management System (CMS) designed uniquely for you. No need to email content updates or call for changes. Our goal is to provide you the tools to be successful, with or without our input.</p>
-				<p>We build unique administrative dashboards that give you the behind the scenes control needed to keep your site up-to-date &ndash; no code to decipher, hard to find features, or frustration here. The ability to manage your site in real time becomes as easy and intuitive as checking your email. Goodbye learning curve and hello rewarding satisfaction, the control is at your own fingertips.</p>
+				<p>We build fully customized administrative dashboards that give you the behind the scenes control needed to keep your site up-to-date &ndash; no code to decipher, hard to find features, or frustration here. The ability to manage your site in real time becomes as easy and intuitive as checking your email. Goodbye learning curve and hello rewarding satisfaction, the control is at your own fingertips.</p>
 			</div>
 		</div>
 	</div>
@@ -42,9 +44,40 @@
 		<h3 class="section-hdr xl text-center">Working With Us<br />PR Firms/Marketing &amp; Design Agencies</h3>
 		<div class="row">
 			<div class="col col-6">
-				<p>As a firm specialized in developing websites, we are often approached by PR/Marketing/Design agencies to implement their designs into full sites. We take pride in being extremely easy to work with and knowledgeable. We are happy and eager to share information about performance factors in design, responsive design strategies, SEO best practices, and assist in the analysis of Google Analytics and Google Search Console (formerly Google Webmaster Tools).</p>
+				<p>As a firm specialized in website development, we are often approached by PR/Marketing/Design agencies to implement their designs into fully functional sites. This includes building out custom content management systems, implementing SEO and performance best practices, and working with the designers to implement mobile optimizations.</p>
+				<p>We take pride in being extremely easy to work with and knowledgeable. We are happy and eager to share information about performance factors in design, responsive design strategies, SEO best practices, and assist in the analysis of Google Analytics and Google Search Console (formerly Google Webmaster Tools).</p>
 			</div>
-			<div class="col col-6"></div>
+			<div class="col col-6">
+				<p class="mbs">A few examples of these collaborative projects include:</p>
+				<div class="row">
+					<div class="col col-wide-6">
+						<ul class="list-no-style">
+							<li><a href="https://www.nimbledesignco.com" target="_blank">www.nimbledesignco.com</a></li>
+							<li><a href="http://www.slantpartners.com" target="_blank">www.slantpartners.com</a></li>
+							<li><a href="https://www.bvagroup.com" target="_blank">www.bvagroup.com</a></li>
+							<li><a href="https://www.towerrealtypartners.com" target="_blank">www.towerrealtypartners.com</li>
+							<li><a href="http://www.fairwindstower.com" target="_blank">www.fairwindstower.com</a></li>
+							<li><a href="http://www.ipdfw.org" target="_blank">www.ipdfw.org</a></li>
+						</ul>
+					</div>
+					<div class="col col-wide-6">
+						<ul class="list-no-style">
+							<li><a href="http://www.stantonllp.com" target="_blank">www.stantonllp.com</a></li>
+							<li><a href="https://www.krispykrunchy.com" target="_blank">www.krispykrunchy.com</a></li>
+							<li><a href="http://www.liveoaksquare.com" target="_blank">www.liveoaksquare.com</a></li>
+							<li><a href="http://www.openra.com" target="_blank">www.openra.com</a></li>
+							<li><a href="http://www.jtaylor.com" target="_blank">www.jtaylor.com</a></li>
+							<li><a href="http://artsdirectory.roswellartsfund.org" target="_blank">artsdirectory.roswellartsfund.org</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
+</section>
+<section class="section section-gray">
+    <div class="section-content">
+        <h2 class="section-hdr xl text-center">Agencies We Work With</h2>
+		<div class="partners-list"><asp:Literal runat="server" ID="ltrlPartners" /></div>
+    </div>
 </section>

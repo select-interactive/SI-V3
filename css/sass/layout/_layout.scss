@@ -55,6 +55,26 @@
                 }
             }
         }
+
+        .col-wide-#{$col} {
+            // By default, always be full width - mobile first
+            @include full;
+            margin-bottom: .5rem;
+            padding: 0;
+
+            // At tabletPlus, start to resize
+            @include susy-media($bp-wide) {
+                @include nobreak;
+                @include span($col);
+                margin-bottom: 0;
+
+                &:not(:first-child) {
+                    &:last-child {
+                        @include last;
+                    }
+                }
+            }
+        }
     }
 }
 

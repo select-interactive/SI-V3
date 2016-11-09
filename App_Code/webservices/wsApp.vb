@@ -394,6 +394,22 @@ Public Class wsApp
 	End Function
 
 	<WebMethod()>
+	Public Function biosGetGrid() As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim dt As dsBios.BiosDataTable = biosGet(-1, "", True)
+			Dim tmpl As String = File.ReadAllText(Server.MapPath("/templates/team/list-item.html"))
+			Dim html As String = generateHtmlTmpl(tmpl, dt)
+			rsp.setSuccess(html)
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+
+	<WebMethod()>
 	Public Function bioSave(data As String) As String
 		Dim rsp As New WSResponse
 

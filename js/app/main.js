@@ -4784,8 +4784,6 @@ var app = {};
         }
 
         static go_( path, updateState ) {
-            // need to log GA
-
             // fade current page out
             // load new page
             // then fade in the new page
@@ -4800,6 +4798,8 @@ var app = {};
                 // use request animation to wait for the html to be painted
                 requestAnimationFrame( () => {
                     requestAnimationFrame( () => {
+                        app.$.eqHeight( this.mainContainer );
+
                         this.fadePageIn_().then( _ => {
                             if ( updateState ) {
                                 this.updateState_();
@@ -4860,6 +4860,10 @@ var app = {};
 
         static updateState_() {
             history.pushState( { path: this.path }, null, this.path );
+
+            if ( typeof window.ga === 'function' ) {
+                window.ga( 'send', 'pageview' );
+            }
         }
 
         static popstateHandler_() {

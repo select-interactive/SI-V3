@@ -6,20 +6,93 @@
         color: $white;
     }
 
+    &-bg {
+        background-position: right center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        border: 3rem solid transparent;
+        border-right: 0;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 0;
+
+        @include susy-media($bp-tablet) {
+            border: 1.5rem solid transparent;
+            border-right: 0;
+        }
+
+        @include susy-media($bp-xwide) {
+            border: 3rem solid transparent;
+        }
+
+        $bg-version: 1;
+        $bgs: about services;
+        @each $bg in $bgs {
+            &-#{$bg} {
+                background-image: url(/img/#{$bg}/bg.v#{$bg-version}.png);
+            }
+        }
+    }
+
+    &-overlay {
+        background: #fff;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+
+        @include susy-media($bp-tablet) {
+            background: linear-gradient(to right, $white, $white 60%, rgba($white, .4));
+        }
+
+        @include susy-media($bp-wide) {
+            background: linear-gradient(to right, $white, $white 67.5%, rgba($white, 0) 98.5%, rgba($white, 0));
+        }
+
+        @include susy-media($bp-wide) {
+            background: linear-gradient(to right, $white, $white 60%, rgba($white, 0) 95%, rgba($white, 0));
+        }
+    }
+
     &-content {
         @extend .content-container;
         align-items: center;
         display: flex;
         flex-flow: column;
+        max-width: 94%;
         min-height: 30vh;
         padding: 3rem 1.5rem;
+        position: relative;
+        z-index: 2;
         
         .banner-home & {
             min-height: 450px;
         }
 
+        @include susy-media($bp-tablet) {
+            max-width: 704px;
+        }
+
+        @include susy-media($bp-large) {
+            max-width: 850px;
+        }
+
+        @include susy-media($bp-wide) {
+            max-width: 1050px;
+            transform: translateX(-180px);
+        }
+
+        @include susy-media($bp-xwide) {
+            transform: translateX(-280px);
+        }
+
         p {
-            font-size: 1.1rem;
+            font-size: 1.25rem;
             line-height: 1.5;
             margin-bottom: 1.5rem;
 
@@ -28,7 +101,11 @@
             }
 
             @include susy-media($bp-large) {
-                font-size: 1.2rem;
+                font-size: 1.35rem;
+            }
+
+            @include susy-media($bp-xwide) {
+                font-size: 1.45rem;
             }
         }
 
@@ -47,7 +124,9 @@
         }
 
         &.solo {
-            text-align: center  !important;
+            float: none !important;
+            padding: 0 !important;
+            text-align: center !important;
             width: 100% !important;
         }
 

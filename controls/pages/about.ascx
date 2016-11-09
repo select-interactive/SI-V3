@@ -1,17 +1,19 @@
 ﻿<%@ Control Language="VB" AutoEventWireup="false" CodeFile="about.ascx.vb" Inherits="controls_pages_about" %>
 <div class="banner">
+	<div class="banner-bg banner-bg-about"></div>
+	<div class="banner-overlay"></div>
 	<div class="banner-content">
 		<div class="banner-col solo">
 			<h2 class="banner-hdr">Passionate Web Developers Striving to Build a Better Web.</h2>
 			<p>At Select Interactive we create websites, develop web and mobile applications, and build custom content management systems for businesses, large or small.</p>
 			<p>We love a good challenge and build our business on being industry experts on up-and-coming web trends, platforms, and applications. If you can imagine it, there&rsquo;s a good chance we can build it. Let us bring digital voice to your brand.</p>
-			<p>We look forward to working with you.</p>
 		</div>
 	</div>
 </div>
 <section class="section section-gray">
 	<div class="section-content">
 		<h2 class="section-hdr xl text-center">Our Team</h2>
+		<div class="team"><asp:Literal runat="server" ID="ltrlTeam" /></div>
 	</div>
 </section>
 <section class="section">
@@ -26,3 +28,11 @@
 		</ul>
 	</div>
 </section>
+<div class="section section-gray">
+	<div class="section-content sm">
+		<h2 class="section-hdr xl text-center">Advancing the<br />Web Development Community</h2>
+		<p>One of our favorite opportunities each year is working with interns and other developers in the industry to teach and discuss the ever changing web development technologies. With a small team, all of our developers are exposed to every aspect of the development process - design implementation, frontend development (heavily javascript related), UI/UX testing, server configuation, database design &amp; architecture, webservice/API development, responsive web design, and the list goes on and on. This gives our team members the chance to handle the challenges in all phases of web development and gain fundamental knowledge and expertise required.</p>
+		<p>Each year we look to bring in a handful of interns to introduce them to the tools, technologies, developmet strategies, and web best practices to push them forward in their young careers.</p>
+		<p><a href="https://selectinteractivehq.com/select-intern-active-97dac71773e6#.eqgjbmdx8" target="_blank">Read a post from one of our previous interns to gain some insight</a>.</p>
+	</div>
+</div>
