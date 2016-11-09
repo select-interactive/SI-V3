@@ -3,13 +3,17 @@
     flex-direction: column;
 
     a {
+        display: block;
+        margin: 0 auto;
+
         &:not(:last-child) {
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
         }
     }
 
     img {
-        max-height: 60px;
+        height: 40px;
+        max-height: 40px;
         width: auto;
     }
 
@@ -25,7 +29,8 @@
         }
 
         img {
-            height: 80px;
+            height: 65px;
+            max-height: 65px;
         }
     }
 }
