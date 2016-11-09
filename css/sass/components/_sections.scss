@@ -22,7 +22,7 @@
     // Alternate Backgrounds
     // ---------------
     &-gray {
-        background: #fcfcfc;
+        background: #fafafa;
     }
 
     // ---------------
@@ -58,6 +58,20 @@
                 margin-bottom: .5rem;
             }
         }
+
+        .row {
+            margin-bottom: 0;
+
+            @include susy-media($bp-tablet) {
+                &:not(:last-child) {
+                    margin-bottom: 2rem;
+                }
+            }
+        }
+
+        a {
+            @include link-colors($color-primary, $color-primary);
+        }
     }
 
 
@@ -71,15 +85,23 @@
         margin: 0 0 1rem;
 
         &.xl {
-            font-size: 2rem;
+            font-size: 2.3rem;
             margin: 0 0 1.5rem;
+        }
+
+        .material-icons {
+            color: rgba($body-color, .85);
+            font-size: 1.2em;
+            margin: 0 .5rem 0 0;
+            transform: translateY(-4px);
+            vertical-align: middle;
         }
 
         @include susy-media($bp-tablet) {
             font-size: 1.65rem;
 
             &.xl {
-                font-size: 2.15rem;
+                font-size: 2.5rem;
             }
         }
 
@@ -88,7 +110,7 @@
             line-height: 1.2;
 
             &.xl {
-                font-size: 2.35rem;
+                font-size: 2.6rem;
             }
         }
 
@@ -96,7 +118,8 @@
             font-size: 2rem;
 
             &.xl {
-                font-size: 2.55rem;
+                font-size: 2.8rem;
+                margin-bottom: 2rem;
             }
         }
 
@@ -104,7 +127,7 @@
             font-size: 2.2rem;
 
             &.xl {
-                font-size: 2.75rem;
+                font-size: 3rem;
             }
         }
     }

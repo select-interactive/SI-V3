@@ -4743,7 +4743,7 @@ var app = {};
 
     class Router {
         static init() {
-            this.mainContainer = app.$( 'main' );
+            this.mainContainer = app.$( '#page-container' );
             this.path = window.location.pathname;
             this.addEventListners_();
         }

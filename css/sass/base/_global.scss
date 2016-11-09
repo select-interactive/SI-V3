@@ -54,14 +54,17 @@ body {
 
 main {
     padding: 4rem 0 0;
+}
+
+#page-container {
     opacity: 1;
     transform: translateY(0);
-    transition: opacity .525s cubic-bezier(0.075, 0.82, 0.165, 1),
-                transform .525s cubic-bezier(0.075, 0.82, 0.165, 1);
+    transition: opacity .425s cubic-bezier(0.075, 0.82, 0.165, 1),
+                transform .425s cubic-bezier(0.075, 0.82, 0.165, 1);
     will-change: opacity, transform;
 
     .page-out & {
         opacity: 0;
-        transform: translateY(100px);
+        transform: translateY(80px);
     }
 }

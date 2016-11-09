@@ -1,0 +1,32 @@
+.awards-list {
+    @extend .clearfix;
+    @extend %list-style-none;
+    @extend %no-margin;
+
+    li {
+        @include full;
+        line-height: 1.4;
+        margin-bottom: 1.5rem !important;
+        padding-left: 18px;
+
+        &:before {
+            content: ">";
+            display: inline-block;
+            font-family: $font-secondary;
+            margin: 0 7px 0 -18px;
+        }
+
+        @include susy-media($bp-tablet) {
+            @include span(6);
+            @include nobreak;
+            
+            &:nth-child(2n) {
+                @include last;
+            }
+
+            &:nth-child(2n + 1) {
+                @include break;
+            }
+        }
+    }
+}
