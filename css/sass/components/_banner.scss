@@ -71,7 +71,9 @@
         z-index: 2;
         
         .banner-home & {
+            max-width: $max-width-px !important;
             min-height: 450px;
+            transform: translateX(0) !important;
         }
 
         @include susy-media($bp-tablet) {

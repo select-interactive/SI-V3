@@ -3468,7 +3468,10 @@ input[type=radio]:checked + label:after {
     position: relative;
     z-index: 2; }
     .banner-home .banner-content {
-      min-height: 450px; }
+      max-width: 1600px !important;
+      min-height: 450px;
+      -webkit-transform: translateX(0) !important;
+              transform: translateX(0) !important; }
     @media (min-width: 768px) {
       .banner-content {
         max-width: 704px; } }
