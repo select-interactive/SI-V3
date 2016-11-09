@@ -5,7 +5,7 @@
             <img src="/img/logos/select-interactive-white.v1.svg" width="400" height="120" alt="Select Interactive. Website and Mobile Application Development" />
         </div>
         <div class="banner-col">
-            <h2 class="banner-tagline">Passionate Web Developers inspired to create engaging website and web applications using innovative development strategies.</h2>
+            <h2 class="banner-tagline">Passionate Web Developers inspired to create engaging websites and web applications using innovative development strategies.</h2>
             <h2 class="banner-tagline">Building a better web.</h2>
         </div>
     </div>

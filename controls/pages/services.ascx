@@ -32,7 +32,7 @@
 				<p>By using both Google Analytics and Google Webmaster Tools for your website, we can monitor search traffic and content keywords. We can analyze that data, provide recommendations, and make changes to site copy, meta tags, anchor links, and page headings in order to improve your search engine results.</p>
 			</div>
 			<div class="col col-6">
-				<h3 class="section-hdr"><i class="material-icons">insert_photo</i>Content Management Systems</h3>
+				<h3 class="section-hdr"><i class="material-icons">insert_photo</i>Content Management Systems (CMS)</h3>
 				<p>Does your site need to be kept up-to-date at a moment&rsquo;s notice? We can provide you with a custom Content Management System (CMS) designed uniquely for you. No need to email content updates or call for changes. Our goal is to provide you the tools to be successful, with or without our input.</p>
 				<p>We build fully customized administrative dashboards that give you the behind the scenes control needed to keep your site up-to-date &ndash; no code to decipher, hard to find features, or frustration here. The ability to manage your site in real time becomes as easy and intuitive as checking your email. Goodbye learning curve and hello rewarding satisfaction, the control is at your own fingertips.</p>
 			</div>

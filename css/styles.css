@@ -687,7 +687,7 @@ html {
 
 body {
   background: #fff;
-  color: #2d2d2d;
+  color: #323232;
   text-align: left; }
   body.nav-in, body.modal-in {
     overflow: hidden; }
@@ -2258,7 +2258,7 @@ select {
   border-bottom: 1px solid rgba(221, 161, 74, 0.35);
   border-radius: 0;
   box-shadow: none;
-  color: #464646;
+  color: #4c4c4c;
   font-family: "avenir-light", sans-serif;
   font-size: 1rem;
   height: 3rem;
@@ -2509,7 +2509,7 @@ select {
   textarea[class*="input-icon"] ~ i,
   .text-editor[class*="input-icon"] ~ i,
   select[class*="input-icon"] ~ i {
-    color: rgba(45, 45, 45, 0.55);
+    color: rgba(50, 50, 50, 0.55);
     font-size: 1.5rem;
     top: 50%;
     -webkit-transform: translateY(-50%);
@@ -2896,7 +2896,7 @@ i.icon-drop-down {
   -webkit-transition: background 0.175s linear, color 0.175s linear;
           transition: background 0.175s linear, color 0.175s linear;
   will-change: background, color;
-  color: #464646; }
+  color: #4c4c4c; }
   .md-select-menu-item:hover {
     color: #dda14a; }
   .md-select-menu-item[selected="true"] {
@@ -2959,7 +2959,7 @@ input[type=radio] {
   width: 0; }
   input[type=checkbox] + label,
   input[type=radio] + label {
-    color: rgba(45, 45, 45, 0.85);
+    color: rgba(50, 50, 50, 0.85);
     cursor: pointer;
     font-size: 0.855rem;
     padding: 0 0 0 28px;
@@ -2977,7 +2977,7 @@ input[type=radio] {
 
 input[type=checkbox]:not([switch]) + label:before {
   background: #fff;
-  border: 2px solid rgba(45, 45, 45, 0.75);
+  border: 2px solid rgba(50, 50, 50, 0.75);
   border-radius: 2px;
   height: 16px;
   top: 0;
@@ -3011,7 +3011,7 @@ input[type=radio] + label:before, input[type=radio] + label:after {
 
 input[type=radio] + label:before {
   background: #fff;
-  border: 2px solid rgba(45, 45, 45, 0.75);
+  border: 2px solid rgba(50, 50, 50, 0.75);
   height: 14px;
   -webkit-transition: border 0.225s ease;
           transition: border 0.225s ease;
@@ -3519,9 +3519,9 @@ input[type=radio]:checked + label:after {
     .alert-btn-confirm:hover {
       color: #dda14a; }
   .alert-btn-deny {
-    color: #2d2d2d; }
+    color: #323232; }
     .alert-btn-deny:hover {
-      color: #2d2d2d; }
+      color: #323232; }
 
 .btn, .alert-btn {
   background: transparent;
@@ -3887,7 +3887,7 @@ input[type=radio]:checked + label:after {
       font-size: 2.3rem;
       margin: 0 0 1.5rem; }
     .section-hdr .material-icons, .banner-hdr .material-icons {
-      color: rgba(45, 45, 45, 0.85);
+      color: rgba(50, 50, 50, 0.85);
       font-size: 1.2em;
       margin: 0 .5rem 0 0;
       -webkit-transform: translateY(-4px);
