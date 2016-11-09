@@ -57,20 +57,28 @@
             Promise.all([
                 this.fadePageOut_(),
                 this.loadPageContent_( path )
-            ]).then( rsp => {
-                this.fadePageIn_().then( _ => {
-                    if ( updateState ) {
-                        this.updateState_();
-                    }
+            ]).then( data => {
+                const html = data[1];
+                this.mainContainer.innerHTML = html;
 
-                    if ( path !== '/' ) {
-                        doc.body.classList.remove( 'home' );
-                        doc.body.classList.remove( 'home-top' );
-                    }
-                    else {
-                        doc.body.classList.add( 'home' );
-                        doc.body.classList.add( 'home-top' );
-                    }
+                // use request animation to wait for the html to be painted
+                requestAnimationFrame( () => {
+                    requestAnimationFrame( () => {
+                        this.fadePageIn_().then( _ => {
+                            if ( updateState ) {
+                                this.updateState_();
+                            }
+
+                            if ( path !== '/' ) {
+                                doc.body.classList.remove( 'home' );
+                                doc.body.classList.remove( 'home-top' );
+                            }
+                            else {
+                                doc.body.classList.add( 'home' );
+                                doc.body.classList.add( 'home-top' );
+                            }
+                        } );
+                    } );
                 } );
             } );
         }
@@ -96,7 +104,7 @@
             } ).then( rsp => {
                 if ( rsp.success ) {
                     const content = rsp.obj;
-                    this.mainContainer.innerHTML = content.html;
+                    return content.html;
                 }
             } );
         }
