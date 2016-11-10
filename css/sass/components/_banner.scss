@@ -19,9 +19,17 @@
         width: 100%;
         z-index: 0;
 
+        &-left {
+            background-position: left center;
+        }
+
         @include susy-media($bp-tablet) {
             border: 1.5rem solid transparent;
             border-right: 0;
+
+            &-left {
+                border-left: 0;
+            }
         }
 
         @include susy-media($bp-xwide) {
@@ -29,7 +37,7 @@
         }
 
         $bg-version: 1;
-        $bgs: about services;
+        $bgs: about services portfolio;
         @each $bg in $bgs {
             &-#{$bg} {
                 background-image: url(/img/#{$bg}/bg.v#{$bg-version}.png);
@@ -48,14 +56,26 @@
 
         @include susy-media($bp-tablet) {
             background: linear-gradient(to right, $white, $white 60%, rgba($white, .4));
+
+            &-left {
+                background: linear-gradient(to left, $white, $white 60%, rgba($white, .4));
+            }
         }
 
         @include susy-media($bp-wide) {
             background: linear-gradient(to right, $white, $white 67.5%, rgba($white, 0) 98.5%, rgba($white, 0));
+
+            &-left {
+                background: linear-gradient(to left, $white, $white 67.5%, rgba($white, 0) 98.5%, rgba($white, 0));
+            }
         }
 
         @include susy-media($bp-wide) {
             background: linear-gradient(to right, $white, $white 60%, rgba($white, 0) 95%, rgba($white, 0));
+
+            &-left {
+                background: linear-gradient(to left, $white, $white 60%, rgba($white, 0) 95%, rgba($white, 0));
+            }
         }
 
         &-alt {
@@ -97,10 +117,18 @@
             max-width: 1050px;
             padding: 5.5rem;
             transform: translateX(-180px);
+
+            &.pull-right {
+                transform: translateX(180px);
+            }
         }
 
         @include susy-media($bp-xwide) {
             transform: translateX(-280px);
+
+            &.pull-right {
+                transform: translateX(280px);
+            }
         }
 
         p {
@@ -119,6 +147,10 @@
             @include susy-media($bp-xwide) {
                 font-size: 1.4rem;
             }
+        }
+
+        a {
+            @include link-colors($color-primary, $color-primary);
         }
     }
 
