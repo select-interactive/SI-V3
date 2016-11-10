@@ -4228,8 +4228,8 @@ input[type=radio]:checked + label:after {
   .project-item img {
     -webkit-transform: scale(1);
             transform: scale(1);
-    -webkit-transition: -webkit-transform .325s ease;
-            transition: transform .325s ease; }
+    -webkit-transition: -webkit-transform 1.525s ease;
+            transition: transform 1.525s ease; }
   .project-item:hover .project-item-overlay {
     opacity: 1; }
   .project-item:hover .project-item-title {
