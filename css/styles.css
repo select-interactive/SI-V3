@@ -3744,6 +3744,9 @@ input[type=radio]:checked + label:after {
       .banner-overlay {
         background: -webkit-linear-gradient(left, #fff, #fff 60%, rgba(255, 255, 255, 0) 95%, rgba(255, 255, 255, 0));
         background: linear-gradient(to right, #fff, #fff 60%, rgba(255, 255, 255, 0) 95%, rgba(255, 255, 255, 0)); } }
+    .banner-overlay-alt {
+      background: -webkit-linear-gradient(315deg, #C0C6D6, #F5F7F6);
+      background: linear-gradient(135deg, #C0C6D6, #F5F7F6); }
   .banner-content {
     -webkit-box-align: center;
         -ms-flex-align: center;
@@ -3815,6 +3818,8 @@ input[type=radio]:checked + label:after {
         padding: 0 0 0 2rem;
         text-align: right;
         width: 60%; } }
+  .banner-hdr.white {
+    color: #fff; }
   .banner-tagline {
     font-size: 1.45rem;
     letter-spacing: 1px;
@@ -4178,9 +4183,9 @@ input[type=radio]:checked + label:after {
 .project-item {
   display: block;
   float: left;
-  margin: 0 3rem 0 0;
+  margin: 0;
   position: relative;
-  width: calc(50% - 1.5rem); }
+  width: 50%; }
   .project-item:nth-child(2n) {
     float: right;
     margin-right: 0; }

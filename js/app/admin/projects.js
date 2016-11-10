@@ -44,7 +44,9 @@
         },
 		additionalProperties: {
             imgPath: '',
-            imgFileName: ''
+            imgFileName: '',
+            gridImgPath: '',
+            gridImgFileName: ''
         }
 	} );
 
@@ -56,6 +58,15 @@
     _ddlTags.chosen();
     _ddlPartners.chosen();
 
+    const btnUploadGridImg = app.$( '#btn-upload-grid-img' );
+	const fUploadGridImg = app.$( '#f-upload-grid-img' );
+	const prevGridImg = app.$( '#prev-grid-img' );
+	const btnGridImgDelete = app.$( '#btn-grid-img-delete' );
+
+    const uploadGridImgPath = 'img/projects/';
+    const minGridImgWidth = 1000;
+    const minGridImgHeight = 800;
+
     const btnUploadImg = app.$( '#btn-upload-img' );
 	const fUploadImg = app.$( '#f-upload-img' );
 	const prevImg = app.$( '#prev-img' );
@@ -64,6 +75,40 @@
     const uploadPath = 'img/projects/';
     const minImgWidth = 1000;
     const minImgHeight = 762;
+
+    btnUploadGridImg.addEventListener( 'click', e => fUploadGridImg.click() );
+
+    fUploadGridImg.addEventListener( 'change', e => {
+		let files = e.dataTransfer ? e.dataTransfer.files : e.currentTarget.files,
+			file = files[0];
+
+		adminForm.uploadHelper( file, true, '/admin/uploadImg.ashx', {
+            'X-Min-Width': minGridImgWidth,
+            'X-Min-Height': minGridImgHeight,
+            'X-File-Path': uploadGridImgPath
+        }, rsp => {
+			if ( rsp ) {
+				adminForm.setAdditionalPropertyData( 'gridImgPath', rsp.filePath );
+				adminForm.setAdditionalPropertyData( 'gridImgFileName', rsp.fileName );
+				setPrevGridImg( rsp.filePath );
+			}
+
+			fUploadGridImg.value = '';
+		} ); 
+	} );
+
+	btnGridImgDelete.addEventListener( 'click', e => {
+		alert.promptAlert( 'Confirm Delete', '<p>Are you sure you want to delete this image?', 'Delete', 'Cancel', evt => {
+			adminForm.setAdditionalPropertyData( 'gridImgPath', '' );
+			adminForm.setAdditionalPropertyData( 'gridImgFileName', '' );
+			setPrevGridImg( '' );
+			alert.dismissAlert();
+			evt.preventDefault();
+		}, evt => {
+			alert.dismissAlert();
+			evt.preventDefault();
+		} );
+	} );
 
 	btnUploadImg.addEventListener( 'click', e => fUploadImg.click() );
 
@@ -144,7 +189,19 @@
         } );
 
         setPrevImg( adminForm.getAdditionalPropertyData( 'imgPath' ) );
+        setPrevGridImg( adminForm.getAdditionalPropertyData( 'gridImgPath' ) );
     }
+
+    function setPrevGridImg( filePath ) {
+		if ( filePath === '' ) {
+			prevGridImg.innerHTML = '';
+			btnGridImgDelete.classList.add( 'hidden' );
+			return;
+		}
+
+		prevGridImg.innerHTML = '<img src="' + filePath + '" />';
+		btnGridImgDelete.classList.remove( 'hidden' );
+	}
 
     function setPrevImg( filePath ) {
 		if ( filePath === '' ) {
@@ -200,6 +257,7 @@
         _ddlTags.trigger( 'chosen:updated' );
         _ddlPartners.trigger( 'chosen:updated' );
 
+        setPrevGridImg( '' );
         setPrevImg( '' );
     }
 }( document ) );

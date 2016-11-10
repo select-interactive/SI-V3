@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="VB" AutoEventWireup="false" CodeFile="portfolio.ascx.vb" Inherits="controls_pages_portfolio" %>
 <div class="banner">
+	<div class="banner-overlay banner-overlay-alt"></div>
 	<div class="banner-content no-pull">
 		<div class="banner-col solo">
 			<h2 class="banner-hdr">Selected Projects</h2>

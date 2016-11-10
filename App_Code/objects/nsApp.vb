@@ -44,6 +44,8 @@ Namespace nsApp
 		Public Property description As String
 		Public Property imgPath As String
 		Public Property imgFileName As String
+		Public Property gridImgPath As String
+		Public Property gridImgFileName As String
 		Public Property website As String
 		Public Property url As String
 		Public Property sortOrder As Integer

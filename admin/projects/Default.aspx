@@ -42,6 +42,13 @@
             </div>
             <div class="form-row">
                 <div class="col col-6">
+					<label>Image should be at least 1000px by 800px</label><br />
+					<button id="btn-upload-grid-img" class="btn btn-raised">Upload Project Grid Image</button>
+					<input type="file" id="f-upload-grid-img" class="hidden" />
+					<div id="prev-grid-img" style="padding:1rem 0;position:relative;"></div>
+					<button id="btn-grid-img-delete" class="btn btn-sm btn-raised hidden">Delete Grid Image</button>
+				</div>
+                <div class="col col-6">
 					<label>Image should be at least 1000px by 762px</label><br />
 					<button id="btn-upload-img" class="btn btn-raised">Upload Project Image</button>
 					<input type="file" id="f-upload-img" class="hidden" />

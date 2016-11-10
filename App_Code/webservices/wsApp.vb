@@ -83,6 +83,8 @@ Public Class wsApp
 						  .description,
 						  .imgPath,
 						  .imgFileName,
+						  .gridImgPath,
+						  .gridImgFileName,
 						  .website,
 						  .url,
 						  .sortOrder,

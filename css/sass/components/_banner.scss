@@ -57,6 +57,10 @@
         @include susy-media($bp-wide) {
             background: linear-gradient(to right, $white, $white 60%, rgba($white, 0) 95%, rgba($white, 0));
         }
+
+        &-alt {
+            background: linear-gradient(135deg, #C0C6D6, #F5F7F6);
+        }
     }
 
     &-content {
@@ -151,6 +155,10 @@
     &-hdr {
         @extend .section-hdr;
         @extend .xl;
+
+        &.white {
+            color: #fff;
+        }
     }
 
     &-tagline {
