@@ -4,47 +4,79 @@
 .projects-grid {
     @extend .clearfix;
     margin: 0 auto;
-    max-width: 1200px;
+    max-width: 1400px;
 }
 
 .project-item {
     display: block;
-    float: left;
     margin: 0;
     overflow: hidden;
     position: relative;
-    width: 50%;
 
-    &:nth-child(2n) {
-        float: right;
-        margin-right: 0;
+    &:not(:last-child) {
+        margin-bottom: 4px;
+    }
+
+    @include susy-media($bp-tablet) {
+        border-right: 2px solid transparent;
+        float: left;
+        width: 50%;
+
+        &:nth-child(2n) {
+            border-left: 2px solid transparent;
+            border-right: none;
+            float: right;
+        }
+
+        &:not(:last-child) {
+            margin-bottom: 0;
+        }
+
+        &:nth-child(n + 3) {
+            margin-top: 4px;
+        }
+    }
+
+    @include susy-media($bp-comp ) {
+        border: none !important;
+
+        &:nth-child(n + 3) {
+            margin-top: 0;
+        }
     }
 
     &-overlay {
         align-items: center;
-        background: rgba(#585A62, .55);
+        background: rgba(#585A62, .75);
         color: $white;
         display: flex;
         flex-direction: column;
         height: 100%;
         justify-content: center;
         left: 0;
-        opacity: 0;
         position: absolute;
         top: 0;
         transition: opacity .325s ease;
         width: 100%;
         z-index: 1;
+
+        @include susy-media($bp-comp) {
+            background: rgba(#585A62, .55);
+            opacity: 0;
+        }
     }
 
     &-info {
-        opacity: 0;
         padding: 1rem;
-        transform: scale(1, 0) translateY(30px);
-        transform-origin: center bottom;
-        transition: opacity .425s ease .2s,
-                    transform .425s ease .2s;
         width: 100%;
+
+        @include susy-media($bp-comp) {
+            opacity: 0;
+            transform: scale(1, 0) translateY(30px);
+            transform-origin: center bottom;
+            transition: opacity .425s ease .2s,
+                        transform .425s ease .2s;
+        }
 
         @include susy-media($bp-wide) {
             padding: 1rem 3rem;
@@ -54,18 +86,28 @@
     &-title {
         border-bottom: 1px solid rgba(#fff, .8);
         font-family: $font-bold;
-        font-size: 1.5rem;
+        font-size: 1.35rem;
         line-height: 1.1;
         margin: 0 0 .75rem;
+        overflow: hidden;
         padding: 0 0 .75rem;
         text-align: center;
+        text-overflow: ellipsis;
         width: 100%;
+
+        @include susy-media($bp-tablet) {
+            font-size: 1.5rem;
+        }
     }
 
     &-location {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
         margin: 0 0 .5rem;
         text-align: center;
+
+        @include susy-media($bp-tablet) {
+            font-size: 1.2rem;
+        }
     }
 
     &-industries {

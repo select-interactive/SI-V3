@@ -2,8 +2,16 @@
     padding: 2.5rem 1.5rem;
     position: relative;
 
+    &-mbl-pad {
+        padding: 0;
+    }
+
     @include susy-media($bp-tablet) {
         padding: 3.5rem 2rem;
+
+        &-mbl-pad {
+            padding: 0;
+        }
     }
 
     @include susy-media($bp-large) {
