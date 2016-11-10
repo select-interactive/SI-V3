@@ -61,6 +61,10 @@
 	const prevImg = app.$( '#prev-img' );
 	const btnImgDelete = app.$( '#btn-img-delete' );
 
+    const uploadPath = 'img/projects/';
+    const minImgWidth = 1000;
+    const minImgHeight = 762;
+
 	btnUploadImg.addEventListener( 'click', e => fUploadImg.click() );
 
 	fUploadImg.addEventListener( 'change', e => {
@@ -68,9 +72,9 @@
 			file = files[0];
 
 		adminForm.uploadHelper( file, true, '/admin/uploadImg.ashx', {
-            'X-Min-Width': 652,
-            'X-Min-Height': 500,
-            'X-File-Path': 'img/projects/'
+            'X-Min-Width': minImgWidth,
+            'X-Min-Height': minImgHeight,
+            'X-File-Path': uploadPath
         }, rsp => {
 			if ( rsp ) {
 				adminForm.setAdditionalPropertyData( 'imgPath', rsp.filePath );

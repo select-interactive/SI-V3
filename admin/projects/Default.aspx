@@ -42,7 +42,7 @@
             </div>
             <div class="form-row">
                 <div class="col col-6">
-					<label>Image should be at least 652px by 500px</label><br />
+					<label>Image should be at least 100px by 762px</label><br />
 					<button id="btn-upload-img" class="btn btn-raised">Upload Project Image</button>
 					<input type="file" id="f-upload-img" class="hidden" />
 					<div id="prev-img" style="padding:1rem 0;position:relative;"></div>
