@@ -76,6 +76,18 @@
         li {
             display: inline-block;
             margin: 0 .5rem .5rem;
+
+            &:not(:last-child) {
+                margin-right: 0;
+
+                &:after {
+                    display: inline-block;
+                    content: '|';
+                    line-height: 0.9;
+                    margin: 0 0 .5rem .5rem;
+                    vertical-align: middle;
+                }
+            }
         }
     }
 

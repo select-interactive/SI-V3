@@ -4248,6 +4248,14 @@ input[type=radio]:checked + label:after {
     .project-item-industries li {
       display: inline-block;
       margin: 0 .5rem .5rem; }
+      .project-item-industries li:not(:last-child) {
+        margin-right: 0; }
+        .project-item-industries li:not(:last-child):after {
+          display: inline-block;
+          content: '|';
+          line-height: 0.9;
+          margin: 0 0 .5rem .5rem;
+          vertical-align: middle; }
   .project-item img {
     -webkit-transform: scale(1);
             transform: scale(1);
