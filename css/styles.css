@@ -557,13 +557,13 @@ input[type=radio] + label, .btn, .alert-btn {
   .no-mbl {
     display: none !important; } }
 
-.clearfix::before, .footer-links::before, .footer-links li::before, .section-content::before, .awards-list::before,
+.clearfix::before, .footer-links::before, .footer-links li::before, .section-content::before, .awards-list::before, .projects-grid::before,
 .row::before,
 .form-row::before {
   content: "";
   display: table; }
 
-.clearfix:after, .footer-links:after, .footer-links li:after, .section-content:after, .awards-list:after,
+.clearfix:after, .footer-links:after, .footer-links li:after, .section-content:after, .awards-list:after, .projects-grid:after,
 .row:after,
 .form-row:after {
   clear: both;
@@ -4170,3 +4170,56 @@ input[type=radio]:checked + label:after {
       @media (min-width: 768px) {
         .team-bio-description {
           padding: 2rem; } }
+
+.projects-grid {
+  margin: 0 auto;
+  max-width: 1200px; }
+
+.project-item {
+  display: block;
+  float: left;
+  margin: 0 3rem 0 0;
+  position: relative;
+  width: calc(50% - 1.5rem); }
+  .project-item:nth-child(2n) {
+    float: right;
+    margin-right: 0; }
+  .project-item:nth-child(n + 3) {
+    margin-top: 3rem; }
+  .project-item-overlay {
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    background: rgba(0, 0, 0, 0.35);
+    color: #fff;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    height: 100%;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    -webkit-transition: opacity .325s ease;
+            transition: opacity .325s ease;
+    width: 100%;
+    z-index: 1; }
+  .project-item-title {
+    font-family: "avenir-black", sans-serif;
+    font-size: 1.5rem;
+    line-height: 1.1;
+    margin: 0;
+    padding: 1rem; }
+  .project-item img {
+    -webkit-transform: scale(0.9);
+            transform: scale(0.9);
+    -webkit-transition: -webkit-transform .325s ease;
+            transition: transform .325s ease; }
+  .project-item:hover .project-item-overlay {
+    opacity: 1; }
+  .project-item:hover img {
+    -webkit-transform: scale(1);
+            transform: scale(1); }

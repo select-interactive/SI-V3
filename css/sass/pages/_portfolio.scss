@@ -1,0 +1,64 @@
+// ---------------
+// Portfolio Grid
+// ---------------
+.projects-grid {
+    @extend .clearfix;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.project-item {
+    display: block;
+    float: left;
+    margin: 0 3rem 0 0;
+    position: relative;
+    width: calc(50% - 1.5rem);
+
+    &:nth-child(2n) {
+        float: right;
+        margin-right: 0;
+    }
+
+    &:nth-child(n + 3) {
+        margin-top: 3rem;
+    }
+
+    &-overlay {
+        align-items: center;
+        background: rgba(#000, .35);
+        color: $white;
+        display: flex;
+        height: 100%;
+        justify-content: center;
+        left: 0;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        transition: opacity .325s ease;
+        width: 100%;
+        z-index: 1;
+    }
+
+    &-title {
+        font-family: $font-bold;
+        font-size: 1.5rem;
+        line-height: 1.1;
+        margin: 0;
+        padding: 1rem;
+    }
+
+    img {
+        transform: scale(.9);
+        transition: transform .325s ease;
+    }
+
+    &:hover {
+        .project-item-overlay {
+            opacity: 1;
+        }
+
+        img {
+            transform: scale(1);
+        }
+    }
+}

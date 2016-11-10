@@ -51,6 +51,22 @@ Public Class wsApp
 	End Function
 
 	<WebMethod()>
+	Public Function projectsGetGrid() As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim dt As dsProjects.ProjectsDataTable = projectsGet(-1, -1, -1, "", False, True)
+			Dim tmpl As String = File.ReadAllText(Server.MapPath("/templates/projects/list-item.html"))
+			Dim html As String = generateHtmlTmpl(tmpl, dt)
+			rsp.setSuccess(html)
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+
+	<WebMethod()>
 	Public Function projectSave(data As String) As String
 		Dim rsp As New WSResponse
 
