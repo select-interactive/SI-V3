@@ -4184,18 +4184,17 @@ input[type=radio]:checked + label:after {
   display: block;
   float: left;
   margin: 0;
+  overflow: hidden;
   position: relative;
   width: 50%; }
   .project-item:nth-child(2n) {
     float: right;
     margin-right: 0; }
-  .project-item:nth-child(n + 3) {
-    margin-top: 3rem; }
   .project-item-overlay {
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
-    background: rgba(0, 0, 0, 0.35);
+    background: rgba(88, 90, 98, 0.55);
     color: #fff;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -4219,12 +4218,14 @@ input[type=radio]:checked + label:after {
     margin: 0;
     padding: 1rem; }
   .project-item img {
-    -webkit-transform: scale(0.9);
-            transform: scale(0.9);
+    -webkit-transform: scale(1);
+            transform: scale(1);
     -webkit-transition: -webkit-transform .325s ease;
             transition: transform .325s ease; }
   .project-item:hover .project-item-overlay {
     opacity: 1; }
   .project-item:hover img {
-    -webkit-transform: scale(1);
-            transform: scale(1); }
+    -webkit-filter: blur(1px);
+            filter: blur(1px);
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1); }
