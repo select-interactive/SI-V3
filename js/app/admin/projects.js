@@ -65,7 +65,7 @@
 
     const uploadGridImgPath = 'img/projects/';
     const minGridImgWidth = 1000;
-    const minGridImgHeight = 640;
+    const minGridImgHeight = 590;
 
     const btnUploadImg = app.$( '#btn-upload-img' );
 	const fUploadImg = app.$( '#f-upload-img' );
