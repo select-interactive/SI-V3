@@ -719,125 +719,125 @@ main {
             transform: translateY(100px); }
 
 .span-1 {
-  width: 5.7142857143%;
+  width: 5.1724137931%;
   float: left;
-  margin-right: 2.8571428571%; }
+  margin-right: 3.4482758621%; }
 
 .pre-1 {
-  padding-left: 8.5714285714%; }
+  padding-left: 8.6206896552%; }
 
 .suffix-1 {
-  padding-right: 8.5714285714%; }
+  padding-right: 8.6206896552%; }
 
 .span-2 {
-  width: 14.2857142857%;
+  width: 13.7931034483%;
   float: left;
-  margin-right: 2.8571428571%; }
+  margin-right: 3.4482758621%; }
 
 .pre-2 {
-  padding-left: 17.1428571429%; }
+  padding-left: 17.2413793103%; }
 
 .suffix-2 {
-  padding-right: 17.1428571429%; }
+  padding-right: 17.2413793103%; }
 
 .span-3 {
-  width: 22.8571428571%;
+  width: 22.4137931034%;
   float: left;
-  margin-right: 2.8571428571%; }
+  margin-right: 3.4482758621%; }
 
 .pre-3 {
-  padding-left: 25.7142857143%; }
+  padding-left: 25.8620689655%; }
 
 .suffix-3 {
-  padding-right: 25.7142857143%; }
+  padding-right: 25.8620689655%; }
 
 .span-4 {
-  width: 31.4285714286%;
+  width: 31.0344827586%;
   float: left;
-  margin-right: 2.8571428571%; }
+  margin-right: 3.4482758621%; }
 
 .pre-4 {
-  padding-left: 34.2857142857%; }
+  padding-left: 34.4827586207%; }
 
 .suffix-4 {
-  padding-right: 34.2857142857%; }
+  padding-right: 34.4827586207%; }
 
 .span-5 {
-  width: 40%;
+  width: 39.6551724138%;
   float: left;
-  margin-right: 2.8571428571%; }
+  margin-right: 3.4482758621%; }
 
 .pre-5 {
-  padding-left: 42.8571428571%; }
+  padding-left: 43.1034482759%; }
 
 .suffix-5 {
-  padding-right: 42.8571428571%; }
+  padding-right: 43.1034482759%; }
 
 .span-6 {
-  width: 48.5714285714%;
+  width: 48.275862069%;
   float: left;
-  margin-right: 2.8571428571%; }
+  margin-right: 3.4482758621%; }
 
 .pre-6 {
-  padding-left: 51.4285714286%; }
+  padding-left: 51.724137931%; }
 
 .suffix-6 {
-  padding-right: 51.4285714286%; }
+  padding-right: 51.724137931%; }
 
 .span-7 {
-  width: 57.1428571429%;
+  width: 56.8965517241%;
   float: left;
-  margin-right: 2.8571428571%; }
+  margin-right: 3.4482758621%; }
 
 .pre-7 {
-  padding-left: 60%; }
+  padding-left: 60.3448275862%; }
 
 .suffix-7 {
-  padding-right: 60%; }
+  padding-right: 60.3448275862%; }
 
 .span-8 {
-  width: 65.7142857143%;
+  width: 65.5172413793%;
   float: left;
-  margin-right: 2.8571428571%; }
+  margin-right: 3.4482758621%; }
 
 .pre-8 {
-  padding-left: 68.5714285714%; }
+  padding-left: 68.9655172414%; }
 
 .suffix-8 {
-  padding-right: 68.5714285714%; }
+  padding-right: 68.9655172414%; }
 
 .span-9 {
-  width: 74.2857142857%;
+  width: 74.1379310345%;
   float: left;
-  margin-right: 2.8571428571%; }
+  margin-right: 3.4482758621%; }
 
 .pre-9 {
-  padding-left: 77.1428571429%; }
+  padding-left: 77.5862068966%; }
 
 .suffix-9 {
-  padding-right: 77.1428571429%; }
+  padding-right: 77.5862068966%; }
 
 .span-10 {
-  width: 82.8571428571%;
+  width: 82.7586206897%;
   float: left;
-  margin-right: 2.8571428571%; }
+  margin-right: 3.4482758621%; }
 
 .pre-10 {
-  padding-left: 85.7142857143%; }
+  padding-left: 86.2068965517%; }
 
 .suffix-10 {
-  padding-right: 85.7142857143%; }
+  padding-right: 86.2068965517%; }
 
 .span-11 {
-  width: 91.4285714286%;
+  width: 91.3793103448%;
   float: left;
-  margin-right: 2.8571428571%; }
+  margin-right: 3.4482758621%; }
 
 .pre-11 {
-  padding-left: 94.2857142857%; }
+  padding-left: 94.8275862069%; }
 
 .suffix-11 {
-  padding-right: 94.2857142857%; }
+  padding-right: 94.8275862069%; }
 
 .span-12 {
   width: 100%;
@@ -846,10 +846,10 @@ main {
   margin-right: 0; }
 
 .pre-12 {
-  padding-left: 102.857142857%; }
+  padding-left: 103.448275862%; }
 
 .suffix-12 {
-  padding-right: 102.857142857%; }
+  padding-right: 103.448275862%; }
 
 .span-first {
   margin-left: 0;
@@ -875,7 +875,7 @@ main {
   float: left;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 7.8571428571%;
+  margin-bottom: 9.4827586207%;
   padding: 0; }
   @media (min-width: 768px) {
     .row-cols-1 .col {
@@ -900,9 +900,9 @@ main {
   @media (min-width: 768px) {
     .row .col-1, .form-row .col-1 {
       clear: none;
-      width: 5.7142857143%;
+      width: 5.1724137931%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row .col-1:not(:first-child):last-child, .form-row .col-1:not(:first-child):last-child {
         float: right;
@@ -919,9 +919,9 @@ main {
   @media (min-width: 1024px) {
     .row .col-med-1, .form-row .col-med-1 {
       clear: none;
-      width: 5.7142857143%;
+      width: 5.1724137931%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row .col-med-1:not(:first-child):last-child, .form-row .col-med-1:not(:first-child):last-child {
         float: right;
@@ -938,9 +938,9 @@ main {
   @media (min-width: 1200px) {
     .row .col-wide-1, .form-row .col-wide-1 {
       clear: none;
-      width: 5.7142857143%;
+      width: 5.1724137931%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row .col-wide-1:not(:first-child):last-child, .form-row .col-wide-1:not(:first-child):last-child {
         float: right;
@@ -952,14 +952,14 @@ main {
   float: left;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 7.8571428571%;
+  margin-bottom: 9.4827586207%;
   padding: 0; }
   @media (min-width: 768px) {
     .row-cols-2 .col {
       clear: none;
-      width: 48.5714285714%;
+      width: 48.275862069%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row-cols-2 .col:not(:first-child):last-child {
         float: right;
@@ -976,9 +976,9 @@ main {
   @media (min-width: 768px) {
     .row .col-2, .form-row .col-2 {
       clear: none;
-      width: 14.2857142857%;
+      width: 13.7931034483%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row .col-2:not(:first-child):last-child, .form-row .col-2:not(:first-child):last-child {
         float: right;
@@ -995,9 +995,9 @@ main {
   @media (min-width: 1024px) {
     .row .col-med-2, .form-row .col-med-2 {
       clear: none;
-      width: 14.2857142857%;
+      width: 13.7931034483%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row .col-med-2:not(:first-child):last-child, .form-row .col-med-2:not(:first-child):last-child {
         float: right;
@@ -1014,9 +1014,9 @@ main {
   @media (min-width: 1200px) {
     .row .col-wide-2, .form-row .col-wide-2 {
       clear: none;
-      width: 14.2857142857%;
+      width: 13.7931034483%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row .col-wide-2:not(:first-child):last-child, .form-row .col-wide-2:not(:first-child):last-child {
         float: right;
@@ -1028,14 +1028,14 @@ main {
   float: left;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 7.8571428571%;
+  margin-bottom: 9.4827586207%;
   padding: 0; }
   @media (min-width: 768px) {
     .row-cols-3 .col {
       clear: none;
-      width: 31.4285714286%;
+      width: 31.0344827586%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row-cols-3 .col:not(:first-child):last-child {
         float: right;
@@ -1052,9 +1052,9 @@ main {
   @media (min-width: 768px) {
     .row .col-3, .form-row .col-3 {
       clear: none;
-      width: 22.8571428571%;
+      width: 22.4137931034%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row .col-3:not(:first-child):last-child, .form-row .col-3:not(:first-child):last-child {
         float: right;
@@ -1071,9 +1071,9 @@ main {
   @media (min-width: 1024px) {
     .row .col-med-3, .form-row .col-med-3 {
       clear: none;
-      width: 22.8571428571%;
+      width: 22.4137931034%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row .col-med-3:not(:first-child):last-child, .form-row .col-med-3:not(:first-child):last-child {
         float: right;
@@ -1090,9 +1090,9 @@ main {
   @media (min-width: 1200px) {
     .row .col-wide-3, .form-row .col-wide-3 {
       clear: none;
-      width: 22.8571428571%;
+      width: 22.4137931034%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row .col-wide-3:not(:first-child):last-child, .form-row .col-wide-3:not(:first-child):last-child {
         float: right;
@@ -1104,14 +1104,14 @@ main {
   float: left;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 7.8571428571%;
+  margin-bottom: 9.4827586207%;
   padding: 0; }
   @media (min-width: 768px) {
     .row-cols-4 .col {
       clear: none;
-      width: 22.8571428571%;
+      width: 22.4137931034%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row-cols-4 .col:not(:first-child):last-child {
         float: right;
@@ -1128,9 +1128,9 @@ main {
   @media (min-width: 768px) {
     .row .col-4, .form-row .col-4 {
       clear: none;
-      width: 31.4285714286%;
+      width: 31.0344827586%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row .col-4:not(:first-child):last-child, .form-row .col-4:not(:first-child):last-child {
         float: right;
@@ -1147,9 +1147,9 @@ main {
   @media (min-width: 1024px) {
     .row .col-med-4, .form-row .col-med-4 {
       clear: none;
-      width: 31.4285714286%;
+      width: 31.0344827586%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row .col-med-4:not(:first-child):last-child, .form-row .col-med-4:not(:first-child):last-child {
         float: right;
@@ -1166,9 +1166,9 @@ main {
   @media (min-width: 1200px) {
     .row .col-wide-4, .form-row .col-wide-4 {
       clear: none;
-      width: 31.4285714286%;
+      width: 31.0344827586%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row .col-wide-4:not(:first-child):last-child, .form-row .col-wide-4:not(:first-child):last-child {
         float: right;
@@ -1180,14 +1180,14 @@ main {
   float: left;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 7.8571428571%;
+  margin-bottom: 9.4827586207%;
   padding: 0; }
   @media (min-width: 768px) {
     .row-cols-5 .col {
       clear: none;
-      width: 17.7142857143%;
+      width: 17.2413793103%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row-cols-5 .col:not(:first-child):last-child {
         float: right;
@@ -1204,9 +1204,9 @@ main {
   @media (min-width: 768px) {
     .row .col-5, .form-row .col-5 {
       clear: none;
-      width: 40%;
+      width: 39.6551724138%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row .col-5:not(:first-child):last-child, .form-row .col-5:not(:first-child):last-child {
         float: right;
@@ -1223,9 +1223,9 @@ main {
   @media (min-width: 1024px) {
     .row .col-med-5, .form-row .col-med-5 {
       clear: none;
-      width: 40%;
+      width: 39.6551724138%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row .col-med-5:not(:first-child):last-child, .form-row .col-med-5:not(:first-child):last-child {
         float: right;
@@ -1242,9 +1242,9 @@ main {
   @media (min-width: 1200px) {
     .row .col-wide-5, .form-row .col-wide-5 {
       clear: none;
-      width: 40%;
+      width: 39.6551724138%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row .col-wide-5:not(:first-child):last-child, .form-row .col-wide-5:not(:first-child):last-child {
         float: right;
@@ -1256,14 +1256,14 @@ main {
   float: left;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 7.8571428571%;
+  margin-bottom: 9.4827586207%;
   padding: 0; }
   @media (min-width: 768px) {
     .row-cols-6 .col {
       clear: none;
-      width: 14.2857142857%;
+      width: 13.7931034483%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row-cols-6 .col:not(:first-child):last-child {
         float: right;
@@ -1280,9 +1280,9 @@ main {
   @media (min-width: 768px) {
     .row .col-6, .form-row .col-6 {
       clear: none;
-      width: 48.5714285714%;
+      width: 48.275862069%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row .col-6:not(:first-child):last-child, .form-row .col-6:not(:first-child):last-child {
         float: right;
@@ -1299,9 +1299,9 @@ main {
   @media (min-width: 1024px) {
     .row .col-med-6, .form-row .col-med-6 {
       clear: none;
-      width: 48.5714285714%;
+      width: 48.275862069%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row .col-med-6:not(:first-child):last-child, .form-row .col-med-6:not(:first-child):last-child {
         float: right;
@@ -1318,9 +1318,9 @@ main {
   @media (min-width: 1200px) {
     .row .col-wide-6, .form-row .col-wide-6 {
       clear: none;
-      width: 48.5714285714%;
+      width: 48.275862069%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row .col-wide-6:not(:first-child):last-child, .form-row .col-wide-6:not(:first-child):last-child {
         float: right;
@@ -1332,14 +1332,14 @@ main {
   float: left;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 7.8571428571%;
+  margin-bottom: 9.4827586207%;
   padding: 0; }
   @media (min-width: 768px) {
     .row-cols-7 .col {
       clear: none;
-      width: 11.8367346939%;
+      width: 11.3300492611%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row-cols-7 .col:not(:first-child):last-child {
         float: right;
@@ -1356,9 +1356,9 @@ main {
   @media (min-width: 768px) {
     .row .col-7, .form-row .col-7 {
       clear: none;
-      width: 57.1428571429%;
+      width: 56.8965517241%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row .col-7:not(:first-child):last-child, .form-row .col-7:not(:first-child):last-child {
         float: right;
@@ -1375,9 +1375,9 @@ main {
   @media (min-width: 1024px) {
     .row .col-med-7, .form-row .col-med-7 {
       clear: none;
-      width: 57.1428571429%;
+      width: 56.8965517241%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row .col-med-7:not(:first-child):last-child, .form-row .col-med-7:not(:first-child):last-child {
         float: right;
@@ -1394,9 +1394,9 @@ main {
   @media (min-width: 1200px) {
     .row .col-wide-7, .form-row .col-wide-7 {
       clear: none;
-      width: 57.1428571429%;
+      width: 56.8965517241%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row .col-wide-7:not(:first-child):last-child, .form-row .col-wide-7:not(:first-child):last-child {
         float: right;
@@ -1408,14 +1408,14 @@ main {
   float: left;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 7.8571428571%;
+  margin-bottom: 9.4827586207%;
   padding: 0; }
   @media (min-width: 768px) {
     .row-cols-8 .col {
       clear: none;
-      width: 10%;
+      width: 9.4827586207%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row-cols-8 .col:not(:first-child):last-child {
         float: right;
@@ -1432,9 +1432,9 @@ main {
   @media (min-width: 768px) {
     .row .col-8, .form-row .col-8 {
       clear: none;
-      width: 65.7142857143%;
+      width: 65.5172413793%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row .col-8:not(:first-child):last-child, .form-row .col-8:not(:first-child):last-child {
         float: right;
@@ -1451,9 +1451,9 @@ main {
   @media (min-width: 1024px) {
     .row .col-med-8, .form-row .col-med-8 {
       clear: none;
-      width: 65.7142857143%;
+      width: 65.5172413793%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row .col-med-8:not(:first-child):last-child, .form-row .col-med-8:not(:first-child):last-child {
         float: right;
@@ -1470,9 +1470,9 @@ main {
   @media (min-width: 1200px) {
     .row .col-wide-8, .form-row .col-wide-8 {
       clear: none;
-      width: 65.7142857143%;
+      width: 65.5172413793%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row .col-wide-8:not(:first-child):last-child, .form-row .col-wide-8:not(:first-child):last-child {
         float: right;
@@ -1484,14 +1484,14 @@ main {
   float: left;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 7.8571428571%;
+  margin-bottom: 9.4827586207%;
   padding: 0; }
   @media (min-width: 768px) {
     .row-cols-9 .col {
       clear: none;
-      width: 8.5714285714%;
+      width: 8.0459770115%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row-cols-9 .col:not(:first-child):last-child {
         float: right;
@@ -1508,9 +1508,9 @@ main {
   @media (min-width: 768px) {
     .row .col-9, .form-row .col-9 {
       clear: none;
-      width: 74.2857142857%;
+      width: 74.1379310345%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row .col-9:not(:first-child):last-child, .form-row .col-9:not(:first-child):last-child {
         float: right;
@@ -1527,9 +1527,9 @@ main {
   @media (min-width: 1024px) {
     .row .col-med-9, .form-row .col-med-9 {
       clear: none;
-      width: 74.2857142857%;
+      width: 74.1379310345%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row .col-med-9:not(:first-child):last-child, .form-row .col-med-9:not(:first-child):last-child {
         float: right;
@@ -1546,9 +1546,9 @@ main {
   @media (min-width: 1200px) {
     .row .col-wide-9, .form-row .col-wide-9 {
       clear: none;
-      width: 74.2857142857%;
+      width: 74.1379310345%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row .col-wide-9:not(:first-child):last-child, .form-row .col-wide-9:not(:first-child):last-child {
         float: right;
@@ -1560,14 +1560,14 @@ main {
   float: left;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 7.8571428571%;
+  margin-bottom: 9.4827586207%;
   padding: 0; }
   @media (min-width: 768px) {
     .row-cols-10 .col {
       clear: none;
-      width: 7.4285714286%;
+      width: 6.8965517241%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row-cols-10 .col:not(:first-child):last-child {
         float: right;
@@ -1584,9 +1584,9 @@ main {
   @media (min-width: 768px) {
     .row .col-10, .form-row .col-10 {
       clear: none;
-      width: 82.8571428571%;
+      width: 82.7586206897%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row .col-10:not(:first-child):last-child, .form-row .col-10:not(:first-child):last-child {
         float: right;
@@ -1603,9 +1603,9 @@ main {
   @media (min-width: 1024px) {
     .row .col-med-10, .form-row .col-med-10 {
       clear: none;
-      width: 82.8571428571%;
+      width: 82.7586206897%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row .col-med-10:not(:first-child):last-child, .form-row .col-med-10:not(:first-child):last-child {
         float: right;
@@ -1622,9 +1622,9 @@ main {
   @media (min-width: 1200px) {
     .row .col-wide-10, .form-row .col-wide-10 {
       clear: none;
-      width: 82.8571428571%;
+      width: 82.7586206897%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row .col-wide-10:not(:first-child):last-child, .form-row .col-wide-10:not(:first-child):last-child {
         float: right;
@@ -1636,14 +1636,14 @@ main {
   float: left;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 7.8571428571%;
+  margin-bottom: 9.4827586207%;
   padding: 0; }
   @media (min-width: 768px) {
     .row-cols-11 .col {
       clear: none;
-      width: 6.4935064935%;
+      width: 5.9561128527%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row-cols-11 .col:not(:first-child):last-child {
         float: right;
@@ -1660,9 +1660,9 @@ main {
   @media (min-width: 768px) {
     .row .col-11, .form-row .col-11 {
       clear: none;
-      width: 91.4285714286%;
+      width: 91.3793103448%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row .col-11:not(:first-child):last-child, .form-row .col-11:not(:first-child):last-child {
         float: right;
@@ -1679,9 +1679,9 @@ main {
   @media (min-width: 1024px) {
     .row .col-med-11, .form-row .col-med-11 {
       clear: none;
-      width: 91.4285714286%;
+      width: 91.3793103448%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row .col-med-11:not(:first-child):last-child, .form-row .col-med-11:not(:first-child):last-child {
         float: right;
@@ -1698,9 +1698,9 @@ main {
   @media (min-width: 1200px) {
     .row .col-wide-11, .form-row .col-wide-11 {
       clear: none;
-      width: 91.4285714286%;
+      width: 91.3793103448%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row .col-wide-11:not(:first-child):last-child, .form-row .col-wide-11:not(:first-child):last-child {
         float: right;
@@ -1712,14 +1712,14 @@ main {
   float: left;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 7.8571428571%;
+  margin-bottom: 9.4827586207%;
   padding: 0; }
   @media (min-width: 768px) {
     .row-cols-12 .col {
       clear: none;
-      width: 5.7142857143%;
+      width: 5.1724137931%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       margin-bottom: 0; }
       .row-cols-12 .col:not(:first-child):last-child {
         float: right;
@@ -3705,7 +3705,7 @@ input[type=radio]:checked + label:after {
     background-position: right center;
     background-repeat: no-repeat;
     background-size: contain;
-    border: 3rem solid transparent;
+    border: 1rem solid transparent;
     border-right: 0;
     height: 100%;
     left: 0;
@@ -3719,7 +3719,7 @@ input[type=radio]:checked + label:after {
         border-right: 0; } }
     @media (min-width: 1400px) {
       .banner-bg {
-        border: 3rem solid transparent; } }
+        border: 2rem solid transparent; } }
     .banner-bg-about {
       background-image: url(/img/about/bg.v1.png); }
     .banner-bg-services {
@@ -3785,17 +3785,17 @@ input[type=radio]:checked + label:after {
         -webkit-transform: translateX(-280px);
                 transform: translateX(-280px); } }
     .banner-content p {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       line-height: 1.5;
       margin-bottom: 1.5rem; }
       .banner-content p:last-child {
         margin-bottom: 0; }
       @media (min-width: 1024px) {
         .banner-content p {
-          font-size: 1.35rem; } }
+          font-size: 1.3rem; } }
       @media (min-width: 1400px) {
         .banner-content p {
-          font-size: 1.45rem; } }
+          font-size: 1.4rem; } }
   .banner-col:not(:last-child) {
     margin-bottom: 2rem; }
   .banner-col.solo {
@@ -3952,8 +3952,11 @@ input[type=radio]:checked + label:after {
         float: left;
         margin: 1.5rem 2.5rem; }
       .partners-list img {
-        height: 65px;
-        max-height: 65px; } }
+        height: 50px;
+        max-height: 50px; } }
+  @media (min-width: 1200px) {
+    .partners-list a {
+      margin: 2rem 3.5rem; } }
 
 .awards-list li {
   clear: both;
@@ -3971,9 +3974,9 @@ input[type=radio]:checked + label:after {
     margin: 0 7px 0 -18px; }
   @media (min-width: 768px) {
     .awards-list li {
-      width: 48.5714285714%;
+      width: 48.275862069%;
       float: left;
-      margin-right: 2.8571428571%;
+      margin-right: 3.4482758621%;
       clear: none; }
       .awards-list li:nth-child(2n) {
         float: right;

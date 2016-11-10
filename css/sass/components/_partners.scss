@@ -29,8 +29,14 @@
         }
 
         img {
-            height: 65px;
-            max-height: 65px;
+            height: 50px;
+            max-height: 50px;
+        }
+    }
+
+    @include susy-media($bp-wide) {
+        a {
+            margin: 2rem 3.5rem;
         }
     }
 }
