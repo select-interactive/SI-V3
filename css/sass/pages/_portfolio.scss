@@ -37,11 +37,17 @@
     }
 
     &-title {
+        border-bottom: 1px solid #fff;
         font-family: $font-bold;
         font-size: 1.5rem;
         line-height: 1.1;
         margin: 0;
-        padding: 1rem;
+        opacity: 0;
+        padding: 1rem 1rem .2rem;
+        transform: scale(1, 0) translateY(30px);
+        transform-origin: center bottom;
+        transition: opacity .225s ease .2s,
+                    transform .225s ease .2s;
     }
 
     img {
@@ -52,6 +58,11 @@
     &:hover {
         .project-item-overlay {
             opacity: 1;
+        }
+
+        .project-item-title {
+            opacity: 1;
+            transform: scale(1, 1) translateY(0);
         }
 
         img {

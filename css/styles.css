@@ -4212,11 +4212,19 @@ input[type=radio]:checked + label:after {
     width: 100%;
     z-index: 1; }
   .project-item-title {
+    border-bottom: 1px solid #fff;
     font-family: "avenir-black", sans-serif;
     font-size: 1.5rem;
     line-height: 1.1;
     margin: 0;
-    padding: 1rem; }
+    opacity: 0;
+    padding: 1rem 1rem .2rem;
+    -webkit-transform: scale(1, 0) translateY(30px);
+            transform: scale(1, 0) translateY(30px);
+    -webkit-transform-origin: center bottom;
+            transform-origin: center bottom;
+    -webkit-transition: opacity .225s ease .2s, -webkit-transform .225s ease .2s;
+            transition: opacity .225s ease .2s, transform .225s ease .2s; }
   .project-item img {
     -webkit-transform: scale(1);
             transform: scale(1);
@@ -4224,6 +4232,10 @@ input[type=radio]:checked + label:after {
             transition: transform .325s ease; }
   .project-item:hover .project-item-overlay {
     opacity: 1; }
+  .project-item:hover .project-item-title {
+    opacity: 1;
+    -webkit-transform: scale(1, 1) translateY(0);
+            transform: scale(1, 1) translateY(0); }
   .project-item:hover img {
     -webkit-filter: blur(1px);
             filter: blur(1px);
