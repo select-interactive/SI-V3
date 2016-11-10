@@ -5,7 +5,7 @@
 
     @include susy-media($bp-tablet) {
         float: left;
-        margin: 0 2em 0 0;
+        margin: 0 2rem 0 0;
         margin-bottom: 0 !important;
         width: calc(50% - 1rem);
 
@@ -24,11 +24,12 @@
     }
 
     @include susy-media($bp-wide) {
-        width: calc(33.33% - 1.333rem);
+        margin: 0 3rem 0 0;
+        width: calc(33.33% - 2rem);
 
         &:nth-child(2n) {
             float: left;
-            margin-right: 2rem;
+            margin-right: 3rem;
         }
 
         &:nth-child(2n + 1) {

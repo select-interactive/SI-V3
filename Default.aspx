@@ -2,8 +2,8 @@
 <%@ Register TagPrefix="page" TagName="home" Src="~/controls/pages/home.ascx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cphMeta" Runat="Server">
-    <title></title>
-    <meta name="description" content="">
+    <title>Select Interactive // Website Design, Development and iOS Development Fort Worth</title>
+    <meta name="description" content="Website designers and developers of innovative websites and web applictions in Dallas, Fort Worth, Texas.">
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="cphHead" Runat="Server">
