@@ -52,10 +52,13 @@
 
     const ddlTags = app.$( '#ddl-tags' );
     const _ddlTags = $( ddlTags );
+    const ddlIndustries = app.$( '#ddl-industries' );
+    const _ddlIndustries = $( ddlIndustries );
     const ddlPartners = app.$( '#ddl-partners' );
     const _ddlPartners = $( ddlPartners );
 
     _ddlTags.chosen();
+    _ddlIndustries.chosen();
     _ddlPartners.chosen();
 
     const btnUploadGridImg = app.$( '#btn-upload-grid-img' );
@@ -166,6 +169,27 @@
             }
         } );
 
+        app.$.fetch( '/api/industriesGetJson', {
+            body: {
+                industryId: -1,
+                projectId: obj.projectId
+            }
+        } ).then( rsp => {
+            if ( rsp.success ) {
+                let industries = rsp.obj;
+
+                industries.forEach( ind => {
+                    app.$.forEach( ddlIndustries.children, opt => {
+                        if ( ind.industryId === parseInt( opt.value, 10 ) ) {
+                            opt.selected = true;
+                        }
+                    } );
+                } );
+
+                _ddlIndustries.trigger( 'chosen:updated' );
+            }
+        } );
+
         app.$.fetch( '/api/partnersGetJson', {
             body: {
                 partnerId: -1,
@@ -183,7 +207,6 @@
                     } );
                 } );
 
-                _ddlTags.trigger( 'chosen:updated' );
                 _ddlPartners.trigger( 'chosen:updated' );
             }
         } );
@@ -216,11 +239,18 @@
 
     function saveItemCallback() {
         let tags = [];
+        let industries = [];
         let partners = [];
 
         app.$.forEach( ddlTags.children, opt => {
             if ( opt.selected ) {
                 tags.push( opt.value );
+            }
+        } );
+
+        app.$.forEach( ddlIndustries.children, opt => {
+            if ( opt.selected ) {
+                industries.push( opt.value );
             }
         } );
 
@@ -237,6 +267,13 @@
             }
         } );
 
+        app.$.fetch( '/api/projectsIndustriesAssign', {
+            body: {
+                projectId: adminForm.itemId,
+                industries: industries
+            }
+        } );
+
         app.$.fetch( '/api/projectsPartnersAssign', {
             body: {
                 projectId: adminForm.itemId,
@@ -250,11 +287,16 @@
             opt.selected = false;
         } );
 
+        app.$.forEach( ddlIndustries.children, opt => {
+            opt.selected = false;
+        } );
+
         app.$.forEach( ddlPartners.children, opt => {
             opt.selected = false;
         } );
 
         _ddlTags.trigger( 'chosen:updated' );
+        _ddlIndustries.trigger( 'chosen:updated' );
         _ddlPartners.trigger( 'chosen:updated' );
 
         setPrevGridImg( '' );

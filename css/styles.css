@@ -4199,6 +4199,10 @@ input[type=radio]:checked + label:after {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     height: 100%;
     -webkit-box-pack: center;
         -ms-flex-pack: center;
@@ -4211,20 +4215,39 @@ input[type=radio]:checked + label:after {
             transition: opacity .325s ease;
     width: 100%;
     z-index: 1; }
-  .project-item-title {
-    border-bottom: 1px solid #fff;
-    font-family: "avenir-black", sans-serif;
-    font-size: 1.5rem;
-    line-height: 1.1;
-    margin: 0;
+  .project-item-info {
     opacity: 0;
-    padding: 1rem 1rem .2rem;
+    padding: 1rem;
     -webkit-transform: scale(1, 0) translateY(30px);
             transform: scale(1, 0) translateY(30px);
     -webkit-transform-origin: center bottom;
             transform-origin: center bottom;
-    -webkit-transition: opacity .225s ease .2s, -webkit-transform .225s ease .2s;
-            transition: opacity .225s ease .2s, transform .225s ease .2s; }
+    -webkit-transition: opacity .425s ease .2s, -webkit-transform .425s ease .2s;
+            transition: opacity .425s ease .2s, transform .425s ease .2s;
+    width: 100%; }
+    @media (min-width: 1200px) {
+      .project-item-info {
+        padding: 1rem 3rem; } }
+  .project-item-title {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+    font-family: "avenir-black", sans-serif;
+    font-size: 1.5rem;
+    line-height: 1.1;
+    margin: 0 0 .75rem;
+    padding: 0 0 .75rem;
+    text-align: center;
+    width: 100%; }
+  .project-item-location {
+    font-size: 1.2rem;
+    margin: 0 0 .5rem;
+    text-align: center; }
+  .project-item-industries {
+    list-style: none;
+    margin: 0;
+    text-align: center; }
+    .project-item-industries li {
+      display: inline-block;
+      margin: 0 .5rem .5rem; }
   .project-item img {
     -webkit-transform: scale(1);
             transform: scale(1);
@@ -4232,7 +4255,7 @@ input[type=radio]:checked + label:after {
             transition: transform 1.525s ease; }
   .project-item:hover .project-item-overlay {
     opacity: 1; }
-  .project-item:hover .project-item-title {
+  .project-item:hover .project-item-info {
     opacity: 1;
     -webkit-transform: scale(1, 1) translateY(0);
             transform: scale(1, 1) translateY(0); }

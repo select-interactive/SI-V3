@@ -57,8 +57,28 @@ Public Class wsApp
 		Try
 			Dim dt As dsProjects.ProjectsDataTable = projectsGet(-1, -1, -1, "", False, True)
 			Dim tmpl As String = File.ReadAllText(Server.MapPath("/templates/projects/list-item.html"))
-			Dim html As String = generateHtmlTmpl(tmpl, dt)
-			rsp.setSuccess(html)
+			Dim html As New StringBuilder()
+
+			For Each row As dsProjects.ProjectsRow In dt
+				html.Append(generateHtmlRowTmpl(tmpl, dt, row))
+
+				Dim industries As New StringBuilder
+				Dim dtIndustries As dsProjects.Projects_IndustriesDataTable = industriesGet(-1, row.projectId, "", True)
+
+				If dtIndustries.Rows.Count > 0 Then
+					industries.Append("<ul class=""project-item-industries"">")
+
+					For Each rowInd As dsProjects.Projects_IndustriesRow In dtIndustries
+						industries.Append("<li>" & rowInd.industry & "</li>")
+					Next
+
+					industries.Append("</ul>")
+				End If
+
+				html.Replace("{{industries}}", industries.ToString)
+			Next
+
+			rsp.setSuccess(html.ToString())
 		Catch ex As Exception
 			rsp.setError(ex.ToString())
 		End Try
@@ -81,6 +101,7 @@ Public Class wsApp
 				ta.Update(.projectId,
 						  .name,
 						  .description,
+						  .location,
 						  .imgPath,
 						  .imgFileName,
 						  .gridImgPath,
@@ -127,6 +148,27 @@ Public Class wsApp
 
 			For Each tagId As Integer In tags
 				ta.Tags_Assign_Save(projectId, tagId)
+			Next
+
+			rsp.setSuccess()
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+
+	<WebMethod()>
+	Public Function projectsIndustriesAssign(projectId As Integer,
+											 industries() As Integer) As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim ta As New dsProjectsTableAdapters.ProjectsTableAdapter
+			ta.Industries_Assign_Delete(projectId, -1)
+
+			For Each industryId As Integer In industries
+				ta.Industries_Assign_Save(projectId, industryId)
 			Next
 
 			rsp.setSuccess()
@@ -248,6 +290,104 @@ Public Class wsApp
 		Try
 			Dim ta As New dsProjectsTableAdapters.Projects_TagsTableAdapter
 			ta.Delete(tagId)
+			rsp.setSuccess()
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+
+#End Region
+
+
+#Region "Project Industries"
+
+	Private Function industriesGet(industryId As Integer,
+								   projectId As Integer,
+								   url As String,
+								   active As Boolean) As dsProjects.Projects_IndustriesDataTable
+		Dim ta As New dsProjectsTableAdapters.Projects_IndustriesTableAdapter
+		Dim dt As New dsProjects.Projects_IndustriesDataTable
+		ta.Fill(dt, industryId, projectId, url, active)
+		Return dt
+	End Function
+
+	<WebMethod()>
+	Public Function industriesGetJson(industryId As Integer,
+									  projectId As Integer) As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim dt As dsProjects.Projects_IndustriesDataTable = industriesGet(industryId, projectId, "", False)
+			Dim industries As New List(Of Industry)
+
+			For Each row As dsProjects.Projects_IndustriesRow In dt
+				industries.Add(New Industry(row))
+			Next
+
+			rsp.setSuccess(industries)
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+
+	<WebMethod()>
+	Public Function industriesGetOptions() As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim dt As dsProjects.Projects_IndustriesDataTable = industriesGet(-1, -1, "", False)
+			Dim html As New StringBuilder()
+
+			For Each row As dsProjects.Projects_IndustriesRow In dt
+				html.Append("<option value=""" & row.industryId & """>" & row.industry & "</option>")
+			Next
+
+			rsp.setSuccess(html.ToString())
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+
+	<WebMethod()>
+	Public Function industrySave(data As String) As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim theId As Integer = -1
+			Dim ta As New dsProjectsTableAdapters.Projects_IndustriesTableAdapter
+
+			Dim params As Industry = jss.Deserialize(Of Industry)(data)
+			params.url = generateURLString(params.industry)
+
+			With params
+				ta.Update(.industryId,
+						  .industry,
+						  .url,
+						  .active,
+						  theId)
+			End With
+
+			rsp.setSuccess(theId)
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+
+	<WebMethod()>
+	Public Function industryDelete(industryId As Integer) As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim ta As New dsProjectsTableAdapters.Projects_IndustriesTableAdapter
+			ta.Delete(industryId)
 			rsp.setSuccess()
 		Catch ex As Exception
 			rsp.setError(ex.ToString())

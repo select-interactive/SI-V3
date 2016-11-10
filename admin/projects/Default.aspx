@@ -35,6 +35,14 @@
                 </div>
             </div>
             <div class="form-row">
+                <div class="col col-4">
+                    <div class="input-field">
+                        <input type="text" id="tb-location" name="location" class="req" />
+                        <label for="tb-location">* Client Location:</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
                 <div class="col">
                     <label>Project Description:</label>
                     <div id="tb-description" name="description" class="req text-editor use-medium-editor"></div>
@@ -69,6 +77,14 @@
                     <label for="ddl-tags">* Tags:</label>
                     <select id="ddl-tags" data-placeholder="Tags..." class="chosen-select" multiple>
                         <asp:Literal runat="server" id="ltrlTags" />
+                    </select>
+                </div>
+            </div>
+			<div class="form-row">
+                <div class="col col-6">
+                    <label for="ddl-industries">* Industries:</label>
+                    <select id="ddl-industries" data-placeholder="Industries..." class="chosen-select" multiple>
+                        <asp:Literal runat="server" id="ltrlIndustries" />
                     </select>
                 </div>
             </div>

@@ -42,6 +42,7 @@ Namespace nsApp
 		Public Property projectId As Integer
 		Public Property name As String
 		Public Property description As String
+		Public Property location As String
 		Public Property imgPath As String
 		Public Property imgFileName As String
 		Public Property gridImgPath As String
@@ -71,6 +72,7 @@ Namespace nsApp
 
 	End Class
 
+
 	Public Class ProjectTag
 
 		Public Property tagId As Integer
@@ -86,6 +88,33 @@ Namespace nsApp
 		End Sub
 
 		Public Sub New(ByRef row As dsProjects.Projects_TagsRow)
+			For Each col As DataColumn In row.Table.Columns
+				If row(col.ColumnName) Is System.DBNull.Value Then
+					Me.GetType().GetProperty(col.ColumnName).SetValue(Me, Nothing, Nothing)
+				Else
+					Me.GetType().GetProperty(col.ColumnName).SetValue(Me, row(col.ColumnName), Nothing)
+				End If
+			Next
+		End Sub
+
+	End Class
+
+
+	Public Class Industry
+
+		Public Property industryId As Integer
+		Public Property industry As String
+		Public Property url As String
+		Public Property active As Boolean
+		Public Property deleted As Boolean
+		Public Property createDate As DateTime
+		Public Property editDate As DateTime
+
+		Public Sub New()
+
+		End Sub
+
+		Public Sub New(ByRef row As dsProjects.Projects_IndustriesRow)
 			For Each col As DataColumn In row.Table.Columns
 				If row(col.ColumnName) Is System.DBNull.Value Then
 					Me.GetType().GetProperty(col.ColumnName).SetValue(Me, Nothing, Nothing)

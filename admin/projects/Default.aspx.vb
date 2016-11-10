@@ -8,6 +8,7 @@ Partial Class admin_projects_Default
 
 	Protected Sub pageLoad(sender As Object, e As EventArgs) Handles MyBase.Load
 		loadTags()
+		loadIndustries()
 		loadPartners()
 	End Sub
 
@@ -16,6 +17,14 @@ Partial Class admin_projects_Default
 
 		If rsp.success Then
 			ltrlTags.Text = rsp.obj
+		End If
+	End Sub
+
+	Private Sub loadIndustries()
+		Dim rsp As WSResponse = jss.Deserialize(Of WSResponse)(ws.industriesGetOptions())
+
+		If rsp.success Then
+			ltrlIndustries.Text = rsp.obj
 		End If
 	End Sub
 
