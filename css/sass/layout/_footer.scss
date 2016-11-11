@@ -4,7 +4,13 @@
 footer {
     border-top: 1px solid #e1e1e0;
     color: $color-secondary;
+    opacity: 1;
     padding: 1.5rem;
+    transition: opacity .125s ease;
+
+    .page-out & {
+        opacity: 0;
+    }
 
     @include susy-media($bp-wide) {
         padding: 2rem;

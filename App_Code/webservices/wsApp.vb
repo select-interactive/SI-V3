@@ -624,6 +624,207 @@ Public Class wsApp
 #End Region
 
 
+#Region "News"
+
+	Private Function articlesGet(articleId As Integer,
+								 authorId As Integer,
+								 tagId As Integer,
+								 url As String,
+								 active As Boolean,
+								 published As Boolean) As dsNews.ArticlesDataTable
+		Dim ta As New dsNewsTableAdapters.ArticlesTableAdapter
+		Dim dt As New dsNews.ArticlesDataTable
+		ta.Fill(dt, articleId, authorId, tagId, url, active, published)
+		Return dt
+	End Function
+
+	<WebMethod()>
+	Public Function articlesGetJson(articleId As Integer,
+									authorId As Integer,
+									tagId As Integer) As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim dt As dsNews.ArticlesDataTable = articlesGet(articleId, authorId, tagId, "", False, False)
+			Dim articles As New List(Of Article)
+
+			For Each row As dsNews.ArticlesRow In dt
+				articles.Add(New Article(row))
+			Next
+
+			rsp.setSuccess(articles)
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+
+	<WebMethod()>
+	Public Function articleSave(data As String) As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim theId As Integer = -1
+			Dim ta As New dsNewsTableAdapters.ArticlesTableAdapter
+
+			Dim params As Article = jss.Deserialize(Of Article)(data)
+
+			Dim publishYear As Integer = Year(params.publishDate)
+
+			Dim publishMonth As String = CStr(Month(params.publishDate))
+			If publishMonth.Length = 1 Then
+				publishMonth = "0" & publishMonth
+			End If
+
+			Dim publishDay As String = CStr(Day(params.publishDate))
+			If publishDay.Length = 1 Then
+				publishDay = "0" & publishDay
+			End If
+
+			params.url = publishYear & "/" & publishMonth & "/" & publishDay & "/" & generateURLString(params.title)
+
+			With params
+				ta.Update(.articleId,
+						  .authorId,
+						  .title,
+						  .preview,
+						  .body,
+						  .thumbPath,
+						  .thumbFileName,
+						  .bannerPath,
+						  .bannerFileName,
+						  .url,
+						  .active,
+						  .publishDate,
+						  theId)
+			End With
+
+			rsp.setSuccess(theId)
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+
+	<WebMethod()>
+	Public Function articleDelete(articleId As Integer) As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim ta As New dsNewsTableAdapters.ArticlesTableAdapter
+			ta.Delete(articleId)
+			rsp.setSuccess()
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+
+	<WebMethod()>
+	Public Function articleTagsAssign(articleId As Integer,
+									  tags() As Integer) As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim ta As New dsNewsTableAdapters.ArticlesTableAdapter
+			ta.Tags_Assign_Delete(articleId, -1)
+
+			For Each tagId In tags
+				ta.Tags_Assign_Save(articleId, tagId)
+			Next
+
+			rsp.setSuccess()
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+
+#End Region
+
+
+#Region "Article Tags"
+
+	Private Function articlesTagsGet(tagId As Integer,
+									 articleId As Integer,
+									 url As String,
+									 active As Boolean) As dsNews.Articles_TagsDataTable
+		Dim ta As New dsNewsTableAdapters.Articles_TagsTableAdapter
+		Dim dt As New dsNews.Articles_TagsDataTable
+		ta.Fill(dt, tagId, articleId, url, active)
+		Return dt
+	End Function
+
+	<WebMethod()>
+	Public Function articlesTagsGetJson(tagId As Integer,
+										articleId As Integer) As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim dt As dsNews.Articles_TagsDataTable = articlesTagsGet(tagId, articleId, "", False)
+			Dim tags As New List(Of ArticleTag)
+
+			For Each row As dsNews.Articles_TagsRow In dt
+				tags.Add(New ArticleTag(row))
+			Next
+
+			rsp.setSuccess(tags)
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+
+	<WebMethod()>
+	Public Function articlesTagSave(data As String) As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim theId As Integer = -1
+			Dim ta As New dsNewsTableAdapters.Articles_TagsTableAdapter
+
+			Dim params As ArticleTag = jss.Deserialize(Of ArticleTag)(data)
+			params.url = generateURLString(params.tag)
+
+			With params
+				ta.Update(.tagId,
+						  .tag,
+						  .url,
+						  .active,
+						  theId)
+			End With
+
+			rsp.setSuccess(theId)
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+
+	<WebMethod()>
+	Public Function articlesTagDelete(tagId As Integer) As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim ta As New dsNewsTableAdapters.Articles_TagsTableAdapter
+			ta.Delete(tagId)
+			rsp.setSuccess()
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+
+#End Region
+
+
 #Region "Content"
 
 	<WebMethod()>

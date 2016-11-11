@@ -16,6 +16,10 @@
 
     @include susy-media($bp-large) {
         padding: 4rem 2.5rem;
+
+        &-mbl-pad {
+            padding: 0;
+        }
     }
 
     @include susy-media($bp-wide) {

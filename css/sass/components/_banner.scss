@@ -114,7 +114,7 @@
         }
 
         @include susy-media($bp-wide) {
-            max-width: 1050px;
+            max-width: 950px;
             padding: 5.5rem;
             transform: translateX(-180px);
 
@@ -124,6 +124,7 @@
         }
 
         @include susy-media($bp-xwide) {
+            max-width: 1050px;
             transform: translateX(-280px);
 
             &.pull-right {
