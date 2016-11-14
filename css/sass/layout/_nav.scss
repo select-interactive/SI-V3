@@ -2,18 +2,20 @@
 // Nav
 // ---
 #nav-main {
+    @extend .zdepth-1;
     background: $color-primary;
     display: flex;
     flex-direction: column;
     height: 100%;
-    max-width: 450px;
+    max-width: 90%;
+    overflow: auto;
     padding: 2.5rem 1.5rem 1.5rem;
     position: fixed;
     right: 0;
     top: 0;
     transform: translateX(105%);
     transition: transform .225s ease-out;
-    width: 100%;
+    width: 450px;
     will-change: transform;
     z-index: 100;
 
@@ -23,9 +25,11 @@
 
     @include susy-media($bp-large) {
         background: none;
+        box-shadow: none !important;
         flex-direction: row;
         height: 4rem;
         max-width: none;
+        overflow: hidden;
         padding: 0;
         right: 1.5rem;
         transform: translateX(0);
@@ -46,6 +50,12 @@
 
         &:not(:last-of-type) {
             border-bottom: 3px solid $white;
+        }
+
+        &:first-child {
+            background: #fafbfa;
+            margin: -2.5rem -1.5rem 0;
+            padding: 3.5rem 1.5rem 2.5rem;
         }
 
         @include susy-media($bp-large) {
@@ -70,7 +80,7 @@
 }
 
 #nav-overlay {
-    background: rgba(#444, .65);
+    background: rgba(#fff, .375);
     content: '';
     height: 0;
     left: 0;
@@ -90,7 +100,7 @@
 #btn-nav-close {
     background: none;
     border: none;
-    color: #fff;
+    color: $color-primary;
     outline: none;
     padding: 0 1.5rem;
     position: absolute;

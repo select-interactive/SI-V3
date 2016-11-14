@@ -1859,7 +1859,8 @@ main {
       -ms-flex-direction: column;
           flex-direction: column;
   height: 100%;
-  max-width: 450px;
+  max-width: 90%;
+  overflow: auto;
   padding: 2.5rem 1.5rem 1.5rem;
   position: fixed;
   right: 0;
@@ -1868,7 +1869,7 @@ main {
           transform: translateX(105%);
   -webkit-transition: -webkit-transform .225s ease-out;
           transition: transform .225s ease-out;
-  width: 100%;
+  width: 450px;
   will-change: transform;
   z-index: 100; }
   .nav-in #nav-main {
@@ -1877,12 +1878,14 @@ main {
   @media (min-width: 1024px) {
     #nav-main {
       background: none;
+      box-shadow: none !important;
       -webkit-box-orient: horizontal;
       -webkit-box-direction: normal;
           -ms-flex-direction: row;
               flex-direction: row;
       height: 4rem;
       max-width: none;
+      overflow: hidden;
       padding: 0;
       right: 1.5rem;
       -webkit-transform: translateX(0);
@@ -1905,6 +1908,10 @@ main {
       color: #fff; }
     #nav-main a:not(:last-of-type) {
       border-bottom: 3px solid #fff; }
+    #nav-main a:first-child {
+      background: #fafbfa;
+      margin: -2.5rem -1.5rem 0;
+      padding: 3.5rem 1.5rem 2.5rem; }
     @media (min-width: 1024px) {
       #nav-main a {
         display: inline-block;
@@ -1920,7 +1927,7 @@ main {
         margin-right: 4rem; } }
 
 #nav-overlay {
-  background: rgba(68, 68, 68, 0.65);
+  background: rgba(255, 255, 255, 0.375);
   content: '';
   height: 0;
   left: 0;
@@ -1938,7 +1945,7 @@ main {
 #btn-nav-close {
   background: none;
   border: none;
-  color: #fff;
+  color: #dda14a;
   outline: none;
   padding: 0 1.5rem;
   position: absolute;
@@ -2040,7 +2047,7 @@ footer {
 .zdepth-0 {
   box-shadow: none !important; }
 
-.zdepth-1, .hdr-bar, .side-nav-container, .md-select-menu, .btn-raised, .btn-fab, .admin-card, .admin-grid, .team-bio {
+.zdepth-1, #nav-main, .hdr-bar, .side-nav-container, .md-select-menu, .btn-raised, .btn-fab, .admin-card, .admin-grid, .team-bio {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12); }
 
 .zdepth-1-half, .btn-raised:hover, .btn-fab:hover {
@@ -3970,13 +3977,19 @@ input[type=radio]:checked + label:after {
           font-size: 3rem; } }
 
 .partners-list {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
-          flex-direction: column; }
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center; }
   .partners-list a {
     display: block;
     margin: 0 auto; }
