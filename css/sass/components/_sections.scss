@@ -112,6 +112,10 @@
             margin: 0 0 1.5rem;
         }
 
+        &.no-mrg {
+            margin-bottom: 0 !important;
+        }
+
         .material-icons {
             color: rgba($body-color, .85);
             display: block;

@@ -2,7 +2,8 @@
 <%@ Register TagPrefix="page" TagName="about" Src="~/controls/pages/about.ascx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cphMeta" Runat="Server">
-	<title>About</title>
+	<title>Award Winning Website Design and Development in Fort Worth, Texas</title>
+	<meta name="description" content="Select Interactive is a team of award winning web developers offering website and web application design and development services.">
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="cphHead" Runat="Server">

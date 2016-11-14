@@ -3930,6 +3930,8 @@ input[type=radio]:checked + label:after {
     .section-hdr.xl, .banner-hdr {
       font-size: 2.3rem;
       margin: 0 0 1.5rem; }
+    .section-hdr.no-mrg, .no-mrg.banner-hdr {
+      margin-bottom: 0 !important; }
     .section-hdr .material-icons, .banner-hdr .material-icons {
       color: rgba(50, 50, 50, 0.85);
       display: block;

@@ -69,8 +69,18 @@ Public Class wsApp
 			Dim tmpl As String = File.ReadAllText(Server.MapPath("/templates/projects/list-item.html"))
 			Dim html As New StringBuilder()
 
+			Dim index As Integer = 0
+
 			For Each row As dsProjects.ProjectsRow In dt
 				html.Append(generateHtmlRowTmpl(tmpl, dt, row))
+
+				If index >= 6 Then
+					html.Replace("{{imgSrc}}", "data-src=""" & row.gridImgPath & """")
+					html.Replace("{{lazy}}", "data-lazy")
+				Else
+					html.Replace("{{imgSrc}}", "src=""" & row.gridImgPath & """")
+					html.Replace("{{lazy}}", "")
+				End If
 
 				Dim industries As New StringBuilder
 				Dim dtIndustries As dsProjects.Projects_IndustriesDataTable = industriesGet(-1, row.projectId, "", True)
@@ -86,6 +96,8 @@ Public Class wsApp
 				End If
 
 				html.Replace("{{industries}}", industries.ToString)
+
+				index += 1
 			Next
 
 			rsp.setSuccess(html.ToString())
