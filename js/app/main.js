@@ -4912,10 +4912,15 @@ var app = {};
         }
 
         static go_( path, updateState ) {
+            // update push state and 
+            // log pageview in GA
+            if ( updateState ) {
+                this.updateState_();
+            }
+
             // fade current page out
             // load new page
             // then fade in the new page
-            // then update state
             Promise.all([
                 this.fadePageOut_(),
                 this.loadPageContent_( path )
@@ -4930,10 +4935,6 @@ var app = {};
                         app.GmapInitializer.init();
 
                         this.fadePageIn_().then( _ => {
-                            if ( updateState ) {
-                                this.updateState_();
-                            }
-
                             if ( path !== '/' ) {
                                 doc.body.classList.remove( 'home' );
                                 doc.body.classList.remove( 'home-top' );
@@ -4964,7 +4965,7 @@ var app = {};
             return app.$.fetch( '/api/loadControlContent', {
                 body: {
                     controlName: path,
-                    url: ''
+                    url: path
                 }
             } ).then( rsp => {
                 if ( rsp.success ) {
@@ -4997,7 +4998,6 @@ var app = {};
 
         static popstateHandler_() {
             if ( history.state && history.state.path ) {
-                console.log( history.state.path );
 				this.go_( history.state.path );
 			}
         }

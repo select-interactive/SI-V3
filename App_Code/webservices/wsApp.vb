@@ -51,11 +51,21 @@ Public Class wsApp
 	End Function
 
 	<WebMethod()>
-	Public Function projectsGetGrid() As String
+	Public Function projectsGetGrid(tagUrl As String) As String
 		Dim rsp As New WSResponse
 
 		Try
-			Dim dt As dsProjects.ProjectsDataTable = projectsGet(-1, -1, -1, "", False, True)
+			Dim tagId As Integer = -1
+
+			If tagUrl <> "" Then
+				Dim dtTags As dsProjects.Projects_TagsDataTable = projectTagsGet(-1, -1, tagUrl, True)
+				If dtTags.Rows.Count = 1 Then
+					Dim tag As New ProjectTag(dtTags.Rows(0))
+					tagId = tag.tagId
+				End If
+			End If
+
+			Dim dt As dsProjects.ProjectsDataTable = projectsGet(-1, -1, tagId, "", False, True)
 			Dim tmpl As String = File.ReadAllText(Server.MapPath("/templates/projects/list-item.html"))
 			Dim html As New StringBuilder()
 
@@ -84,6 +94,41 @@ Public Class wsApp
 		End Try
 
 		Return jss.Serialize(rsp)
+	End Function
+
+	<WebMethod()>
+	Public Function projectGetHtml(url As String) As WSResponse
+		Dim rsp As New WSResponse
+
+		Try
+			Dim dt As dsProjects.ProjectsDataTable = projectsGet(-1, -1, -1, url, False, True)
+
+			If dt.Rows.Count = 0 Then
+				rsp.setError("Project not found.")
+			ElseIf dt.Rows.Count = 1 Then
+				Dim p As New Project(dt.Rows(0))
+				Dim title As String = "Website Development for: " & p.name
+				Dim description As String = "Select Interactive provided website development for " & p.name & ". " & p.location & "."
+
+				Dim tmpl As String = File.ReadAllText(Server.MapPath("/templates/projects/details.html"))
+				Dim html As String = generateHtmlTmpl(tmpl, dt)
+				html = html.Replace("{{websiteShortUrl}}", p.websiteShortUrl)
+
+				Dim rspTags As WSResponse = jss.Deserialize(Of WSResponse)(projectTagsGetHtml(p.projectId))
+
+				If rspTags.success Then
+					html = html.Replace("{{tags}}", rspTags.obj)
+				Else
+					html = html.Replace("{{tags}}", "")
+				End If
+
+				rsp.setSuccess(New PageContent(title, description, html, p.imgPath))
+			End If
+		Catch ex As Exception
+
+		End Try
+
+		Return rsp
 	End Function
 
 	<WebMethod()>
@@ -237,6 +282,26 @@ Public Class wsApp
 	End Function
 
 	<WebMethod()>
+	Public Function projectTagGetData(tagId As Integer,
+									  url As String) As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim dt As dsProjects.Projects_TagsDataTable = projectTagsGet(tagId, -1, url, False)
+
+			If dt.Rows.Count = 1 Then
+				rsp.setSuccess(jss.Serialize(New ProjectTag(dt.Rows(0))))
+			Else
+				rsp.setError("Tag not found.")
+			End If
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+
+	<WebMethod()>
 	Public Function projectTagsGetOptions() As String
 		Dim rsp As New WSResponse
 
@@ -254,6 +319,66 @@ Public Class wsApp
 		End Try
 
 		Return jss.Serialize(rsp)
+	End Function
+
+	<WebMethod()>
+	Public Function projectTagsGetHtml(projectId As Integer) As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim dt As dsProjects.Projects_TagsDataTable = projectTagsGet(-1, projectId, "", True)
+			Dim html As New StringBuilder("<ul class=""project-tags"">")
+
+			For Each row As dsProjects.Projects_TagsRow In dt
+				html.Append("<li><a href=""/portfolio/tags/" & row.url & """>" & row.tag & "</a></li>")
+			Next
+
+			html.Append("</ul>")
+
+			rsp.setSuccess(html.ToString())
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+
+	<WebMethod()>
+	Public Function projectTagGetPageHtml(url As String) As WSResponse
+		Dim rsp As New WSResponse
+
+		Try
+			Dim dt As dsProjects.Projects_TagsDataTable = projectTagsGet(-1, -1, url, True)
+
+			If dt.Rows.Count = 1 Then
+				Dim tag As New ProjectTag(dt.Rows(0))
+				Dim html As String = File.ReadAllText(Server.MapPath("/templates/projects/tag-page.html"))
+
+				Dim tagName As String = tag.tag
+
+				If tagName.ToLower = "award winner" Then
+					tagName = "Award Winning Websites"
+				End If
+
+				html = html.Replace("{{tagName}}", tagName)
+
+				Dim rspProjects As WSResponse = jss.Deserialize(Of WSResponse)(projectsGetGrid(url))
+
+				If rspProjects.success Then
+					html = html.Replace("{{projects}}", rspProjects.obj)
+				Else
+					rsp.setError("Unable to load projects.")
+				End If
+
+				rsp.setSuccess(New PageContent(tagName, html))
+			Else
+				rsp.setError("Tag not found.")
+			End If
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return rsp
 	End Function
 
 	<WebMethod()>
@@ -838,25 +963,39 @@ Public Class wsApp
 				controlName = "home"
 			End If
 
+			If controlName.Contains("portfolio") AndAlso controlName <> "/portfolio/" AndAlso Not controlName.Contains("tags") Then
+				controlName = "project"
+			ElseIf controlName.Contains("portfolio/tags") Then
+				controlName = "projectTag"
+			End If
+
 			' Get page HTML
-			html = renderPartialToString("/controls/pages/" & controlName.Replace("/", "") & ".ascx")
+			If controlName = "project" Then
+				rsp = projectGetHtml(url.Substring(url.LastIndexOf("/") + 1))
+			ElseIf controlName = "projectTag" Then
+				rsp = projectTagGetPageHtml(url.Substring(url.LastIndexOf("/") + 1))
+			Else
+				html = renderPartialToString("/controls/pages/" & controlName.Replace("/", "") & ".ascx")
+			End If
 
 			' Page titles -- need to think of a different way?
 			If controlName = "about" Then
-				title = "Fort Worth Web Developers, Building Website and Web Applications"
+				title = "Fort Worth Web Developers, Building Website And Web Applications"
 			ElseIf controlName = "services" Then
-				title = "Website Design, Website Development, Search Engine Optimization (SEO)"
+				title = "Website Design, Website Development, Search Engine Optimization (SEO) Then"
 			ElseIf controlName = "portfolio" Then
-				title = "Award Winning Website Design and Development Projects from Select Interactive"
+				title = "Award Winning Website Design And Development Projects from Select Interactive"
 			ElseIf controlName = "news" Then
-				title = "Web Design and Development news, awards, and notes from Select Interactive"
+				title = "Web Design And Development news, awards, And notes from Select Interactive"
 			ElseIf controlName = "contact" Then
-				title = "Contact Us to Discuss Your Website or Web Application Needs"
+				title = "Contact Us To Discuss Your Website Or Web Application Needs"
 			Else
-				title = "Fort Worth Website Design and Web Development. Select Interactive."
+				title = "Fort Worth Website Design And Web Development. Select Interactive."
 			End If
 
-			rsp.setSuccess(New PageContent(title, html))
+			If html <> "" Then
+				rsp.setSuccess(New PageContent(title, html))
+			End If
 		Catch ex As Exception
 			rsp.setError(ex.ToString())
 		End Try

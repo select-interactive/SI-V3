@@ -8,7 +8,9 @@
 	End Sub
 
 	Sub RegisterRoutes(ByVal routes As System.Web.Routing.RouteCollection)
-		'routes.Add("apiRoute", New System.Web.Routing.Route("api/{fn}/", New RouteHandler("~/webservices/wsApp.asmx")))
+		routes.Add("projectRoute", New System.Web.Routing.Route("portfolio/{url}/", New RouteHandler("~/portfolio/project/default.aspx")))
+		routes.Add("projectTags", New System.Web.Routing.Route("portfolio/tags/{url}/", New RouteHandler("~/portfolio/tag/default.aspx")))
+		routes.Add("newsRoute", New System.Web.Routing.Route("news/{year}/{month}/{day}/{url}/", New RouteHandler("~/news/article/default.aspx")))
 	End Sub
 
 	Sub Application_BeginRequest(ByVal sender As Object, ByVal e As EventArgs)
@@ -33,18 +35,18 @@
 	End Sub
 
 	Sub Application_Error(ByVal sender As Object, ByVal e As EventArgs)
-        ' Code that runs when an unhandled error occurs
-    End Sub
+		' Code that runs when an unhandled error occurs
+	End Sub
 
 	Sub Session_Start(ByVal sender As Object, ByVal e As EventArgs)
-        ' Code that runs when a new session is started
-    End Sub
+		' Code that runs when a new session is started
+	End Sub
 
 	Sub Session_End(ByVal sender As Object, ByVal e As EventArgs)
-        ' Code that runs when a session ends. 
-        ' Note: The Session_End event is raised only when the sessionstate mode
-        ' is set to InProc in the Web.config file. If session mode is set to StateServer 
-        ' or SQLServer, the event is not raised.
-    End Sub
+		' Code that runs when a session ends. 
+		' Note: The Session_End event is raised only when the sessionstate mode
+		' is set to InProc in the Web.config file. If session mode is set to StateServer 
+		' or SQLServer, the event is not raised.
+	End Sub
 
 </script>

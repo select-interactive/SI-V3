@@ -11,7 +11,7 @@ Partial Class controls_pages_portfolio
 	End Sub
 
 	Private Sub loadProjects()
-		Dim rsp As WSResponse = jss.Deserialize(Of WSResponse)(ws.projectsGetGrid())
+		Dim rsp As WSResponse = jss.Deserialize(Of WSResponse)(ws.projectsGetGrid(""))
 
 		If rsp.success Then
 			ltrlProjects.Text = rsp.obj

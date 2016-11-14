@@ -55,6 +55,7 @@ Namespace nsApp
 		Public Property deleted As Boolean
 		Public Property createDate As DateTime
 		Public Property editDate As DateTime
+		Public Property websiteShortUrl As String
 
 		Public Sub New()
 
@@ -68,6 +69,8 @@ Namespace nsApp
 					Me.GetType().GetProperty(col.ColumnName).SetValue(Me, row(col.ColumnName), Nothing)
 				End If
 			Next
+
+			Me.websiteShortUrl = website.Substring(website.IndexOf("//") + 2)
 		End Sub
 
 	End Class
