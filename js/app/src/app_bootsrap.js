@@ -9,6 +9,7 @@
     if ( doc.body.hasAttribute( 'frontend' ) ) {
         app.Router.init();
         app.Nav.init();
+        app.LazyContentHandler.load();
         app.LazyImgHandler.loadImages();
     }
 

@@ -38,9 +38,4 @@
         </div>
     </div>
 </section>
-<section class="section section-gray">
-    <div class="section-content">
-        <h2 class="section-hdr xl text-center">Agencies We Work With</h2>
-		<div class="partners-list"><asp:Literal runat="server" ID="ltrlPartners" /></div>
-    </div>
-</section>
+<div data-content-lazy data-src="homeLazy"></div>

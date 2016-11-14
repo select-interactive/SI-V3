@@ -68,6 +68,7 @@
                 requestAnimationFrame( () => {
                     requestAnimationFrame( () => {
                         app.$.eqHeight( this.mainContainer );
+                        app.LazyContentHandler.load();
                         app.LazyImgHandler.loadImages();
                         app.GmapInitializer.init();
 
