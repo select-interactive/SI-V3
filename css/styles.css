@@ -3886,7 +3886,7 @@ input[type=radio]:checked + label:after {
     .section {
       padding: 8rem 6.5rem; } }
   .section-gray {
-    background: #fafafa; }
+    background: #fafbfa; }
   .section-content.sm {
     max-width: 900px; }
   .section-content p,
