@@ -15,7 +15,7 @@
 				<h3 class="section-hdr">New Projects &amp; General Inquiries</h3>
 				<p>Ready to start your next project or just curious to learn more? Please email us at <a href="mailto:contact@select-interactive.com">contact@select-interactive.com</a> and include your information and any project details, budget, and timeline.</p>
 				<h3 class="section-hdr">Internship Inquiries</h3>
-				<p>Select Interactive is always look for the next up and coming developer. We are open to working with undergrad and post-graduate students looking to pursure a career in web and software development.</p>
+				<p>Select Interactive is always look for the next up and coming developer. We are open to working with undergrad and post-graduate students looking to pursue a career in web and software development.</p>
 				<p>Please email <a href="mailto:jeremy@select-interactive.com">Jeremy</a> if interested in learning more.</p>
 			</div>
 			<div class="col col-med-4">

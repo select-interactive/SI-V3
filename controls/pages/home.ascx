@@ -6,7 +6,7 @@
         </div>
         <div class="banner-col">
             <h2 class="banner-tagline">Passionate Web Developers inspired to create engaging websites and web applications using innovative development strategies.</h2>
-            <h2 class="banner-tagline">Building a better web.</h2>
+            <h2 class="banner-tagline">We&rsquo;re building a better web.</h2>
         </div>
     </div>
 </div>
@@ -14,7 +14,7 @@
     <div class="section-content text-center">
         <div class="home-section-block">
             <h3 class="section-hdr"><i class="material-icons">web</i>Fast, Creative,<br />User-Friendly Websites</h3>
-            <p>At Select Interactive we build fast, creative, and user-friendly websites and web applications built with the latest web technologies.</p>
+            <p>At Select Interactive we build fast, creative, and user-friendly websites and web applications with the latest web technologies.</p>
         </div>
         <div class="home-section-block">
             <h3 class="section-hdr"><i class="material-icons">code</i>Modern Web and Application Development</h3>
@@ -26,7 +26,7 @@
         </div>
         <div class="home-section-block">
             <h3 class="section-hdr"><i class="material-icons">important_devices</i>Mobile Friendly,<br />Responsive Web Design</h3>
-            <p>To support all potential users that could be on any one of the ever growing number of mobile devices, we build sites that are fully functional, accessible, and FAST using Responsive Web Design (RWD).</p>
+            <p>To support all potential users that could be on any one of the ever growing number of mobile devices, we build sites that are fully functional, accessible, and fast using Responsive Web Design (RWD).</p>
         </div>
         <div class="home-section-block">
             <h3 class="section-hdr"><i class="material-icons">whatshot</i>Developing on<br />the Cutting-Edge</h3>
@@ -34,7 +34,7 @@
         </div>
         <div class="home-section-block">
             <h3 class="section-hdr"><i class="material-icons">timeline</i>Search Engine<br />Optimization (SEO)</h3>
-            <p>To get your brand and product more attention, people must be able find you when they search the web -- especially people that have never heard of you. That&rsquo;s why we always build in SEO best practices to help potential clients discover your business online.</p>
+            <p>To get your brand and product more attention, people must be able find you when they search the web &ndash; especially people that have never heard of you. That&rsquo;s why we always build in SEO best practices to help potential clients discover your business online.</p>
         </div>
     </div>
 </section>
