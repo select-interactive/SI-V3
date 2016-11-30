@@ -1057,6 +1057,8 @@ Public Class wsApp
 				controlName = "project"
 			ElseIf controlName.Contains("portfolio/tags") Then
 				controlName = "projectTag"
+			ElseIf controlName.Contains("news") AndAlso Not controlName.Contains("tags") Then
+				controlName = "article"
 			End If
 
 			' Get page HTML
@@ -1064,6 +1066,8 @@ Public Class wsApp
 				rsp = projectGetHtml(url.Substring(url.LastIndexOf("/") + 1))
 			ElseIf controlName = "projectTag" Then
 				rsp = projectTagGetPageHtml(url.Substring(url.LastIndexOf("/") + 1))
+			ElseIf controlName = "article" Then
+				rsp = articleGetHtml(url.Substring(url.LastIndexOf("/news/") + 6))
 			Else
 				html = renderPartialToString("/controls/pages/" & controlName.Replace("/", "") & ".ascx")
 			End If

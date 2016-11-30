@@ -4441,7 +4441,7 @@ input[type=radio]:checked + label:after {
     font-family: "avenir-black", sans-serif;
     letter-spacing: normal !important; }
   .article-entry-banner {
-    margin: 1rem -1.5rem 2.5rem; }
+    margin: 2.5rem -1.5rem 3rem; }
     @media (min-width: 768px) {
       .article-entry-banner {
         margin-left: -2rem;

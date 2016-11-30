@@ -5,6 +5,7 @@
     <a href="/about/">About Us</a>
     <a href="/services/">Services</a>
     <a href="/portfolio/">Portfolio</a>
+	<a href="/news/2016/11/28/join-the-select-interactive-team-front-end-web-developer">We&rsquo;re Hiring</a>
     <a href="/contact/">Contact</a>
     <button id="btn-nav-close" class="nav-trigger"><i class="material-icons">close</i></button>
 </nav>
