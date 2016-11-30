@@ -162,6 +162,16 @@ module.exports = function( grunt ) {
 						return fName;
 					}
 				} )
+			},
+			babelAdmin: {
+				files: grunt.file.expandMapping( ['js/app/dist/admin/*.js'], 'js/app/dist/admin/', {
+					rename: function( destBase, destPath ) {
+						var fName = destPath.replace( '.js', '.min.js' );
+						fName = fName.substring( fName.indexOf( 'app/dist/admin/' ) + 15 );
+						fName = destBase + fName;
+						return fName;
+					}
+				} )
 			}
 		},
 
@@ -256,5 +266,5 @@ module.exports = function( grunt ) {
 	grunt.registerTask( 'criticalCss', ['connect', 'penthouse', 'cssmin:minCritical'] );
 	grunt.registerTask( 'serve', ['connect'] );
 	grunt.registerTask( 'cleanjs', ['clean:js'] );
-	grunt.registerTask( 'es6', ['clean:js', 'concat:jsSrc', 'babel', 'concat:jsUtil', 'concat:jsAll', 'uglify:babel'] );
+	grunt.registerTask( 'es6', ['clean:js', 'concat:jsSrc', 'babel', 'concat:jsUtil', 'concat:jsAll', 'uglify:babel', 'uglify:babelAdmin'] );
 };

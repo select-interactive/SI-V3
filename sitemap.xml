@@ -1,8 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>http://www._.com/</loc>
-        <lastmod>yyyy-mm-dd</lastmod>
+        <loc>https://www.select-interactive.com/</loc>
+        <lastmod>2016-11-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+	<url>
+        <loc>https://www.select-interactive.com/about/</loc>
+        <lastmod>2016-11-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+	<url>
+        <loc>https://www.select-interactive.com/contact/</loc>
+        <lastmod>2016-11-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+	<url>
+        <loc>https://www.select-interactive.com/portfolio/</loc>
+        <lastmod>2016-11-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+	<url>
+        <loc>https://www.select-interactive.com/services/</loc>
+        <lastmod>2016-11-29</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>

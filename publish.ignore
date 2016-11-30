@@ -6,7 +6,7 @@
 .vscode/
 bower_components/susy/
 css/sass/
-js/libs/jquery/
+js/libs/jquery/src/
 js/libs/moment/
 js/libs/pikaday/
 js/plugins/
@@ -17,6 +17,7 @@ styleguide/
 *.wpp.targets
 .babelrc
 .bowerrc
+.eslintrc
 .gitignore
 .jshintrc
 ApplicationHost.xdt
@@ -27,3 +28,9 @@ package.json
 packages.config
 publish.ignore
 website.publishproj
+
+ckeditor/
+css/
+font/
+img/
+js/

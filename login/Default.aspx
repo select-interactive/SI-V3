@@ -7,7 +7,7 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="cphMain" Runat="Server">
-	<form id="form-login" class="form form-full-width" style="max-width:400px;margin:0 auto;" method="post" action="/login/default.aspx">
+	<form id="form-login" class="form form-full-width" style="max-width:400px;margin:4rem auto;" method="post" action="/login/default.aspx">
 		<div class="form-row">
 			<label for="username">Username:</label>
 			<input type="text" name="username" autofocus />

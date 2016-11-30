@@ -12,8 +12,8 @@ Public Class JSPath
 		If Not HttpContext.Current.Request.Url.ToString.Contains(".com") Then
 			cacheVersion &= "1." & Month(Now) & Day(Now) & Year(Now) & Hour(Now) & Minute(Now) & Second(Now)
 		Else
-			'cacheVersion &= ConfigurationManager.AppSettings("jsVersion") & ".min"
-			cacheVersion &= ConfigurationManager.AppSettings("jsVersion")
+			cacheVersion &= ConfigurationManager.AppSettings("jsVersion") & ".min"
+			'cacheVersion &= ConfigurationManager.AppSettings("jsVersion")
 		End If
 
 		Return cacheVersion
