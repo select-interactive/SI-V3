@@ -4,6 +4,9 @@
 		<li><a href="/admin/"><i class="material-icons">dashboard</i>Admin Dashboard</a></li>
 		<li><a href="/admin/bios/"><i class="material-icons">account_circle</i>Bios</a></li>
 		<li>&nbsp;</li>
+		<li><a href="/admin/news/"><i class="material-icons">edit</i>News Articles</a></li>
+		<li><a href="/admin/news/tags/"><i class="material-icons">list</i>News Tags</a></li>
+		<li>&nbsp;</li>
 		<li><a href="/admin/projects/"><i class="material-icons">assignment</i>Projects</a></li>
 		<li><a href="/admin/projects/tags/"><i class="material-icons">list</i>Project Tags</a></li>
 		<li><a href="/admin/projects/industries/"><i class="material-icons">business_center</i>Project Industries</a></li>

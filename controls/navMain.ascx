@@ -5,7 +5,6 @@
     <a href="/about/">About Us</a>
     <a href="/services/">Services</a>
     <a href="/portfolio/">Portfolio</a>
-    <a hrref="/news/">News</a>
     <a href="/contact/">Contact</a>
     <button id="btn-nav-close" class="nav-trigger"><i class="material-icons">close</i></button>
 </nav>

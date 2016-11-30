@@ -689,6 +689,28 @@ Public Class wsApp
 	End Function
 
 	<WebMethod()>
+	Public Function biosGetOptions() As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim dt As dsBios.BiosDataTable = biosGet(-1, "", True)
+			Dim html As New StringBuilder()
+
+			html.Append("<option value=""-1"">-- Select Author --</option>")
+
+			For Each row As dsBios.BiosRow In dt
+				html.Append("<option value=""" & row.bioId & """>" & row.fname & " " & row.lname & "</option>")
+			Next
+
+			rsp.setSuccess(html.ToString())
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+
+	<WebMethod()>
 	Public Function biosGetGrid() As String
 		Dim rsp As New WSResponse
 
@@ -795,6 +817,42 @@ Public Class wsApp
 		End Try
 
 		Return jss.Serialize(rsp)
+	End Function
+
+	<WebMethod()>
+	Public Function articleGetHtml(url As String) As WSResponse
+		Dim rsp As New WSResponse
+
+		Try
+			Dim dt As dsNews.ArticlesDataTable = articlesGet(-1, -1, -1, url, True, False)
+
+			If dt.Rows.Count = 0 Then
+				rsp.setError("Article not found.")
+			ElseIf dt.Rows.Count = 1 Then
+				Dim a As New Article(dt.Rows(0))
+				Dim title As String = a.title
+				Dim description As String = a.preview
+
+				Dim tmpl As String = File.ReadAllText(Server.MapPath("/templates/news/article.html"))
+				Dim html As String = generateHtmlTmpl(tmpl, dt)
+
+				html = html.Replace("{{publishDateStr}}", a.publishDateStr)
+
+				'Dim rspTags As WSResponse = jss.Deserialize(Of WSResponse)(projectTagsGetHtml(p.projectId))
+				'
+				'If rspTags.success Then
+				'	html = html.Replace("{{tags}}", rspTags.obj)
+				'Else
+				'	html = html.Replace("{{tags}}", "")
+				'End If
+
+				rsp.setSuccess(New PageContent(title, description, html, a.thumbPath))
+			End If
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return rsp
 	End Function
 
 	<WebMethod()>
@@ -910,6 +968,26 @@ Public Class wsApp
 			Next
 
 			rsp.setSuccess(tags)
+		Catch ex As Exception
+			rsp.setError(ex.ToString())
+		End Try
+
+		Return jss.Serialize(rsp)
+	End Function
+
+	<WebMethod()>
+	Public Function articlesTagsGetOptions() As String
+		Dim rsp As New WSResponse
+
+		Try
+			Dim dt As dsNews.Articles_TagsDataTable = articlesTagsGet(-1, -1, "", True)
+			Dim html As New StringBuilder()
+
+			For Each row As dsNews.Articles_TagsRow In dt
+				html.Append("<option value=""" & row.tagId & """>" & row.tag & "</option>")
+			Next
+
+			rsp.setSuccess(html.ToString())
 		Catch ex As Exception
 			rsp.setError(ex.ToString())
 		End Try

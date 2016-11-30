@@ -2,7 +2,7 @@
 * Copyright 2016 Select Interactive, LLC. All rights reserved.
 * @author: The Select Interactive dev team (www.select-interactive.com)
 */
-(function( doc ) {
+( function( doc ) {
     'use strict';
 
     class Router {
@@ -24,7 +24,7 @@
 
             var node = e.target;
             do {
-                if ( node === null || node.nodeName.toLowerCase() === 'a') {
+                if ( node === null || node.nodeName.toLowerCase() === 'a' ) {
                     break;
                 }
 
@@ -57,10 +57,10 @@
             // fade current page out
             // load new page
             // then fade in the new page
-            Promise.all([
+            Promise.all( [
                 this.fadePageOut_(),
                 this.loadPageContent_( path )
-            ]).then( data => {
+            ] ).then( data => {
                 const html = data[1];
                 this.mainContainer.innerHTML = html;
 

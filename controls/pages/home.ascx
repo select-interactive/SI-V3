@@ -22,7 +22,7 @@
         </div>
         <div class="home-section-block">
             <h3 class="section-hdr"><i class="material-icons">filter</i>Customized Content<br />Management (CMS)</h3>
-            <p>We specialize in &ldquo;Making the web easy&rdquo; for you. Custom content management systems that are quick to learn and built specifically for your project needs.</p>
+            <p>We specialize in &ldquo;making the web easy&rdquo; for you. Custom content management systems that are quick to learn and built specifically for your project needs.</p>
         </div>
         <div class="home-section-block">
             <h3 class="section-hdr"><i class="material-icons">important_devices</i>Mobile Friendly,<br />Responsive Web Design</h3>

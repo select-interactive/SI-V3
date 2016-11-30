@@ -39,25 +39,25 @@
         }
 
         &-meta {
-            background: $color-primary;
-            color: $white;
+            background: #fafcfa;
+            //color: $white;
             padding: 1.25rem;
         }
 
         &-name {
-            font-size: 1.65rem;
+            font-size: 1.45rem;
             line-height: 1.1;
             margin: 0 0 .5rem;
         }
 
         &-title {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             line-height: 1;
             margin: 0;
         }
 
         &-contact {
-            background: $color-primary;
+            background: #fafcfa;
             list-style: none;
             margin: 0;
             padding: 0 0 1.25rem 1.25rem;
@@ -71,7 +71,7 @@
             a {
                 display: inline-block;
                 text-decoration: none;
-                @include link-colors($white, $white);
+                @include link-colors($body-color, $body-color);
 
                 .material-icons {
                     font-size: 1.1em;
