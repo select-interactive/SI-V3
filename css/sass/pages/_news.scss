@@ -30,6 +30,7 @@
 
     &-banner {
         margin: 2.5rem -1.5rem 3rem;
+        text-align: center;
 
         @include susy-media($bp-tablet) {
             margin-left: -2rem;

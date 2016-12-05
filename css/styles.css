@@ -3741,6 +3741,9 @@ input[type=radio]:checked + label:after {
     @media (min-width: 1800px) {
       .banner-bg {
         border-right: 4rem solid transparent; } }
+    @media (min-width: 2100px) {
+      .banner-bg {
+        border-right: 6rem solid transparent; } }
     .banner-bg-about {
       background-image: url(/img/about/bg.v1.png); }
     .banner-bg-services {
@@ -3776,6 +3779,13 @@ input[type=radio]:checked + label:after {
         .banner-overlay-left {
           background: -webkit-linear-gradient(right, #fff, #fff 60%, rgba(255, 255, 255, 0) 95%, rgba(255, 255, 255, 0));
           background: linear-gradient(to left, #fff, #fff 60%, rgba(255, 255, 255, 0) 95%, rgba(255, 255, 255, 0)); } }
+    @media (min-width: 2100px) {
+      .banner-overlay {
+        background: -webkit-linear-gradient(left, #fff, #fff 67.5%, rgba(255, 255, 255, 0) 95%, rgba(255, 255, 255, 0));
+        background: linear-gradient(to right, #fff, #fff 67.5%, rgba(255, 255, 255, 0) 95%, rgba(255, 255, 255, 0)); }
+        .banner-overlay-left {
+          background: -webkit-linear-gradient(right, #fff, #fff 67.5%, rgba(255, 255, 255, 0) 95%, rgba(255, 255, 255, 0));
+          background: linear-gradient(to left, #fff, #fff 67.5%, rgba(255, 255, 255, 0) 95%, rgba(255, 255, 255, 0)); } }
     .banner-overlay-alt {
       background: -webkit-linear-gradient(315deg, #C0C6D6, #F5F7F6);
       background: linear-gradient(135deg, #C0C6D6, #F5F7F6); }
@@ -3826,6 +3836,10 @@ input[type=radio]:checked + label:after {
         .banner-content.pull-right {
           -webkit-transform: translateX(280px);
                   transform: translateX(280px); } }
+    @media (min-width: 2100px) {
+      .banner-content {
+        -webkit-transform: translateX(0);
+                transform: translateX(0); } }
     .banner-content p {
       font-size: 1.2rem;
       line-height: 1.5;
@@ -4194,7 +4208,6 @@ input[type=radio]:checked + label:after {
         margin-right: auto;
         max-width: 1150px; }
         .team-bio-col {
-          background: #dda14a;
           float: left;
           width: 354px; }
           .team-bio-col:last-child {
@@ -4214,6 +4227,7 @@ input[type=radio]:checked + label:after {
       margin: 0; }
     .team-bio-contact {
       background: #fafcfa;
+      border-bottom: 1px solid #f1f1f1;
       list-style: none;
       margin: 0;
       padding: 0 0 1.25rem 1.25rem; }
@@ -4230,7 +4244,11 @@ input[type=radio]:checked + label:after {
           margin: 0 .5rem 0 0;
           -webkit-transform: translateY(3px);
                   transform: translateY(3px); }
+      @media (min-width: 768px) {
+        .team-bio-contact {
+          border-bottom: none; } }
     .team-bio-description {
+      background: #fff;
       padding: 1.25rem; }
       @media (min-width: 768px) {
         .team-bio-description {
@@ -4441,7 +4459,8 @@ input[type=radio]:checked + label:after {
     font-family: "avenir-black", sans-serif;
     letter-spacing: normal !important; }
   .article-entry-banner {
-    margin: 2.5rem -1.5rem 3rem; }
+    margin: 2.5rem -1.5rem 3rem;
+    text-align: center; }
     @media (min-width: 768px) {
       .article-entry-banner {
         margin-left: -2rem;

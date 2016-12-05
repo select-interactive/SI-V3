@@ -40,6 +40,10 @@
             border-right: 4rem solid transparent;
         }
 
+        @include susy-media($bp-xmassive) {
+            border-right: 6rem solid transparent;
+        }
+
         $bg-version: 1;
         $bgs: about services portfolio;
         @each $bg in $bgs {
@@ -79,6 +83,14 @@
 
             &-left {
                 background: linear-gradient(to left, $white, $white 60%, rgba($white, 0) 95%, rgba($white, 0));
+            }
+        }
+
+        @include susy-media($bp-xmassive) {
+            background: linear-gradient(to right, $white, $white 67.5%, rgba($white, 0) 95%, rgba($white, 0));
+
+            &-left {
+                background: linear-gradient(to left, $white, $white 67.5%, rgba($white, 0) 95%, rgba($white, 0));
             }
         }
 
@@ -134,6 +146,10 @@
             &.pull-right {
                 transform: translateX(280px);
             }
+        }
+
+        @include susy-media($bp-xmassive) {
+            transform: translateX(0);
         }
 
         p {

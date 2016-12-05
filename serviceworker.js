@@ -14,7 +14,7 @@ var CACHE_VERSION = 'cache-v-4.0';
 var urlsToCache = [
 	'/bower_components/es6-promise/promise.min.js',
 	'/bower_components/fetch/fetch.js',
-	'/css/styles.v-4.0.min.css',
+	'/css/styles.v-4.1.min.css',
 	'/js/app/build/main.v-4.0.min.js'
 ];
 

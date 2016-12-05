@@ -26,7 +26,6 @@
             max-width: 1150px;
 
             &-col {
-                background: $color-primary;
                 float: left;
                 width: 354px;
 
@@ -58,6 +57,7 @@
 
         &-contact {
             background: #fafcfa;
+            border-bottom: 1px solid #f1f1f1;
             list-style: none;
             margin: 0;
             padding: 0 0 1.25rem 1.25rem;
@@ -79,9 +79,14 @@
                     transform: translateY(3px);
                 }
             }
+
+            @include susy-media($bp-tablet) {
+                border-bottom: none;
+            }
         }
 
         &-description {
+            background: #fff;
             padding: 1.25rem;
 
             @include susy-media($bp-tablet) {
