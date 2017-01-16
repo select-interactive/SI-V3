@@ -29,8 +29,10 @@ packages.config
 publish.ignore
 website.publishproj
 
+bower_components/
 ckeditor/
 css/
 font/
 img/
 js/
+templates/
