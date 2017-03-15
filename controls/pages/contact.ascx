@@ -21,7 +21,7 @@
 			<div class="col col-med-4">
 				<h3 class="section-hdr">Contact Information</h3>
 				<p><span class="text-larger">Dallas Office</span><br />1601 Elm St.<br />Suite 3130<br />Dallas, TX 75201</p>
-				<p><span class="text-larger">Fort Worth Office</span><br />3343 Locke Ave.<br />Suite 107<br />Fort Worth, TX 76107</p>
+				<p><span class="text-larger">Fort Worth Office</span><br />3343 Locke Ave.<br />Suite 101<br />Fort Worth, TX 76107</p>
 				<p><a href="mailto:contact@select-interactive.com">contact@select-interactive.com</a><br /><a style="text-decoration:none;" href="tel:817.210.4303">Tel. 817.380.8074</a></p>
 				<h4 class="section-hdr">Connect With Us</h4>
 				<ul class="social-links">
