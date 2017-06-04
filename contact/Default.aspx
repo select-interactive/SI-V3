@@ -2,8 +2,8 @@
 <%@ Register TagPrefix="page" TagName="contact" Src="~/controls/pages/contact.ascx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cphMeta" Runat="Server">
-	<title>Contact Us for Web Design in Fort Worth, Texas</title>
-	<meta name="description" content="Contact Select Interactive to discss your website design or website development project." />
+	<title>Contact Us for Web Design in Dallas, Fort Worth, Texas</title>
+	<meta name="description" content="Contact Select Interactive to discss your website design or website development project. Based in Fort Worth, Select Interactive also has an office in Dallas, Texas." />
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="cphHead" Runat="Server">

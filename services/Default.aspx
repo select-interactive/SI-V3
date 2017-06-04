@@ -2,8 +2,8 @@
 <%@ Register TagPrefix="page" TagName="services" Src="~/controls/pages/services.ascx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cphMeta" Runat="Server">
-	<title>Website Design and Development Services Fort Worth, Texas</title>
-	<meta name="description" content="A team of developers that specialize in website and web application development using responsive web design and providing search engine optimization (SEO) services and custom content management (CMS) platforms.">
+	<title>Website Design Development Services Fort Worth | Dallas</title>
+	<meta name="description" content="A team of web developers specializing in website and web application development using responsive web design with search engine optimization (SEO) services and custom content management (CMS) platforms.">
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="cphHead" Runat="Server">

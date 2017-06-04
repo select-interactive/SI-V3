@@ -3,6 +3,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cphMeta" Runat="Server">
 	<title>Websites Designed and Developed by Select Interactive</title>
+	<meta name="description" content="Award winning websites designed and developed by Select Interactive, a Dallas, Fort Worth based website design and website development firm.">
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="cphHead" Runat="Server">

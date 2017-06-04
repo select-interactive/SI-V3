@@ -5,7 +5,8 @@
     <a href="/about/">About Us</a>
     <a href="/services/">Services</a>
     <a href="/portfolio/">Portfolio</a>
-	<a href="https://www.select-interactive.com/news/2017/03/14/be-a-summer-intern-at-select-interactive">Be a Summer Intern</a>
+	<a href="https://www.select-interactive.com/news/2017/04/26/award-winning-website-design">Award Winning Design</a>
+	<a href="https://selectinteractivehq.com/">Blog</a>
     <a href="/contact/">Contact</a>
     <button id="btn-nav-close" class="nav-trigger"><i class="material-icons">close</i></button>
 </nav>

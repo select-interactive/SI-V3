@@ -6,6 +6,7 @@
 			<div class="col col-6">
 				<p>As a firm specialized in website development, we are often approached by PR/Marketing/Design agencies to implement their designs into fully functional sites. This includes building out custom content management systems, implementing SEO and performance best practices, and working with the designers to implement mobile optimizations.</p>
 				<p>We take pride in being extremely easy to work with and knowledgeable. We are happy and eager to share information about performance factors in design, responsive design strategies, SEO best practices, and assist in the analysis of Google Analytics and Google Search Console (formerly Google Webmaster Tools).</p>
+				<p>You can read read our <a href="https://selectinteractivehq.com/tagged/si-design-to-development" target="_blank">collection of articles on web design and development tools and best practices on our blog</a>.</p>
 			</div>
 			<div class="col col-6">
 				<p class="mbs">A few examples of these collaborative projects include:</p>
